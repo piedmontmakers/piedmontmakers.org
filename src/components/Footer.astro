@@ -3,8 +3,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
 ---
 
-<footer class="mt-32 bg-pm-ink text-pm-cream">
-  <div class="mx-auto max-w-7xl px-6 py-16 grid gap-12 md:grid-cols-12">
+<footer class="mt-32 bg-pm-ink text-pm-cream relative overflow-hidden">
+  <!-- Brand watermark — giant translucent name bleeding off the bottom edge.
+       Sits behind everything else (z-0). The vertical gradient fades the
+       descenders into the navy background. -->
+  <div aria-hidden="true" class="pointer-events-none select-none absolute left-1/2 -translate-x-1/2 -bottom-4 md:-bottom-8 w-max z-0">
+    <p class="font-display font-bold leading-[0.8] text-[22vw] tracking-tight bg-gradient-to-b from-pm-cream/[0.07] via-pm-cream/[0.04] to-pm-cream/0 bg-clip-text text-transparent">
+      piedmont makers
+    </p>
+  </div>
+
+  <div class="relative z-10 mx-auto max-w-7xl px-6 py-16 grid gap-12 md:grid-cols-12">
     <div class="md:col-span-5">
       <p class="font-display text-3xl font-bold tracking-tight">Piedmont Makers</p>
       <p class="mt-3 max-w-sm font-serif text-pm-cream/80 leading-relaxed">
@@ -32,9 +41,14 @@ const link = (path: string) => `${base}${path}`;
       </ul>
     </div>
   </div>
-  <div class="border-t border-pm-cream/15">
+  <div class="relative z-10 border-t border-pm-cream/15">
     <div class="mx-auto max-w-7xl px-6 py-5 font-display text-xs tracking-tight text-pm-cream/60">
       &copy; {new Date().getFullYear()} Piedmont Makers &nbsp;·&nbsp; Built with care in Piedmont, California
     </div>
   </div>
+
+  <!-- Spacer so the brand watermark has room to bleed below the copyright row
+       without pushing the page content. Height tuned to roughly the giant
+       text's visible band. -->
+  <div class="relative z-0 h-32 md:h-48 lg:h-56"></div>
 </footer>
