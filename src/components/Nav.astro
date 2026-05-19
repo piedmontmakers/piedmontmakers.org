@@ -1,0 +1,33 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const link = (path: string) => `${base}${path}`;
+
+const navItems = [
+  { href: "/about", label: "About" },
+  { href: "/robotics", label: "Robotics" },
+  { href: "/community", label: "Community" },
+  { href: "/engineering-lab", label: "Engineering Lab" },
+  { href: "/school-maker-faire", label: "Maker Faire" },
+  { href: "/tech-social", label: "Tech Social" },
+  { href: "/blog", label: "Blog" },
+];
+---
+
+<header class="border-b border-neutral-200 bg-white">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+    <a href={link("/")} class="font-display text-xl font-semibold tracking-tight text-neutral-900">
+      Piedmont Makers
+    </a>
+    <nav class="hidden md:flex items-center gap-6 text-sm text-neutral-700">
+      {navItems.map((item) => (
+        <a href={link(item.href)} class="hover:text-neutral-900">{item.label}</a>
+      ))}
+      <a
+        href="https://donate.piedmontmakers.org"
+        class="rounded-full bg-neutral-900 px-4 py-2 text-white hover:bg-neutral-700"
+      >
+        Donate
+      </a>
+    </nav>
+  </div>
+</header>

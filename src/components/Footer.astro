@@ -1,0 +1,34 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const link = (path: string) => `${base}${path}`;
+---
+
+<footer class="mt-24 border-t border-neutral-200 bg-neutral-50">
+  <div class="mx-auto max-w-6xl px-4 py-12 grid gap-8 md:grid-cols-3 text-sm text-neutral-600">
+    <div>
+      <p class="font-display text-lg text-neutral-900">Piedmont Makers</p>
+      <p class="mt-2 max-w-xs">A 501(c)(3) nonprofit supporting STEAM education and maker culture in Piedmont.</p>
+    </div>
+    <div>
+      <p class="font-medium text-neutral-900">Get involved</p>
+      <ul class="mt-2 space-y-1">
+        <li><a href="https://donate.piedmontmakers.org" class="hover:text-neutral-900">Donate</a></li>
+        <li><a href="https://www.bonfire.com/piedmont-makers-t-shirt/" class="hover:text-neutral-900">Shop t-shirts</a></li>
+        <li><a href={link("/about")} class="hover:text-neutral-900">Contact the board</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="font-medium text-neutral-900">Follow</p>
+      <ul class="mt-2 space-y-1">
+        <li><a href="https://www.instagram.com/piedmontmakers/" class="hover:text-neutral-900">Instagram</a></li>
+        <li><a href="https://www.facebook.com/piedmontmakers/" class="hover:text-neutral-900">Facebook</a></li>
+        <li><a href="https://www.youtube.com/@piedmontmakers" class="hover:text-neutral-900">YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-neutral-200">
+    <div class="mx-auto max-w-6xl px-4 py-4 text-xs text-neutral-500">
+      &copy; {new Date().getFullYear()} Piedmont Makers. All rights reserved.
+    </div>
+  </div>
+</footer>
