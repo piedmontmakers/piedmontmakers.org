@@ -7,7 +7,11 @@ import Scribble from "../components/Scribble.astro";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
 
-const NEWSLETTER_URL = "https://mailchi.mp/piedmontmakers";
+// Mailchimp audience details extracted from existing newsletter campaign links.
+// Hidden honeypot input name must be `b_{u}_{id}` for bot protection.
+const MAILCHIMP_ACTION = "https://piedmontmakers.us3.list-manage.com/subscribe/post?u=edc89d8dd41a4ea6ee9352d9a&id=83b9d5d7df";
+const MAILCHIMP_HONEYPOT_NAME = "b_edc89d8dd41a4ea6ee9352d9a_83b9d5d7df";
+const NEWSLETTER_URL = MAILCHIMP_ACTION;
 
 const programs = [
   {
@@ -67,7 +71,7 @@ const programs = [
           </p>
           <div class="mt-10 flex flex-wrap items-center gap-3">
             <a href={link("/robotics")} class="ribbon bg-pm-red text-white text-base hover:bg-pm-red-deep transition-colors">Sign your kid up</a>
-            <a href={NEWSLETTER_URL} class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
+            <a href="#newsletter" class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
               Get our newsletter
             </a>
             <span class="font-marker text-2xl text-pm-purple ml-2 hidden md:inline-block">since 2014!</span>
@@ -163,7 +167,7 @@ const programs = [
             What&apos;s coming up at Piedmont Makers.
           </h2>
           <p class="mt-5 text-pm-ink/75 leading-relaxed max-w-sm">
-            Specific dates land in <a href={NEWSLETTER_URL} class="font-display font-semibold text-pm-ink underline underline-offset-4 hover:text-pm-red">the newsletter</a> first.
+            Specific dates land in <a href="#newsletter" class="font-display font-semibold text-pm-ink underline underline-offset-4 hover:text-pm-red">the newsletter</a> first.
           </p>
         </div>
         <div class="md:col-span-8 grid sm:grid-cols-2 gap-6">
@@ -185,7 +189,7 @@ const programs = [
   </section>
 
   <!-- STAY IN THE LOOP — full-bleed cyan newsletter band -->
-  <section class="bg-pm-cyan text-white">
+  <section id="newsletter" class="bg-pm-cyan text-white scroll-mt-20">
     <div class="mx-auto max-w-7xl px-6 py-20 md:py-24">
       <div class="grid md:grid-cols-12 gap-10 items-center">
         <div class="md:col-span-7">
@@ -201,21 +205,43 @@ const programs = [
           </p>
         </div>
         <div class="md:col-span-5">
-          <!-- Until Ben provides the Mailchimp audience action URL, this CTA links to
-               the existing mailchi.mp landing page. To swap in an inline form, replace
-               the <a> below with a <form action="https://piedmontmakers.us[X].list-manage.com/subscribe/post?u=...&id=..." method="POST"> ... </form>. -->
-          <a
-            href={NEWSLETTER_URL}
-            class="group block bg-pm-paper text-pm-ink border-[3px] border-pm-ink p-8 shadow-[var(--shadow-card)] hover:bg-white transition-colors"
+          <form
+            action={MAILCHIMP_ACTION}
+            method="post"
+            target="_blank"
+            novalidate
+            class="bg-pm-paper text-pm-ink border-[3px] border-pm-ink p-7 shadow-[var(--shadow-card)]"
           >
-            <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Mailchimp · free · 1-click</p>
-            <p class="mt-3 font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
-              Subscribe →
+            <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Mailchimp · free · unsubscribe anytime</p>
+            <label for="newsletter-email" class="block mt-3 font-display font-bold text-2xl md:text-[1.7rem] tracking-tight leading-tight">
+              Get the newsletter
+            </label>
+            <div class="mt-4 flex flex-col sm:flex-row gap-2">
+              <input
+                type="email"
+                name="EMAIL"
+                id="newsletter-email"
+                required
+                placeholder="you@example.com"
+                autocomplete="email"
+                class="flex-1 min-w-0 border-2 border-pm-ink/30 focus:border-pm-ink focus:outline-none px-4 py-3 font-body bg-white text-pm-ink placeholder:text-pm-ink/40"
+              />
+              <button
+                type="submit"
+                name="subscribe"
+                class="ribbon bg-pm-red text-white text-base hover:bg-pm-red-deep transition-colors cursor-pointer whitespace-nowrap"
+              >
+                Subscribe →
+              </button>
+            </div>
+            <p class="mt-3 text-sm text-pm-ink/65 leading-relaxed">
+              We&apos;ll open Mailchimp in a new tab to confirm. No spam — promise.
             </p>
-            <p class="mt-4 text-pm-ink/75">
-              Takes 10 seconds. We&apos;ll send the next email the next time we have something to share.
-            </p>
-          </a>
+            <!-- Honeypot field: real visitors can't see this, bots fill it in and get rejected. -->
+            <div aria-hidden="true" style="position: absolute; left: -5000px;">
+              <input type="text" name={MAILCHIMP_HONEYPOT_NAME} tabindex="-1" value="" />
+            </div>
+          </form>
         </div>
       </div>
     </div>
