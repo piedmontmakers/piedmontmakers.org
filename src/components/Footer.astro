@@ -4,11 +4,11 @@ const link = (path: string) => `${base}${path}`;
 ---
 
 <footer class="mt-32 bg-pm-ink text-pm-cream relative overflow-hidden">
-  <!-- Brand watermark — giant translucent name bleeding off the bottom edge.
-       Sits behind everything else (z-0). The vertical gradient fades the
-       descenders into the navy background. -->
-  <div aria-hidden="true" class="pointer-events-none select-none absolute left-1/2 -translate-x-1/2 -bottom-4 md:-bottom-8 w-max z-0">
-    <p class="font-display font-bold leading-[0.8] text-[22vw] tracking-tight bg-gradient-to-b from-pm-cream/[0.07] via-pm-cream/[0.04] to-pm-cream/0 bg-clip-text text-transparent">
+  <!-- Brand watermark — full brand name centered along the bottom of the
+       footer, gradient-fading into the navy. Sized in vw so it scales
+       fluidly from mobile to desktop while always fitting on one line. -->
+  <div aria-hidden="true" class="pointer-events-none select-none absolute inset-x-0 -bottom-2 md:-bottom-4 z-0">
+    <p class="text-center whitespace-nowrap font-display font-bold leading-[0.85] text-[11vw] tracking-tight bg-gradient-to-b from-pm-cream/[0.08] via-pm-cream/[0.05] to-pm-cream/0 bg-clip-text text-transparent">
       piedmont makers
     </p>
   </div>
@@ -47,8 +47,8 @@ const link = (path: string) => `${base}${path}`;
     </div>
   </div>
 
-  <!-- Spacer so the brand watermark has room to bleed below the copyright row
-       without pushing the page content. Height tuned to roughly the giant
-       text's visible band. -->
-  <div class="relative z-0 h-32 md:h-48 lg:h-56"></div>
+  <!-- Spacer so the brand watermark has room below the copyright row.
+       Height tracks the watermark font-size (~11vw) so the bottom of
+       the gradient lands near the footer's bottom edge at all widths. -->
+  <div class="relative z-0 h-[9vw] min-h-[60px]"></div>
 </footer>
