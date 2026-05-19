@@ -3,32 +3,38 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
 ---
 
-<footer class="mt-24 border-t border-neutral-200 bg-neutral-50">
-  <div class="mx-auto max-w-6xl px-4 py-12 grid gap-8 md:grid-cols-3 text-sm text-neutral-600">
-    <div>
-      <p class="font-display text-lg text-neutral-900">Piedmont Makers</p>
-      <p class="mt-2 max-w-xs">A 501(c)(3) nonprofit supporting STEAM education and maker culture in Piedmont.</p>
+<footer class="mt-32 bg-pm-ink text-pm-cream">
+  <div class="mx-auto max-w-7xl px-6 py-16 grid gap-12 md:grid-cols-12">
+    <div class="md:col-span-5">
+      <p class="font-display text-3xl font-bold tracking-tight">Piedmont Makers</p>
+      <p class="mt-3 max-w-sm font-serif text-pm-cream/80 leading-relaxed">
+        A 501(c)(3) nonprofit supporting STEAM education and maker culture for kids and adults in Piedmont, California.
+      </p>
+      <p class="mt-6 font-display text-xs uppercase tracking-[0.18em] text-pm-cream/60">
+        EIN&nbsp;&nbsp;81-2725831
+      </p>
     </div>
-    <div>
-      <p class="font-medium text-neutral-900">Get involved</p>
-      <ul class="mt-2 space-y-1">
-        <li><a href="https://donate.piedmontmakers.org" class="hover:text-neutral-900">Donate</a></li>
-        <li><a href="https://www.bonfire.com/piedmont-makers-t-shirt/" class="hover:text-neutral-900">Shop t-shirts</a></li>
-        <li><a href={link("/about")} class="hover:text-neutral-900">Contact the board</a></li>
+    <div class="md:col-span-3">
+      <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-cream/60">Get involved</p>
+      <ul class="mt-3 space-y-2 font-display text-base">
+        <li><a href="https://donate.piedmontmakers.org" class="hover:text-pm-red transition-colors">Donate</a></li>
+        <li><a href="https://www.bonfire.com/piedmont-makers-t-shirt/" class="hover:text-pm-red transition-colors">Shop t-shirts</a></li>
+        <li><a href={link("/about")} class="hover:text-pm-red transition-colors">Contact the board</a></li>
+        <li><a href={link("/community")} class="hover:text-pm-red transition-colors">Volunteer</a></li>
       </ul>
     </div>
-    <div>
-      <p class="font-medium text-neutral-900">Follow</p>
-      <ul class="mt-2 space-y-1">
-        <li><a href="https://www.instagram.com/piedmontmakers/" class="hover:text-neutral-900">Instagram</a></li>
-        <li><a href="https://www.facebook.com/piedmontmakers/" class="hover:text-neutral-900">Facebook</a></li>
-        <li><a href="https://www.youtube.com/@piedmontmakers" class="hover:text-neutral-900">YouTube</a></li>
+    <div class="md:col-span-4">
+      <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-cream/60">Follow along</p>
+      <ul class="mt-3 space-y-2 font-display text-base">
+        <li><a href="https://www.instagram.com/piedmontmakers/" class="hover:text-pm-red transition-colors">Instagram</a></li>
+        <li><a href="https://www.facebook.com/piedmontmakers/" class="hover:text-pm-red transition-colors">Facebook</a></li>
+        <li><a href="https://www.youtube.com/@piedmontmakers" class="hover:text-pm-red transition-colors">YouTube</a></li>
       </ul>
     </div>
   </div>
-  <div class="border-t border-neutral-200">
-    <div class="mx-auto max-w-6xl px-4 py-4 text-xs text-neutral-500">
-      &copy; {new Date().getFullYear()} Piedmont Makers. All rights reserved.
+  <div class="border-t border-pm-cream/15">
+    <div class="mx-auto max-w-7xl px-6 py-5 font-display text-xs tracking-tight text-pm-cream/60">
+      &copy; {new Date().getFullYear()} Piedmont Makers &nbsp;·&nbsp; Built with care in Piedmont, California
     </div>
   </div>
 </footer>

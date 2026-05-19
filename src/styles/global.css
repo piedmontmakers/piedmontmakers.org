@@ -1,15 +1,69 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  /* Sampled directly from the logo (banner red, banner cyan, ribbon-fold purple). */
+  --color-pm-red: #E51926;
+  --color-pm-red-deep: #B5141F;
+  --color-pm-cyan: #00AEEF;
+  --color-pm-cyan-deep: #0089BD;
+  --color-pm-purple: #92278F;
+  --color-pm-purple-deep: #6E1D6C;
+  --color-pm-ink: #0F1B2D;
+  --color-pm-ink-soft: #2A3548;
+  --color-pm-cream: #FFF6E8;
+  --color-pm-cream-2: #FBEAD0;
+  --color-pm-paper: #FFFCF6;
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+
+  --shadow-card: 0 1px 0 0 rgba(15, 27, 45, 0.06), 0 8px 24px -8px rgba(15, 27, 45, 0.18);
+  --shadow-ribbon: 0 6px 0 -2px rgba(15, 27, 45, 0.12);
+
+  --tracking-display: -0.02em;
 }
 
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  background-color: var(--color-pm-paper);
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
+  color: var(--color-pm-ink);
+  font-feature-settings: "ss01", "ss02";
+}
+
+::selection {
+  background-color: var(--color-pm-cyan);
+  color: white;
+}
+
+/* The signature ribbon-banner element. Used for section headings and callouts.
+ * Built with CSS clip-path so it can wrap any content and stay responsive.
+ * The angled "tail" on the right end echoes the folded ribbon in the logo. */
+.ribbon {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4em 1.4em 0.4em 1em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--tracking-display);
+  color: white;
+  clip-path: polygon(0 0, calc(100% - 0.9em) 0, 100% 50%, calc(100% - 0.9em) 100%, 0 100%, 0.4em 50%);
+}
+
+.ribbon-left {
+  clip-path: polygon(0.9em 0, 100% 0, calc(100% - 0.4em) 50%, 100% 100%, 0.9em 100%, 0 50%);
+  padding: 0.4em 1em 0.4em 1.4em;
+}
+
+/* Wide stacked banners (for hero treatments) get a heavier tail to feel
+ * like real fabric/paper banners. */
+.ribbon-display {
+  padding: 0.55em 2em 0.55em 1.4em;
+  font-size: clamp(1.5rem, 4vw, 3.25rem);
+  line-height: 1;
+  clip-path: polygon(0 0, calc(100% - 1.1em) 0, 100% 50%, calc(100% - 1.1em) 100%, 0 100%, 0.6em 50%);
 }

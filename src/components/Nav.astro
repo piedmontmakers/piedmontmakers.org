@@ -13,21 +13,36 @@ const navItems = [
 ];
 ---
 
-<header class="border-b border-neutral-200 bg-white">
-  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-    <a href={link("/")} class="font-display text-xl font-semibold tracking-tight text-neutral-900">
-      Piedmont Makers
+<header class="sticky top-0 z-50 border-b border-pm-ink/10 bg-pm-paper/85 backdrop-blur-sm">
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4">
+    <a href={link("/")} class="flex items-center gap-3 group">
+      <img
+        src={`${base}/img/brand/logo.png`}
+        alt="Piedmont Makers"
+        class="h-9 w-auto transition-transform group-hover:-rotate-1"
+        width="360"
+        height="89"
+      />
     </a>
-    <nav class="hidden md:flex items-center gap-6 text-sm text-neutral-700">
+    <nav class="hidden md:flex items-center gap-7 font-display text-sm font-medium tracking-tight text-pm-ink/80">
       {navItems.map((item) => (
-        <a href={link(item.href)} class="hover:text-neutral-900">{item.label}</a>
+        <a href={link(item.href)} class="hover:text-pm-red transition-colors">{item.label}</a>
       ))}
       <a
         href="https://donate.piedmontmakers.org"
-        class="rounded-full bg-neutral-900 px-4 py-2 text-white hover:bg-neutral-700"
+        class="ribbon bg-pm-red text-white text-sm font-semibold tracking-tight shadow-sm hover:bg-pm-red-deep transition-colors"
       >
         Donate
       </a>
     </nav>
+    <button
+      type="button"
+      class="md:hidden inline-flex items-center justify-center rounded-md p-2 text-pm-ink hover:bg-pm-cream-2"
+      aria-label="Open menu"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+    </button>
   </div>
 </header>

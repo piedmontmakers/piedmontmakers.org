@@ -2,6 +2,9 @@
 dist/
 .astro/
 
+# local design review screenshots
+.design-screenshots/
+
 # dependencies
 node_modules/
 

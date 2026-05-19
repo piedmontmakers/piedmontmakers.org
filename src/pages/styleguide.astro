@@ -1,0 +1,253 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Ribbon from "../components/Ribbon.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const palette = [
+  { name: "PM Red", hex: "#E51926", role: "Primary brand. Headers, banners, donate button.", className: "bg-pm-red text-white" },
+  { name: "PM Cyan", hex: "#00AEEF", role: "Secondary brand. Section accents, link hovers, banners.", className: "bg-pm-cyan text-white" },
+  { name: "PM Purple", hex: "#92278F", role: "Mascot color. Highlight blocks, feature callouts.", className: "bg-pm-purple text-white" },
+  { name: "Ink", hex: "#0F1B2D", role: "Body text and serious blocks.", className: "bg-pm-ink text-pm-cream" },
+  { name: "Cream", hex: "#FFF6E8", role: "Default background. Warmer than pure white.", className: "bg-pm-cream text-pm-ink border border-pm-ink/10" },
+  { name: "Paper", hex: "#FFFCF6", role: "Lighter cream. Page background.", className: "bg-pm-paper text-pm-ink border border-pm-ink/10" },
+];
+---
+
+<BaseLayout title="Style guide — Piedmont Makers" description="The visual system used across piedmontmakers.org.">
+  <!-- Hero ribbon -->
+  <section class="mx-auto max-w-7xl px-6 pt-16 pb-12">
+    <p class="font-display text-xs uppercase tracking-[0.22em] text-pm-ink/60">A reference page for the rebuilt site</p>
+    <h1 class="mt-4 font-display font-bold tracking-tight text-pm-ink text-5xl md:text-7xl leading-[0.95]">
+      The style<br />guide.
+    </h1>
+    <p class="mt-6 max-w-2xl font-serif text-xl text-pm-ink-soft leading-relaxed">
+      Built from the colors, ribbons, and mascot already in the Piedmont Makers logo. Used across every page so the site reads as one publication rather than ten templates.
+    </p>
+  </section>
+
+  <!-- Palette -->
+  <section class="mx-auto max-w-7xl px-6 mt-16">
+    <div class="flex items-baseline justify-between border-b-2 border-pm-ink pb-4">
+      <h2 class="font-display text-3xl font-bold tracking-tight">01 &nbsp; Palette</h2>
+      <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50">Six tokens. No more.</span>
+    </div>
+    <div class="mt-8 grid grid-cols-2 md:grid-cols-3 gap-4">
+      {palette.map((c) => (
+        <div class={`${c.className} rounded-2xl p-6 aspect-[5/4] flex flex-col justify-between`}>
+          <div>
+            <p class="font-display text-2xl font-bold tracking-tight">{c.name}</p>
+            <p class="mt-1 font-mono text-sm opacity-80">{c.hex}</p>
+          </div>
+          <p class="font-serif text-sm leading-snug opacity-90">{c.role}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Typography -->
+  <section class="mx-auto max-w-7xl px-6 mt-24">
+    <div class="flex items-baseline justify-between border-b-2 border-pm-ink pb-4">
+      <h2 class="font-display text-3xl font-bold tracking-tight">02 &nbsp; Typography</h2>
+      <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50">Two families, four sizes.</span>
+    </div>
+    <div class="mt-10 grid md:grid-cols-12 gap-10">
+      <div class="md:col-span-7 space-y-6">
+        <div>
+          <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50">Display — Bricolage Grotesque</p>
+          <p class="font-display font-bold text-6xl md:text-7xl tracking-tight leading-[0.95] mt-3">Build, tinker,<br />teach, repeat.</p>
+        </div>
+        <div>
+          <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50">Subhead — Bricolage Grotesque medium</p>
+          <p class="font-display font-medium text-2xl md:text-3xl tracking-tight mt-2">Where Piedmont students learn to make almost anything.</p>
+        </div>
+        <div>
+          <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50">Body — Newsreader</p>
+          <p class="font-serif text-lg leading-relaxed mt-2 max-w-2xl">
+            Piedmont Makers is a 501(c)(3) nonprofit running youth robotics teams, a community engineering lab, a yearly school maker faire, and a monthly tech speaker series. Real workshops, real tools, real projects — and a friendly cyan robot named Makey watching over the whole thing.
+          </p>
+        </div>
+        <div>
+          <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50">Caption — Newsreader italic small</p>
+          <p class="font-serif italic text-sm text-pm-ink-soft mt-2">FRC team during the 2026 regional, Mary G. Ross Engineering Lab</p>
+        </div>
+      </div>
+      <div class="md:col-span-5 bg-pm-cream rounded-3xl p-8">
+        <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50 mb-4">Type scale</p>
+        <ul class="divide-y divide-pm-ink/10">
+          <li class="py-3 flex items-baseline justify-between gap-4">
+            <span class="font-display font-bold text-5xl">Display</span>
+            <span class="font-mono text-xs text-pm-ink/60">72/0.95</span>
+          </li>
+          <li class="py-3 flex items-baseline justify-between gap-4">
+            <span class="font-display font-bold text-3xl">Heading</span>
+            <span class="font-mono text-xs text-pm-ink/60">30/1.1</span>
+          </li>
+          <li class="py-3 flex items-baseline justify-between gap-4">
+            <span class="font-display font-medium text-xl">Subhead</span>
+            <span class="font-mono text-xs text-pm-ink/60">20/1.3</span>
+          </li>
+          <li class="py-3 flex items-baseline justify-between gap-4">
+            <span class="font-serif text-base">Body paragraph</span>
+            <span class="font-mono text-xs text-pm-ink/60">16/1.65</span>
+          </li>
+          <li class="py-3 flex items-baseline justify-between gap-4">
+            <span class="font-display text-xs uppercase tracking-[0.18em]">Eyebrow label</span>
+            <span class="font-mono text-xs text-pm-ink/60">12/1.4</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ribbons - the signature element -->
+  <section class="mx-auto max-w-7xl px-6 mt-24">
+    <div class="flex items-baseline justify-between border-b-2 border-pm-ink pb-4">
+      <h2 class="font-display text-3xl font-bold tracking-tight">03 &nbsp; Ribbon banners</h2>
+      <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50">The signature element.</span>
+    </div>
+    <p class="mt-6 max-w-2xl font-serif text-lg text-pm-ink-soft leading-relaxed">
+      Pulled directly from the logo. Used for section headings, badges, and the donate CTA. Three brand colors, three sizes, optional flipped tail.
+    </p>
+
+    <div class="mt-10 space-y-6">
+      <div class="flex flex-wrap items-center gap-4">
+        <Ribbon color="red">FIRST Robotics</Ribbon>
+        <Ribbon color="cyan">Maker Faire 2026</Ribbon>
+        <Ribbon color="purple">Tech Social</Ribbon>
+        <Ribbon color="ink">EIN 81-2725831</Ribbon>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <Ribbon color="red" flip>← Back to grants</Ribbon>
+        <Ribbon color="cyan" flip>← All programs</Ribbon>
+      </div>
+
+      <div class="pt-6">
+        <Ribbon color="red" size="display">Build, tinker, teach.</Ribbon>
+      </div>
+      <div>
+        <Ribbon color="cyan" size="display">Founded 2014.</Ribbon>
+      </div>
+    </div>
+  </section>
+
+  <!-- Buttons + CTAs -->
+  <section class="mx-auto max-w-7xl px-6 mt-24">
+    <div class="flex items-baseline justify-between border-b-2 border-pm-ink pb-4">
+      <h2 class="font-display text-3xl font-bold tracking-tight">04 &nbsp; Buttons & external CTAs</h2>
+      <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50">Inline ribbons for primary actions.</span>
+    </div>
+
+    <div class="mt-8 grid md:grid-cols-2 gap-8">
+      <div>
+        <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50 mb-4">Inline buttons</p>
+        <div class="flex flex-wrap gap-3">
+          <a href="#" class="ribbon bg-pm-red text-white text-base hover:bg-pm-red-deep transition-colors">Donate</a>
+          <a href="#" class="ribbon bg-pm-ink text-white text-base hover:bg-pm-ink-soft transition-colors">Volunteer</a>
+          <a href="#" class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
+            Learn more →
+          </a>
+        </div>
+      </div>
+      <div>
+        <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50 mb-4">External CTA cards</p>
+        <div class="space-y-3">
+          <a href="#" class="block rounded-2xl border-2 border-pm-ink/10 bg-white p-5 hover:border-pm-red transition-colors group">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50">Square</p>
+                <p class="font-display font-bold text-lg mt-1">Make a tax-deductible donation</p>
+              </div>
+              <span class="font-display text-pm-red group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </a>
+          <a href="#" class="block rounded-2xl border-2 border-pm-ink/10 bg-white p-5 hover:border-pm-cyan transition-colors group">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50">TeamSnap</p>
+                <p class="font-display font-bold text-lg mt-1">Register for FRC Team 8627</p>
+              </div>
+              <span class="font-display text-pm-cyan group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cards + photo treatments -->
+  <section class="mx-auto max-w-7xl px-6 mt-24">
+    <div class="flex items-baseline justify-between border-b-2 border-pm-ink pb-4">
+      <h2 class="font-display text-3xl font-bold tracking-tight">05 &nbsp; Cards & photos</h2>
+      <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50">Program cards and image treatments.</span>
+    </div>
+
+    <div class="mt-8 grid md:grid-cols-3 gap-6">
+      <article class="rounded-3xl overflow-hidden bg-white shadow-[var(--shadow-card)] border border-pm-ink/5">
+        <div class="aspect-[4/3] bg-pm-red flex items-center justify-center">
+          <span class="font-display font-bold text-6xl text-white/30">01</span>
+        </div>
+        <div class="p-6">
+          <Ribbon color="red">FLL Explore</Ribbon>
+          <h3 class="font-display font-bold text-2xl mt-4">For curious K-3rd graders</h3>
+          <p class="mt-2 font-serif text-pm-ink-soft leading-relaxed">A gentle introduction to robotics and engineering with LEGO Education kits.</p>
+        </div>
+      </article>
+      <article class="rounded-3xl overflow-hidden bg-white shadow-[var(--shadow-card)] border border-pm-ink/5">
+        <div class="aspect-[4/3] bg-pm-cyan flex items-center justify-center">
+          <span class="font-display font-bold text-6xl text-white/30">02</span>
+        </div>
+        <div class="p-6">
+          <Ribbon color="cyan">FLL Challenge</Ribbon>
+          <h3 class="font-display font-bold text-2xl mt-4">For 4th–8th graders</h3>
+          <p class="mt-2 font-serif text-pm-ink-soft leading-relaxed">Build LEGO robots, run autonomous missions, and present a research project.</p>
+        </div>
+      </article>
+      <article class="rounded-3xl overflow-hidden bg-white shadow-[var(--shadow-card)] border border-pm-ink/5">
+        <div class="aspect-[4/3] bg-pm-purple flex items-center justify-center">
+          <span class="font-display font-bold text-6xl text-white/30">03</span>
+        </div>
+        <div class="p-6">
+          <Ribbon color="purple">FTC</Ribbon>
+          <h3 class="font-display font-bold text-2xl mt-4">For 7th–12th graders</h3>
+          <p class="mt-2 font-serif text-pm-ink-soft leading-relaxed">Design and program a competition robot using metal, custom parts, and Java.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- The mascot -->
+  <section class="mx-auto max-w-7xl px-6 mt-24">
+    <div class="flex items-baseline justify-between border-b-2 border-pm-ink pb-4">
+      <h2 class="font-display text-3xl font-bold tracking-tight">06 &nbsp; The mascot</h2>
+      <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50">His name is Makey.</span>
+    </div>
+
+    <div class="mt-10 grid md:grid-cols-2 gap-8 items-center">
+      <div class="rounded-3xl overflow-hidden bg-pm-purple p-12 flex items-center justify-center">
+        <img src={`${base}/img/brand/makey.png`} alt="Makey, the Piedmont Makers mascot" class="w-64 h-auto" />
+      </div>
+      <div>
+        <Ribbon color="cyan">A cast member, not an icon</Ribbon>
+        <p class="mt-6 font-serif text-lg leading-relaxed text-pm-ink-soft">
+          Makey is the cyan robot who lives in the corner of the logo. On the rebuilt site he gets to be big — featured in heros, peeking out of section corners, holding placards in the empty states. He's the most recognizable thing about the brand. Use him.
+        </p>
+        <p class="mt-4 font-serif text-lg leading-relaxed text-pm-ink-soft">
+          Sizing: minimum 96px tall in nav/footer, 256px+ in feature blocks, full-bleed for hero treatments.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page footer note -->
+  <section class="mx-auto max-w-7xl px-6 mt-24 mb-12">
+    <div class="rounded-3xl bg-pm-ink text-pm-cream p-10 md:p-14">
+      <Ribbon color="red">Living document</Ribbon>
+      <h2 class="mt-6 font-display font-bold text-3xl md:text-4xl tracking-tight">This page is the system.</h2>
+      <p class="mt-4 max-w-2xl font-serif text-lg text-pm-cream/80 leading-relaxed">
+        Edit <code class="font-mono text-pm-cream bg-white/10 px-1.5 py-0.5 rounded">src/styles/global.css</code> and <code class="font-mono text-pm-cream bg-white/10 px-1.5 py-0.5 rounded">src/components/Ribbon.astro</code> to change the system in one place. Every page on the site picks up the change automatically.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,30 +1,34 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Ribbon from "../components/Ribbon.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
-<BaseLayout title="Piedmont Makers">
-  <section class="py-16">
-    <p class="text-sm uppercase tracking-widest text-neutral-500">Coming soon</p>
-    <h1 class="mt-4 font-display text-5xl md:text-6xl font-semibold tracking-tight text-neutral-900">
-      A new home for Piedmont Makers.
-    </h1>
-    <p class="mt-6 max-w-2xl text-lg text-neutral-700">
-      We&apos;re rebuilding piedmontmakers.org. The full site is on its way — in the meantime,
-      our existing site is still live at <a href="https://www.piedmontmakers.org" class="underline">www.piedmontmakers.org</a>.
-    </p>
-    <div class="mt-10 flex flex-wrap gap-4">
-      <a
-        href="https://donate.piedmontmakers.org"
-        class="rounded-full bg-neutral-900 px-6 py-3 text-white hover:bg-neutral-700"
-      >
-        Donate
-      </a>
-      <a
-        href="https://www.bonfire.com/piedmont-makers-t-shirt/"
-        class="rounded-full border border-neutral-300 px-6 py-3 text-neutral-900 hover:bg-neutral-50"
-      >
-        Shop t-shirts
-      </a>
+<BaseLayout title="Piedmont Makers — STEAM, robotics & maker culture in Piedmont, CA">
+  <section class="mx-auto max-w-7xl px-6 pt-12 md:pt-20 pb-24">
+    <div class="grid md:grid-cols-12 gap-10 items-center">
+      <div class="md:col-span-7">
+        <Ribbon color="red">Coming soon</Ribbon>
+        <h1 class="mt-6 font-display font-bold tracking-tight text-pm-ink text-5xl md:text-7xl leading-[0.95]">
+          A new home for<br />Piedmont Makers.
+        </h1>
+        <p class="mt-6 max-w-xl font-serif text-xl text-pm-ink-soft leading-relaxed">
+          We&apos;re rebuilding piedmontmakers.org from the ground up. The full site is on its way. In the meantime, our existing site is still live.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href="https://www.piedmontmakers.org" class="ribbon bg-pm-ink text-white text-base hover:bg-pm-ink-soft transition-colors">Visit the current site</a>
+          <a href="https://donate.piedmontmakers.org" class="ribbon bg-pm-red text-white text-base hover:bg-pm-red-deep transition-colors">Donate</a>
+          <a href={`${base}/styleguide`} class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
+            Preview the design →
+          </a>
+        </div>
+      </div>
+      <div class="md:col-span-5">
+        <div class="rounded-[2rem] bg-pm-purple p-10 md:p-14 flex items-center justify-center shadow-[var(--shadow-card)]">
+          <img src={`${base}/img/brand/makey.png`} alt="Makey, the Piedmont Makers mascot" class="w-64 md:w-72 h-auto" />
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>

@@ -1,0 +1,33 @@
+---
+type Color = "red" | "cyan" | "purple" | "ink";
+type Size = "default" | "display";
+
+interface Props {
+  color?: Color;
+  size?: Size;
+  /** When true, the ribbon "tail" appears on the left side instead of the right. */
+  flip?: boolean;
+  /** Optional class merge for layout positioning. */
+  class?: string;
+}
+
+const { color = "red", size = "default", flip = false, class: extra = "" } = Astro.props;
+
+const colorClass = {
+  red: "bg-pm-red",
+  cyan: "bg-pm-cyan",
+  purple: "bg-pm-purple",
+  ink: "bg-pm-ink",
+}[color];
+
+const classes = [
+  flip ? "ribbon ribbon-left" : "ribbon",
+  size === "display" ? "ribbon-display" : "",
+  colorClass,
+  extra,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<span class={classes}><slot /></span>
