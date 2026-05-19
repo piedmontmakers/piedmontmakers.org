@@ -6,21 +6,87 @@ import PhotoCard from "../components/PhotoCard.astro";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
 
-const dedicationDonors = [
+// Major sponsors of 10th Street (the youth robotics practice field).
+const tenthStreetSponsors = ["PG&E Foundation", "KLA Foundation"];
+
+// Engineering Lab donors. Pulled from the existing piedmontmakers.org/engineering-lab
+// page, preserving the two tiers and the order names appear in.
+const labMajorDonors = [
   "Anonymous Donor",
-  "Potter-Lambert Family",
-  "Aldridge Family",
-  "Google",
-  "Salesforce Foundation",
-  "Walt Disney Company",
+  "The Potter-Lambert Family",
+  "The Aldridge Family",
+  "The Chakravartula Holt Family",
+  "The Chan Family",
+  "The Chu Family",
+  "Melissa, Kevin, Elle, and Mara Clark",
+  "The Cooper Family",
+  "The Gourjian Sarafian Family",
+  "The Hupp Family",
+  "The Kemp Khouri Family",
+  "The Leong Balasingham Family",
+  "The Ragones Family",
+  "The Saperstein Family",
+  "The Schleuning Family",
+  "The Seiden Family",
+  "The Shields Family",
+  "The Skidmore Sanford Family",
+  "The von Metzsch Family",
+  "The Wallway Family",
+  "The Welch Family",
+  "The Wiesbrock Family",
+  "Julia Zhen",
+  "The Zietlow Family",
   "Piedmont Makers",
   "Hypercube Robotics FTC 14341",
+  "Google",
+  "Salesforce Foundation",
+  "The Walt Disney Company",
 ];
+
+const labDonors = [
+  "Ken Khouri",
+  "Varian",
+  "Mike Cvet",
+  "The Behrens Ware Family",
+  "Tom Joseph",
+  "Natalia Duxbury",
+  "The Lavin Family",
+  "The Grochowski Yan Family",
+  "Olja Dimitrijevic",
+  "The Wolff Family",
+  "The Smith Barber Family",
+  "The Brahma Family",
+  "The Heafey Family",
+  "The Dickinson Family",
+  "Andrew Schultz",
+  "The Lin Schuetz Family",
+  "The Hart Family",
+  "Geoffrey Castronovo",
+  "Laura Zuckerman",
+  "The Posamentier Family",
+  "The Paul Family",
+  "The Hill Family",
+  "The Sharafi Family",
+  "Mary Wells",
+  "The Walters Muthig Family",
+  "Margaret Bridges",
+  "The Riordan Family",
+  "Jon Schleuning",
+  "Jennifer Poole",
+  "Laura Murphy",
+  "Chris Kibarian",
+];
+
+// How many names to show before the "See all" disclosure.
+const PREVIEW_COUNT = 8;
+const majorPreview = labMajorDonors.slice(0, PREVIEW_COUNT);
+const majorRest = labMajorDonors.slice(PREVIEW_COUNT);
+const hiddenCount = majorRest.length + labDonors.length;
 ---
 
 <BaseLayout
   title="Facilities — Piedmont Makers"
-  description="Two community spaces: the Mary G. Ross Engineering Lab at Piedmont High School and the 10th Street youth robotics practice field."
+  description="Two community spaces: the 10th Street youth robotics practice field and the Mary G. Ross Engineering Lab at Piedmont High School."
 >
   <!-- Hero -->
   <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-12">
@@ -29,28 +95,95 @@ const dedicationDonors = [
       Two spaces where the actual making happens.
     </h1>
     <p class="mt-6 max-w-2xl text-lg md:text-xl text-pm-ink/75 leading-relaxed">
-      The Mary G. Ross Engineering Lab at Piedmont High School is the community engineering classroom. The 10th Street facility is our youth robotics practice field — home base for FRC Team 8033 and a working lab for FTC teams.
+      The 10th Street practice field is the home base for FRC Team 8033 and a working lab for FTC teams. The Mary G. Ross Engineering Lab at Piedmont High School is the community engineering classroom — where robotics open houses, after-school programs, and Build Like a Girl sessions happen.
     </p>
   </section>
 
-  <!-- ENGINEERING LAB -->
-  <section id="engineering-lab" class="mx-auto max-w-7xl px-6 py-16 scroll-mt-20">
+  <!-- 10TH STREET (now first — it's our most active practice space) -->
+  <section id="tenth-street" class="mx-auto max-w-7xl px-6 py-16 scroll-mt-20">
     <div class="grid md:grid-cols-12 gap-10">
       <div class="md:col-span-5">
         <PhotoCard
-          caption="Photo: Mary G. Ross Engineering Lab interior"
-          color="purple"
+          caption="The 10th Street practice field during an FRC build-season session"
+          color="cyan"
           tilt="left"
           aspect="landscape"
+          src="/img/facilities/10th-street.jpg"
+          alt="Overhead view of the 10th Street practice field — a regulation-size FRC competition area with hundreds of yellow game pieces scattered across the floor, robots on the field, and the team and spectators around the edges."
         />
       </div>
       <div class="md:col-span-7">
-        <Ribbon color="purple">Engineering Lab</Ribbon>
+        <Ribbon color="cyan">10th Street</Ribbon>
         <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight leading-tight">
-          Mary G. Ross Engineering Lab
+          Where Highlander Robotics actually drives.
         </h2>
         <p class="mt-5 text-lg text-pm-ink/85 leading-relaxed">
-          Inside Piedmont High School. Built in partnership with PUSD, dedicated April 29, 2023. The lab is the home of FTC robotics practice, after-school engineering programs, and the annual maker community open houses.
+          Our youth robotics practice field — a full-size FRC competition floor inside a warehouse-style space in Oakland. Home base for FRC Team 8033 and a working lab for our FTC teams. Secured with a long-term lease through a <strong>$245,000 capital campaign</strong>.
+        </p>
+        <p class="mt-4 text-pm-ink/75 leading-relaxed">
+          Build benches, tooling, a regulation field, and enough open floor for robots to actually drive around. Active members and visitors check in on arrival, and all visitors sign a one-time waiver before entering the build floor.
+        </p>
+
+        <dl class="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
+          <div>
+            <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Use</dt>
+            <dd class="mt-0.5 font-semibold">Youth robotics practice + build</dd>
+          </div>
+          <div>
+            <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Address</dt>
+            <dd class="mt-0.5 text-pm-ink/65 italic">TODO — confirm public-facing address</dd>
+          </div>
+          <div>
+            <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Hours</dt>
+            <dd class="mt-0.5 text-pm-ink/65 italic">During practice &amp; build season</dd>
+          </div>
+          <div>
+            <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Capital campaign</dt>
+            <dd class="mt-0.5 font-semibold">$245K raised</dd>
+          </div>
+        </dl>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href="https://script.google.com/a/macros/piedmontmakers.org/s/AKfycbyvQwtTkmCk_P9k3dd3CmrjXh-zDBHaTt93uSC2swZIZbzhNFx8PNKuXhBnufjAUqLheA/exec"
+            class="ribbon bg-pm-cyan text-white text-base hover:bg-pm-cyan-deep transition-colors"
+          >
+            Check-in form →
+          </a>
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf1DZCi5av126Bf1tOIFiZaiDv-Gjy7dDEePpT9YFo4dWNKPA/viewform"
+            class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors"
+          >
+            Sign the waiver →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10th Street sponsors -->
+    <div class="mt-12 bg-pm-cream-2/60 border-l-4 border-pm-cyan p-6 md:p-8">
+      <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Sponsored by</p>
+      <ul class="mt-3 flex flex-wrap gap-x-8 gap-y-2">
+        {tenthStreetSponsors.map((s) => (
+          <li class="font-display font-semibold text-lg md:text-xl tracking-tight">{s}</li>
+        ))}
+      </ul>
+      <p class="mt-3 text-sm text-pm-ink/65 leading-relaxed">
+        Our capital campaign also drew $245,000 from individual families and FRC team sponsors — every dollar matched a kid getting on the practice field.
+      </p>
+    </div>
+  </section>
+
+  <!-- ENGINEERING LAB (now below) -->
+  <section id="engineering-lab" class="mx-auto max-w-7xl px-6 py-16 scroll-mt-20 border-t border-pm-ink/15">
+    <div class="grid md:grid-cols-12 gap-10">
+      <div class="md:col-span-7 md:order-1">
+        <Ribbon color="purple">Engineering Lab</Ribbon>
+        <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight leading-tight">
+          Mary G. Ross Engineering Lab.
+        </h2>
+        <p class="mt-5 text-lg text-pm-ink/85 leading-relaxed">
+          Inside Piedmont High School. Built in partnership with PUSD, dedicated <strong>April 29, 2023</strong>. The lab is the home of FTC robotics practice, after-school engineering programs, and the annual maker community open houses.
         </p>
         <p class="mt-4 text-pm-ink/75 leading-relaxed">
           The space is named for Mary G. Ross, the first known Native American female engineer and a pioneer at Lockheed's Skunk Works. The interior features dedicated portraits of three women who shaped American STEAM — <strong>Annie Easley Cannon</strong>, <strong>Mary Wynne Montague</strong>, and <strong>Mary G. Ross</strong> — introduced at the dedication ceremony by members of Highlander Robotics 8033.
@@ -75,84 +208,47 @@ const dedicationDonors = [
           </div>
         </dl>
       </div>
-    </div>
-  </section>
-
-  <!-- Donor wall -->
-  <section class="bg-pm-cream-2/60">
-    <div class="mx-auto max-w-7xl px-6 py-16">
-      <Ribbon color="red">Donors</Ribbon>
-      <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight">
-        The lab exists because of these people.
-      </h2>
-      <p class="mt-4 max-w-2xl text-pm-ink/75 leading-relaxed">
-        Major donors to the Engineering Lab capital campaign. Plus 40+ individual families and contributors whose names are on the donor wall inside the lab itself.
-      </p>
-      <ul class="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-6 gap-y-3">
-        {dedicationDonors.map((d) => (
-          <li class="font-display font-semibold text-base">{d}</li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <!-- 10TH STREET -->
-  <section id="tenth-street" class="mx-auto max-w-7xl px-6 py-20 scroll-mt-20">
-    <div class="grid md:grid-cols-12 gap-10">
-      <div class="md:col-span-7 md:order-1">
-        <Ribbon color="cyan">10th Street</Ribbon>
-        <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight leading-tight">
-          Youth robotics practice field.
-        </h2>
-        <p class="mt-5 text-lg text-pm-ink/85 leading-relaxed">
-          Our practice space for FRC Team 8033 and FTC teams. Secured with a long-term lease through a $245K capital campaign. Practice tables, build benches, tooling, and room for robots to actually drive around.
-        </p>
-        <p class="mt-4 text-pm-ink/75 leading-relaxed">
-          Active members and visitors check in on arrival. All visitors must sign a one-time waiver before entering the build floor.
-        </p>
-
-        <dl class="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
-          <div>
-            <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Use</dt>
-            <dd class="mt-0.5 font-semibold">Youth robotics practice</dd>
-          </div>
-          <div>
-            <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Address</dt>
-            <dd class="mt-0.5 text-pm-ink/65 italic">TODO — confirm public-facing address</dd>
-          </div>
-          <div>
-            <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Capital campaign</dt>
-            <dd class="mt-0.5 font-semibold">$245K raised</dd>
-          </div>
-          <div>
-            <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Hours</dt>
-            <dd class="mt-0.5 text-pm-ink/65 italic">During practice &amp; build season</dd>
-          </div>
-        </dl>
-
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a
-            href="https://script.google.com/a/macros/piedmontmakers.org/s/AKfycbyvQwtTkmCk_P9k3dd3CmrjXh-zDBHaTt93uSC2swZIZbzhNFx8PNKuXhBnufjAUqLheA/exec"
-            class="ribbon bg-pm-cyan text-white text-base hover:bg-pm-cyan-deep transition-colors"
-          >
-            Check-in form →
-          </a>
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSf1DZCi5av126Bf1tOIFiZaiDv-Gjy7dDEePpT9YFo4dWNKPA/viewform"
-            class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors"
-          >
-            Sign the waiver →
-          </a>
-        </div>
-      </div>
       <div class="md:col-span-5 md:order-2">
         <PhotoCard
-          caption="Photo: 10th Street practice field with robots and build benches"
-          color="cyan"
+          caption="Inside the Mary G. Ross Engineering Lab — FRC team members at the build benches"
+          color="purple"
           tilt="right"
           aspect="landscape"
+          src="/img/facilities/engineering-lab.jpg"
+          alt="Interior of the Mary G. Ross Engineering Lab at Piedmont High School — high schoolers in purple shirts working at tall plywood benches around an FRC robot frame, with team banners, the Team Social board, and FRC parts visible in the background."
         />
       </div>
+    </div>
+
+    <!-- Donor list — show a preview, then a collapsible <details> for everyone else -->
+    <div class="mt-12 bg-pm-cream-2/60 border-l-4 border-pm-purple p-6 md:p-8">
+      <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Donors</p>
+      <p class="mt-2 text-sm text-pm-ink/75 leading-relaxed max-w-2xl">
+        The Engineering Lab exists because of these families, companies, and foundations. Listed in the order they appear on the donor wall inside the lab itself.
+      </p>
+
+      <p class="mt-6 font-display text-[0.7rem] uppercase tracking-[0.18em] text-pm-ink/55">Major donors</p>
+      <ul class="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-1 text-xs text-pm-ink/85">
+        {majorPreview.map((d) => <li>{d}</li>)}
+      </ul>
+
+      <details class="group mt-3">
+        <summary class="cursor-pointer list-none inline-flex items-center gap-2 font-display font-semibold text-sm text-pm-ink hover:text-pm-red transition-colors">
+          <span class="group-open:hidden">See all {hiddenCount}+ donors →</span>
+          <span class="hidden group-open:inline">Hide the full list ↑</span>
+        </summary>
+        <div class="mt-4 space-y-5">
+          <ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-1 text-xs text-pm-ink/85">
+            {majorRest.map((d) => <li>{d}</li>)}
+          </ul>
+          <div>
+            <p class="font-display text-[0.7rem] uppercase tracking-[0.18em] text-pm-ink/55">Donors</p>
+            <ul class="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-1 text-xs text-pm-ink/85">
+              {labDonors.map((d) => <li>{d}</li>)}
+            </ul>
+          </div>
+        </div>
+      </details>
     </div>
   </section>
 
