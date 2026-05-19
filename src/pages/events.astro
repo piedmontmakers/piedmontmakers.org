@@ -96,16 +96,24 @@ const fmtDateParts = (d: Date) => ({
           const start = fmtDateParts(e.data.startDate);
           const end = e.data.endDate ? fmtDateParts(e.data.endDate) : null;
           const program = e.data.program;
+          const timeRange = e.data.startTime && e.data.endTime
+            ? `${e.data.startTime} – ${e.data.endTime}`
+            : (e.data.startTime || null);
+          const metaLine = [e.data.location, timeRange].filter(Boolean).join(" · ");
           return (
             <li
-              class="grid grid-cols-[80px_1fr] md:grid-cols-[100px_1fr] gap-x-5 py-5"
+              class="grid grid-cols-[88px_1fr] md:grid-cols-[112px_1fr] gap-x-5 md:gap-x-7 py-6"
               data-event-date={start.iso}
               data-event-program={program}
             >
-              <div class="text-center">
-                <div class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">{start.weekday}</div>
-                <div class="font-display font-bold text-3xl md:text-4xl tracking-tight leading-none mt-1">{start.day}</div>
-                <div class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55 mt-1">{start.month} {start.year}</div>
+              <div class="border-2 border-pm-ink overflow-hidden bg-pm-paper">
+                <div class="bg-pm-red text-white font-display font-semibold text-xs md:text-sm uppercase tracking-[0.18em] text-center py-1">
+                  {start.month}
+                </div>
+                <div class="px-2 py-2 text-center">
+                  <div class="font-display font-bold text-4xl md:text-5xl tracking-tight leading-none">{start.day}</div>
+                  <div class="font-display text-[10px] md:text-xs uppercase tracking-[0.18em] text-pm-ink/55 mt-2">{start.weekday} · {start.year}</div>
+                </div>
               </div>
               <div>
                 <div class="flex flex-wrap items-center gap-2">
@@ -121,8 +129,8 @@ const fmtDateParts = (d: Date) => ({
                 <h3 class="mt-2 font-display font-bold text-xl md:text-2xl tracking-tight leading-tight">
                   {e.data.title}
                 </h3>
-                {e.data.location && (
-                  <p class="mt-1 text-sm text-pm-ink/65">{e.data.location}</p>
+                {metaLine && (
+                  <p class="mt-1.5 text-sm text-pm-ink/65 font-medium">{metaLine}</p>
                 )}
                 {e.data.summary && (
                   <p class="mt-2 text-pm-ink/80 leading-relaxed">{e.data.summary}</p>

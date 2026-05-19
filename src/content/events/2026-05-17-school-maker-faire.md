@@ -1,7 +1,9 @@
 ---
 title: "12th Annual School Maker Faire"
 startDate: 2026-05-17
-location: "Piedmont High School · 11am–3pm"
+startTime: "11:00 AM"
+endTime: "3:00 PM"
+location: "Piedmont High School"
 program: "maker-faire"
 summary: "K-12 students show what they made all year. Free, open to the public, all day."
 actions:

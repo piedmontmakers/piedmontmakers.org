@@ -36,6 +36,10 @@ const events = defineCollection({
     title: z.string(),
     startDate: z.coerce.date(),
     endDate: z.coerce.date().optional(),
+    // Free-form time strings so authors can write "11:00 AM" or "All day"
+    // without us getting into timezone gymnastics on a static site.
+    startTime: z.string().optional(),
+    endTime: z.string().optional(),
     location: z.string().optional(),
     program: z
       .enum(["robotics", "maker-faire", "popup", "build-like-a-girl", "july-4", "other"])

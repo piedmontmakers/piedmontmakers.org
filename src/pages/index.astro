@@ -51,32 +51,40 @@ const MAILCHIMP_HONEYPOT_NAME = "b_edc89d8dd41a4ea6ee9352d9a_83b9d5d7df";
 
 const roboticsLevels = [
   {
-    name: "FLL Explore",
+    name: "FIRST LEGO League Explore",
     ages: "K–3rd",
     blurb: "Gentle intro to robotics with LEGO Education kits.",
     color: "red" as const,
-    caption: "Photo: FLL Explore team building",
+    src: "/img/robotics/fll-explore.jpg",
+    caption: "Younger kids building LEGO Technic together",
+    alt: "Four young boys in purple Piedmont Makers shirts sitting on the floor of a gym building LEGO Technic structures.",
   },
   {
-    name: "FLL Challenge",
+    name: "FIRST LEGO League Challenge",
     ages: "4th–8th",
     blurb: "Build LEGO robots, run autonomous missions, present an innovation project.",
     color: "cyan" as const,
-    caption: "Photo: FLL Challenge match",
+    src: "/img/robotics/fll-challenge.jpg",
+    caption: "A Challenge team at the SUBMERGED season tournament",
+    alt: "Five girls in maroon Piedmont Makers shirts working at an FLL Challenge competition table with a LEGO ocean-themed game board.",
   },
   {
-    name: "FTC",
+    name: "FIRST Tech Challenge",
     ages: "7th–12th",
     blurb: "Custom metal robots, Java programming, regional competitions.",
     color: "purple" as const,
-    caption: "Photo: FTC team in the pit",
+    src: "/img/robotics/ftc.jpg",
+    caption: "A playoff match at the league tournament",
+    alt: "FTC playoff match in progress at John Morrison Gymnasium — referees, team members at the alliance stations, and robots on the competition field.",
   },
   {
-    name: "FRC",
+    name: "FIRST Robotics Competition",
     ages: "high school",
     blurb: "120-pound competition robots, full build season, real engineering.",
     color: "ink" as const,
-    caption: "Photo: FRC Team 8627 drive practice",
+    src: "/img/robotics/frc.jpg",
+    caption: "Highlander Robotics 8033 around the robot at championship",
+    alt: "Members of Highlander Robotics Team 8033 around their robot at a championship pit, with sponsor banners visible.",
   },
 ];
 
@@ -190,7 +198,7 @@ const events = [
         <div class="md:col-span-7">
           <Ribbon color="red">Robotics</Ribbon>
           <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight leading-[1.02]">
-            Four levels. K through high school.
+            From first LEGO bricks to championship robots.
           </h2>
           <p class="mt-5 text-lg text-pm-ink/75 leading-relaxed max-w-xl">
             Whether your kid is snapping their first LEGO brick or driving a 120-pound competition robot at the championship, we have a team that fits.
@@ -212,6 +220,8 @@ const events = [
               tilt={i % 2 === 0 ? "left" : "right"}
               tape={i === 1 ? "right" : "none"}
               aspect="square"
+              src={lvl.src}
+              alt={lvl.alt}
             />
             <div class="mt-4 px-1">
               <Ribbon color={lvl.color}>{lvl.name}</Ribbon>
@@ -231,10 +241,10 @@ const events = [
         <div class="md:col-span-7">
           <Ribbon color="cyan">Programs</Ribbon>
           <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight leading-[1.02]">
-            What else we get up to.
+            Come make something with us.
           </h2>
           <p class="mt-5 text-lg text-pm-ink/75 leading-relaxed max-w-xl">
-            Beyond the robotics teams, a few signature programs a year — open to anyone, mostly free, always hands-on.
+            Open to anyone. Mostly free. Always hands-on.
           </p>
         </div>
         <div class="md:col-span-5 md:text-right space-y-2">
