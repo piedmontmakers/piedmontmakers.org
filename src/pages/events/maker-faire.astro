@@ -39,20 +39,35 @@ const faqItems = [
   title="School Maker Faire — Piedmont Makers"
   description="The Piedmont School Maker Faire is our biggest community event. Hundreds of student-built projects, free admission, all ages. Next: May 2027."
 >
-  <!-- Hero -->
+  <!-- Hero — text + YouTube embed -->
   <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-8">
     <a href={link("/events")} class="font-display font-semibold text-pm-ink hover:text-pm-red underline-offset-4 hover:underline">
       ← All events
     </a>
-    <div class="mt-6">
-      <Ribbon color="red">School Maker Faire</Ribbon>
+    <div class="mt-6 grid md:grid-cols-12 gap-10 md:gap-12 items-center">
+      <div class="md:col-span-6">
+        <Ribbon color="red">School Maker Faire</Ribbon>
+        <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[0.95]">
+          The Piedmont School Maker Faire.
+        </h1>
+        <p class="mt-7 text-lg md:text-xl text-pm-ink/75 leading-relaxed">
+          K-12 Science, Technology, Engineering, Arts and Math — for the Piedmont community and beyond. Free admission. One day, hundreds of student-built projects, no homework.
+        </p>
+      </div>
+      <div class="md:col-span-6">
+        <div class="aspect-video overflow-hidden rounded-3xl border-[3px] border-pm-ink shadow-[var(--shadow-card)]">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/AFnC-dBw2CY?rel=0"
+            title="Piedmont School Maker Faire"
+            loading="lazy"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+            class="w-full h-full"
+          />
+        </div>
+      </div>
     </div>
-    <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-7xl tracking-tight leading-[0.95]">
-      The Piedmont School<br />Maker Faire.
-    </h1>
-    <p class="mt-7 max-w-2xl text-lg md:text-xl text-pm-ink/75 leading-relaxed">
-      K-12 Science, Technology, Engineering, Arts and Math — for the Piedmont community and beyond. Free admission. One day, hundreds of student-built projects, no homework.
-    </p>
   </section>
 
   <!-- 12th Annual recap -->
