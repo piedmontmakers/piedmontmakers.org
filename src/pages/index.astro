@@ -87,8 +87,10 @@ const events = [
     headline: "Our biggest event of the year",
     blurb: "K-12 students show what they made all year — Rube Goldberg machines, robots, embroidered patches, soldered circuits, 3D-printed everything. Free, open to the public.",
     color: "red" as const,
-    href: "/school-maker-faire",
-    caption: "Photo: 2025 Maker Faire main floor",
+    href: "/programs/maker-faire",
+    src: "/img/programs/maker-faire.jpg",
+    caption: "Kids at the Maker Faire LEGO play table",
+    alt: "Children and parents gathered around a large outdoor LEGO play table at the Piedmont School Maker Faire.",
     tilt: "left" as const,
     tape: "none" as const,
   },
@@ -98,8 +100,10 @@ const events = [
     headline: "Hands-on workshops, free to drop in",
     blurb: "A few times a year we open a space and load it with tools — soldering irons, sewing machines, 3D printers, cardboard, hot glue, whatever&apos;s on hand. Show up and make.",
     color: "cyan" as const,
-    href: "/community",
-    caption: "Photo: kids at a popup maker space session",
+    href: "/programs/popup-maker-spaces",
+    src: "/img/programs/popup.jpg",
+    caption: "Kids and parents making at a popup maker space",
+    alt: "Children and parents at long tables making craft projects with paper, markers, and cardboard inside a community hall.",
     tilt: "right" as const,
     tape: "left" as const,
   },
@@ -109,8 +113,10 @@ const events = [
     headline: "Young girls excited about robotics",
     blurb: "Mentored by the older female students from our FTC and FRC teams. A confidence-and-tools program: hands-on robotics taught by girls who&apos;ve been doing it for years.",
     color: "purple" as const,
-    href: "/community",
-    caption: "Photo: Build Like a Girl mentor and mentee",
+    href: "/programs/build-like-a-girl",
+    src: "/img/programs/build-like-a-girl.jpg",
+    caption: "Older FRC students demoing a robot to a crowd of younger girls",
+    alt: "High school students in purple Piedmont Makers sweatshirts demonstrating a robot to a crowd of young girls.",
     tilt: "left" as const,
     tape: "right" as const,
   },
@@ -147,21 +153,21 @@ const events = [
 
         <div class="md:col-span-6 md:order-2 relative">
           <div class="relative h-[460px] md:h-[540px]">
-            <div class="absolute top-0 right-0 w-[78%] aspect-[4/3] rounded-3xl bg-pm-cyan overflow-hidden shadow-[var(--shadow-card)] tilt-right">
-              <div class="w-full h-full flex items-end p-6">
-                <div>
-                  <span class="font-display text-[10px] uppercase tracking-[0.18em] text-white/75 block">Photo</span>
-                  <span class="font-body text-sm text-white/95">FRC Team 8627 drive practice</span>
-                </div>
-              </div>
+            <div class="absolute top-0 right-0 w-[78%] aspect-[4/3] rounded-3xl overflow-hidden shadow-[var(--shadow-card)] tilt-right">
+              <img
+                src={asset("/img/programs/build-like-a-girl.jpg")}
+                alt="High school students from FRC Team 8033 in purple Piedmont Makers sweatshirts demonstrating a robot to a crowd of younger girls."
+                class="w-full h-full object-cover"
+                loading="eager"
+              />
             </div>
-            <div class="absolute bottom-0 left-0 w-[58%] aspect-[3/4] rounded-3xl bg-pm-red overflow-hidden shadow-[var(--shadow-card)] tilt-left-md">
-              <div class="w-full h-full flex items-end p-6">
-                <div>
-                  <span class="font-display text-[10px] uppercase tracking-[0.18em] text-white/75 block">Photo</span>
-                  <span class="font-body text-sm text-white/95">Maker Faire 2026, the big build</span>
-                </div>
-              </div>
+            <div class="absolute bottom-0 left-0 w-[58%] aspect-[3/4] rounded-3xl overflow-hidden shadow-[var(--shadow-card)] tilt-left-md">
+              <img
+                src={asset("/img/programs/maker-faire.jpg")}
+                alt="Kids and parents gathered around a large outdoor LEGO play table at the Piedmont School Maker Faire."
+                class="w-full h-full object-cover"
+                loading="eager"
+              />
             </div>
             <div class="absolute top-12 left-0 md:-left-4 w-[34%] aspect-square rounded-2xl bg-pm-cream-2 overflow-hidden shadow-[var(--shadow-card)] tilt-right tape-top-left">
               <div class="w-full h-full flex items-end p-3">
@@ -247,6 +253,8 @@ const events = [
               tilt={e.tilt}
               tape={e.tape}
               aspect="landscape"
+              src={e.src}
+              alt={e.alt}
             />
             <div class="mt-4 px-1">
               <Ribbon color={e.color}>{e.name}</Ribbon>

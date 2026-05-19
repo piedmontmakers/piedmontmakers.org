@@ -32,6 +32,13 @@ const {
   class: extra = "",
 } = Astro.props;
 
+// Allow callers to pass either a relative path like "/img/..." or an external
+// URL. Relative paths get the site base prefixed automatically.
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const resolvedSrc = src
+  ? (/^(https?:)?\/\//.test(src) ? src : `${base}${src.startsWith("/") ? src : `/${src}`}`)
+  : null;
+
 const colorClass = {
   red: "bg-pm-red",
   cyan: "bg-pm-cyan",
@@ -60,9 +67,9 @@ const aspectClass = {
 ---
 
 <figure class:list={["relative", tiltClass, tapeClass, extra]}>
-  <div class:list={["overflow-hidden rounded-2xl shadow-[var(--shadow-card)]", aspectClass, !src ? colorClass : ""]}>
-    {src ? (
-      <img src={src} alt={alt} class="w-full h-full object-cover" />
+  <div class:list={["overflow-hidden rounded-2xl shadow-[var(--shadow-card)]", aspectClass, !resolvedSrc ? colorClass : ""]}>
+    {resolvedSrc ? (
+      <img src={resolvedSrc} alt={alt} class="w-full h-full object-cover" loading="lazy" />
     ) : (
       <div class="w-full h-full flex items-end p-5">
         <span class="font-display text-xs uppercase tracking-[0.18em] text-white/80">

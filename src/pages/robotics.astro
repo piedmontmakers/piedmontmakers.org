@@ -22,7 +22,9 @@ const levels = [
     color: "red" as const,
     register: "https://go.teamsnap.com/forms/514678",
     coachTraining: "https://docs.google.com/presentation/d/1jBY7H9uDC_g0mSyCAU0224bk-PF7VX2UZRfzVJce7IM/edit",
-    photoCaption: "Photo: FLL Explore team during a build session",
+    photoCaption: "FLL Explore team building during a session",
+    photoSrc: "/img/robotics/fll-explore.jpg",
+    photoAlt: "Four young boys in purple Piedmont Makers shirts sitting on the floor of a gym building LEGO Technic structures together.",
   },
   {
     slug: "fll-challenge",
@@ -177,6 +179,8 @@ const coachResources = [
               color={lvl.color}
               tilt={i % 2 === 0 ? "left" : "right"}
               aspect="square"
+              src={lvl.photoSrc}
+              alt={lvl.photoAlt}
             />
           </div>
           <div class={`md:col-span-7 ${i % 2 === 1 ? "md:order-1" : ""}`}>
