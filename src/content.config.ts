@@ -9,7 +9,11 @@ const blog = defineCollection({
     updatedDate: z.coerce.date().optional(),
     author: z.string().optional(),
     excerpt: z.string().optional(),
+    // Path relative to /public, e.g. /img/blog/post-slug/hero.jpg. Will be
+    // prefixed with import.meta.env.BASE_URL at render time.
     heroImage: z.string().optional(),
+    heroImageAlt: z.string().optional(),
+    heroImageCaption: z.string().optional(),
   }),
 });
 

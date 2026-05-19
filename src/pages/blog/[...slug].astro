@@ -16,22 +16,104 @@ const { Content } = await render(post);
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
+const asset = (path: string) => `${base}${path.startsWith("/") ? path : `/${path}`}`;
 
 const formatDate = (d: Date) =>
   d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+
+const heroSrc = post.data.heroImage ? asset(post.data.heroImage) : null;
+
+// Get adjacent posts for "previous / next" navigation.
+const all = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const idx = all.findIndex((p) => p.id === post.id);
+const prev = idx > 0 ? all[idx - 1] : null;
+const next = idx < all.length - 1 ? all[idx + 1] : null;
 ---
 
 <BaseLayout title={`${post.data.title} — Piedmont Makers`} description={post.data.excerpt}>
-  <article class="mx-auto max-w-3xl px-6 pt-16 md:pt-20 pb-20 md:pb-28">
-    <a href={link("/blog")} class="font-display font-semibold text-pm-ink hover:text-pm-red underline-offset-4 hover:underline">
+  <article class="mx-auto max-w-3xl px-6 pt-12 md:pt-16 pb-12">
+    <a href={link("/blog")} class="font-display font-semibold text-pm-ink hover:text-pm-red underline-offset-4 hover:underline text-sm">
       ← All posts
     </a>
-    <p class="mt-8 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">{formatDate(post.data.pubDate)}{post.data.author && ` · ${post.data.author}`}</p>
-    <h1 class="mt-3 font-display font-bold text-pm-ink text-4xl md:text-5xl tracking-tight leading-[1.02]">
-      {post.data.title}
-    </h1>
-    <div class="mt-10 prose prose-pm max-w-none font-body text-lg text-pm-ink/90 leading-relaxed prose-headings:font-display prose-headings:tracking-tight prose-a:text-pm-ink prose-a:underline prose-a:decoration-pm-red prose-a:underline-offset-4 hover:prose-a:text-pm-red prose-strong:font-semibold prose-blockquote:border-l-pm-red prose-blockquote:bg-pm-cream-2/60 prose-blockquote:py-2 prose-blockquote:px-5 prose-blockquote:rounded-r-md prose-blockquote:not-italic prose-blockquote:text-pm-ink/85 prose-ul:list-disc prose-ul:pl-6 prose-li:my-1">
+
+    <header class="mt-8">
+      <Ribbon color="red">Blog</Ribbon>
+      <h1 class="mt-6 font-display font-bold text-pm-ink text-4xl md:text-5xl tracking-tight leading-[1.02]">
+        {post.data.title}
+      </h1>
+      <p class="mt-5 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">
+        {formatDate(post.data.pubDate)}{post.data.author && ` · ${post.data.author}`}
+        {post.data.updatedDate && (
+          <span class="ml-3 text-pm-ink/40">
+            Updated {formatDate(post.data.updatedDate)}
+          </span>
+        )}
+      </p>
+      {post.data.excerpt && (
+        <p class="mt-5 text-xl text-pm-ink/75 leading-relaxed">
+          {post.data.excerpt}
+        </p>
+      )}
+    </header>
+
+    {heroSrc && (
+      <figure class="mt-10 mb-12">
+        <img
+          src={heroSrc}
+          alt={post.data.heroImageAlt || ""}
+          class="w-full h-auto border-[3px] border-pm-ink"
+          loading="eager"
+        />
+        {post.data.heroImageCaption && (
+          <figcaption class="mt-3 text-sm text-pm-ink/65 italic font-body">
+            {post.data.heroImageCaption}
+          </figcaption>
+        )}
+      </figure>
+    )}
+  </article>
+
+  <article class="mx-auto max-w-3xl px-6 pb-20">
+    <div class="prose prose-lg max-w-none
+      prose-headings:font-display prose-headings:tracking-tight prose-headings:text-pm-ink
+      prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:font-bold
+      prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:font-bold
+      prose-p:font-body prose-p:text-pm-ink prose-p:leading-relaxed
+      prose-a:text-pm-ink prose-a:underline prose-a:decoration-pm-red prose-a:underline-offset-4 prose-a:decoration-2
+      hover:prose-a:text-pm-red
+      prose-strong:font-semibold prose-strong:text-pm-ink
+      prose-blockquote:border-l-4 prose-blockquote:border-l-pm-red prose-blockquote:bg-pm-cream-2/50 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-md prose-blockquote:not-italic prose-blockquote:text-pm-ink/85 prose-blockquote:font-body
+      prose-ul:list-disc prose-ul:pl-6 prose-li:my-1.5 prose-li:font-body prose-li:text-pm-ink
+      prose-ol:list-decimal prose-ol:pl-6
+      prose-code:font-mono prose-code:text-sm prose-code:bg-pm-cream-2 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
+      prose-img:border-[3px] prose-img:border-pm-ink prose-img:w-full
+      prose-figcaption:text-sm prose-figcaption:text-pm-ink/65 prose-figcaption:italic prose-figcaption:mt-3 prose-figcaption:text-center
+      prose-hr:border-pm-ink/15">
       <Content />
     </div>
   </article>
+
+  <!-- Previous / next nav -->
+  <nav class="mx-auto max-w-3xl px-6 pb-20">
+    <div class="border-t-2 border-pm-ink pt-8 grid sm:grid-cols-2 gap-6">
+      {prev ? (
+        <a href={link(`/blog/${prev.id}`)} class="group block">
+          <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">← Newer post</p>
+          <p class="mt-2 font-display font-semibold text-lg leading-tight group-hover:text-pm-red transition-colors">
+            {prev.data.title}
+          </p>
+        </a>
+      ) : <div />}
+      {next ? (
+        <a href={link(`/blog/${next.id}`)} class="group block sm:text-right">
+          <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Older post →</p>
+          <p class="mt-2 font-display font-semibold text-lg leading-tight group-hover:text-pm-red transition-colors">
+            {next.data.title}
+          </p>
+        </a>
+      ) : <div />}
+    </div>
+  </nav>
 </BaseLayout>

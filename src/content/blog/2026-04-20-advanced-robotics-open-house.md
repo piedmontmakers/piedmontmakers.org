@@ -3,13 +3,14 @@ title: "Advanced Robotics Open House — May 17"
 pubDate: 2026-04-20
 author: "Piedmont Makers"
 excerpt: "Secondary students and their families are invited to an informational gathering on May 17 to explore opportunities for the upcoming robotics season."
+heroImage: "/img/blog/advanced-robotics-open-house/hero.jpg"
+heroImageAlt: "FRC robot on the competition floor surrounded by team members."
 ---
 
 7th–12th grade parents and students: come meet the coaches and current team members at our Advanced Robotics Open House.
 
-- **Date:** Saturday, May 17, 2026
-- **Time:** 2:00pm
-- **Location:** Mary G. Ross Engineering Lab at Piedmont High School
+**Saturday, May 17, 2026 · 2:00pm**
+**Mary G. Ross Engineering Lab at Piedmont High School**
 
 Come learn about the upcoming Fall '26 season — FTC, FRC, what each looks like week-to-week, what registration involves, and what kids actually do. We hope to see you there.
 
