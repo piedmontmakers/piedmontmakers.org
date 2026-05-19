@@ -20,7 +20,7 @@ const fallbackThumb = "/img/brand/makey.png";
 ---
 
 <BaseLayout title="Blog — Piedmont Makers" description="News, project recaps, and updates from Piedmont Makers.">
-  <section class="mx-auto max-w-5xl px-6 pt-16 md:pt-20 pb-12">
+  <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-12">
     <Ribbon color="red">Blog</Ribbon>
     <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-6xl tracking-tight leading-[0.98]">
       News, recaps, and the occasional photo.
@@ -30,7 +30,7 @@ const fallbackThumb = "/img/brand/makey.png";
     </p>
   </section>
 
-  <section class="mx-auto max-w-5xl px-6 pb-20 md:pb-28">
+  <section class="mx-auto max-w-7xl px-6 pb-20 md:pb-28">
     <ul class="space-y-2 divide-y divide-pm-ink/10">
       {posts.map((post) => {
         const hasHero = !!post.data.heroImage;

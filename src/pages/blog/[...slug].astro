@@ -33,50 +33,52 @@ const next = idx < all.length - 1 ? all[idx + 1] : null;
 ---
 
 <BaseLayout title={`${post.data.title} — Piedmont Makers`} description={post.data.excerpt}>
-  <article class="mx-auto max-w-3xl px-6 pt-12 md:pt-16 pb-12">
-    <a href={link("/blog")} class="font-display font-semibold text-pm-ink hover:text-pm-red underline-offset-4 hover:underline text-sm">
-      ← All posts
-    </a>
+  <article class="mx-auto max-w-7xl px-6 pt-12 md:pt-16 pb-12">
+    <div class="max-w-3xl">
+      <a href={link("/blog")} class="font-display font-semibold text-pm-ink hover:text-pm-red underline-offset-4 hover:underline text-sm">
+        ← All posts
+      </a>
 
-    <header class="mt-8">
-      <Ribbon color="red">Blog</Ribbon>
-      <h1 class="mt-6 font-display font-bold text-pm-ink text-4xl md:text-5xl tracking-tight leading-[1.02]">
-        {post.data.title}
-      </h1>
-      <p class="mt-5 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">
-        {formatDate(post.data.pubDate)}{post.data.author && ` · ${post.data.author}`}
-        {post.data.updatedDate && (
-          <span class="ml-3 text-pm-ink/40">
-            Updated {formatDate(post.data.updatedDate)}
-          </span>
-        )}
-      </p>
-      {post.data.excerpt && (
-        <p class="mt-5 text-xl text-pm-ink/75 leading-relaxed">
-          {post.data.excerpt}
+      <header class="mt-8">
+        <Ribbon color="red">Blog</Ribbon>
+        <h1 class="mt-6 font-display font-bold text-pm-ink text-4xl md:text-5xl tracking-tight leading-[1.02]">
+          {post.data.title}
+        </h1>
+        <p class="mt-5 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">
+          {formatDate(post.data.pubDate)}{post.data.author && ` · ${post.data.author}`}
+          {post.data.updatedDate && (
+            <span class="ml-3 text-pm-ink/40">
+              Updated {formatDate(post.data.updatedDate)}
+            </span>
+          )}
         </p>
-      )}
-    </header>
-
-    {heroSrc && (
-      <figure class="mt-10 mb-12">
-        <img
-          src={heroSrc}
-          alt={post.data.heroImageAlt || ""}
-          class="w-full h-auto border-[3px] border-pm-ink"
-          loading="eager"
-        />
-        {post.data.heroImageCaption && (
-          <figcaption class="mt-3 text-sm text-pm-ink/65 italic font-body">
-            {post.data.heroImageCaption}
-          </figcaption>
+        {post.data.excerpt && (
+          <p class="mt-5 text-xl text-pm-ink/75 leading-relaxed">
+            {post.data.excerpt}
+          </p>
         )}
-      </figure>
-    )}
+      </header>
+
+      {heroSrc && (
+        <figure class="mt-10 mb-12">
+          <img
+            src={heroSrc}
+            alt={post.data.heroImageAlt || ""}
+            class="w-full h-auto border-[3px] border-pm-ink"
+            loading="eager"
+          />
+          {post.data.heroImageCaption && (
+            <figcaption class="mt-3 text-sm text-pm-ink/65 italic font-body">
+              {post.data.heroImageCaption}
+            </figcaption>
+          )}
+        </figure>
+      )}
+    </div>
   </article>
 
-  <article class="mx-auto max-w-3xl px-6 pb-20">
-    <div class="prose prose-lg max-w-none
+  <article class="mx-auto max-w-7xl px-6 pb-20">
+    <div class="prose prose-lg max-w-3xl
       prose-headings:font-display prose-headings:tracking-tight prose-headings:text-pm-ink
       prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:font-bold
       prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:font-bold
@@ -96,8 +98,8 @@ const next = idx < all.length - 1 ? all[idx + 1] : null;
   </article>
 
   <!-- Previous / next nav -->
-  <nav class="mx-auto max-w-3xl px-6 pb-20">
-    <div class="border-t-2 border-pm-ink pt-8 grid sm:grid-cols-2 gap-6">
+  <nav class="mx-auto max-w-7xl px-6 pb-20">
+    <div class="max-w-3xl border-t-2 border-pm-ink pt-8 grid sm:grid-cols-2 gap-6">
       {prev ? (
         <a href={link(`/blog/${prev.id}`)} class="group block">
           <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">← Newer post</p>
