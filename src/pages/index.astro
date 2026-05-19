@@ -161,7 +161,7 @@ const events = [
 
         <div class="md:col-span-6 md:order-2 relative">
           <div class="relative h-[460px] md:h-[540px]">
-            <div class="absolute top-0 right-0 w-[78%] aspect-[4/3] rounded-3xl overflow-hidden shadow-[var(--shadow-card)] tilt-right">
+            <div class="absolute top-0 right-0 w-[78%] aspect-[4/3] rounded-3xl overflow-hidden border-[3px] border-pm-ink shadow-[var(--shadow-card)] tilt-right">
               <img
                 src={asset("/img/programs/build-like-a-girl.jpg")}
                 alt="High school students from FRC Team 8033 in purple Piedmont Makers sweatshirts demonstrating a robot to a crowd of younger girls."
@@ -169,7 +169,7 @@ const events = [
                 loading="eager"
               />
             </div>
-            <div class="absolute bottom-0 left-0 w-[58%] aspect-[3/4] rounded-3xl overflow-hidden shadow-[var(--shadow-card)] tilt-left-md">
+            <div class="absolute bottom-0 left-0 w-[58%] aspect-[3/4] rounded-3xl overflow-hidden border-[3px] border-pm-ink shadow-[var(--shadow-card)] tilt-left-md">
               <img
                 src={asset("/img/programs/maker-faire.jpg")}
                 alt="Kids and parents gathered around a large outdoor LEGO play table at the Piedmont School Maker Faire."
@@ -177,10 +177,14 @@ const events = [
                 loading="eager"
               />
             </div>
-            <div class="absolute top-12 left-0 md:-left-4 w-[34%] aspect-square rounded-2xl bg-pm-cream-2 overflow-hidden shadow-[var(--shadow-card)] tilt-right tape-top-left">
-              <div class="w-full h-full flex items-end p-3">
-                <span class="font-marker text-base text-pm-ink/85">Makey says hi!</span>
-              </div>
+            <div class="absolute top-12 left-0 md:-left-4 w-[40%] aspect-square rounded-2xl overflow-hidden border-[3px] border-pm-ink shadow-[var(--shadow-card)] tilt-right">
+              <img
+                src={asset("/img/programs/parade.jpg")}
+                alt="The giant red inflatable Makey rising above the 4th of July Parade — kids in purple Piedmont Makers shirts hold the banner below, red-white-and-blue balloons frame Makey on either side, and a kid in a soapbox car cruises past."
+                class="w-full h-full object-cover"
+                style="object-position: 52% 60%;"
+                loading="eager"
+              />
             </div>
           </div>
         </div>
