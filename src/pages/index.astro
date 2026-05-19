@@ -7,51 +7,82 @@ import Scribble from "../components/Scribble.astro";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
 
-// Mailchimp audience details extracted from existing newsletter campaign links.
-// Hidden honeypot input name must be `b_{u}_{id}` for bot protection.
+// Mailchimp audience details extracted from the unsubscribe link in the
+// January 2026 newsletter campaign. Hidden honeypot input name must be
+// `b_{u}_{id}` so Mailchimp's bot filter recognizes it.
 const MAILCHIMP_ACTION = "https://piedmontmakers.us3.list-manage.com/subscribe/post?u=edc89d8dd41a4ea6ee9352d9a&id=83b9d5d7df";
 const MAILCHIMP_HONEYPOT_NAME = "b_edc89d8dd41a4ea6ee9352d9a_83b9d5d7df";
-const NEWSLETTER_URL = MAILCHIMP_ACTION;
 
-const programs = [
+const roboticsLevels = [
   {
-    name: "Robotics",
-    headline: "From LEGO bricks to 120-pound competition robots",
-    ages: "Ages 5–18 · K through high school",
-    blurb: "Four levels by age and intensity. Teams meet weekly, compete regionally, and (for the older ones) build their own robots from scratch.",
+    name: "FLL Explore",
+    ages: "K–3rd",
+    blurb: "Gentle intro to robotics with LEGO Education kits.",
     color: "red" as const,
-    href: "/robotics",
-    caption: "Photo: FRC drive team at championship",
-    levels: [
-      { name: "FLL Explore", ages: "K–3rd" },
-      { name: "FLL Challenge", ages: "4th–8th" },
-      { name: "FTC", ages: "7th–12th" },
-      { name: "FRC", ages: "high school" },
-    ],
+    caption: "Photo: FLL Explore team building",
   },
   {
-    name: "School Maker Faire",
-    headline: "Our biggest event of the year",
-    ages: "All ages · Each May",
-    blurb: "K-12 students show what they made all year — Rube Goldberg machines, robots, embroidered patches, soldered circuits, 3D-printed everything. Free, open to the public.",
+    name: "FLL Challenge",
+    ages: "4th–8th",
+    blurb: "Build LEGO robots, run autonomous missions, present an innovation project.",
     color: "cyan" as const,
+    caption: "Photo: FLL Challenge match",
+  },
+  {
+    name: "FTC",
+    ages: "7th–12th",
+    blurb: "Custom metal robots, Java programming, regional competitions.",
+    color: "purple" as const,
+    caption: "Photo: FTC team in the pit",
+  },
+  {
+    name: "FRC",
+    ages: "high school",
+    blurb: "120-pound competition robots, full build season, real engineering.",
+    color: "ink" as const,
+    caption: "Photo: FRC Team 8627 drive practice",
+  },
+];
+
+const events = [
+  {
+    name: "School Maker Faire",
+    when: "Sat May 17 · 2026",
+    headline: "Our biggest event of the year",
+    blurb: "K-12 students show what they made all year — Rube Goldberg machines, robots, embroidered patches, soldered circuits, 3D-printed everything. Free, open to the public.",
+    color: "red" as const,
     href: "/school-maker-faire",
     caption: "Photo: 2025 Maker Faire main floor",
+    tilt: "left" as const,
+    tape: "none" as const,
   },
   {
     name: "Popup Maker Spaces",
-    headline: "Hands-on workshops, sporadically scheduled",
-    ages: "All ages · Dates vary",
-    blurb: "A few Saturdays a year we open a space and load it with tools — soldering irons, sewing machines, 3D printers, cardboard, hot glue, whatever&apos;s on hand. Show up and make.",
-    color: "purple" as const,
+    when: "Sporadic Saturdays · Sign up to hear first",
+    headline: "Hands-on workshops, free to drop in",
+    blurb: "A few times a year we open a space and load it with tools — soldering irons, sewing machines, 3D printers, cardboard, hot glue, whatever&apos;s on hand. Show up and make.",
+    color: "cyan" as const,
     href: "/community",
     caption: "Photo: kids at a popup maker space session",
+    tilt: "right" as const,
+    tape: "left" as const,
+  },
+  {
+    name: "Build Like a Girl",
+    when: "Multiple sessions · Watch the newsletter",
+    headline: "Young girls excited about robotics",
+    blurb: "Mentored by the older female students from our FTC and FRC teams. A confidence-and-tools program: hands-on robotics taught by girls who&apos;ve been doing it for years.",
+    color: "purple" as const,
+    href: "/community",
+    caption: "Photo: Build Like a Girl mentor and mentee",
+    tilt: "left" as const,
+    tape: "right" as const,
   },
 ];
 ---
 
 <BaseLayout title="Piedmont Makers — STEAM, robotics & maker culture for Piedmont kids">
-  <!-- HERO: photo-led, parent-facing -->
+  <!-- HERO -->
   <section class="relative overflow-hidden">
     <div class="absolute inset-0 -z-10 bg-pm-cream"></div>
 
@@ -107,49 +138,40 @@ const programs = [
     </div>
   </section>
 
-  <!-- PROGRAMS: 3 top-level cards -->
+  <!-- ROBOTICS — the flagship program, deep dive -->
   <section class="relative">
     <div class="mx-auto max-w-7xl px-6 pt-20 pb-12">
-      <div class="flex flex-wrap items-end justify-between gap-6 mb-10">
-        <div>
-          <Ribbon color="cyan">Programs</Ribbon>
-          <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight">
-            Three ways to get your kid making.
+      <div class="grid md:grid-cols-12 gap-10 mb-12 items-end">
+        <div class="md:col-span-7">
+          <Ribbon color="red">Robotics</Ribbon>
+          <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight leading-[1.02]">
+            Four levels. K through high school.
           </h2>
+          <p class="mt-5 text-lg text-pm-ink/75 leading-relaxed max-w-xl">
+            Whether your kid is snapping their first LEGO brick or driving a 120-pound competition robot at the championship, we have a team that fits.
+          </p>
         </div>
-        <a href={link("/robotics")} class="font-display font-semibold text-pm-ink hover:text-pm-red underline-offset-4 hover:underline whitespace-nowrap">
-          See all programs →
-        </a>
+        <div class="md:col-span-5 md:text-right">
+          <a href={link("/robotics")} class="inline-flex items-center gap-2 font-display font-semibold text-pm-ink hover:text-pm-red underline-offset-4 hover:underline">
+            See the full Robotics page →
+          </a>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-10">
-        {programs.map((p, i) => (
-          <a href={link(p.href)} class="group block">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-10">
+        {roboticsLevels.map((lvl, i) => (
+          <a href={link("/robotics")} class="group block">
             <PhotoCard
-              caption={p.caption}
-              color={p.color}
-              tilt={i === 1 ? "right" : i === 0 ? "left" : "none"}
-              tape={i === 2 ? "right" : "none"}
-              aspect="landscape"
+              caption={lvl.caption}
+              color={lvl.color}
+              tilt={i % 2 === 0 ? "left" : "right"}
+              tape={i === 1 ? "right" : "none"}
+              aspect="square"
             />
             <div class="mt-4 px-1">
-              <Ribbon color={p.color}>{p.name}</Ribbon>
-              <p class="mt-3 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">{p.ages}</p>
-              <h3 class="mt-2 font-display font-bold text-2xl tracking-tight leading-tight">{p.headline}</h3>
-              <p class="mt-3 text-pm-ink/80 leading-relaxed">{p.blurb}</p>
-              {p.levels && (
-                <ul class="mt-4 space-y-1 text-sm text-pm-ink/75">
-                  {p.levels.map((lvl) => (
-                    <li class="flex items-baseline gap-2">
-                      <span class="font-display font-semibold text-pm-ink">{lvl.name}</span>
-                      <span class="text-pm-ink/55">· {lvl.ages}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <p class="mt-4 font-display font-semibold text-pm-ink group-hover:text-pm-red transition-colors">
-                Learn more →
-              </p>
+              <Ribbon color={lvl.color}>{lvl.name}</Ribbon>
+              <p class="mt-3 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Ages · {lvl.ages}</p>
+              <p class="mt-2 text-pm-ink/80 leading-relaxed text-[0.95rem]">{lvl.blurb}</p>
             </div>
           </a>
         ))}
@@ -157,33 +179,47 @@ const programs = [
     </div>
   </section>
 
-  <!-- THIS YEAR -->
-  <section class="mt-16 bg-pm-cream-2/70 text-pm-ink">
-    <div class="mx-auto max-w-7xl px-6 py-16 md:py-20">
-      <div class="grid md:grid-cols-12 gap-10 items-start">
-        <div class="md:col-span-4">
-          <Ribbon color="red">This year</Ribbon>
+  <!-- EVENTS — Maker Faire, Popup Maker Spaces, Build Like a Girl -->
+  <section class="relative mt-12 bg-pm-cream-2/60">
+    <div class="mx-auto max-w-7xl px-6 py-20">
+      <div class="grid md:grid-cols-12 gap-10 mb-12 items-end">
+        <div class="md:col-span-7">
+          <Ribbon color="cyan">Events</Ribbon>
           <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight leading-[1.02]">
-            What&apos;s coming up at Piedmont Makers.
+            What else we get up to.
           </h2>
-          <p class="mt-5 text-pm-ink/75 leading-relaxed max-w-sm">
-            Specific dates land in <a href="#newsletter" class="font-display font-semibold text-pm-ink underline underline-offset-4 hover:text-pm-red">the newsletter</a> first.
+          <p class="mt-5 text-lg text-pm-ink/75 leading-relaxed max-w-xl">
+            Outside the robotics teams, we run a few signature programs a year — open to anyone, mostly free, always hands-on.
           </p>
         </div>
-        <div class="md:col-span-8 grid sm:grid-cols-2 gap-6">
-          <a href={link("/school-maker-faire")} class="group block bg-pm-paper p-7 border-[3px] border-pm-ink hover:bg-white transition-colors">
-            <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-red">Sat May 17 · 2026</span>
-            <h3 class="mt-3 font-display font-bold text-2xl md:text-[1.7rem] tracking-tight leading-tight">12th Annual School Maker Faire</h3>
-            <p class="mt-3 text-pm-ink/75 leading-relaxed">K-12 students show what they made all year. Free, open to the public, all-day at the Veterans&apos; Building.</p>
-            <p class="mt-5 font-display font-semibold text-pm-ink group-hover:text-pm-red transition-colors">Details →</p>
-          </a>
-          <a href={link("/community")} class="group block bg-pm-paper p-7 border-[3px] border-pm-ink hover:bg-white transition-colors">
-            <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-purple">Date TBD · Sign up to hear first</span>
-            <h3 class="mt-3 font-display font-bold text-2xl md:text-[1.7rem] tracking-tight leading-tight">Next popup maker space</h3>
-            <p class="mt-3 text-pm-ink/75 leading-relaxed">A Saturday of soldering, sewing, 3D printing, and whatever else is on the table that day. Subscribe to the newsletter for the next date.</p>
-            <p class="mt-5 font-display font-semibold text-pm-ink group-hover:text-pm-red transition-colors">About popup spaces →</p>
+        <div class="md:col-span-5 md:text-right">
+          <a href="#newsletter" class="inline-flex items-center gap-2 font-display font-semibold text-pm-ink hover:text-pm-red underline-offset-4 hover:underline">
+            Hear about dates first →
           </a>
         </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-10">
+        {events.map((e) => (
+          <a href={link(e.href)} class="group block">
+            <PhotoCard
+              caption={e.caption}
+              color={e.color}
+              tilt={e.tilt}
+              tape={e.tape}
+              aspect="landscape"
+            />
+            <div class="mt-4 px-1">
+              <Ribbon color={e.color}>{e.name}</Ribbon>
+              <p class="mt-3 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">{e.when}</p>
+              <h3 class="mt-2 font-display font-bold text-2xl tracking-tight leading-tight">{e.headline}</h3>
+              <p class="mt-3 text-pm-ink/80 leading-relaxed">{e.blurb}</p>
+              <p class="mt-4 font-display font-semibold text-pm-ink group-hover:text-pm-red transition-colors">
+                Learn more →
+              </p>
+            </div>
+          </a>
+        ))}
       </div>
     </div>
   </section>
@@ -237,7 +273,6 @@ const programs = [
             <p class="mt-3 text-sm text-pm-ink/65 leading-relaxed">
               We&apos;ll open Mailchimp in a new tab to confirm. No spam — promise.
             </p>
-            <!-- Honeypot field: real visitors can't see this, bots fill it in and get rejected. -->
             <div aria-hidden="true" style="position: absolute; left: -5000px;">
               <input type="text" name={MAILCHIMP_HONEYPOT_NAME} tabindex="-1" value="" />
             </div>
