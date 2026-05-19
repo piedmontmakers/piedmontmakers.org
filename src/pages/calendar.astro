@@ -1,0 +1,211 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Ribbon from "../components/Ribbon.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const link = (path: string) => `${base}${path}`;
+
+// Lets event frontmatter use internal paths like "/robotics" without baking
+// in the base prefix. External URLs (http:// or //) pass through.
+const resolveUrl = (url: string) => {
+  if (/^(https?:)?\/\//.test(url)) return url;
+  if (url.startsWith("/")) return `${base}${url}`;
+  return url;
+};
+
+const programLabel: Record<string, string> = {
+  "robotics": "Robotics",
+  "maker-faire": "Maker Faire",
+  "popup": "Popup",
+  "build-like-a-girl": "Build Like a Girl",
+  "july-4": "4th of July",
+  "other": "Event",
+};
+
+const programColor: Record<string, string> = {
+  "robotics": "bg-pm-red text-white",
+  "maker-faire": "bg-pm-cyan text-white",
+  "popup": "bg-pm-cyan text-white",
+  "build-like-a-girl": "bg-pm-purple text-white",
+  "july-4": "bg-pm-red text-white",
+  "other": "bg-pm-ink text-white",
+};
+
+// Default labels per action type — events can override per row in frontmatter.
+const actionLabel: Record<string, string> = {
+  tickets: "Get tickets",
+  register: "Register",
+  volunteer: "Volunteer",
+  exhibit: "Exhibit",
+  info: "More info",
+};
+
+// Visual treatment per action type. Tickets and register are the primary
+// transactions (filled red). Volunteer and exhibit are the participate-with-us
+// asks (filled cyan/purple). Info is the lowest-stakes link.
+const actionClass: Record<string, string> = {
+  tickets: "bg-pm-red text-white hover:bg-pm-red-deep",
+  register: "bg-pm-red text-white hover:bg-pm-red-deep",
+  volunteer: "bg-pm-cyan text-white hover:bg-pm-cyan-deep",
+  exhibit: "bg-pm-purple text-white hover:bg-pm-purple-deep",
+  info: "border-2 border-pm-ink text-pm-ink hover:bg-pm-ink hover:text-pm-cream",
+};
+
+// All events, sorted earliest first. Client-side script will split them
+// into upcoming and past based on the visitor's current date.
+const events = (await getCollection("events")).sort(
+  (a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf()
+);
+
+// YAML dates like 2026-05-17 are parsed as midnight UTC. Format using UTC
+// methods so the displayed day matches what's in the frontmatter, regardless
+// of the build server's timezone.
+const fmtDateParts = (d: Date) => ({
+  iso: d.toISOString().slice(0, 10),
+  month: d.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" }).toUpperCase(),
+  day: d.getUTCDate().toString(),
+  weekday: d.toLocaleDateString("en-US", { weekday: "short", timeZone: "UTC" }),
+  year: d.getUTCFullYear().toString(),
+});
+---
+
+<BaseLayout
+  title="Calendar — Piedmont Makers"
+  description="Calendar of upcoming and past Piedmont Makers events — robotics matches, maker faires, popup spaces, and more."
+>
+  <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-8">
+    <Ribbon color="cyan">Calendar</Ribbon>
+    <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-6xl tracking-tight leading-[0.98]">
+      Every dated thing, one calendar.
+    </h1>
+    <p class="mt-6 max-w-2xl text-lg text-pm-ink/75 leading-relaxed">
+      Robotics matches and scrimmages, Maker Faire, popup spaces, Build Like a Girl sessions, the 4th of July parade. To hear about new dates first, <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">subscribe to the newsletter</a>.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-6 pb-20 md:pb-28">
+    <!-- UPCOMING — rendered first; JS will move past events into the section below -->
+    <div data-events-upcoming>
+      <div class="flex items-baseline gap-4 border-b-2 border-pm-ink pb-3 mt-8">
+        <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight">Upcoming</h2>
+        <span data-upcoming-count class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55"></span>
+      </div>
+      <ul class="mt-2 divide-y divide-pm-ink/10" data-events-list>
+        {events.map((e) => {
+          const start = fmtDateParts(e.data.startDate);
+          const end = e.data.endDate ? fmtDateParts(e.data.endDate) : null;
+          const program = e.data.program;
+          const timeRange = e.data.startTime && e.data.endTime
+            ? `${e.data.startTime} – ${e.data.endTime}`
+            : (e.data.startTime || null);
+          const metaLine = [e.data.location, timeRange].filter(Boolean).join(" · ");
+          return (
+            <li
+              class="grid grid-cols-[88px_1fr] md:grid-cols-[112px_1fr] gap-x-5 md:gap-x-7 py-6"
+              data-event-date={start.iso}
+              data-event-program={program}
+            >
+              <div class="border-2 border-pm-ink overflow-hidden bg-pm-paper">
+                <div class="bg-pm-red text-white font-display font-semibold text-xs md:text-sm uppercase tracking-[0.18em] text-center py-1">
+                  {start.month}
+                </div>
+                <div class="px-2 py-2 text-center">
+                  <div class="font-display font-bold text-4xl md:text-5xl tracking-tight leading-none">{start.day}</div>
+                  <div class="font-display text-[10px] md:text-xs uppercase tracking-[0.18em] text-pm-ink/55 mt-2">{start.weekday} · {start.year}</div>
+                </div>
+              </div>
+              <div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class:list={["inline-flex items-center px-2.5 py-0.5 text-xs font-display font-semibold tracking-tight rounded-full", programColor[program]]}>
+                    {programLabel[program]}
+                  </span>
+                  {end && (
+                    <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">
+                      Through {end.month} {end.day}
+                    </span>
+                  )}
+                </div>
+                <h3 class="mt-2 font-display font-bold text-xl md:text-2xl tracking-tight leading-tight">
+                  {e.data.title}
+                </h3>
+                {metaLine && (
+                  <p class="mt-1.5 text-sm text-pm-ink/65 font-medium">{metaLine}</p>
+                )}
+                {e.data.summary && (
+                  <p class="mt-2 text-pm-ink/80 leading-relaxed">{e.data.summary}</p>
+                )}
+                {e.data.actions && e.data.actions.length > 0 && (
+                  <div class="mt-3 flex flex-wrap gap-2">
+                    {e.data.actions.map((a) => (
+                      <a
+                        href={resolveUrl(a.url)}
+                        class:list={[
+                          "inline-flex items-center gap-1.5 px-3.5 py-1.5 font-display font-semibold text-sm tracking-tight transition-colors",
+                          actionClass[a.type],
+                        ]}
+                      >
+                        {a.label || actionLabel[a.type]} <span aria-hidden="true">→</span>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      <div data-empty-upcoming class="hidden mt-6 rounded-2xl border-2 border-dashed border-pm-ink/20 p-8 text-center text-pm-ink/65">
+        <span class="font-marker text-2xl text-pm-purple block mb-2">nothing on the calendar right now</span>
+        We&apos;ll post the next batch of dates here as soon as they&apos;re set. The <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">newsletter</a> always gets them first.
+      </div>
+    </div>
+
+    <!-- PAST — JS will fill this with anything earlier than today -->
+    <div data-events-past class="mt-16 hidden">
+      <div class="flex items-baseline gap-4 border-b-2 border-pm-ink pb-3">
+        <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight text-pm-ink/55">Past events</h2>
+        <span data-past-count class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55"></span>
+      </div>
+      <ul class="mt-2 divide-y divide-pm-ink/10 opacity-80"></ul>
+    </div>
+  </section>
+
+  <!-- Client-side date logic. Runs on every page load so the page stays
+       accurate without rebuilds. -->
+  <script is:inline>
+    (function () {
+      // Today as a YYYY-MM-DD string in the visitor's local time. Compare
+      // against the event's data-event-date attribute lexically — works
+      // because YYYY-MM-DD sorts chronologically.
+      const now = new Date();
+      const todayStr =
+        now.getFullYear() +
+        "-" + String(now.getMonth() + 1).padStart(2, "0") +
+        "-" + String(now.getDate()).padStart(2, "0");
+
+      const upcomingList = document.querySelector("[data-events-upcoming] [data-events-list]");
+      const pastSection = document.querySelector("[data-events-past]");
+      const pastList = pastSection?.querySelector("ul");
+      const emptyUpcoming = document.querySelector("[data-empty-upcoming]");
+      if (!upcomingList || !pastList || !pastSection) return;
+
+      // Move past events to the past section in reverse-chronological order.
+      const items = Array.from(upcomingList.querySelectorAll("[data-event-date]"));
+      const past = items.filter((li) => li.dataset.eventDate < todayStr);
+      past.reverse().forEach((li) => pastList.appendChild(li));
+
+      // Counts.
+      const upcomingCount = upcomingList.children.length;
+      const pastCount = pastList.children.length;
+      const u = document.querySelector("[data-upcoming-count]");
+      const p = document.querySelector("[data-past-count]");
+      if (u) u.textContent = upcomingCount === 1 ? "1 event" : upcomingCount + " events";
+      if (p) p.textContent = pastCount === 1 ? "1 event" : pastCount + " events";
+
+      // Show / hide states.
+      if (pastCount > 0) pastSection.classList.remove("hidden");
+      if (upcomingCount === 0 && emptyUpcoming) emptyUpcoming.classList.remove("hidden");
+    })();
+  </script>
+</BaseLayout>

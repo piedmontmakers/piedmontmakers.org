@@ -8,6 +8,6 @@ program: "popup"
 summary: "Saturday afternoon of soldering, sewing, and 3D printing. Drop in, build something, take it home."
 actions:
   - type: info
-    url: "/programs/popup-maker-spaces"
+    url: "/events/popup-maker-spaces"
     label: "About popups"
 ---

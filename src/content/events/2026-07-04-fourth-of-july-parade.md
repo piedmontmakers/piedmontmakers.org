@@ -7,6 +7,6 @@ program: "july-4"
 summary: "We march with the robotics teams and Makey. Wave hello if you spot us."
 actions:
   - type: info
-    url: "/programs/fourth-of-july-parade"
+    url: "/events/fourth-of-july-parade"
     label: "About the parade"
 ---

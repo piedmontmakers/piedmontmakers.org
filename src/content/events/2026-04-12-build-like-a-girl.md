@@ -8,6 +8,6 @@ program: "build-like-a-girl"
 summary: "First spring session — mentored by FTC and FRC team members. Tools, robotics basics, snacks."
 actions:
   - type: info
-    url: "/programs/build-like-a-girl"
+    url: "/events/build-like-a-girl"
     label: "About the program"
 ---

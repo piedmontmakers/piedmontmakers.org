@@ -1,211 +1,125 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
+import PhotoCard from "../components/PhotoCard.astro";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
 
-// Lets event frontmatter use internal paths like "/robotics" without baking
-// in the base prefix. External URLs (http:// or //) pass through.
-const resolveUrl = (url: string) => {
-  if (/^(https?:)?\/\//.test(url)) return url;
-  if (url.startsWith("/")) return `${base}${url}`;
-  return url;
-};
-
-const programLabel: Record<string, string> = {
-  "robotics": "Robotics",
-  "maker-faire": "Maker Faire",
-  "popup": "Popup",
-  "build-like-a-girl": "Build Like a Girl",
-  "july-4": "4th of July",
-  "other": "Event",
-};
-
-const programColor: Record<string, string> = {
-  "robotics": "bg-pm-red text-white",
-  "maker-faire": "bg-pm-cyan text-white",
-  "popup": "bg-pm-cyan text-white",
-  "build-like-a-girl": "bg-pm-purple text-white",
-  "july-4": "bg-pm-red text-white",
-  "other": "bg-pm-ink text-white",
-};
-
-// Default labels per action type — events can override per row in frontmatter.
-const actionLabel: Record<string, string> = {
-  tickets: "Get tickets",
-  register: "Register",
-  volunteer: "Volunteer",
-  exhibit: "Exhibit",
-  info: "More info",
-};
-
-// Visual treatment per action type. Tickets and register are the primary
-// transactions (filled red). Volunteer and exhibit are the participate-with-us
-// asks (filled cyan/purple). Info is the lowest-stakes link.
-const actionClass: Record<string, string> = {
-  tickets: "bg-pm-red text-white hover:bg-pm-red-deep",
-  register: "bg-pm-red text-white hover:bg-pm-red-deep",
-  volunteer: "bg-pm-cyan text-white hover:bg-pm-cyan-deep",
-  exhibit: "bg-pm-purple text-white hover:bg-pm-purple-deep",
-  info: "border-2 border-pm-ink text-pm-ink hover:bg-pm-ink hover:text-pm-cream",
-};
-
-// All events, sorted earliest first. Client-side script will split them
-// into upcoming and past based on the visitor's current date.
-const events = (await getCollection("events")).sort(
-  (a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf()
-);
-
-// YAML dates like 2026-05-17 are parsed as midnight UTC. Format using UTC
-// methods so the displayed day matches what's in the frontmatter, regardless
-// of the build server's timezone.
-const fmtDateParts = (d: Date) => ({
-  iso: d.toISOString().slice(0, 10),
-  month: d.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" }).toUpperCase(),
-  day: d.getUTCDate().toString(),
-  weekday: d.toLocaleDateString("en-US", { weekday: "short", timeZone: "UTC" }),
-  year: d.getUTCFullYear().toString(),
-});
+const programs = [
+  {
+    href: "/events/maker-faire",
+    name: "School Maker Faire",
+    when: "Each May",
+    headline: "Our biggest event of the year.",
+    blurb: "K-12 students show what they made all year. Free, open to the public, 11am-3pm at Piedmont High School. The 12th annual just wrapped — next faire is May 2027.",
+    color: "red" as const,
+    src: "/img/programs/maker-faire.jpg",
+    caption: "Kids at the Maker Faire LEGO play table",
+    alt: "Children and parents gathered around a large outdoor LEGO play table at the Piedmont School Maker Faire.",
+    tilt: "left" as const,
+    tape: "none" as const,
+  },
+  {
+    href: "/events/popup-maker-spaces",
+    name: "Popup Maker Spaces",
+    when: "Sporadic Saturdays",
+    headline: "Hands-on workshops, free to drop in.",
+    blurb: "A few times a year we open a space and load it with tools — soldering irons, sewing machines, 3D printers, hot glue, cardboard. Watch the newsletter for the next date.",
+    color: "cyan" as const,
+    src: "/img/programs/popup.jpg",
+    caption: "Kids and parents making at a popup maker space",
+    alt: "Children and parents at long tables making craft projects with paper, markers, and cardboard inside a community hall.",
+    tilt: "right" as const,
+    tape: "left" as const,
+  },
+  {
+    href: "/events/build-like-a-girl",
+    name: "Build Like a Girl",
+    when: "Multiple sessions",
+    headline: "Young girls excited about robotics.",
+    blurb: "Mentored by the older female students from our FTC and FRC teams. A confidence-and-tools program: hands-on robotics taught by girls who've been doing it for years.",
+    color: "purple" as const,
+    src: "/img/programs/build-like-a-girl.jpg",
+    caption: "Older FRC students demoing a robot to a crowd of younger girls",
+    alt: "High school students in purple Piedmont Makers sweatshirts demonstrating a robot to a crowd of young girls.",
+    tilt: "left" as const,
+    tape: "right" as const,
+  },
+  {
+    href: "/events/fourth-of-july-parade",
+    name: "4th of July Parade",
+    when: "July 4 each year",
+    headline: "Our 15-foot robot down Highland Ave.",
+    blurb: "FRC Team 8033 drives the parade robot. Robotics teams march. We won 1st place in the 2024 parade. Spectators in lawn chairs encouraged.",
+    color: "red" as const,
+    src: "/img/programs/july-4.jpg",
+    caption: "Piedmont Makers crew with the inflatable Makey on Highland Ave",
+    alt: "A large group of Piedmont Makers kids and parents in matching shirts posing with the Piedmont Makers banner in front of a 15-foot inflatable red Makey robot on Highland Avenue.",
+    tilt: "right" as const,
+    tape: "none" as const,
+  },
+  {
+    href: "/events/after-school",
+    name: "After-School Enrichment",
+    when: "New in Fall 2025 · Beach Elementary",
+    headline: "Two new programs, both sold out within minutes.",
+    blurb: "Tinker Toy Lab (Grades 1-5) and Maker Invention Studio (Grades 3-5). Piloted at Beach Elementary this fall — both sessions filled within minutes of registration opening.",
+    color: "cyan" as const,
+    src: "/img/programs/popup.jpg",
+    caption: "After-school enrichment — kids making with paper, markers, and cardboard",
+    alt: "Children at long tables making craft projects in an after-school enrichment session.",
+    tilt: "left" as const,
+    tape: "right" as const,
+  },
+];
 ---
 
 <BaseLayout
   title="Events — Piedmont Makers"
-  description="Calendar of upcoming and past Piedmont Makers events — robotics matches, maker faires, popup spaces, and more."
+  description="Everything Piedmont Makers does beyond the robotics teams: the annual School Maker Faire, popup maker spaces, Build Like a Girl, the 4th of July parade, and after-school enrichment."
 >
-  <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-8">
+  <!-- Hero -->
+  <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-12">
     <Ribbon color="cyan">Events</Ribbon>
     <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-6xl tracking-tight leading-[0.98]">
-      Every dated thing, one calendar.
+      Come make something with us.
     </h1>
-    <p class="mt-6 max-w-2xl text-lg text-pm-ink/75 leading-relaxed">
-      Robotics matches and scrimmages, Maker Faire, popup spaces, Build Like a Girl sessions, the 4th of July parade. To hear about new dates first, <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">subscribe to the newsletter</a>.
+    <p class="mt-6 max-w-2xl text-lg md:text-xl text-pm-ink/75 leading-relaxed">
+      Open to anyone. Mostly free. Always hands-on. Each one a chance to come make something with your kid.
+    </p>
+    <p class="mt-4 max-w-2xl text-pm-ink/65 leading-relaxed">
+      For specific upcoming dates, see the <a href={link("/calendar")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">calendar</a>.
     </p>
   </section>
 
-  <section class="mx-auto max-w-7xl px-6 pb-20 md:pb-28">
-    <!-- UPCOMING — rendered first; JS will move past events into the section below -->
-    <div data-events-upcoming>
-      <div class="flex items-baseline gap-4 border-b-2 border-pm-ink pb-3 mt-8">
-        <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight">Upcoming</h2>
-        <span data-upcoming-count class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55"></span>
-      </div>
-      <ul class="mt-2 divide-y divide-pm-ink/10" data-events-list>
-        {events.map((e) => {
-          const start = fmtDateParts(e.data.startDate);
-          const end = e.data.endDate ? fmtDateParts(e.data.endDate) : null;
-          const program = e.data.program;
-          const timeRange = e.data.startTime && e.data.endTime
-            ? `${e.data.startTime} – ${e.data.endTime}`
-            : (e.data.startTime || null);
-          const metaLine = [e.data.location, timeRange].filter(Boolean).join(" · ");
-          return (
-            <li
-              class="grid grid-cols-[88px_1fr] md:grid-cols-[112px_1fr] gap-x-5 md:gap-x-7 py-6"
-              data-event-date={start.iso}
-              data-event-program={program}
-            >
-              <div class="border-2 border-pm-ink overflow-hidden bg-pm-paper">
-                <div class="bg-pm-red text-white font-display font-semibold text-xs md:text-sm uppercase tracking-[0.18em] text-center py-1">
-                  {start.month}
-                </div>
-                <div class="px-2 py-2 text-center">
-                  <div class="font-display font-bold text-4xl md:text-5xl tracking-tight leading-none">{start.day}</div>
-                  <div class="font-display text-[10px] md:text-xs uppercase tracking-[0.18em] text-pm-ink/55 mt-2">{start.weekday} · {start.year}</div>
-                </div>
-              </div>
-              <div>
-                <div class="flex flex-wrap items-center gap-2">
-                  <span class:list={["inline-flex items-center px-2.5 py-0.5 text-xs font-display font-semibold tracking-tight rounded-full", programColor[program]]}>
-                    {programLabel[program]}
-                  </span>
-                  {end && (
-                    <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">
-                      Through {end.month} {end.day}
-                    </span>
-                  )}
-                </div>
-                <h3 class="mt-2 font-display font-bold text-xl md:text-2xl tracking-tight leading-tight">
-                  {e.data.title}
-                </h3>
-                {metaLine && (
-                  <p class="mt-1.5 text-sm text-pm-ink/65 font-medium">{metaLine}</p>
-                )}
-                {e.data.summary && (
-                  <p class="mt-2 text-pm-ink/80 leading-relaxed">{e.data.summary}</p>
-                )}
-                {e.data.actions && e.data.actions.length > 0 && (
-                  <div class="mt-3 flex flex-wrap gap-2">
-                    {e.data.actions.map((a) => (
-                      <a
-                        href={resolveUrl(a.url)}
-                        class:list={[
-                          "inline-flex items-center gap-1.5 px-3.5 py-1.5 font-display font-semibold text-sm tracking-tight transition-colors",
-                          actionClass[a.type],
-                        ]}
-                      >
-                        {a.label || actionLabel[a.type]} <span aria-hidden="true">→</span>
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </li>
-          );
-        })}
-      </ul>
-      <div data-empty-upcoming class="hidden mt-6 rounded-2xl border-2 border-dashed border-pm-ink/20 p-8 text-center text-pm-ink/65">
-        <span class="font-marker text-2xl text-pm-purple block mb-2">nothing on the calendar right now</span>
-        We&apos;ll post the next batch of dates here as soon as they&apos;re set. The <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">newsletter</a> always gets them first.
-      </div>
-    </div>
-
-    <!-- PAST — JS will fill this with anything earlier than today -->
-    <div data-events-past class="mt-16 hidden">
-      <div class="flex items-baseline gap-4 border-b-2 border-pm-ink pb-3">
-        <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight text-pm-ink/55">Past events</h2>
-        <span data-past-count class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55"></span>
-      </div>
-      <ul class="mt-2 divide-y divide-pm-ink/10 opacity-80"></ul>
-    </div>
+  <!-- 4 program cards -->
+  <section class="mx-auto max-w-7xl px-6 pb-20">
+    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-14">
+      {programs.map((p) => (
+        <li>
+          <a href={link(p.href)} class="group block">
+            <PhotoCard
+              caption={p.caption}
+              color={p.color}
+              tilt={p.tilt}
+              tape={p.tape}
+              aspect="landscape"
+              src={p.src}
+              alt={p.alt}
+            />
+            <div class="mt-5 px-1">
+              <Ribbon color={p.color}>{p.name}</Ribbon>
+              <p class="mt-3 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">{p.when}</p>
+              <h2 class="mt-2 font-display font-bold text-2xl md:text-3xl tracking-tight leading-tight">{p.headline}</h2>
+              <p class="mt-3 text-pm-ink/80 leading-relaxed">{p.blurb}</p>
+              <p class="mt-4 font-display font-semibold text-pm-ink group-hover:text-pm-red transition-colors">
+                Learn more →
+              </p>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
   </section>
-
-  <!-- Client-side date logic. Runs on every page load so the page stays
-       accurate without rebuilds. -->
-  <script is:inline>
-    (function () {
-      // Today as a YYYY-MM-DD string in the visitor's local time. Compare
-      // against the event's data-event-date attribute lexically — works
-      // because YYYY-MM-DD sorts chronologically.
-      const now = new Date();
-      const todayStr =
-        now.getFullYear() +
-        "-" + String(now.getMonth() + 1).padStart(2, "0") +
-        "-" + String(now.getDate()).padStart(2, "0");
-
-      const upcomingList = document.querySelector("[data-events-upcoming] [data-events-list]");
-      const pastSection = document.querySelector("[data-events-past]");
-      const pastList = pastSection?.querySelector("ul");
-      const emptyUpcoming = document.querySelector("[data-empty-upcoming]");
-      if (!upcomingList || !pastList || !pastSection) return;
-
-      // Move past events to the past section in reverse-chronological order.
-      const items = Array.from(upcomingList.querySelectorAll("[data-event-date]"));
-      const past = items.filter((li) => li.dataset.eventDate < todayStr);
-      past.reverse().forEach((li) => pastList.appendChild(li));
-
-      // Counts.
-      const upcomingCount = upcomingList.children.length;
-      const pastCount = pastList.children.length;
-      const u = document.querySelector("[data-upcoming-count]");
-      const p = document.querySelector("[data-past-count]");
-      if (u) u.textContent = upcomingCount === 1 ? "1 event" : upcomingCount + " events";
-      if (p) p.textContent = pastCount === 1 ? "1 event" : pastCount + " events";
-
-      // Show / hide states.
-      if (pastCount > 0) pastSection.classList.remove("hidden");
-      if (upcomingCount === 0 && emptyUpcoming) emptyUpcoming.classList.remove("hidden");
-    })();
-  </script>
 </BaseLayout>
