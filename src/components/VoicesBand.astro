@@ -1,0 +1,51 @@
+---
+interface Voice {
+  quote: string;
+  name: string;
+  role: string;
+  accentColor?: "red" | "cyan" | "purple" | "cream";
+}
+
+interface Props {
+  voices: Voice[];
+  /** Optional small label that sets context, e.g. "From the community". */
+  eyebrow?: string;
+}
+
+const { voices, eyebrow } = Astro.props;
+
+const accentClass = {
+  red: "text-pm-red",
+  cyan: "text-pm-cyan",
+  purple: "text-pm-purple",
+  cream: "text-pm-cream",
+};
+---
+
+<section class="bg-pm-ink text-pm-cream">
+  <div class="mx-auto max-w-7xl px-6 py-14 md:py-16">
+    {eyebrow && (
+      <p class="font-display text-xs uppercase tracking-[0.22em] text-pm-cream/55 mb-8">
+        {eyebrow}
+      </p>
+    )}
+    <ul class="grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-10 md:divide-x divide-pm-cream/12">
+      {voices.map((v) => {
+        const accent = accentClass[v.accentColor || "cream"];
+        return (
+          <li class="md:px-8 first:md:pl-0 last:md:pr-0">
+            <span class:list={["font-display text-3xl leading-none align-top", accent]}>&ldquo;</span>
+            <p class="font-display font-medium text-xl md:text-[1.4rem] leading-snug tracking-tight inline">
+              {v.quote}
+            </p>
+            <p class="mt-4 font-display text-xs uppercase tracking-[0.18em] text-pm-cream/65">
+              <span class:list={["font-semibold", accent]}>{v.name}</span>
+              <span class="text-pm-cream/45 mx-2">·</span>
+              {v.role}
+            </p>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>

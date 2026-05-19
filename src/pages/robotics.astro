@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
 import PhotoCard from "../components/PhotoCard.astro";
 import FAQ from "../components/FAQ.astro";
+import VoicesBand from "../components/VoicesBand.astro";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
@@ -110,6 +111,28 @@ const faqItems = [
   },
 ];
 
+// Placeholder voices — swap in real student quotes when collected.
+const voices = [
+  {
+    quote: "We built our first LEGO robot in 3 weeks. It actually drove around the cones.",
+    name: "Eli",
+    role: "1st grade · FLL Explore",
+    accentColor: "red" as const,
+  },
+  {
+    quote: "I learned Java because I had to make the robot do something specific. That ended up being the fun part.",
+    name: "Priya",
+    role: "9th grade · FTC",
+    accentColor: "cyan" as const,
+  },
+  {
+    quote: "We mentor the FLL kids the same way the seniors mentored us. The team grows itself.",
+    name: "Cassie",
+    role: "FRC Team 8033 captain",
+    accentColor: "purple" as const,
+  },
+];
+
 const coachResources = [
   { title: "FLL Explore — Coach Training 2025–26", url: levels[0].coachTraining },
   { title: "FLL Challenge — Coach Training 2025–26", url: levels[1].coachTraining },
@@ -122,7 +145,7 @@ const coachResources = [
 
 <BaseLayout
   title="Robotics — Piedmont Makers"
-  description="Four levels of FIRST robotics, K through high school. The largest community robotics league in the United States — 900+ kids, 125+ teams, open to all East Bay students."
+  description="Four levels of FIRST robotics, K through high school. Open to East Bay students. Kids learn engineering by doing, and the older kids teach the younger ones."
 >
   <!-- Hero -->
   <section class="mx-auto max-w-7xl px-6 pt-16 pb-12">
@@ -131,39 +154,18 @@ const coachResources = [
       Four levels. K through<br />high school.
     </h1>
     <p class="mt-7 max-w-2xl text-lg md:text-xl text-pm-ink/75 leading-relaxed">
-      Piedmont Makers organizes FIRST Robotics teams and hosts tournaments serving more than 900 students across 125+ teams. We're the largest community robotics league in the United States — and we want your kid on a team.
+      FIRST Robotics teams across the East Bay, from LEGO bricks in 1st grade to 120-pound competition robots in high school. Kids learn engineering by doing — and the older kids teach the younger ones.
     </p>
   </section>
 
-  <!-- Stats band -->
-  <section class="bg-pm-ink text-pm-cream">
-    <div class="mx-auto max-w-7xl px-6 py-10 md:py-12">
-      <ul class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 md:divide-x divide-pm-cream/15">
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-red leading-none">900+</p>
-          <p class="mt-2 text-sm text-pm-cream/80">kids on our teams</p>
-        </li>
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cyan leading-none">125+</p>
-          <p class="mt-2 text-sm text-pm-cream/80">robotics teams</p>
-        </li>
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-purple leading-none">20+</p>
-          <p class="mt-2 text-sm text-pm-cream/80">East Bay cities served</p>
-        </li>
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cream leading-none">#1</p>
-          <p class="mt-2 text-sm text-pm-cream/80">community robotics league in the US</p>
-        </li>
-      </ul>
-    </div>
-  </section>
+  <!-- Voices band -->
+  <VoicesBand voices={voices} eyebrow="From the teams" />
 
   <!-- The four levels -->
   <section class="mx-auto max-w-7xl px-6 pt-20">
     <h2 class="font-display font-bold text-4xl md:text-5xl tracking-tight leading-tight">The four levels.</h2>
     <p class="mt-3 max-w-2xl text-lg text-pm-ink/75 leading-relaxed">
-      Sign-ups for the fall season run <strong>March through May</strong>. Financial aid is available — cost should not be a barrier.
+      This season, 900+ kids from 20+ East Bay cities are on a Piedmont Makers team across 125+ teams. Sign-ups for the fall run <strong>March through May</strong>. Financial aid is available — cost should not be a barrier.
     </p>
 
     <div class="mt-12 space-y-20">

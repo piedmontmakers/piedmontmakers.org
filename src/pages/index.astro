@@ -4,6 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
 import PhotoCard from "../components/PhotoCard.astro";
 import Scribble from "../components/Scribble.astro";
+import VoicesBand from "../components/VoicesBand.astro";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
@@ -18,11 +19,28 @@ const formatDate = (d: Date) =>
 const asset = (path: string) => `${base}${path.startsWith("/") ? path : `/${path}`}`;
 const blogThumbFallback = "/img/brand/makey.png";
 
-const stats = [
-  { number: "$25K+", label: "in STEAM grants every year", color: "text-pm-red" },
-  { number: "4", label: "robotics teams, K through 12", color: "text-pm-cyan" },
-  { number: "12th", label: "annual School Maker Faire", color: "text-pm-purple" },
-  { number: "Since 2014", label: "all-volunteer, all Piedmont", color: "text-pm-cream" },
+// Placeholder voices — swap in real quotes from kids, volunteer coaches, and
+// partner teachers when collected. The structure is the point: the community
+// is the hero, not the org.
+const voices = [
+  {
+    quote: "We made a robot that picked up four cones in a row. I helped program the arm.",
+    name: "Anya",
+    role: "5th grade · FLL Challenge",
+    accentColor: "red" as const,
+  },
+  {
+    quote: "I started coaching because my kid was on the team. I stayed because the other kids are great.",
+    name: "Marco",
+    role: "FTC parent coach",
+    accentColor: "cyan" as const,
+  },
+  {
+    quote: "My students built a working circuit on a t-shirt. Piedmont Makers paid for the LEDs.",
+    name: "Ms. Chen",
+    role: "Beach Elementary · 4th grade",
+    accentColor: "purple" as const,
+  },
 ];
 
 // Mailchimp audience details extracted from the unsubscribe link in the
@@ -156,19 +174,8 @@ const events = [
     </div>
   </section>
 
-  <!-- STATS BAND — visual separator + social proof -->
-  <section class="bg-pm-ink text-pm-cream">
-    <div class="mx-auto max-w-7xl px-6 py-10 md:py-12">
-      <ul class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 divide-pm-cream/15 md:divide-x">
-        {stats.map((s, i) => (
-          <li class:list={["text-center md:px-6", i === 0 ? "" : ""]}>
-            <p class:list={["font-display font-bold text-3xl md:text-4xl tracking-tight leading-none", s.color]}>{s.number}</p>
-            <p class="mt-2 text-sm md:text-[0.95rem] text-pm-cream/80 leading-snug">{s.label}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
+  <!-- VOICES BAND — community as the hero, not the org -->
+  <VoicesBand voices={voices} eyebrow="What kids and parents are telling us" />
 
   <!-- ROBOTICS — the flagship program, deep dive -->
   <section class="relative">
