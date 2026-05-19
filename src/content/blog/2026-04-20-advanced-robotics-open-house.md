@@ -12,6 +12,6 @@ heroImageAlt: "FRC robot on the competition floor surrounded by team members."
 **Saturday, May 17, 2026 · 2:00pm**
 **Mary G. Ross Engineering Lab at Piedmont High School**
 
-Come learn about the upcoming Fall '26 season — FTC, FRC, what each looks like week-to-week, what registration involves, and what kids actually do. We hope to see you there.
+Come learn about the upcoming Fall '26 season — FTC, FRC, what each looks like week-to-week, what registration involves, and what kids work on. We hope to see you there.
 
 Can't make it? Email <a href="mailto:robotics@piedmontmakers.org">robotics@piedmontmakers.org</a> and we'll send the same materials by email.
