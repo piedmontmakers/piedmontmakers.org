@@ -105,6 +105,14 @@ Page containers: every section uses `mx-auto max-w-7xl px-6` so the left edge al
 
 Anywhere else that describes the audience, rewrite to **"East Bay"** or **"Piedmont and beyond"**, or drop the geographic adjective entirely. Specifically: not "Piedmont kids", not "Piedmont parents", not "for kids and adults in Piedmont".
 
+## Donor-amount policy
+
+**Don't publish the specific dollar amount any named third-party donor gave to us.** List the donor names and the nature of their contribution if useful (`"Grant"`, `"CNC Router · in-kind"`), but no per-donor dollar amounts.
+
+**Do publish dollar amounts the org GAVE OUT.** Teacher grant totals, per-school breakdowns, individual grant amounts to named teachers — all fair game on `/grants`. That's accountability.
+
+**Aggregate campaign totals** are OK *only when* they sum across enough donors that the total reveals no individual's amount. The Engineering Lab capital campaign ($245K across 60+ donors) qualifies. The 10th Street facility campaign had only 2-3 named donors — the aggregate would reveal individual amounts by subtraction, so we don't publish it either.
+
 ## Content editing patterns
 
 ### Add a blog post
