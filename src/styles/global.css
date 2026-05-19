@@ -15,7 +15,8 @@
   --color-pm-paper: #FFFCF6;
 
   --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-marker: "Caveat", ui-rounded, "Comic Sans MS", cursive;
 
   --shadow-card: 0 1px 0 0 rgba(15, 27, 45, 0.06), 0 8px 24px -8px rgba(15, 27, 45, 0.18);
   --shadow-ribbon: 0 6px 0 -2px rgba(15, 27, 45, 0.12);
@@ -30,10 +31,37 @@ html {
 }
 
 body {
-  font-family: var(--font-serif);
+  font-family: var(--font-body);
   color: var(--color-pm-ink);
   font-feature-settings: "ss01", "ss02";
 }
+
+/* Hand-lettered accent for captions and "tape" labels */
+.font-marker {
+  font-family: var(--font-marker);
+  font-weight: 600;
+}
+
+/* Photo card with a slight casual tilt — like a polaroid pinned to a board */
+.tilt-left { transform: rotate(-1.5deg); }
+.tilt-right { transform: rotate(1.5deg); }
+.tilt-left-md { transform: rotate(-3deg); }
+.tilt-right-md { transform: rotate(3deg); }
+
+/* "Tape" corner detail on photo cards */
+.tape-top-left::before,
+.tape-top-right::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  width: 70px;
+  height: 22px;
+  background: rgba(255, 220, 100, 0.85);
+  box-shadow: 0 2px 4px rgba(15, 27, 45, 0.18);
+  z-index: 2;
+}
+.tape-top-left::before { left: 12px; transform: rotate(-6deg); }
+.tape-top-right::before { right: 12px; transform: rotate(6deg); }
 
 ::selection {
   background-color: var(--color-pm-cyan);
@@ -50,8 +78,12 @@ body {
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: var(--tracking-display);
-  color: white;
   clip-path: polygon(0 0, calc(100% - 0.9em) 0, 100% 50%, calc(100% - 0.9em) 100%, 0 100%, 0.4em 50%);
+}
+
+/* Default to white text; pages can override with text-pm-ink etc. */
+.ribbon:not([class*="text-"]) {
+  color: white;
 }
 
 .ribbon-left {

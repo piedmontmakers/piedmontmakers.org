@@ -1,0 +1,91 @@
+---
+type Variant = "underline" | "arrow-right" | "arrow-down" | "swirl" | "burst";
+
+interface Props {
+  variant?: Variant;
+  color?: "red" | "cyan" | "purple" | "ink";
+  class?: string;
+}
+
+const { variant = "underline", color = "red", class: extra = "" } = Astro.props;
+
+const stroke = {
+  red: "#E51926",
+  cyan: "#00AEEF",
+  purple: "#92278F",
+  ink: "#0F1B2D",
+}[color];
+---
+
+{variant === "underline" && (
+  <svg viewBox="0 0 200 14" fill="none" class:list={["block", extra]} aria-hidden="true">
+    <path
+      d="M2 9 C 30 2, 60 12, 90 6 S 150 12, 198 5"
+      stroke={stroke}
+      stroke-width="4"
+      stroke-linecap="round"
+    />
+  </svg>
+)}
+
+{variant === "arrow-right" && (
+  <svg viewBox="0 0 120 60" fill="none" class:list={["block", extra]} aria-hidden="true">
+    <path
+      d="M4 30 C 30 10, 70 50, 110 28"
+      stroke={stroke}
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+    <path
+      d="M100 18 L 112 28 L 100 38"
+      stroke={stroke}
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+)}
+
+{variant === "arrow-down" && (
+  <svg viewBox="0 0 60 120" fill="none" class:list={["block", extra]} aria-hidden="true">
+    <path
+      d="M30 4 C 14 30, 50 70, 28 110"
+      stroke={stroke}
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+    <path
+      d="M18 100 L 28 112 L 40 102"
+      stroke={stroke}
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+)}
+
+{variant === "swirl" && (
+  <svg viewBox="0 0 60 60" fill="none" class:list={["block", extra]} aria-hidden="true">
+    <path
+      d="M30 8 C 50 8, 50 38, 30 38 C 14 38, 14 22, 26 22 C 34 22, 34 30, 28 30"
+      stroke={stroke}
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+  </svg>
+)}
+
+{variant === "burst" && (
+  <svg viewBox="0 0 80 80" fill="none" class:list={["block", extra]} aria-hidden="true">
+    <g stroke={stroke} stroke-width="3" stroke-linecap="round">
+      <line x1="40" y1="6" x2="40" y2="18" />
+      <line x1="40" y1="62" x2="40" y2="74" />
+      <line x1="6" y1="40" x2="18" y2="40" />
+      <line x1="62" y1="40" x2="74" y2="40" />
+      <line x1="16" y1="16" x2="24" y2="24" />
+      <line x1="56" y1="56" x2="64" y2="64" />
+      <line x1="16" y1="64" x2="24" y2="56" />
+      <line x1="56" y1="24" x2="64" y2="16" />
+    </g>
+  </svg>
+)}

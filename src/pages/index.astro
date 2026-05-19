@@ -1,34 +1,253 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
+import PhotoCard from "../components/PhotoCard.astro";
+import Scribble from "../components/Scribble.astro";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const link = (path: string) => `${base}${path}`;
+
+const programs = [
+  {
+    name: "FLL Explore",
+    ages: "Ages 5–9 · K–3rd grade",
+    blurb: "A gentle intro to robotics with LEGO Education kits. Build, play, present.",
+    color: "red" as const,
+    href: "/robotics",
+    caption: "Photo: FLL Explore team building during a session",
+  },
+  {
+    name: "FLL Challenge",
+    ages: "Ages 9–14 · 4th–8th grade",
+    blurb: "Build LEGO robots, run autonomous missions, present an innovation project.",
+    color: "cyan" as const,
+    href: "/robotics",
+    caption: "Photo: FLL Challenge robot at qualifier",
+  },
+  {
+    name: "FTC Robotics",
+    ages: "Ages 12–18 · 7th–12th grade",
+    blurb: "Custom metal robots, Java programming, regional competitions.",
+    color: "purple" as const,
+    href: "/robotics",
+    caption: "Photo: FTC team in pit at regionals",
+  },
+  {
+    name: "FRC Team 8627",
+    ages: "Ages 14–18 · High school",
+    blurb: "The big leagues — 120-pound competition robots, build season, full-on engineering.",
+    color: "red" as const,
+    href: "/robotics",
+    caption: "Photo: FRC drive team at championship",
+  },
+  {
+    name: "School Maker Faire",
+    ages: "All ages · May each year",
+    blurb: "A 12-year tradition. Kids and teachers show what they made all year.",
+    color: "cyan" as const,
+    href: "/school-maker-faire",
+    caption: "Photo: 2025 Maker Faire main floor",
+  },
+  {
+    name: "Tech Social",
+    ages: "All ages · First Friday monthly",
+    blurb: "A guest speaker, a free dinner, a casual hangout for the maker community.",
+    color: "purple" as const,
+    href: "/tech-social",
+    caption: "Photo: Tech Social audience listening to speaker",
+  },
+];
 ---
 
-<BaseLayout title="Piedmont Makers — STEAM, robotics & maker culture in Piedmont, CA">
-  <section class="mx-auto max-w-7xl px-6 pt-12 md:pt-20 pb-24">
-    <div class="grid md:grid-cols-12 gap-10 items-center">
+<BaseLayout title="Piedmont Makers — STEAM, robotics & maker culture for Piedmont kids">
+  <!-- HERO: photo-led, energetic, parent-facing -->
+  <section class="relative overflow-hidden">
+    <!-- Background color band -->
+    <div class="absolute inset-0 -z-10 bg-pm-cream"></div>
+
+    <div class="mx-auto max-w-7xl px-6 pt-10 md:pt-16 pb-20 md:pb-28">
+      <div class="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
+        <div class="md:col-span-6 md:order-1">
+          <Ribbon color="red">Welcome</Ribbon>
+          <h1 class="mt-6 font-display font-bold tracking-tight text-pm-ink text-5xl md:text-6xl lg:text-7xl leading-[0.95]">
+            Where Piedmont kids learn to make
+            <span class="relative inline-block">
+              <span class="relative z-10">almost anything.</span>
+              <Scribble variant="underline" color="red" class="absolute -bottom-2 left-0 w-full h-3" />
+            </span>
+          </h1>
+          <p class="mt-7 max-w-xl text-lg md:text-xl text-pm-ink/75 leading-relaxed">
+            Robotics teams, an after-school engineering lab, a yearly school maker faire, and a monthly tech speaker series. Free or low-cost. Year-round. Run by parents and volunteers right here in your neighborhood.
+          </p>
+          <div class="mt-10 flex flex-wrap items-center gap-3">
+            <a href={link("/robotics")} class="ribbon bg-pm-red text-white text-base hover:bg-pm-red-deep transition-colors">Sign your kid up</a>
+            <a href={link("/community")} class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
+              What we do
+            </a>
+            <span class="font-marker text-2xl text-pm-purple ml-2 hidden md:inline-block">since 2014!</span>
+          </div>
+        </div>
+
+        <!-- Photo collage -->
+        <div class="md:col-span-6 md:order-2 relative">
+          <div class="relative h-[460px] md:h-[540px]">
+            <!-- Big back photo -->
+            <div class="absolute top-0 right-0 w-[78%] aspect-[4/3] rounded-3xl bg-pm-cyan overflow-hidden shadow-[var(--shadow-card)] tilt-right">
+              <div class="w-full h-full flex items-end p-6">
+                <div>
+                  <span class="font-display text-[10px] uppercase tracking-[0.18em] text-white/75 block">Photo</span>
+                  <span class="font-body text-sm text-white/95">FRC Team 8627 drive practice</span>
+                </div>
+              </div>
+            </div>
+            <!-- Front photo, smaller, offset -->
+            <div class="absolute bottom-0 left-0 w-[58%] aspect-[3/4] rounded-3xl bg-pm-red overflow-hidden shadow-[var(--shadow-card)] tilt-left-md">
+              <div class="w-full h-full flex items-end p-6">
+                <div>
+                  <span class="font-display text-[10px] uppercase tracking-[0.18em] text-white/75 block">Photo</span>
+                  <span class="font-body text-sm text-white/95">Maker Faire 2026, the big build</span>
+                </div>
+              </div>
+            </div>
+            <!-- Tiny tape-corner photo, top-left -->
+            <div class="absolute top-12 left-0 md:-left-4 w-[34%] aspect-square rounded-2xl bg-pm-purple overflow-hidden shadow-[var(--shadow-card)] tilt-right tape-top-left">
+              <div class="w-full h-full flex items-end p-3">
+                <span class="font-marker text-sm text-white/95">Makey says hi!</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS BAND: this is what parents are here for -->
+  <section class="relative">
+    <div class="mx-auto max-w-7xl px-6 pt-20 pb-12">
+      <div class="flex flex-wrap items-end justify-between gap-6 mb-10">
+        <div>
+          <Ribbon color="cyan">Programs for your kid</Ribbon>
+          <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight">
+            Pick the right one for your kid&apos;s age and energy.
+          </h2>
+        </div>
+        <a href={link("/robotics")} class="font-display font-semibold text-pm-red hover:text-pm-red-deep underline-offset-4 hover:underline whitespace-nowrap">
+          See all programs →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
+        {programs.map((p, i) => (
+          <a href={link(p.href)} class="group block">
+            <PhotoCard
+              caption={p.caption}
+              color={p.color}
+              tilt={i % 2 === 0 ? "left" : "right"}
+              tape={i === 0 ? "left" : i === 3 ? "right" : "none"}
+              aspect="landscape"
+            />
+            <div class="mt-4 px-1">
+              <Ribbon color={p.color}>{p.name}</Ribbon>
+              <p class="mt-3 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">{p.ages}</p>
+              <p class="mt-2 text-pm-ink/80 leading-relaxed">{p.blurb}</p>
+              <p class="mt-3 font-display font-semibold text-pm-ink group-hover:text-pm-red transition-colors">
+                Learn more →
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- THIS YEAR — full-bleed red band with upcoming events -->
+  <section class="mt-16 bg-pm-red text-white">
+    <div class="mx-auto max-w-7xl px-6 py-16 md:py-20">
+      <div class="grid md:grid-cols-12 gap-10 items-start">
+        <div class="md:col-span-4">
+          <Ribbon color="ink">This year</Ribbon>
+          <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight leading-[1.02]">
+            What&apos;s coming up at Piedmont Makers.
+          </h2>
+          <p class="mt-5 text-white/85 leading-relaxed max-w-sm">
+            Sign-ups, build seasons, faires, and free monthly events.
+          </p>
+        </div>
+        <div class="md:col-span-8 grid sm:grid-cols-2 gap-6">
+          <div class="bg-white/95 text-pm-ink rounded-2xl p-6 shadow-[var(--shadow-card)]">
+            <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-red">May 17 · 2026</span>
+            <h3 class="mt-2 font-display font-bold text-2xl leading-tight">12th Annual School Maker Faire</h3>
+            <p class="mt-3 text-pm-ink/75 leading-relaxed">K-12 students show what they made all year. Free, open to the public, all-day at the Veterans&apos; Building.</p>
+            <a href={link("/school-maker-faire")} class="mt-4 inline-block font-display font-semibold text-pm-red hover:text-pm-red-deep underline underline-offset-4">Details →</a>
+          </div>
+          <div class="bg-white/95 text-pm-ink rounded-2xl p-6 shadow-[var(--shadow-card)]">
+            <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-cyan-deep">First Fridays · monthly</span>
+            <h3 class="mt-2 font-display font-bold text-2xl leading-tight">Tech Social — speaker series</h3>
+            <p class="mt-3 text-pm-ink/75 leading-relaxed">A guest speaker, free dinner, casual hangout for the maker community. Bring the kids.</p>
+            <a href={link("/tech-social")} class="mt-4 inline-block font-display font-semibold text-pm-red hover:text-pm-red-deep underline underline-offset-4">Upcoming speakers →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY WE MAKE — purple Makey moment -->
+  <section class="bg-pm-purple text-white">
+    <div class="mx-auto max-w-7xl px-6 py-20 md:py-24 grid md:grid-cols-12 gap-10 items-center">
+      <div class="md:col-span-5 flex items-center justify-center md:justify-start">
+        <img src={`${base}/img/brand/makey.png`} alt="Makey, the Piedmont Makers mascot" class="w-72 md:w-80 h-auto" />
+      </div>
       <div class="md:col-span-7">
-        <Ribbon color="red">Coming soon</Ribbon>
-        <h1 class="mt-6 font-display font-bold tracking-tight text-pm-ink text-5xl md:text-7xl leading-[0.95]">
-          A new home for<br />Piedmont Makers.
-        </h1>
-        <p class="mt-6 max-w-xl font-serif text-xl text-pm-ink-soft leading-relaxed">
-          We&apos;re rebuilding piedmontmakers.org from the ground up. The full site is on its way. In the meantime, our existing site is still live.
+        <p class="font-marker text-3xl text-pm-cream/90">why we make</p>
+        <h2 class="mt-2 font-display font-bold text-4xl md:text-5xl tracking-tight leading-[1.04]">
+          Because every kid in Piedmont should get to build something they&apos;re proud of.
+        </h2>
+        <p class="mt-6 text-lg text-white/85 leading-relaxed max-w-2xl">
+          We&apos;re a 501(c)(3) run by parents and volunteers. We don&apos;t charge admission to most of what we do. We give $25,000+ in STEAM grants to local teachers every year. We run robotics teams, a community engineering lab, and a school maker faire that&apos;s now in its 12th year.
         </p>
-        <div class="mt-10 flex flex-wrap gap-3">
-          <a href="https://www.piedmontmakers.org" class="ribbon bg-pm-ink text-white text-base hover:bg-pm-ink-soft transition-colors">Visit the current site</a>
-          <a href="https://donate.piedmontmakers.org" class="ribbon bg-pm-red text-white text-base hover:bg-pm-red-deep transition-colors">Donate</a>
-          <a href={`${base}/styleguide`} class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
-            Preview the design →
+        <p class="mt-4 text-lg text-white/85 leading-relaxed max-w-2xl">
+          The reason it all works is the same reason most good community things work: a lot of people show up, regularly, and pitch in.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a href={link("/about")} class="ribbon bg-pm-cream text-pm-ink text-base hover:bg-white transition-colors">Meet the board</a>
+          <a href={link("/community")} class="inline-flex items-center gap-2 rounded-full border-2 border-white px-5 py-2.5 font-display font-semibold text-white hover:bg-white hover:text-pm-purple transition-colors">
+            Volunteer with us
           </a>
         </div>
       </div>
-      <div class="md:col-span-5">
-        <div class="rounded-[2rem] bg-pm-purple p-10 md:p-14 flex items-center justify-center shadow-[var(--shadow-card)]">
-          <img src={`${base}/img/brand/makey.png`} alt="Makey, the Piedmont Makers mascot" class="w-64 md:w-72 h-auto" />
-        </div>
-      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO HELP -->
+  <section class="mx-auto max-w-7xl px-6 py-20 md:py-24">
+    <div class="text-center max-w-3xl mx-auto">
+      <Ribbon color="red">How to help</Ribbon>
+      <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight">
+        Three ways to keep this going.
+      </h2>
+      <p class="mt-4 text-pm-ink/75 text-lg leading-relaxed">
+        We&apos;re an entirely volunteer-run nonprofit. Any of these helps a lot.
+      </p>
+    </div>
+    <div class="mt-12 grid md:grid-cols-3 gap-6">
+      <a href="https://donate.piedmontmakers.org" class="block rounded-3xl bg-pm-ink text-pm-cream p-8 hover:bg-pm-ink-soft transition-colors group">
+        <span class="font-marker text-2xl text-pm-red">tax-deductible!</span>
+        <h3 class="mt-2 font-display font-bold text-3xl tracking-tight">Donate</h3>
+        <p class="mt-3 text-pm-cream/80 leading-relaxed">Direct to programs. Square-processed. EIN 81-2725831.</p>
+        <p class="mt-6 font-display font-semibold text-pm-cream group-hover:text-pm-red transition-colors">Go to donate.piedmontmakers.org →</p>
+      </a>
+      <a href={link("/community")} class="block rounded-3xl bg-pm-cyan text-white p-8 hover:bg-pm-cyan-deep transition-colors group">
+        <span class="font-marker text-2xl text-pm-cream">we need you!</span>
+        <h3 class="mt-2 font-display font-bold text-3xl tracking-tight">Volunteer</h3>
+        <p class="mt-3 text-white/85 leading-relaxed">Coach a team, mentor at Maker Faire, help with Tech Social. A few hours a month makes a real difference.</p>
+        <p class="mt-6 font-display font-semibold group-hover:text-pm-ink transition-colors">See open roles →</p>
+      </a>
+      <a href="https://www.bonfire.com/piedmont-makers-t-shirt/" class="block rounded-3xl bg-pm-cream-2 text-pm-ink p-8 hover:bg-pm-cream transition-colors group">
+        <span class="font-marker text-2xl text-pm-purple">on Bonfire</span>
+        <h3 class="mt-2 font-display font-bold text-3xl tracking-tight">Buy a shirt</h3>
+        <p class="mt-3 text-pm-ink/75 leading-relaxed">Makey, in full color, on quality cotton. Proceeds fund the programs.</p>
+        <p class="mt-6 font-display font-semibold text-pm-ink group-hover:text-pm-red transition-colors">Shop the store →</p>
+      </a>
     </div>
   </section>
 </BaseLayout>

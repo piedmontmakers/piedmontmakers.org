@@ -1,0 +1,80 @@
+---
+type Color = "red" | "cyan" | "purple" | "ink" | "cream";
+
+interface Props {
+  /** Caption text shown below the photo. */
+  caption: string;
+  /** Background color for the photo placeholder (until real images land). */
+  color?: Color;
+  /** Slight rotation: "left" tilts CCW, "right" tilts CW, "none" is flat. */
+  tilt?: "left" | "right" | "none";
+  /** "Tape" decoration at one of the top corners. */
+  tape?: "left" | "right" | "none";
+  /** Photo aspect ratio: portrait, landscape, square. */
+  aspect?: "portrait" | "landscape" | "square";
+  /** Optional eyebrow label at the top of the caption (e.g. "FRC Team 8627"). */
+  eyebrow?: string;
+  /** When supplied, the photo placeholder is replaced with this image. */
+  src?: string;
+  alt?: string;
+  class?: string;
+}
+
+const {
+  caption,
+  color = "cyan",
+  tilt = "none",
+  tape = "none",
+  aspect = "landscape",
+  eyebrow,
+  src,
+  alt = "",
+  class: extra = "",
+} = Astro.props;
+
+const colorClass = {
+  red: "bg-pm-red",
+  cyan: "bg-pm-cyan",
+  purple: "bg-pm-purple",
+  ink: "bg-pm-ink",
+  cream: "bg-pm-cream-2",
+}[color];
+
+const tiltClass = {
+  left: "tilt-left",
+  right: "tilt-right",
+  none: "",
+}[tilt];
+
+const tapeClass = {
+  left: "tape-top-left",
+  right: "tape-top-right",
+  none: "",
+}[tape];
+
+const aspectClass = {
+  portrait: "aspect-[3/4]",
+  landscape: "aspect-[4/3]",
+  square: "aspect-square",
+}[aspect];
+---
+
+<figure class:list={["relative", tiltClass, tapeClass, extra]}>
+  <div class:list={["overflow-hidden rounded-2xl shadow-[var(--shadow-card)]", aspectClass, !src ? colorClass : ""]}>
+    {src ? (
+      <img src={src} alt={alt} class="w-full h-full object-cover" />
+    ) : (
+      <div class="w-full h-full flex items-end p-5">
+        <span class="font-display text-xs uppercase tracking-[0.18em] text-white/80">
+          Photo placeholder
+        </span>
+      </div>
+    )}
+  </div>
+  <figcaption class="mt-3 px-1">
+    {eyebrow && (
+      <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">{eyebrow}</span>
+    )}
+    <p class:list={["font-body text-pm-ink/85", eyebrow ? "mt-0.5" : "", "leading-snug"]}>{caption}</p>
+  </figcaption>
+</figure>
