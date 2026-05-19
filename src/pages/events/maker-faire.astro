@@ -83,6 +83,79 @@ const faqItems = [
     </div>
   </section>
 
+  <!-- Get inspired / Make / Explore sub-pages -->
+  <section class="mx-auto max-w-7xl px-6 py-12">
+    <Ribbon color="cyan">Browse and get inspired</Ribbon>
+    <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
+      The Maker Faire archive.
+    </h2>
+    <p class="mt-4 max-w-2xl text-pm-ink/75 leading-relaxed">
+      Two pages for prospective makers — whether you want to see what other kids built last year, or you&apos;re trying to come up with your own project.
+    </p>
+
+    <div class="mt-8 grid md:grid-cols-2 gap-6">
+      <a href={link("/events/maker-faire/meet-the-makers")} class="group block bg-pm-paper border-[3px] border-pm-ink p-7 hover:bg-white transition-colors">
+        <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-cyan-deep">11th Annual · 2025</p>
+        <h3 class="mt-2 font-display font-bold text-2xl md:text-[1.7rem] tracking-tight leading-tight">Meet the makers →</h3>
+        <p class="mt-3 text-pm-ink/75 leading-relaxed">The full lineup of 80+ projects and 200+ student makers from the 2025 faire. Browse by section: hands-on stations, every PUSD school, robotics, music, and community partners.</p>
+      </a>
+      <a href={link("/events/maker-faire/project-ideas")} class="group block bg-pm-paper border-[3px] border-pm-ink p-7 hover:bg-white transition-colors">
+        <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-purple">A–Z brainstorm</p>
+        <h3 class="mt-2 font-display font-bold text-2xl md:text-[1.7rem] tracking-tight leading-tight">Project ideas →</h3>
+        <p class="mt-3 text-pm-ink/75 leading-relaxed">From Animation to Zymometer (with Zombie Zoo somewhere in the middle). Stuck on what to bring? Start with the letter that interests you and follow it.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Returning Spring 2027 — dormant CTAs preserved for next year -->
+  <section class="mx-auto max-w-7xl px-6 py-12">
+    <Ribbon color="ink">Spring 2027</Ribbon>
+    <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
+      Want to volunteer or exhibit next year?
+    </h2>
+    <p class="mt-4 max-w-2xl text-pm-ink/75 leading-relaxed">
+      The 12th annual just wrapped on May 17, 2026. Sign-ups for the 13th annual open in spring 2027. The buttons below are placeholders for now — they&apos;ll wake up about six weeks before the next faire.
+    </p>
+    <div class="mt-6 grid md:grid-cols-3 gap-4">
+      <!-- Tickets: when the next Eventbrite event is live, swap href + remove aria-disabled -->
+      <span
+        aria-disabled="true"
+        class="block bg-pm-paper/60 border-2 border-dashed border-pm-ink/25 p-5 cursor-not-allowed"
+      >
+        <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/40">Returns spring 2027</p>
+        <p class="mt-1 font-display font-bold text-xl text-pm-ink/55 tracking-tight">Free tickets</p>
+        <p class="mt-2 text-sm text-pm-ink/45 leading-relaxed">Eventbrite registration. Admission is always free.</p>
+      </span>
+      <!-- Volunteer: re-enable the Grasshopper form for the next faire -->
+      <span
+        aria-disabled="true"
+        class="block bg-pm-paper/60 border-2 border-dashed border-pm-ink/25 p-5 cursor-not-allowed"
+      >
+        <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/40">Returns spring 2027</p>
+        <p class="mt-1 font-display font-bold text-xl text-pm-ink/55 tracking-tight">Volunteer</p>
+        <p class="mt-2 text-sm text-pm-ink/45 leading-relaxed">Setup, cleanup, logistics, exhibit support. Short shifts, real impact.</p>
+      </span>
+      <!-- Exhibit: re-enable the Google Form submission for the next faire -->
+      <span
+        aria-disabled="true"
+        class="block bg-pm-paper/60 border-2 border-dashed border-pm-ink/25 p-5 cursor-not-allowed"
+      >
+        <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/40">Returns spring 2027</p>
+        <p class="mt-1 font-display font-bold text-xl text-pm-ink/55 tracking-tight">Sign up to exhibit</p>
+        <p class="mt-2 text-sm text-pm-ink/45 leading-relaxed">All project types — drones, cosplay, puppets, kites, VR, LEGO, music. Show off what you made.</p>
+      </span>
+    </div>
+    <p class="mt-6 text-sm text-pm-ink/55">
+      Subscribers to <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">the newsletter</a> get the 2027 date and signup links first.
+    </p>
+    {/*
+      Reference URLs for re-enabling in spring 2027:
+      - Tickets:    https://www.eventbrite.com/e/12th-annual-piedmont-school-maker-faire-tickets-1987744231505 (replace event ID for 13th annual)
+      - Volunteer:  https://grasshoppersignup.com/s/qo1qew (Grasshopper form — confirm whether re-used or new each year)
+      - Exhibit:    https://docs.google.com/forms/d/e/1FAIpQLSe_oL4UXCNJnETrYTlnWwD-Vg71smX2i-kzt6tV9LlDowgczA/viewform (Google Form)
+    */}
+  </section>
+
   <!-- 11th Annual recap (May 18, 2025) -->
   <section class="mx-auto max-w-7xl px-6 py-12">
     <Ribbon color="cyan">11th Annual recap · May 18, 2025</Ribbon>
@@ -92,7 +165,7 @@ const faqItems = [
           1,000+ visitors. Record 80+ student makers.
         </h2>
         <p class="mt-5 text-lg text-pm-ink/75 leading-relaxed">
-          Sunday May 18, 2025, the 11th annual faire drew over <strong>1,000 community members</strong> to the Piedmont High School campus. A record <strong>80+ student exhibitors</strong> showed what they made all year.
+          Sunday May 18, 2025, the 11th annual faire drew over <strong>1,000 community members</strong> to the Piedmont High School campus. A record <strong>80+ student exhibitors</strong> showed what they made all year. Browse the <a href={link("/events/maker-faire/meet-the-makers")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">full lineup</a>.
         </p>
         <p class="mt-4 text-pm-ink/75 leading-relaxed">
           Kids built vehicles for derby races. They made slime, bath fizzies, and beaded crafts. They launched air rockets and used robots to play mini golf. Teacher grantees shared classroom projects, including student-made electric guitars, light-up plushies, and (yes) actual heart dissections.

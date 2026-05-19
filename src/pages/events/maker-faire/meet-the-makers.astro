@@ -1,0 +1,200 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Ribbon from "../../../components/Ribbon.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const link = (path: string) => `${base}${path}`;
+
+// Exhibits from the 11th Annual Piedmont School Maker Faire (May 18, 2025).
+// Migrated from the Wix /meet-the-makers page so we don't lose this record.
+const sections = [
+  {
+    title: "Hands-On Making",
+    items: [
+      "Air Rockets",
+      "Apple Juice Making",
+      "Bead Buddies: Bracelet Making Activity",
+      "Calligraphy Demos",
+      "Henna Tondos",
+      "Laser Cutting with 8033",
+      "LEGO Pinewood Derby",
+      "Maker River",
+      "Mini Golf Links",
+      "Nerdy Derby",
+      "Water Rockets!",
+    ],
+  },
+  {
+    title: "Wildwood Elementary",
+    items: [
+      "3D Hover",
+      "The Animals",
+      "Chainlink Challenge",
+      "Eraser Games",
+      "Fancy Locke",
+      "Fusilli Funhouse",
+      "Garage Band",
+      'LEGO "S.S. Onion"',
+      "MakerRobot",
+      "Make your own paintbrush",
+      "Making Herbal Tea",
+      "Organic Candles",
+      "Paper Mazes",
+      "Potato Nightlight",
+      "The Slime Lab",
+      "Supreme SCRATCHERs",
+      "Wildwood Poppies Artwork",
+    ],
+  },
+  {
+    title: "Havens Elementary",
+    items: [
+      "Art Booth",
+      'Find your "Force"!',
+      "LEGO Robots",
+      "Mini Mannequin Design",
+      "Spaceship & Camera",
+      "Wildlife in Layers!",
+    ],
+  },
+  {
+    title: "Beach Elementary",
+    items: ["4th Grade Light Up Plushies", "Creative Kid Maker Projects"],
+  },
+  {
+    title: "Piedmont Middle School",
+    items: [
+      "Cotton candy making",
+      "Crochet items",
+      "Kenji and Jude's Print Shoppe",
+      "MadebyEvan! Crochet",
+      "Piñatas — Spanish 1",
+      "Pavilion of Gathered Fragrance",
+      "Rocket Engine Injector Designs",
+      "Slime Club",
+    ],
+  },
+  {
+    title: "Piedmont High School",
+    items: [
+      "ECG sensor and blood pressure sensors",
+      "Guitars, Speakers and More…",
+      "Math, Art, Magic!",
+      "Therapals",
+    ],
+  },
+  {
+    title: "Robotics",
+    items: [
+      "FIRST LEGO League Explore",
+      "FIRST LEGO League Challenge",
+      "FIRST Tech Challenge",
+      "FIRST Robotics Competition — Team 8033 Highlander Robotics",
+      'Lockwood STEAM "Bionic Ocelots" FIRST Robotics Club',
+      "Robotics with ViNee",
+    ],
+  },
+  {
+    title: "Music & Community",
+    items: [
+      "10th Grade Jazz Combo",
+      "Camino's — Jazz/Latin/Flamenco Guitar",
+      "ALPS: Advanced Learning for Piedmont Students",
+      "Berkeley Chess School",
+      "DIY Ice Cream",
+      "Dress Best for Less — The Denim Project",
+      "Glass-Vox",
+      "It's Your Move game store",
+      "Jewelry-making, fashion design, mini-making!",
+      "July 4th Committee",
+      "LEGO Build Table",
+      "Non-Preserved Heart Tissue for Dissection",
+      "Maker Faire Bay Area",
+      "Maker Illusions",
+      "Maker Studio Kidz' DIY Button Making Station",
+      "Miner's Gambit",
+      "Nimble Repair",
+      "Oakland Tool Lending Library",
+      "Paper Sculptures",
+      "Piedmont Education Foundation",
+      "Piedmont Fire Department",
+      "Piedmont Girl Scouts",
+      "Piedmont Police Department",
+      "Police Car Alarm Symphony",
+      "Purrfleecrochet — crochet kits, gifts, plushies, and accessories",
+      "Puzzle Game AI",
+      "Renewables: Bug Hotels for pollinators",
+      "Rock the Bike",
+      "San Francisco Microscopical Society",
+      "Science Experiments",
+      "Seafox Studio: Now UV Me, Now You're Done",
+      "STEAM Toy Swap",
+      "Vacuum Chamber Shenanigans",
+      "Vermiculture and seed planting",
+    ],
+  },
+  {
+    title: "Food",
+    items: [
+      "Delaney's Kitchen — mustards and jams",
+      "Quirksnflavors — vegan and gluten-free cupcakes and macarons",
+      "Robert Dorsey Catering and Events",
+    ],
+  },
+];
+
+const totalExhibits = sections.reduce((sum, s) => sum + s.items.length, 0);
+---
+
+<BaseLayout
+  title="Meet the Makers — School Maker Faire — Piedmont Makers"
+  description="Every project from the 11th Annual Piedmont School Maker Faire (May 18, 2025) — 80+ exhibits across hands-on stations, school projects, robotics teams, and community partners."
+>
+  <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-8">
+    <a href={link("/events/maker-faire")} class="font-display font-semibold text-pm-ink hover:text-pm-red underline-offset-4 hover:underline">
+      ← School Maker Faire
+    </a>
+    <div class="mt-6">
+      <Ribbon color="cyan">Meet the Makers · 11th Annual · 2025</Ribbon>
+    </div>
+    <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-6xl tracking-tight leading-[0.98]">
+      80+ projects.<br />200+ student makers.
+    </h1>
+    <p class="mt-7 max-w-3xl text-lg md:text-xl text-pm-ink/75 leading-relaxed">
+      The 11th annual Piedmont School Maker Faire showcased more than 80 projects featuring the STEAM creativity, passion, and effort of over 200 makers in our community. Here&apos;s the full lineup from May 18, 2025 — kept for posterity, and as inspiration for whatever comes to the 13th annual in 2027.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-6 pb-20">
+    <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55 mb-6 text-right">
+      {totalExhibits} exhibits across {sections.length} sections
+    </p>
+
+    <div class="space-y-12">
+      {sections.map((s) => (
+        <div>
+          <h2 class="font-display font-bold text-2xl md:text-3xl tracking-tight border-b-2 border-pm-ink pb-3">
+            {s.title}
+          </h2>
+          <ul class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2 text-pm-ink/85">
+            {s.items.map((item) => (
+              <li class="text-sm md:text-base leading-snug">· {item}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-pm-cream-2/60 mt-8">
+    <div class="mx-auto max-w-7xl px-6 py-16">
+      <Ribbon color="purple">Inspired?</Ribbon>
+      <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight max-w-2xl">
+        Bring your own project to the 13th annual.
+      </h2>
+      <p class="mt-5 max-w-2xl text-lg text-pm-ink/85 leading-relaxed">
+        Exhibit signups for the next faire open in spring 2027. In the meantime, scroll through the <a href={link("/events/maker-faire/project-ideas")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">A–Z project ideas</a> for inspiration, and <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">subscribe to the newsletter</a> so we can tell you when the signup form opens.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
