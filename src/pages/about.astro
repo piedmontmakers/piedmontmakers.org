@@ -1,11 +1,228 @@
 ---
-import StubPage from "../components/StubPage.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Ribbon from "../components/Ribbon.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const link = (path: string) => `${base}${path}`;
+
+// Board is a list of names. Some have piedmontmakers.org emails; those with
+// emails are flagged so we can render a mailto link. Email addresses are
+// public on the existing Wix site — repeating them here is a deliberate
+// choice. If spam becomes an issue we can layer an EmailObfuscated component.
+const board = {
+  officers: [
+    { name: "Kevin Clark", role: "Co-President", email: "kevin@piedmontmakers.org" },
+    { name: "Ben Stein", role: "Co-President", email: "ben@piedmontmakers.org" },
+    { name: "David Ragones", role: "Treasurer", email: "david@piedmontmakers.org" },
+    { name: "Paul Morrison", role: "Secretary" },
+  ],
+  atLarge: [
+    { name: "Larraine Seiden" },
+    { name: "Alex Seiden" },
+    { name: "Ken Khouri" },
+    { name: "Joel Tornatore" },
+    { name: "Dave McMurtry" },
+    { name: "Greg Wolff", role: "Master Maker" },
+  ],
+  robotics: [
+    { name: "Marta Lutsky" },
+    { name: "Shelley Rea" },
+    { name: "Lara Oliver" },
+    { name: "Chris Groboske" },
+    { name: "Pat Holder" },
+    { name: "Paul Morrison" },
+  ],
+  programs: [
+    { name: "Ella Grossberg" },
+    { name: "Margaret Bridges" },
+    { name: "Rebecca Heywood" },
+    { name: "Brian Van Osdol" },
+    { name: "Julie Veit" },
+    { name: "John Welch" },
+  ],
+};
+
+const impactStats = [
+  { number: "900+", label: "K-12 students on our teams", color: "text-pm-red" },
+  { number: "125+", label: "robotics teams", color: "text-pm-cyan" },
+  { number: "20+", label: "East Bay cities served", color: "text-pm-purple" },
+  { number: "$25K+", label: "in teacher grants every year", color: "text-pm-cream" },
+];
 ---
 
-<StubPage
-  title="About"
-  eyebrow="About us"
-  headline="Built and run by Piedmont parents and volunteers."
-  blurb="Piedmont Makers is a 501(c)(3) nonprofit (EIN 81-2725831). The full About page — board roster, contact info, mission statement, and our history — is being rebuilt."
-  color="red"
-/>
+<BaseLayout
+  title="About — Piedmont Makers"
+  description="Mission, vision, board roster, and contact info for Piedmont Makers, a 501(c)(3) nonprofit supporting STEAM education and maker culture in Piedmont, California."
+>
+  <!-- Hero -->
+  <section class="mx-auto max-w-5xl px-6 pt-16 md:pt-20 pb-12">
+    <Ribbon color="red">About</Ribbon>
+    <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-6xl tracking-tight leading-[0.98]">
+      Built by Piedmont parents.<br />Run by Piedmont volunteers.
+    </h1>
+    <p class="mt-6 max-w-2xl text-lg md:text-xl text-pm-ink/75 leading-relaxed">
+      Piedmont Makers is a 501(c)(3) nonprofit corporation. Our work is making sure every kid in Piedmont gets to build something they're proud of — through robotics teams, a community engineering lab, an annual school maker faire, and STEAM grants to local teachers.
+    </p>
+  </section>
+
+  <!-- Mission + Vision -->
+  <section class="mx-auto max-w-5xl px-6 pb-16">
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-pm-cream-2/70 border-[3px] border-pm-ink p-8 md:p-10">
+        <Ribbon color="red">Mission</Ribbon>
+        <p class="mt-6 font-display text-2xl md:text-3xl tracking-tight leading-snug text-pm-ink">
+          Engaging and inclusive S.T.E.A.M. experiences for young people in Piedmont, CA and beyond — through partnerships that develop and support educational programs.
+        </p>
+      </div>
+      <div class="bg-pm-cream-2/70 border-[3px] border-pm-ink p-8 md:p-10">
+        <Ribbon color="cyan">Vision</Ribbon>
+        <p class="mt-6 font-display text-2xl md:text-3xl tracking-tight leading-snug text-pm-ink">
+          Young people aspire and are empowered to be creative problem solvers and innovators in Science, Technology, Engineering, Arts, and Math.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact stats -->
+  <section class="bg-pm-ink text-pm-cream">
+    <div class="mx-auto max-w-7xl px-6 py-14 md:py-16">
+      <div class="text-center mb-10">
+        <Ribbon color="cyan">By the numbers</Ribbon>
+        <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight">A typical year at Piedmont Makers.</h2>
+      </div>
+      <ul class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 md:divide-x divide-pm-cream/15">
+        {impactStats.map((s) => (
+          <li class="text-center md:px-6">
+            <p class:list={["font-display font-bold text-4xl md:text-5xl leading-none", s.color]}>{s.number}</p>
+            <p class="mt-3 text-sm text-pm-cream/80 leading-snug">{s.label}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-10 text-center text-sm text-pm-cream/65 max-w-2xl mx-auto leading-relaxed">
+        Plus an annual School Maker Faire that draws 80+ student exhibitors and 1,000+ visitors, a 1st place finish in the 2024 Piedmont 4th of July Parade, and a $245K capital campaign that secured a long-term lease on the 10th Street practice field.
+      </p>
+    </div>
+  </section>
+
+  <!-- Board roster -->
+  <section class="mx-auto max-w-7xl px-6 pt-20 pb-16">
+    <Ribbon color="purple">Board of directors</Ribbon>
+    <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight leading-tight">
+      The people doing the work.
+    </h2>
+    <p class="mt-5 max-w-2xl text-pm-ink/75 leading-relaxed">
+      Twenty-two volunteer board members. All Piedmont parents, alumni, or community members. The board terms run annually with elections at the spring board meeting.
+    </p>
+
+    <div class="mt-12 space-y-12">
+      <div>
+        <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55 border-b-2 border-pm-ink pb-3">Officers</p>
+        <ul class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-5">
+          {board.officers.map((m) => (
+            <li>
+              <p class="font-display font-bold text-lg tracking-tight">{m.name}</p>
+              {m.role && <p class="text-sm text-pm-ink/65">{m.role}</p>}
+              {m.email && (
+                <a href={`mailto:${m.email}`} class="mt-1 inline-block font-body text-sm text-pm-ink underline underline-offset-4 decoration-pm-red hover:text-pm-red">
+                  {m.email}
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55 border-b-2 border-pm-ink pb-3">Robotics leadership</p>
+        <ul class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-x-6 gap-y-3">
+          {board.robotics.map((m) => (
+            <li>
+              <p class="font-display font-semibold tracking-tight">{m.name}</p>
+              {m.role && <p class="text-xs text-pm-ink/65">{m.role}</p>}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55 border-b-2 border-pm-ink pb-3">Programs &amp; operations</p>
+        <ul class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-x-6 gap-y-3">
+          {board.programs.map((m) => (
+            <li>
+              <p class="font-display font-semibold tracking-tight">{m.name}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55 border-b-2 border-pm-ink pb-3">At large</p>
+        <ul class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-x-6 gap-y-3">
+          {board.atLarge.map((m) => (
+            <li>
+              <p class="font-display font-semibold tracking-tight">{m.name}</p>
+              {m.role && <p class="text-xs text-pm-ink/65">{m.role}</p>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact + legal -->
+  <section class="bg-pm-cream-2/60">
+    <div class="mx-auto max-w-7xl px-6 py-20 grid md:grid-cols-12 gap-10">
+      <div class="md:col-span-7">
+        <Ribbon color="red">Contact</Ribbon>
+        <h2 class="mt-5 font-display font-bold text-4xl tracking-tight leading-tight">
+          The fastest way to reach us is by email.
+        </h2>
+        <p class="mt-5 text-lg text-pm-ink/75 leading-relaxed max-w-xl">
+          For general questions, partnership inquiries, donor questions, or to volunteer — start with the general inbox and we'll route from there.
+        </p>
+        <div class="mt-8 space-y-3">
+          <a href="mailto:hello@piedmontmakers.org" class="group flex items-center justify-between gap-4 bg-pm-paper border-[3px] border-pm-ink p-5 hover:bg-white transition-colors">
+            <div>
+              <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">General inquiries</p>
+              <p class="mt-1 font-display font-bold text-xl tracking-tight">hello@piedmontmakers.org</p>
+            </div>
+            <span class="font-display text-pm-red group-hover:translate-x-1 transition-transform">→</span>
+          </a>
+          <a href="mailto:robotics@piedmontmakers.org" class="group flex items-center justify-between gap-4 bg-pm-paper border-[3px] border-pm-ink p-5 hover:bg-white transition-colors">
+            <div>
+              <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Robotics-specific</p>
+              <p class="mt-1 font-display font-bold text-xl tracking-tight">robotics@piedmontmakers.org</p>
+            </div>
+            <span class="font-display text-pm-red group-hover:translate-x-1 transition-transform">→</span>
+          </a>
+        </div>
+      </div>
+      <div class="md:col-span-5">
+        <Ribbon color="ink">Legal</Ribbon>
+        <dl class="mt-6 space-y-4 font-body">
+          <div>
+            <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Legal name</dt>
+            <dd class="mt-0.5 font-semibold">Piedmont Makers</dd>
+          </div>
+          <div>
+            <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Status</dt>
+            <dd class="mt-0.5 font-semibold">501(c)(3) nonprofit corporation</dd>
+          </div>
+          <div>
+            <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">EIN</dt>
+            <dd class="mt-0.5 font-semibold font-mono">81-2725831</dd>
+          </div>
+          <div>
+            <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Mailing address</dt>
+            <dd class="mt-0.5 text-pm-ink/65 italic">TODO — add when confirmed</dd>
+          </div>
+        </dl>
+        <div class="mt-8">
+          <a href="https://donate.piedmontmakers.org" class="ribbon bg-pm-red text-white text-base hover:bg-pm-red-deep transition-colors">
+            Make a tax-deductible donation
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

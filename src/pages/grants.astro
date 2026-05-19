@@ -1,11 +1,233 @@
 ---
-import StubPage from "../components/StubPage.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Ribbon from "../components/Ribbon.astro";
+
+const grants_2025_26 = {
+  total: "$25,694",
+  schools: 6,
+  projects: 21,
+  applications: { submitted: 27, requested: "$62,000" },
+  awards: [
+    { school: "Beach Elementary", project: "4th Grade LED circuit project", amount: "$175" },
+    { school: "Beach Elementary", project: "TK manipulatives", amount: "$904" },
+    { school: "Havens Elementary", project: "Library maker space materials", amount: "$500" },
+    { school: "Havens Elementary", project: "TK items", amount: "$525" },
+    { school: "Havens Elementary", project: "Foam blocks", amount: "$1,000" },
+    { school: "Havens Elementary", project: "5th grade math materials", amount: "$300" },
+    { school: "Havens Elementary", project: "Sensory tools", amount: "$300" },
+    { school: "Wildwood Elementary", project: "Library maker space", amount: "$500" },
+    { school: "Piedmont Middle School", project: "Spanish piñata supplies", amount: "$300" },
+    { school: "Piedmont Middle School", project: "Retablo supplies", amount: "$300" },
+    { school: "Piedmont Middle School", project: "Rubik's cubes", amount: "$250" },
+    { school: "Piedmont Middle School", project: "Math licenses", amount: "$2,784" },
+    { school: "Millennium High School", project: "Room organization materials", amount: "$800" },
+    { school: "Piedmont High School", project: "Ceramics kiln funding", amount: "$2,464" },
+    { school: "Piedmont High School", project: "Anatomy kits", amount: "$6,192" },
+    { school: "Piedmont High School", project: "Biology exoneration lab", amount: "$1,050" },
+    { school: "Piedmont High School", project: "Food safety lab", amount: "$300" },
+    { school: "Piedmont High School", project: "Chemistry labs", amount: "$350" },
+    { school: "Piedmont High School", project: "Glassware", amount: "$1,200" },
+    { school: "Piedmont High School", project: "Physics equipment", amount: "$5,000" },
+  ],
+};
+
+const grants_2023_24 = {
+  total: "$24,677",
+  totalGrants: "$20,977",
+  storageNote: "+ $3,700 for engineering lab storage infrastructure",
+  schools: 5,
+  projects: 19,
+  awards: [
+    {
+      group: "Tri-School (Havens, Beach, Wildwood)",
+      subtotal: "$3,196",
+      projects: [
+        "STEAM library books",
+        "Playground blocks",
+        "Engineering toys",
+        "Resin keychain materials",
+        "LED plushie materials",
+      ],
+    },
+    {
+      group: "Piedmont Middle School",
+      subtotal: "$8,855",
+      projects: ["Laser cutter", "Solar car kits", "Repair tools", "Piñata materials"],
+    },
+    {
+      group: "Piedmont & Millennium High School",
+      subtotal: "$8,926",
+      projects: [
+        "Gel electrophoresis machines",
+        "Bluetooth speaker materials",
+        "Robotics supplies",
+        "3D printer filament",
+        "Arduino components",
+        "Tutoring",
+        "Library books",
+        "Art supplies",
+      ],
+    },
+  ],
+};
 ---
 
-<StubPage
-  title="Teacher grants"
-  eyebrow="Teacher grants"
-  headline="$25K+ in STEAM grants to Piedmont teachers every year."
-  blurb="We fund hands-on classroom projects in Piedmont public schools — from soldering kits to laser cutters to drone curricula. The full Grants page, including the 2023-24 and 2025-26 award lists and how teachers can apply, is being rebuilt."
-  color="red"
-/>
+<BaseLayout
+  title="Teacher Grants — Piedmont Makers"
+  description="Each year Piedmont Makers funds $20,000+ in classroom STEAM projects across Piedmont Unified School District. See where the money went."
+>
+  <!-- Hero -->
+  <section class="mx-auto max-w-5xl px-6 pt-16 md:pt-20 pb-12">
+    <Ribbon color="red">Teacher grants</Ribbon>
+    <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-6xl tracking-tight leading-[0.98]">
+      $20K+ in classroom projects, every year.
+    </h1>
+    <p class="mt-6 max-w-2xl text-lg md:text-xl text-pm-ink/75 leading-relaxed">
+      Each year Piedmont Makers awards grants to teachers across Piedmont Unified School District for hands-on STEAM projects — from soldering kits to laser cutters to ceramics kilns to physics equipment. We fund what classroom budgets can't.
+    </p>
+  </section>
+
+  <!-- Combined totals strip -->
+  <section class="bg-pm-ink text-pm-cream">
+    <div class="mx-auto max-w-7xl px-6 py-12">
+      <ul class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 md:divide-x divide-pm-cream/15">
+        <li class="text-center md:px-6">
+          <p class="font-display font-bold text-3xl md:text-4xl text-pm-red leading-none">$25,694</p>
+          <p class="mt-2 text-sm text-pm-cream/80">awarded 2025-26</p>
+        </li>
+        <li class="text-center md:px-6">
+          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cyan leading-none">21</p>
+          <p class="mt-2 text-sm text-pm-cream/80">projects funded 2025-26</p>
+        </li>
+        <li class="text-center md:px-6">
+          <p class="font-display font-bold text-3xl md:text-4xl text-pm-purple leading-none">$24,677</p>
+          <p class="mt-2 text-sm text-pm-cream/80">awarded 2023-24</p>
+        </li>
+        <li class="text-center md:px-6">
+          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cream leading-none">100%</p>
+          <p class="mt-2 text-sm text-pm-cream/80">of grants go to PUSD teachers</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2025-26 awards -->
+  <section id="awards-2025-26" class="mx-auto max-w-5xl px-6 pt-20 scroll-mt-20">
+    <div class="flex flex-wrap items-end justify-between gap-4 border-b-2 border-pm-ink pb-4">
+      <div>
+        <Ribbon color="red">2025–26</Ribbon>
+        <h2 class="mt-4 font-display font-bold text-4xl md:text-5xl tracking-tight">
+          {grants_2025_26.total} across {grants_2025_26.schools} schools.
+        </h2>
+      </div>
+      <p class="font-display text-sm text-pm-ink/65">
+        {grants_2025_26.projects} projects · {grants_2025_26.applications.submitted} applications received requesting {grants_2025_26.applications.requested}
+      </p>
+    </div>
+
+    <p class="mt-6 text-lg text-pm-ink/75 leading-relaxed max-w-3xl">
+      The 2025-26 round funded 21 projects across all six Piedmont public schools — from TK manipulatives at Beach to a $5,000 physics equipment upgrade at Piedmont High.
+    </p>
+
+    <div class="mt-10 overflow-x-auto">
+      <table class="w-full font-body text-left">
+        <thead>
+          <tr class="text-pm-ink/55 border-b border-pm-ink/20">
+            <th class="font-display text-xs uppercase tracking-[0.18em] py-3 pr-4">School</th>
+            <th class="font-display text-xs uppercase tracking-[0.18em] py-3 pr-4">Project</th>
+            <th class="font-display text-xs uppercase tracking-[0.18em] py-3 pl-4 text-right">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {grants_2025_26.awards.map((g) => (
+            <tr class="border-b border-pm-ink/10">
+              <td class="py-3 pr-4 font-display font-semibold text-pm-ink/90">{g.school}</td>
+              <td class="py-3 pr-4 text-pm-ink/80">{g.project}</td>
+              <td class="py-3 pl-4 font-mono text-right">{g.amount}</td>
+            </tr>
+          ))}
+          <tr>
+            <td class="pt-5 font-display font-bold" colspan="2">Total</td>
+            <td class="pt-5 font-mono font-bold text-right text-pm-red">{grants_2025_26.total}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 2023-24 awards -->
+  <section id="awards-2023-24" class="mx-auto max-w-5xl px-6 pt-24 scroll-mt-20">
+    <div class="flex flex-wrap items-end justify-between gap-4 border-b-2 border-pm-ink pb-4">
+      <div>
+        <Ribbon color="cyan">2023–24</Ribbon>
+        <h2 class="mt-4 font-display font-bold text-4xl md:text-5xl tracking-tight">
+          {grants_2023_24.total} across {grants_2023_24.schools} schools.
+        </h2>
+      </div>
+      <p class="font-display text-sm text-pm-ink/65">
+        {grants_2023_24.projects} projects · {grants_2023_24.totalGrants} in classroom grants {grants_2023_24.storageNote}
+      </p>
+    </div>
+
+    <p class="mt-6 text-lg text-pm-ink/75 leading-relaxed max-w-3xl">
+      December 2023 set a then-record: $20,977 in classroom grants plus $3,700 for engineering lab storage. Funded the laser cutter at the middle school, gel electrophoresis machines at the high school, and the playground blocks the elementary kids still ask for.
+    </p>
+
+    <div class="mt-10 space-y-8">
+      {grants_2023_24.awards.map((group) => (
+        <div class="border-l-4 border-pm-cyan pl-6">
+          <div class="flex items-baseline justify-between gap-4">
+            <h3 class="font-display font-bold text-xl md:text-2xl tracking-tight">{group.group}</h3>
+            <span class="font-mono font-bold text-pm-cyan">{group.subtotal}</span>
+          </div>
+          <ul class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-pm-ink/80">
+            {group.projects.map((p) => (
+              <li class="text-sm leading-snug">· {p}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- How to apply -->
+  <section class="bg-pm-cream-2/60 mt-24">
+    <div class="mx-auto max-w-5xl px-6 py-20">
+      <div class="grid md:grid-cols-12 gap-10">
+        <div class="md:col-span-7">
+          <Ribbon color="purple">For teachers</Ribbon>
+          <h2 class="mt-5 font-display font-bold text-4xl tracking-tight leading-tight">
+            How to apply for a grant.
+          </h2>
+          <p class="mt-5 text-lg text-pm-ink/75 leading-relaxed">
+            Grant applications open in <strong>October each year</strong>. Any PUSD teacher (TK through 12th grade) can apply for funding for hands-on STEAM projects. Awards are announced in December for spending during the current academic year.
+          </p>
+          <p class="mt-4 text-pm-ink/75 leading-relaxed">
+            The application is short — a one-page description of the project, who it serves, what it costs, and what students will make or learn. We fund the things classroom budgets miss.
+          </p>
+          <div class="mt-8 inline-flex items-center gap-4 rounded-2xl border-[3px] border-pm-ink bg-pm-paper p-5">
+            <span class="font-marker text-2xl text-pm-purple shrink-0">heads up —</span>
+            <p class="font-body text-pm-ink/85 leading-relaxed">
+              The grant application form for next round will be posted here when applications open. In the meantime, email <a href="mailto:grants@piedmontmakers.org" class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">grants@piedmontmakers.org</a> with questions.
+            </p>
+          </div>
+        </div>
+        <div class="md:col-span-5">
+          <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">For donors</p>
+          <h3 class="mt-3 font-display font-bold text-2xl tracking-tight leading-tight">
+            Every grant dollar is funded by donations from Piedmont families.
+          </h3>
+          <p class="mt-4 text-pm-ink/75 leading-relaxed">
+            We don't take operational overhead from grants. 100% of donations earmarked for teacher grants go directly to classroom projects.
+          </p>
+          <a
+            href="https://donate.piedmontmakers.org"
+            class="mt-6 inline-flex items-center gap-2 ribbon bg-pm-red text-white text-base hover:bg-pm-red-deep transition-colors"
+          >
+            Donate to teacher grants →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

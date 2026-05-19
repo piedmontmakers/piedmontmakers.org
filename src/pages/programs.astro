@@ -1,11 +1,102 @@
 ---
-import StubPage from "../components/StubPage.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Ribbon from "../components/Ribbon.astro";
+import PhotoCard from "../components/PhotoCard.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const link = (path: string) => `${base}${path}`;
+
+const programs = [
+  {
+    href: "/programs/maker-faire",
+    name: "School Maker Faire",
+    when: "Each May",
+    headline: "Our biggest event of the year.",
+    blurb: "K-12 students show what they made all year. Free, open to the public, 11am-3pm at Piedmont High School. The 12th annual faire is Sunday, May 17, 2026.",
+    color: "red" as const,
+    caption: "Photo: 2025 Maker Faire main floor",
+    tilt: "left" as const,
+    tape: "none" as const,
+  },
+  {
+    href: "/programs/popup-maker-spaces",
+    name: "Popup Maker Spaces",
+    when: "Sporadic Saturdays",
+    headline: "Hands-on workshops, free to drop in.",
+    blurb: "A few times a year we open a space and load it with tools — soldering irons, sewing machines, 3D printers, hot glue, cardboard. Watch the newsletter for the next date.",
+    color: "cyan" as const,
+    caption: "Photo: kids at a popup maker space session",
+    tilt: "right" as const,
+    tape: "left" as const,
+  },
+  {
+    href: "/programs/build-like-a-girl",
+    name: "Build Like a Girl",
+    when: "Multiple sessions",
+    headline: "Young girls excited about robotics.",
+    blurb: "Mentored by the older female students from our FTC and FRC teams. A confidence-and-tools program: hands-on robotics taught by girls who've been doing it for years.",
+    color: "purple" as const,
+    caption: "Photo: Build Like a Girl mentor and mentee",
+    tilt: "left" as const,
+    tape: "right" as const,
+  },
+  {
+    href: "/programs/fourth-of-july-parade",
+    name: "4th of July Parade",
+    when: "July 4 each year",
+    headline: "Our 15-foot robot down Highland Ave.",
+    blurb: "FRC Team 8033 drives the parade robot. Robotics teams march. We won 1st place in the 2024 parade. Spectators in lawn chairs encouraged.",
+    color: "red" as const,
+    caption: "Photo: parade entry rolling down Highland",
+    tilt: "right" as const,
+    tape: "none" as const,
+  },
+];
 ---
 
-<StubPage
-  title="Programs"
-  eyebrow="Programs"
-  headline="Everything we do beyond the robotics teams."
-  blurb="Build Like a Girl, popup maker spaces, school maker faire, and the rest. The Programs hub page is being rebuilt — for now, see the Events section on the home page."
-  color="cyan"
-/>
+<BaseLayout
+  title="Programs — Piedmont Makers"
+  description="Everything Piedmont Makers does beyond the robotics teams: the annual School Maker Faire, popup maker spaces, Build Like a Girl, and the 4th of July parade."
+>
+  <!-- Hero -->
+  <section class="mx-auto max-w-5xl px-6 pt-16 md:pt-20 pb-12">
+    <Ribbon color="cyan">Programs</Ribbon>
+    <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-6xl tracking-tight leading-[0.98]">
+      Everything we do beyond the robotics teams.
+    </h1>
+    <p class="mt-6 max-w-2xl text-lg md:text-xl text-pm-ink/75 leading-relaxed">
+      Four signature programs across the year, all open to the community. Robotics gets its own <a href={link("/robotics")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">deep-dive page</a>; these are everything else.
+    </p>
+    <p class="mt-4 max-w-2xl text-pm-ink/65 leading-relaxed">
+      For specific upcoming dates, see the <a href={link("/events")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">events calendar</a>.
+    </p>
+  </section>
+
+  <!-- 4 program cards -->
+  <section class="mx-auto max-w-7xl px-6 pb-20">
+    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-14">
+      {programs.map((p) => (
+        <li>
+          <a href={link(p.href)} class="group block">
+            <PhotoCard
+              caption={p.caption}
+              color={p.color}
+              tilt={p.tilt}
+              tape={p.tape}
+              aspect="landscape"
+            />
+            <div class="mt-5 px-1">
+              <Ribbon color={p.color}>{p.name}</Ribbon>
+              <p class="mt-3 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">{p.when}</p>
+              <h2 class="mt-2 font-display font-bold text-2xl md:text-3xl tracking-tight leading-tight">{p.headline}</h2>
+              <p class="mt-3 text-pm-ink/80 leading-relaxed">{p.blurb}</p>
+              <p class="mt-4 font-display font-semibold text-pm-ink group-hover:text-pm-red transition-colors">
+                Learn more →
+              </p>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

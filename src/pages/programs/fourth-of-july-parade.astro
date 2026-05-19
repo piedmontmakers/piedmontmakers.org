@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Ribbon from "../../components/Ribbon.astro";
+import PhotoCard from "../../components/PhotoCard.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const link = (path: string) => `${base}${path}`;
+---
+
+<BaseLayout
+  title="4th of July Parade — Piedmont Makers"
+  description="Piedmont Makers marches in the Piedmont 4th of July Parade each year. Robotics teams, a 15-foot robot float, and lots of waving."
+>
+  <section class="mx-auto max-w-5xl px-6 pt-16 md:pt-20 pb-8">
+    <a href={link("/programs")} class="font-display font-semibold text-pm-ink hover:text-pm-red underline-offset-4 hover:underline">
+      ← All programs
+    </a>
+    <div class="mt-6">
+      <Ribbon color="red">4th of July Parade</Ribbon>
+    </div>
+    <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-6xl tracking-tight leading-[0.98]">
+      A 15-foot robot down Highland Avenue.
+    </h1>
+    <p class="mt-7 max-w-2xl text-lg md:text-xl text-pm-ink/75 leading-relaxed">
+      Every July 4th, Piedmont Makers marches in the Piedmont 4th of July Parade. Robotics teams, a build-season prototype or two, and the FRC parade robot — usually 15 feet tall and very loud.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-6 py-12">
+    <div class="grid md:grid-cols-12 gap-8 items-center">
+      <div class="md:col-span-7">
+        <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
+          1st place, 2024.
+        </h2>
+        <p class="mt-5 text-lg text-pm-ink/75 leading-relaxed">
+          The 2024 parade entry won first place in its category. We bring it back every year — slightly improved, slightly louder, definitely a hit with kids in the crowd.
+        </p>
+        <p class="mt-4 text-pm-ink/75 leading-relaxed">
+          The parade is open to all current Piedmont Makers families. Robotics team members typically lead the float; younger siblings and parents follow. If you want to march with us, the open call goes out in <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">the newsletter</a> in mid-June.
+        </p>
+        <p class="mt-4 text-pm-ink/75 leading-relaxed">
+          To watch: stake out a spot on Highland Ave the morning of July 4. We&apos;re usually somewhere in the middle of the lineup.
+        </p>
+      </div>
+      <div class="md:col-span-5">
+        <PhotoCard caption="Photo: the 2024 parade entry, mid-route" color="red" tilt="left" aspect="square" />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-pm-cream-2/60 mt-12">
+    <div class="mx-auto max-w-5xl px-6 py-12">
+      <p class="font-marker text-2xl text-pm-purple">next parade —</p>
+      <h2 class="mt-2 font-display font-bold text-3xl md:text-4xl tracking-tight">
+        Saturday, July 4, 2026
+      </h2>
+      <p class="mt-4 text-pm-ink/75 leading-relaxed">
+        Specific lineup details and our position in the parade order land in the newsletter a week before. Spectators don&apos;t need anything — just show up on Highland Ave.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

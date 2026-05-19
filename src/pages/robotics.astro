@@ -1,11 +1,300 @@
 ---
-import StubPage from "../components/StubPage.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Ribbon from "../components/Ribbon.astro";
+import PhotoCard from "../components/PhotoCard.astro";
+import FAQ from "../components/FAQ.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const link = (path: string) => `${base}${path}`;
+
+const levels = [
+  {
+    slug: "fll-explore",
+    name: "FLL Explore",
+    ageLabel: "K–3rd grade · ages 5–10",
+    season: "Fall (Aug–Dec)",
+    cadence: "1× weekly · 1 hour",
+    teamSize: "4–6 participants",
+    cost: "$200 / participant",
+    blurb: "Drag-and-drop LEGO programming with SPIKE Prime Essentials. The gentle on-ramp — no engineering experience needed for kids or coaches.",
+    detail: "Includes FIRST registration, the Challenge Set, kit, uniform, and Expo fees. Coaches are 2 parent volunteers per team — STEM experience not required. The league event is the FLL Explore Expo on the first weekend in December.",
+    color: "red" as const,
+    register: "https://go.teamsnap.com/forms/514678",
+    coachTraining: "https://docs.google.com/presentation/d/1jBY7H9uDC_g0mSyCAU0224bk-PF7VX2UZRfzVJce7IM/edit",
+    photoCaption: "Photo: FLL Explore team during a build session",
+  },
+  {
+    slug: "fll-challenge",
+    name: "FLL Challenge",
+    ageLabel: "4th–8th grade",
+    season: "Fall (Aug–Dec)",
+    cadence: "1–2× weekly · 1–3 hours",
+    teamSize: "5–8 participants",
+    cost: "$400 / participant",
+    blurb: "LEGO SPIKE Prime robotics with Scratch or Python coding, plus a team research project. Two practice tournaments and one Community Tournament per season.",
+    detail: "Includes FIRST registration, two SPIKE Prime sets, uniform, competition table, scrimmage and tournament fees, and coach training. Advanced teams may continue into spring competitions. Coaches receive a guided lesson plan and tutorials — no STEM background required.",
+    color: "cyan" as const,
+    register: "https://go.teamsnap.com/forms/514677",
+    coachTraining: "https://docs.google.com/presentation/d/1scLujr4eManFaMf4fRJ0-ID0fNtmCCPvsemqU47bZ00/edit?usp=drivesdk",
+    photoCaption: "Photo: FLL Challenge team at the regional tournament",
+  },
+  {
+    slug: "ftc",
+    name: "FTC — FIRST Tech Challenge",
+    ageLabel: "7th–12th grade",
+    season: "Sept–Feb",
+    cadence: "2× weekly",
+    teamSize: "7–12 participants",
+    cost: "$500 / participant",
+    blurb: "Custom metal robots, Java programming, regional competitions. Teams compete in the East Bay Hills FTC League — 16+ teams, monthly meets, top two advance to the NorCal Regional Championship.",
+    detail: "Teams build using Rev, TETRIX, and goBILDA components and program in Java. Practices happen at coach/parent homes or the Mary G. Ross Engineering Lab at Piedmont High School. Non-STEM coaches commonly hire high school student mentors to support the engineering side.",
+    color: "purple" as const,
+    register: "https://go.teamsnap.com/forms/518591",
+    coachTraining: "https://docs.google.com/presentation/d/1vXAiiNybRtcjCHtEPieloUVmRC61gApdo7jxT0mnOQE/edit?slide=id.g2f5f9f04be4_0_35",
+    photoCaption: "Photo: FTC team at a league qualifier",
+  },
+  {
+    slug: "frc",
+    name: "FRC — Highlander Robotics Team 8033",
+    ageLabel: "9th–12th grade",
+    season: "Year-round, build season Jan–March",
+    cadence: "Multiple weekly meetings",
+    teamSize: "Open team",
+    cost: "$800 / participant",
+    blurb: "The big leagues — 120-pound competition robots, real build season, full engineering. Highlander Robotics (Team 8033) won the Impact Award at the SF District tournament this year.",
+    detail: "Team 8033 develops Lovat (a scouting app used by 800+ FRC teams worldwide), runs assistive-device outreach with OUSD Special Education, mentors local FLL teams, and shares student-developed training programs with 40+ other FRC teams. Practice happens at 10th Street.",
+    color: "ink" as const,
+    register: "https://go.teamsnap.com/forms/484016",
+    detailLink: "https://frc8033.com",
+    detailLinkLabel: "Team site: frc8033.com",
+    photoCaption: "Photo: Highlander Robotics 8033 with Wisp at championship",
+  },
+];
+
+const faqItems = [
+  {
+    q: "Does my kid need engineering experience to join?",
+    a: "No. We provide guided lesson plans, tutorials, annual coach training, a coach Slack channel, practice table access, and uniforms. Every level is designed to be the on-ramp for someone, not a graduate seminar.",
+  },
+  {
+    q: "Do coaches need engineering experience?",
+    a: "Also no. Coaches are parent volunteers. We run annual coach training and supply lesson plans, tutorials, and a Slack channel. For FTC, non-STEM coaches often hire a high school student mentor to handle the engineering side.",
+  },
+  {
+    q: "We don't have a team yet. Can my kid still register?",
+    a: "Yes. The strongest path is for pre-formed teams with named coaches to register together, but if you sign up individually we'll place your kid on a team during the summer.",
+  },
+  {
+    q: "My kid is in 7th or 8th grade. Should they do FLL Challenge or FTC?",
+    a: "Either works. FLL Challenge with the Python option is a great middle ground; FTC is the right call if your kid is ready for Java and a longer season. We're happy to talk it through — email <a href=\"mailto:robotics@piedmontmakers.org\" class=\"font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red\">robotics@piedmontmakers.org</a>.",
+  },
+  {
+    q: "My kid is in high school. FTC or FRC?",
+    a: "FTC is smaller-scale (7–12 kids per team, Rev/TETRIX/goBILDA components, Java) and has a shorter season. FRC is the full-scale program — 120-pound robots, all-out build season, big team. Many kids do FTC first and graduate to FRC.",
+  },
+  {
+    q: "What does it actually cost?",
+    a: "FLL Explore $200, FLL Challenge $400, FTC $500, FRC $800. Cost covers FIRST registration, kits/parts, uniform, competition fees, and coach training. <strong>Financial aid is available — cost should not be a barrier.</strong> Email <a href=\"mailto:robotics@piedmontmakers.org\" class=\"font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red\">robotics@piedmontmakers.org</a> in confidence.",
+  },
+  {
+    q: "Do you accept kids who don't live in Piedmont?",
+    a: "Yes. Our programs are open to East Bay students — Oakland, Berkeley, Lamorinda, and beyond.",
+  },
+  {
+    q: "When do registrations open?",
+    a: "Sign-ups for all four levels run March through May for the fall season. Watch the newsletter for the exact dates each spring.",
+  },
+  {
+    q: "I heard FIRST and LEGO are ending their partnership. What happens to FLL?",
+    a: "Our Fall 2026 LEGO League season runs as planned. After the 2026–2027 season, FIRST and LEGO will each develop independent programs. We'll evaluate options for 2027 and beyond as both organizations share more details. Our commitment doesn't change — we'll continue to offer the same level of student-centered, community-based STEAM programs.",
+  },
+];
+
+const coachResources = [
+  { title: "FLL Explore — Coach Training 2025–26", url: levels[0].coachTraining },
+  { title: "FLL Challenge — Coach Training 2025–26", url: levels[1].coachTraining },
+  { title: "FTC — Coach Training 2025–26", url: levels[2].coachTraining },
+  { title: "K–8 Open House Video (2024)", url: "https://drive.google.com/file/d/1HscUEbHs9aavZQEHyHO_LoEQH5HMlBeO/view?usp=sharing" },
+  { title: "Advanced Robotics Open House (2025)", url: "https://docs.google.com/presentation/d/1JK3Y33ruDgdsjrYd71ltKpQu1yrrQ5-kWpiOF51wQ0s/edit?slide=id.g239b0e0bcf4_0_0" },
+  { title: "FRC Highlander Robotics 8033 Open House (2025)", url: "https://docs.google.com/presentation/d/1EvarF6RCwFp5Vg8fEj-GUeDI9r2xmpNoWgTcnGgFV5Y/edit?usp=sharing" },
+];
 ---
 
-<StubPage
-  title="Robotics"
-  eyebrow="Robotics"
-  headline="Four levels. K through high school."
-  blurb="Our flagship program: FLL Explore, FLL Challenge, FTC, and FRC Team 8627. The detailed Robotics page — coach info, schedules, registration, sponsors — is being rebuilt."
-  color="red"
-/>
+<BaseLayout
+  title="Robotics — Piedmont Makers"
+  description="Four levels of FIRST robotics, K through high school. The largest community robotics league in the United States — 900+ kids, 125+ teams, open to all East Bay students."
+>
+  <!-- Hero -->
+  <section class="mx-auto max-w-7xl px-6 pt-16 pb-12">
+    <Ribbon color="red">Robotics</Ribbon>
+    <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-7xl tracking-tight leading-[0.95]">
+      Four levels. K through<br />high school.
+    </h1>
+    <p class="mt-7 max-w-2xl text-lg md:text-xl text-pm-ink/75 leading-relaxed">
+      Piedmont Makers organizes FIRST Robotics teams and hosts tournaments serving more than 900 students across 125+ teams. We're the largest community robotics league in the United States — and we want your kid on a team.
+    </p>
+  </section>
+
+  <!-- Stats band -->
+  <section class="bg-pm-ink text-pm-cream">
+    <div class="mx-auto max-w-7xl px-6 py-10 md:py-12">
+      <ul class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 md:divide-x divide-pm-cream/15">
+        <li class="text-center md:px-6">
+          <p class="font-display font-bold text-3xl md:text-4xl text-pm-red leading-none">900+</p>
+          <p class="mt-2 text-sm text-pm-cream/80">kids on our teams</p>
+        </li>
+        <li class="text-center md:px-6">
+          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cyan leading-none">125+</p>
+          <p class="mt-2 text-sm text-pm-cream/80">robotics teams</p>
+        </li>
+        <li class="text-center md:px-6">
+          <p class="font-display font-bold text-3xl md:text-4xl text-pm-purple leading-none">20+</p>
+          <p class="mt-2 text-sm text-pm-cream/80">East Bay cities served</p>
+        </li>
+        <li class="text-center md:px-6">
+          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cream leading-none">#1</p>
+          <p class="mt-2 text-sm text-pm-cream/80">community robotics league in the US</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- The four levels -->
+  <section class="mx-auto max-w-7xl px-6 pt-20">
+    <h2 class="font-display font-bold text-4xl md:text-5xl tracking-tight leading-tight">The four levels.</h2>
+    <p class="mt-3 max-w-2xl text-lg text-pm-ink/75 leading-relaxed">
+      Sign-ups for the fall season run <strong>March through May</strong>. Financial aid is available — cost should not be a barrier.
+    </p>
+
+    <div class="mt-12 space-y-20">
+      {levels.map((lvl, i) => (
+        <div id={lvl.slug} class="grid md:grid-cols-12 gap-8 md:gap-10 scroll-mt-20">
+          <div class={`md:col-span-5 ${i % 2 === 1 ? "md:order-2" : ""}`}>
+            <PhotoCard
+              caption={lvl.photoCaption}
+              color={lvl.color}
+              tilt={i % 2 === 0 ? "left" : "right"}
+              aspect="square"
+            />
+          </div>
+          <div class={`md:col-span-7 ${i % 2 === 1 ? "md:order-1" : ""}`}>
+            <Ribbon color={lvl.color}>{lvl.name}</Ribbon>
+            <p class="mt-4 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">
+              {lvl.ageLabel}
+            </p>
+            <p class="mt-5 text-lg leading-relaxed text-pm-ink/85">{lvl.blurb}</p>
+            <p class="mt-3 text-pm-ink/75 leading-relaxed">{lvl.detail}</p>
+
+            <dl class="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
+              <div>
+                <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Season</dt>
+                <dd class="mt-0.5 font-semibold">{lvl.season}</dd>
+              </div>
+              <div>
+                <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Cadence</dt>
+                <dd class="mt-0.5 font-semibold">{lvl.cadence}</dd>
+              </div>
+              <div>
+                <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Team size</dt>
+                <dd class="mt-0.5 font-semibold">{lvl.teamSize}</dd>
+              </div>
+              <div>
+                <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Cost</dt>
+                <dd class="mt-0.5 font-semibold">{lvl.cost}</dd>
+              </div>
+            </dl>
+
+            <div class="mt-7 flex flex-wrap gap-3">
+              <a href={lvl.register} class={`ribbon text-white text-base hover:opacity-90 transition-opacity ${
+                lvl.color === "red" ? "bg-pm-red hover:bg-pm-red-deep" :
+                lvl.color === "cyan" ? "bg-pm-cyan hover:bg-pm-cyan-deep" :
+                lvl.color === "purple" ? "bg-pm-purple hover:bg-pm-purple-deep" :
+                "bg-pm-ink hover:bg-pm-ink-soft"
+              }`}>
+                Register on TeamSnap →
+              </a>
+              {lvl.detailLink && (
+                <a href={lvl.detailLink} class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
+                  {lvl.detailLinkLabel || "Team site →"}
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="mx-auto max-w-4xl px-6 pt-24 pb-12">
+    <Ribbon color="cyan">FAQ</Ribbon>
+    <h2 class="mt-6 font-display font-bold text-4xl md:text-5xl tracking-tight leading-tight">
+      Parent questions, answered.
+    </h2>
+    <p class="mt-4 text-pm-ink/75 leading-relaxed">
+      Still have something specific? Email <a href="mailto:robotics@piedmontmakers.org" class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">robotics@piedmontmakers.org</a>.
+    </p>
+
+    <div class="mt-10">
+      <FAQ items={faqItems} />
+    </div>
+  </section>
+
+  <!-- Coach resources -->
+  <section class="bg-pm-cream-2/60">
+    <div class="mx-auto max-w-7xl px-6 py-20">
+      <div class="grid md:grid-cols-12 gap-10">
+        <div class="md:col-span-5">
+          <Ribbon color="purple">For coaches</Ribbon>
+          <h2 class="mt-5 font-display font-bold text-4xl tracking-tight leading-tight">
+            Coach training and open-house materials.
+          </h2>
+          <p class="mt-5 text-pm-ink/75 leading-relaxed">
+            Coaching is the most volunteer-intensive thing we do. We supply lesson plans, training, and a community of coaches to learn from. These materials are open to anyone considering coaching.
+          </p>
+          <p class="mt-4 text-pm-ink/75 leading-relaxed">
+            Interested but unsure? Email <a href="mailto:robotics@piedmontmakers.org" class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">robotics@piedmontmakers.org</a>.
+          </p>
+        </div>
+        <div class="md:col-span-7">
+          <ul class="grid sm:grid-cols-2 gap-3">
+            {coachResources.map((r) => (
+              <li>
+                <a href={r.url} class="group flex items-start justify-between gap-4 bg-pm-paper border-[3px] border-pm-ink p-5 hover:bg-white transition-colors">
+                  <div>
+                    <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Google Drive</p>
+                    <p class="mt-1 font-display font-bold text-base md:text-lg leading-tight tracking-tight">{r.title}</p>
+                  </div>
+                  <span class="font-display text-pm-red group-hover:translate-x-1 transition-transform shrink-0">→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA strip -->
+  <section class="mx-auto max-w-7xl px-6 py-20 md:py-24">
+    <div class="rounded-3xl bg-pm-ink text-pm-cream p-10 md:p-14 text-center">
+      <Ribbon color="red">Ready to sign up?</Ribbon>
+      <h2 class="mt-6 font-display font-bold text-4xl md:text-5xl tracking-tight">
+        Pick a level. Register. We'll handle the rest.
+      </h2>
+      <p class="mt-4 max-w-2xl mx-auto text-pm-cream/85 leading-relaxed">
+        Sign-up windows run March through May each year. Subscribe to the newsletter to hear when registration opens.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        {levels.map((lvl) => (
+          <a href={`#${lvl.slug}`} class="ribbon bg-pm-cream text-pm-ink text-sm hover:bg-white transition-colors">
+            {lvl.name}
+          </a>
+        ))}
+      </div>
+      <p class="mt-8 text-sm text-pm-cream/70">
+        Questions? <a href="mailto:robotics@piedmontmakers.org" class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">robotics@piedmontmakers.org</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

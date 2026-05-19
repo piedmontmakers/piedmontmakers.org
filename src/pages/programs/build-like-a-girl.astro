@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Ribbon from "../../components/Ribbon.astro";
+import PhotoCard from "../../components/PhotoCard.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const link = (path: string) => `${base}${path}`;
+---
+
+<BaseLayout
+  title="Build Like a Girl — Piedmont Makers"
+  description="A confidence-and-tools program for young girls interested in robotics, taught by older female students from our FTC and FRC teams."
+>
+  <section class="mx-auto max-w-5xl px-6 pt-16 md:pt-20 pb-8">
+    <a href={link("/programs")} class="font-display font-semibold text-pm-ink hover:text-pm-red underline-offset-4 hover:underline">
+      ← All programs
+    </a>
+    <div class="mt-6">
+      <Ribbon color="purple">Build Like a Girl</Ribbon>
+    </div>
+    <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-6xl tracking-tight leading-[0.98]">
+      Robotics, taught by girls who&apos;ve been doing it for years.
+    </h1>
+    <p class="mt-7 max-w-2xl text-lg md:text-xl text-pm-ink/75 leading-relaxed">
+      Build Like a Girl is a confidence-and-tools program for young girls interested in robotics. The mentors are high school students from our FTC and FRC teams — including from Highlander Robotics 8033, which routinely competes at the regional level.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-6 py-12">
+    <div class="grid md:grid-cols-12 gap-8 items-center">
+      <div class="md:col-span-7">
+        <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
+          Why we run this.
+        </h2>
+        <p class="mt-5 text-lg text-pm-ink/75 leading-relaxed">
+          Girls drop out of STEM at a different rate than boys, and the inflection points are well-studied. The most reliable lever we&apos;ve found is putting younger girls in the same room as older girls who already feel at home with the tools.
+        </p>
+        <p class="mt-4 text-pm-ink/75 leading-relaxed">
+          Sessions are hands-on from the start — wiring, screwdrivers, real motors, real failure modes. Mentors lead. Adults stay out of the way.
+        </p>
+        <p class="mt-4 text-pm-ink/75 leading-relaxed">
+          Sessions run periodically through the year. Watch the <a href={link("/events")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">events calendar</a> or <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">the newsletter</a> for the next date.
+        </p>
+      </div>
+      <div class="md:col-span-5">
+        <PhotoCard caption="Photo: a Build Like a Girl mentor showing a student how to wire a sensor" color="purple" tilt="right" aspect="square" />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-pm-purple text-white mt-12">
+    <div class="mx-auto max-w-5xl px-6 py-16 md:py-20">
+      <Ribbon color="cream">Want to mentor?</Ribbon>
+      <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight">
+        If you&apos;re on an FTC or FRC team, we want you.
+      </h2>
+      <p class="mt-5 max-w-2xl text-lg text-white/90 leading-relaxed">
+        Mentors don&apos;t need to be the most technical kid on their team. They need to be someone who remembers what it felt like the first time, who can explain a thing without making the student feel small, and who&apos;s willing to show up for a couple of Saturdays.
+      </p>
+      <p class="mt-4 max-w-2xl text-white/85 leading-relaxed">
+        Interested? Email <a href="mailto:hello@piedmontmakers.org" class="font-display font-semibold underline underline-offset-4 decoration-pm-cream hover:text-pm-cream">hello@piedmontmakers.org</a> or talk to your team&apos;s coach.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

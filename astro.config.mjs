@@ -20,8 +20,12 @@ export default defineConfig({
 
   redirects: {
     // Preserve inbound links from the old Wix slugs.
-    '/copy-of-2024-25-s-t-e-a-m-grants': '/grants-2025-26',
-    '/general-5': '/grants-2023-24',
+    '/copy-of-2024-25-s-t-e-a-m-grants': '/grants#awards-2025-26',
+    '/general-5': '/grants#awards-2023-24',
+    '/community': '/about',
+    '/engineering-lab': '/facilities#engineering-lab',
+    '/10th-street': '/facilities#tenth-street',
+    '/tech-social': '/',
   },
 
   vite: {
