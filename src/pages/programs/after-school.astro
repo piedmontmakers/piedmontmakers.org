@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Ribbon from "../../components/Ribbon.astro";
+import PhotoCard from "../../components/PhotoCard.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const link = (path: string) => `${base}${path}`;
+---
+
+<BaseLayout
+  title="After-School Enrichment — Piedmont Makers"
+  description="Two new after-school STEAM programs piloted at Beach Elementary in Fall 2025 — Tinker Toy Lab and Maker Invention Studio. Both sold out within minutes."
+>
+  <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-8">
+    <a href={link("/programs")} class="font-display font-semibold text-pm-ink hover:text-pm-red underline-offset-4 hover:underline">
+      ← All programs
+    </a>
+    <div class="mt-6">
+      <Ribbon color="cyan">After-School Enrichment</Ribbon>
+    </div>
+    <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-6xl tracking-tight leading-[0.98]">
+      Two new programs. Both sold out in minutes.
+    </h1>
+    <p class="mt-7 max-w-2xl text-lg md:text-xl text-pm-ink/75 leading-relaxed">
+      New in Fall 2025: two after-school STEAM programs piloted at Beach Elementary. Both sessions filled within minutes of registration opening — a clear sign of demand. We&apos;re working to scale across additional schools in 2026.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-6 py-12">
+    <div class="grid md:grid-cols-2 gap-8">
+      <article class="bg-pm-paper border-[3px] border-pm-ink p-8">
+        <Ribbon color="cyan">Tinker Toy Lab</Ribbon>
+        <p class="mt-4 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Grades 1–5</p>
+        <h2 class="mt-2 font-display font-bold text-2xl md:text-3xl tracking-tight leading-tight">
+          A creative tinkering class blending art, design, and playful engineering.
+        </h2>
+        <p class="mt-4 text-pm-ink/80 leading-relaxed">
+          Kids build instruments, giant cardboard costumes, flying contraptions, and other inventions. Designed to be accessible and engaging for kids who might not normally gravitate toward STEAM but love to create.
+        </p>
+      </article>
+
+      <article class="bg-pm-paper border-[3px] border-pm-ink p-8">
+        <Ribbon color="purple">Maker Invention Studio</Ribbon>
+        <p class="mt-4 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Grades 3–5</p>
+        <h2 class="mt-2 font-display font-bold text-2xl md:text-3xl tracking-tight leading-tight">
+          A deeper dive into science and engineering.
+        </h2>
+        <p class="mt-4 text-pm-ink/80 leading-relaxed">
+          Students experiment with mechanics, electronics, and coding using the micro:bit platform. The focus is on problem-solving, expanding maker skills, and learning to collaborate through hands-on engineering challenges.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="bg-pm-cream-2/60 mt-12">
+    <div class="mx-auto max-w-7xl px-6 py-16">
+      <Ribbon color="red">Bring it to your school</Ribbon>
+      <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight max-w-3xl">
+        We&apos;re scaling these in 2026.
+      </h2>
+      <p class="mt-5 max-w-2xl text-lg text-pm-ink/85 leading-relaxed">
+        Our 2026 strategic priorities include scaling after-school programming across additional PUSD elementary schools. If you&apos;re a school administrator or PTA member interested in hosting a program, email <a href="mailto:hello@piedmontmakers.org" class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">hello@piedmontmakers.org</a>.
+      </p>
+      <p class="mt-4 max-w-2xl text-pm-ink/75 leading-relaxed">
+        Registration windows and waitlist signups land in <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">the newsletter</a> — last fall, both sessions sold out within minutes, so subscribing is the only way to catch the opening.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

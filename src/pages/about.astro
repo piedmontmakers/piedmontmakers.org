@@ -43,10 +43,10 @@ const board = {
 };
 
 const impactStats = [
-  { number: "900+", label: "K-12 students on our teams", color: "text-pm-red" },
-  { number: "125+", label: "robotics teams", color: "text-pm-cyan" },
-  { number: "20+", label: "East Bay cities served", color: "text-pm-purple" },
-  { number: "$25K+", label: "in teacher grants every year", color: "text-pm-cream" },
+  { number: "912", label: "students on robotics teams", color: "text-pm-red" },
+  { number: "91", label: "schools across 20 East Bay cities", color: "text-pm-cyan" },
+  { number: "1,900+", label: "volunteer hours logged", color: "text-pm-purple" },
+  { number: "$25,694", label: "in teacher grants awarded", color: "text-pm-cream" },
 ];
 ---
 
@@ -81,14 +81,28 @@ const impactStats = [
         </p>
       </div>
     </div>
+
+    <!-- The problem we solve -->
+    <div class="mt-10 bg-pm-paper border-l-4 border-pm-purple p-8 md:p-10">
+      <Ribbon color="purple">The problem we solve</Ribbon>
+      <p class="mt-5 text-lg leading-relaxed text-pm-ink/85 max-w-3xl">
+        Access to hands-on STEAM education is uneven. Many students — especially those outside well-resourced environments — lack opportunities to experiment, build, design, and collaborate in maker and engineering spaces.
+      </p>
+      <p class="mt-3 text-pm-ink/80 leading-relaxed max-w-3xl">
+        Research is consistent: early exposure to applied science and engineering increases persistence in STEM coursework, improves confidence in problem solving, strengthens teamwork and communication skills, and influences future academic and career pathways. But these opportunities are too often limited by cost, equipment, space, or availability of trained mentors.
+      </p>
+      <p class="mt-3 text-pm-ink/80 leading-relaxed max-w-3xl">
+        Piedmont Makers exists to close that gap — through robotics leagues, mentorship pipelines, teacher grants, shared infrastructure, community events, and regional partnerships.
+      </p>
+    </div>
   </section>
 
   <!-- Impact stats -->
   <section class="bg-pm-ink text-pm-cream">
     <div class="mx-auto max-w-7xl px-6 py-14 md:py-16">
       <div class="text-center mb-10">
-        <Ribbon color="cyan">By the numbers</Ribbon>
-        <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight">A typical year at Piedmont Makers.</h2>
+        <Ribbon color="cyan">2024–25 by the numbers</Ribbon>
+        <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight">For the second consecutive year, the largest community-based youth robotics league in America.</h2>
       </div>
       <ul class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 md:divide-x divide-pm-cream/15">
         {impactStats.map((s) => (
@@ -99,9 +113,26 @@ const impactStats = [
         ))}
       </ul>
       <p class="mt-10 text-center text-sm text-pm-cream/65 max-w-2xl mx-auto leading-relaxed">
-        Plus an annual School Maker Faire that draws 80+ student exhibitors and 1,000+ visitors, a 1st place finish in the 2024 Piedmont 4th of July Parade, and a $245K capital campaign that built the Mary G. Ross Engineering Lab at Piedmont High School.
+        Plus an annual School Maker Faire that drew 1,000+ visitors and 80+ student exhibitors, a 1st place finish in the 2024 Piedmont 4th of July Parade, a $245K capital campaign that built the Mary G. Ross Engineering Lab at Piedmont High School, and a $175K facility-investment that anchored our permanent 10th Street robotics field in Oakland. 35% of robotics participants are girls; 87 students came from Title 1 schools.
       </p>
     </div>
+  </section>
+
+  <!-- Letter from leadership -->
+  <section class="mx-auto max-w-7xl px-6 pt-20">
+    <Ribbon color="red">A letter from leadership</Ribbon>
+    <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight leading-tight max-w-3xl">
+      Hands-on learning changes how kids see themselves.
+    </h2>
+    <div class="mt-6 max-w-3xl space-y-4 text-lg text-pm-ink/80 leading-relaxed">
+      <p>For Piedmont Makers, 2024-25 was a year of building — literally. We built robots. We helped hundreds of students build confidence, problem-solving skills, and a sense of belonging in science and engineering spaces. We built a permanent home for youth robotics. We built new partnerships across the East Bay, and pathways for hundreds of kids who might not otherwise see themselves as engineers, scientists, or makers.</p>
+      <p>When Piedmont Makers started over a decade ago, we imagined a community where every child could experience the joy of creating something with their hands — and their minds. This year, we served more students from more schools across more cities than ever before. We welcomed kids from Title 1 schools alongside kids from private academies. We watched girls lead robotics teams. We saw high schoolers teach elementary students how to use CAD software.</p>
+      <p>None of this happens without you. The parents who volunteer as coaches. The teachers who stay late. The donors who believe that hands-on learning matters. The mentors who show up week after week.</p>
+    </div>
+    <p class="mt-6 font-display font-semibold text-pm-ink">
+      Ben Stein &amp; Kevin Clark
+      <span class="font-body italic text-pm-ink/65 text-base font-normal">— Co-Presidents</span>
+    </p>
   </section>
 
   <!-- Board roster -->
@@ -210,7 +241,7 @@ const impactStats = [
           </div>
           <div>
             <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">EIN</dt>
-            <dd class="mt-0.5 font-semibold font-mono">81-2725831</dd>
+            <dd class="mt-0.5 font-semibold font-mono">47-2831568</dd>
           </div>
           <div>
             <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Mailing address</dt>

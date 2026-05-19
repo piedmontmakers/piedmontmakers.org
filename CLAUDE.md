@@ -85,10 +85,10 @@ Page containers: every section uses `mx-auto max-w-7xl px-6` so the left edge al
 
 **Audience: parents across the East Bay shopping for kid programs.** Not just Piedmont. Not corporate donors as the primary read.
 
-**Make the community the hero, not the org.** Kids = innovators. Adults = volunteers. The org appears in passing.
+**Make the community the hero AND show that we're a great org worth supporting.** Kids = innovators. Adults = volunteers. AND we're confidently the org doing this work — confident impact statements ("the largest community-based youth robotics league in the United States," "912 students across 91 schools") instill trust in parents and donors, they aren't bragging.
 
-- ✅ Stats *bands* are OK on `/about` (deliberate brag space) and `/grants` (honest accounting).
-- ❌ Stats bands anywhere else lean structurally braggy. Use `VoicesBand.astro` (3 short quotes from kids / coaches / partner teachers) instead — same visual weight, community-centered content.
+- ✅ **Stats bands** are welcome on home, robotics, about, and grants. Frame as community-in-numbers ("912 kids across 91 schools") rather than org-look-at-us ("we run the largest league"). The "largest community-based youth robotics league in America" claim is a credibility signal, not a brag — use it.
+- ✅ **VoicesBand** stays — quote-based community storytelling. Pair stats + voices wherever room allows; both heroes (community + org) can coexist on the same page.
 
 **Don't write LLM tells.** Ben will spot them. Specific things to avoid (in addition to the global rules in `~/.claude/CLAUDE.md`):
 - `actually` / `actual` as emphasis — every instance got purged in May 2026, please don't bring them back
