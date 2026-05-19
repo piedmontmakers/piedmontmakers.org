@@ -4,4 +4,8 @@ startDate: 2026-11-15
 location: "Piedmont Middle School"
 program: "robotics"
 summary: "Pre-tournament practice run for all four FLL Challenge teams. Parents welcome to watch."
+actions:
+  - type: info
+    url: "/robotics#fll-challenge"
+    label: "About FLL Challenge"
 ---

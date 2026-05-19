@@ -21,6 +21,15 @@ const blog = defineCollection({
 // popup maker space sessions, Build Like a Girl sessions, the 4th of
 // July parade, robotics kickoffs/championships. Each instance is its
 // own file in src/content/events/ named YYYY-MM-DD-slug.md.
+// Per-event call-to-action. Most events have 1, some have 2-3 (Maker Faire has
+// tickets + volunteer + exhibit). Types are styled consistently; label can be
+// overridden when the default doesn't read right.
+const eventActionSchema = z.object({
+  type: z.enum(["tickets", "register", "volunteer", "exhibit", "info"]),
+  url: z.string(),
+  label: z.string().optional(),
+});
+
 const events = defineCollection({
   loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/events" }),
   schema: z.object({
@@ -31,8 +40,8 @@ const events = defineCollection({
     program: z
       .enum(["robotics", "maker-faire", "popup", "build-like-a-girl", "july-4", "other"])
       .default("other"),
-    link: z.string().optional(),
     summary: z.string().optional(),
+    actions: z.array(eventActionSchema).optional(),
   }),
 });
 

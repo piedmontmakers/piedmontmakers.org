@@ -6,6 +6,14 @@ import Ribbon from "../components/Ribbon.astro";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
 
+// Lets event frontmatter use internal paths like "/robotics" without baking
+// in the base prefix. External URLs (http:// or //) pass through.
+const resolveUrl = (url: string) => {
+  if (/^(https?:)?\/\//.test(url)) return url;
+  if (url.startsWith("/")) return `${base}${url}`;
+  return url;
+};
+
 const programLabel: Record<string, string> = {
   "robotics": "Robotics",
   "maker-faire": "Maker Faire",
@@ -22,6 +30,26 @@ const programColor: Record<string, string> = {
   "build-like-a-girl": "bg-pm-purple text-white",
   "july-4": "bg-pm-red text-white",
   "other": "bg-pm-ink text-white",
+};
+
+// Default labels per action type — events can override per row in frontmatter.
+const actionLabel: Record<string, string> = {
+  tickets: "Get tickets",
+  register: "Register",
+  volunteer: "Volunteer",
+  exhibit: "Exhibit",
+  info: "More info",
+};
+
+// Visual treatment per action type. Tickets and register are the primary
+// transactions (filled red). Volunteer and exhibit are the participate-with-us
+// asks (filled cyan/purple). Info is the lowest-stakes link.
+const actionClass: Record<string, string> = {
+  tickets: "bg-pm-red text-white hover:bg-pm-red-deep",
+  register: "bg-pm-red text-white hover:bg-pm-red-deep",
+  volunteer: "bg-pm-cyan text-white hover:bg-pm-cyan-deep",
+  exhibit: "bg-pm-purple text-white hover:bg-pm-purple-deep",
+  info: "border-2 border-pm-ink text-pm-ink hover:bg-pm-ink hover:text-pm-cream",
 };
 
 // All events, sorted earliest first. Client-side script will split them
@@ -91,17 +119,28 @@ const fmtDateParts = (d: Date) => ({
                   )}
                 </div>
                 <h3 class="mt-2 font-display font-bold text-xl md:text-2xl tracking-tight leading-tight">
-                  {e.data.link ? (
-                    <a href={e.data.link} class="hover:text-pm-red transition-colors">{e.data.title}</a>
-                  ) : (
-                    e.data.title
-                  )}
+                  {e.data.title}
                 </h3>
                 {e.data.location && (
                   <p class="mt-1 text-sm text-pm-ink/65">{e.data.location}</p>
                 )}
                 {e.data.summary && (
                   <p class="mt-2 text-pm-ink/80 leading-relaxed">{e.data.summary}</p>
+                )}
+                {e.data.actions && e.data.actions.length > 0 && (
+                  <div class="mt-3 flex flex-wrap gap-2">
+                    {e.data.actions.map((a) => (
+                      <a
+                        href={resolveUrl(a.url)}
+                        class:list={[
+                          "inline-flex items-center gap-1.5 px-3.5 py-1.5 font-display font-semibold text-sm tracking-tight transition-colors",
+                          actionClass[a.type],
+                        ]}
+                      >
+                        {a.label || actionLabel[a.type]} <span aria-hidden="true">→</span>
+                      </a>
+                    ))}
+                  </div>
                 )}
               </div>
             </li>
