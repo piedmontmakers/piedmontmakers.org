@@ -19,30 +19,56 @@ export default defineConfig({
   integrations: [sitemap()],
 
   redirects: {
-    // Old Wix slugs — preserve inbound links.
-    '/copy-of-2024-25-s-t-e-a-m-grants': '/teacher-grants#awards-2024-25',
-    '/general-5': '/teacher-grants#awards-2023-24',
+    // ───── Old Wix top-level page slugs ─────
+    // Mapped against the Wix sitemap at www.piedmontmakers.org/sitemap.xml.
     '/community': '/about-us',
+    '/copy-of-2023-24-s-t-e-a-m-grants': '/teacher-grants#awards-2023-24',
+    '/copy-of-2024-25-s-t-e-a-m-grants': '/teacher-grants#awards-2024-25',
     '/engineering-lab': '/facilities#engineering-lab',
-    '/10th-street': '/facilities#tenth-street',
+    '/event-list': '/calendar',
+    '/general-5': '/teacher-grants#awards-2023-24',
+    '/maker-faire-project-ideas': '/events/maker-faire',
+    '/meet-the-makers': '/about-us',
+    '/school-maker-faire': '/events/maker-faire',
     '/tech-social': '/',
+    '/10th-street': '/facilities#tenth-street',
+    // Note: Wix `/events` (their event listing page) cannot redirect to
+    // `/calendar` because `/events` is now our real Events hub (formerly
+    // /programs). Visitors with stale Wix /events bookmarks land on Events
+    // instead — close enough in spirit.
 
-    // Old slugs from before the 2026-05 nav rename
-    // (Events ↔ Calendar, Programs → Events, Grants → Teacher Grants,
-    //  About → About Us). Keep these so any bookmark or stale share link
-    //  lands on the right page.
+    // ───── Migrated Wix blog posts (the 4 we ported) ─────
+    '/post/highlander-robotics-team-8033-update-april-2026': '/blog/2026-04-21-highlander-robotics-april-update',
+    '/post/advanced-robotics-open-house': '/blog/2026-04-20-advanced-robotics-open-house',
+    '/post/first-tech-challenge-registration-now-open': '/blog/2026-04-20-ftc-registration-open',
+    '/post/updates-from-first-and-lego': '/blog/2026-03-19-first-and-lego-update',
+
+    // ───── Unmigrated Wix blog posts — route to the topical page where
+    // the content best fits, falling back to /blog. ─────
+    '/post/highlander-robotics-team-8033-update-feb-2025': '/robotics#frc',
+    '/post/highlander-robotics-team-8033-update-march-2026': '/robotics#frc',
+    '/post/east-bay-hills-ftc-league-season-recap': '/robotics#ftc',
+    '/post/first-tech-challenge-registration-now-open-2': '/robotics#ftc',
+    '/post/lego-robotics-registration-open-for-fall-2026-season': '/robotics#fll-explore',
+    '/post/robotics-open-house-7pm-march-24': '/robotics',
+    '/post/makerspace-pop-up-event-march-21': '/events/popup-maker-spaces',
+    '/post/save-the-date-12th-annual-piedmont-school-maker-faire': '/events/maker-faire',
+    '/post/2026-steam-summer-camp-registration-is-open': '/events/after-school',
+
+    // ───── Wix /event-details/ pages ─────
+    '/event-details/advanced-robotics-open-house': '/blog/2026-04-20-advanced-robotics-open-house',
+
+    // ───── Pre-2026-05 nav-rename slugs (Events↔Calendar, Programs→Events,
+    // Grants→Teacher Grants, About→About Us). Keep so any bookmark or
+    // share link from before the rename lands correctly. ─────
+    '/about': '/about-us',
+    '/grants': '/teacher-grants',
     '/programs': '/events',
-    '/programs/maker-faire': '/events/maker-faire',
-    '/programs/popup-maker-spaces': '/events/popup-maker-spaces',
+    '/programs/after-school': '/events/after-school',
     '/programs/build-like-a-girl': '/events/build-like-a-girl',
     '/programs/fourth-of-july-parade': '/events/fourth-of-july-parade',
-    '/programs/after-school': '/events/after-school',
-    '/grants': '/teacher-grants',
-    '/about': '/about-us',
-    // Note: cannot redirect `/events` to `/calendar`. `/events` is now the
-    // real Events page (formerly /programs). Any link that previously meant
-    // the dated-calendar is unfortunately ambiguous after this rename — the
-    // bet is that the new content is close enough in spirit that it's fine.
+    '/programs/maker-faire': '/events/maker-faire',
+    '/programs/popup-maker-spaces': '/events/popup-maker-spaces',
   },
 
   vite: {
