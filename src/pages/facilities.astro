@@ -7,10 +7,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
 
 // Major sponsors of 10th Street (the youth robotics practice field).
+// Per Ben's policy, we don't publish 3rd-party donor amounts — listing
+// names + the nature of their contribution only.
 const tenthStreetSponsors = [
-  { name: "PG&E Corporation Foundation", amount: "$150,000" },
-  { name: "KLA Foundation", amount: "$25,000" },
-  { name: "Autodesk", amount: "CNC Router (in-kind)" },
+  { name: "PG&E Corporation Foundation", note: "Grant" },
+  { name: "KLA Foundation", note: "Grant" },
+  { name: "Autodesk", note: "CNC Router · in-kind" },
 ];
 
 // Engineering Lab donors. Pulled from the existing piedmontmakers.org/engineering-lab
@@ -178,19 +180,19 @@ const hiddenCount = majorRest.length + labDonors.length;
         <p class="mt-2 text-xs md:text-sm text-pm-cream/80">practice hours logged in 2024-25</p>
       </div>
       <div class="text-center md:px-2">
-        <p class="font-display font-bold text-3xl md:text-4xl text-pm-cream leading-none">$175K</p>
-        <p class="mt-2 text-xs md:text-sm text-pm-cream/80">raised for the permanent facility</p>
+        <p class="font-display font-bold text-3xl md:text-4xl text-pm-cream leading-none">Multi-year</p>
+        <p class="mt-2 text-xs md:text-sm text-pm-cream/80">lease signed at 3100 East 10th</p>
       </div>
     </div>
 
     <!-- 10th Street sponsors -->
     <div class="mt-6 bg-pm-cream-2/60 border-l-4 border-pm-cyan p-6 md:p-8">
-      <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">2025 Grants secured for the facility</p>
+      <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">2025 sponsors</p>
       <ul class="mt-3 space-y-1.5">
         {tenthStreetSponsors.map((s) => (
           <li class="flex items-baseline justify-between gap-4 border-b border-pm-ink/10 pb-1.5 last:border-0">
             <span class="font-display font-semibold text-lg md:text-xl tracking-tight">{s.name}</span>
-            <span class="font-mono text-sm md:text-base text-pm-ink/75">{s.amount}</span>
+            <span class="font-display text-sm md:text-base text-pm-ink/65">{s.note}</span>
           </li>
         ))}
       </ul>
