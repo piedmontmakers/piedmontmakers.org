@@ -87,9 +87,8 @@ const fmtDateParts = (d: Date) => ({
   <section class="mx-auto max-w-7xl px-6 pb-20 md:pb-28">
     <!-- UPCOMING — rendered first; JS will move past events into the section below -->
     <div data-events-upcoming>
-      <div class="flex items-baseline gap-4 border-b-2 border-pm-ink pb-3 mt-8">
+      <div class="border-b-2 border-pm-ink pb-3 mt-8">
         <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight">Upcoming</h2>
-        <span data-upcoming-count class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55"></span>
       </div>
       <ul class="mt-2 divide-y divide-pm-ink/10" data-events-list>
         {events.map((e) => {
@@ -163,9 +162,8 @@ const fmtDateParts = (d: Date) => ({
 
     <!-- PAST — JS will fill this with anything earlier than today -->
     <div data-events-past class="mt-16 hidden">
-      <div class="flex items-baseline gap-4 border-b-2 border-pm-ink pb-3">
+      <div class="border-b-2 border-pm-ink pb-3">
         <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight text-pm-ink/55">Past events</h2>
-        <span data-past-count class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55"></span>
       </div>
       <ul class="mt-2 divide-y divide-pm-ink/10 opacity-80"></ul>
     </div>
@@ -195,16 +193,9 @@ const fmtDateParts = (d: Date) => ({
       const past = items.filter((li) => li.dataset.eventDate < todayStr);
       past.reverse().forEach((li) => pastList.appendChild(li));
 
-      // Counts.
-      const upcomingCount = upcomingList.children.length;
-      const pastCount = pastList.children.length;
-      const u = document.querySelector("[data-upcoming-count]");
-      const p = document.querySelector("[data-past-count]");
-      if (u) u.textContent = upcomingCount === 1 ? "1 event" : upcomingCount + " events";
-      if (p) p.textContent = pastCount === 1 ? "1 event" : pastCount + " events";
-
       // Show / hide states.
-      if (pastCount > 0) pastSection.classList.remove("hidden");
+      const upcomingCount = upcomingList.children.length;
+      if (past.length > 0) pastSection.classList.remove("hidden");
       if (upcomingCount === 0 && emptyUpcoming) emptyUpcoming.classList.remove("hidden");
     })();
   </script>
