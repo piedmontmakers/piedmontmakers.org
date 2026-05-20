@@ -19,27 +19,12 @@ const formatDate = (d: Date) =>
 const asset = (path: string) => `${base}${path.startsWith("/") ? path : `/${path}`}`;
 const blogThumbFallback = "/img/brand/makey.png";
 
-// Placeholder voices — swap in real quotes from kids, volunteer coaches, and
-// partner teachers when collected. The structure is the point: the community
-// is the hero, not the org.
 const voices = [
   {
-    quote: "We made a robot that picked up four cones in a row. I helped program the arm.",
-    name: "Anya",
-    role: "5th grade · FLL Challenge",
+    quote: "Piedmont Makers is what makes this community special.",
+    name: "Roy",
+    role: "father of 3",
     accentColor: "red" as const,
-  },
-  {
-    quote: "I started coaching because my kid was on the team. I stayed because the other kids are great.",
-    name: "Marco",
-    role: "FTC parent coach",
-    accentColor: "cyan" as const,
-  },
-  {
-    quote: "My students built a working circuit on a t-shirt. Piedmont Makers paid for the LEDs.",
-    name: "Ms. Chen",
-    role: "Beach Elementary · 4th grade",
-    accentColor: "purple" as const,
   },
 ];
 
@@ -327,8 +312,8 @@ const events = [
     </div>
   </section>
 
-  <!-- VOICES BAND — community quotes -->
-  <VoicesBand voices={voices} eyebrow="What kids and parents are telling us" />
+  <!-- VOICES BAND — community quote -->
+  <VoicesBand voices={voices} eyebrow="From the community" />
 
   <!-- LATEST FROM THE BLOG -->
   <section class="mx-auto max-w-7xl px-6 pt-20 pb-4">

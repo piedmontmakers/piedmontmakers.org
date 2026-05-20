@@ -3,7 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
 import PhotoCard from "../components/PhotoCard.astro";
 import FAQ from "../components/FAQ.astro";
-import VoicesBand from "../components/VoicesBand.astro";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
@@ -127,28 +126,6 @@ const faqItems = [
   {
     q: "I heard FIRST and LEGO are ending their partnership. What happens to FLL?",
     a: "Our Fall 2026 LEGO League season runs as planned. After the 2026–2027 season, FIRST and LEGO will each develop independent programs. We'll evaluate options for 2027 and beyond as both organizations share more details. Our commitment doesn't change — we'll continue to offer the same level of student-centered, community-based STEAM programs.",
-  },
-];
-
-// Placeholder voices — swap in real student quotes when collected.
-const voices = [
-  {
-    quote: "We built our first LEGO robot in 3 weeks. By the end it could drive a whole loop without falling over.",
-    name: "Eli",
-    role: "1st grade · FLL Explore",
-    accentColor: "red" as const,
-  },
-  {
-    quote: "I learned Java because I had to make the robot do something specific. That ended up being the fun part.",
-    name: "Priya",
-    role: "9th grade · FTC",
-    accentColor: "cyan" as const,
-  },
-  {
-    quote: "We mentor the FLL kids the same way the seniors mentored us. The team grows itself.",
-    name: "Cassie",
-    role: "FRC Team 8033 captain",
-    accentColor: "purple" as const,
   },
 ];
 
@@ -281,9 +258,6 @@ const coachResources = [
       ))}
     </div>
   </section>
-
-  <!-- Voices band — kids talking about their teams -->
-  <VoicesBand voices={voices} eyebrow="From the teams" />
 
   <!-- FAQ -->
   <section class="mx-auto max-w-7xl px-6 pt-24 pb-12">
