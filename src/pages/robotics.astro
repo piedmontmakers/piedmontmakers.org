@@ -40,7 +40,7 @@ const levels = [
     cadence: "1–2× weekly · 2–3 hours total",
     teamSize: "5–8 kids",
     cost: "$400 / participant",
-    blurb: "Where it gets serious. 4th–8th graders build autonomous LEGO robots, code in Scratch or Python, and research a real-world problem for their Innovation Project.",
+    blurb: "4th–8th graders build autonomous LEGO robots, code in block programming or Python, and research a real-world problem for their Innovation Project.",
     detail: "Teams of 5–8 meet 1–2 times a week from August through December. The season ends at the Piedmont Makers Community Tournament at Piedmont Middle School: 12 game tables, two arenas, real referees, awards including Best Costume. Teams who want more can opt into the Competitive Track for regional qualifiers in January and February. Piedmont Makers delivers a 4'×8' game table to the coach's house and supplies the LEGO Spike Prime kits, week-by-week guides, August coach training, and a Slack community of 110+ coaches.",
     color: "cyan" as const,
     register: "https://go.teamsnap.com/forms/514677",
@@ -59,7 +59,7 @@ const levels = [
     teamSize: "6–12 kids",
     cost: "$500 / participant",
     blurb: "From LEGO to metal. 7th–12th graders build 18-inch-cube robots from REV, TETRIX, and goBILDA components, code them in Java, and compete in two-robot alliances on a 12'×12' field.",
-    detail: "Two tracks. Recreational places every interested kid on a team and focuses on building Java, CAD, and fabrication skills. Competitive runs 4–6 hours a week and aims at advancing to the regional championship. Both compete in the same East Bay Hills FTC League qualifying tournaments. Teams of 6–12 practice at coach/parent homes or the Mary G. Ross Engineering Lab at Piedmont High School. Many teams bring on a Highlander Robotics high schooler as a student mentor so a non-STEM parent can still run a strong team.",
+    detail: "Teams of 6–12 kids practice at coach/parent homes or our robotics practice facility in Oakland, learning Java programming, CAD, and digital fabrication along the way. They compete in the East Bay Hills FTC League qualifying tournaments. Many teams bring on a Highlander Robotics high schooler as a student mentor so a non-STEAM parent can still run a strong team.",
     color: "purple" as const,
     register: "https://go.teamsnap.com/forms/518591",
     openHousePresentation: ADVANCED_OPEN_HOUSE,
@@ -74,10 +74,10 @@ const levels = [
     ageLabel: "Grades 9–12",
     season: "Aug–June · build season Jan–March",
     cadence: "Multiple weekly meetings",
-    teamSize: "Open team · 40+ kids",
+    teamSize: "50+ kids",
     cost: "$800 / participant",
     blurb: "The big leagues: 120-pound competition robots, full build season, serious engineering. Team 8033 has reached the FIRST World Championship in Houston four times, most recently in 2025.",
-    detail: "Open team: sign up and you're in, we don't cut anyone. The team has 40+ kids organized into specialty subgroups (mechanical, electrical, software, scouting, fundraising, business) so members can focus on what they love instead of doing everything. Build happens at the Mary G. Ross Engineering Lab at Piedmont High School; full-field driving practice at our 10th Street facility in Oakland, the only community-accessible regulation FRC field in the Bay Area. Beyond build season, Team 8033 develops Lovat (a scouting app used by 800+ FRC teams worldwide), runs the annual a-CAD-emy summer camp teaching middle schoolers Onshape CAD, mentors local FLL teams, and shares training programs with 40+ other FRC teams worldwide.",
+    detail: "Team 8033 has 50+ kids organized into specialty subgroups (mechanical, electrical, software, scouting, fundraising, business) so members can focus on what they love instead of doing everything. Practice happens at our robotics practice facility in Oakland, the only community-accessible regulation FRC field in the Bay Area. Beyond build season, Team 8033 develops Lovat (a scouting app used by 800+ FRC teams worldwide), runs the annual a-CAD-emy summer camp teaching middle schoolers Onshape CAD, mentors local FLL teams, and shares training programs with 40+ other FRC teams worldwide.",
     color: "ink" as const,
     register: "https://go.teamsnap.com/forms/484016",
     registerOpen: false,
@@ -92,12 +92,16 @@ const levels = [
 
 const faqItems = [
   {
+    q: "Do you accept kids who don't live in Piedmont?",
+    a: "Yes. Our programs are open to East Bay students: Oakland, Berkeley, Lamorinda, and beyond.",
+  },
+  {
     q: "Does my kid need engineering experience to join?",
     a: "No. We provide guided lesson plans, tutorials, annual coach training, a coach Slack channel, practice table access, and uniforms. Every level is designed to be the on-ramp for someone, not a graduate seminar.",
   },
   {
     q: "Do coaches need engineering experience?",
-    a: "Also no. Coaches are parent volunteers. We run annual coach training and supply lesson plans, tutorials, and a Slack channel. For FTC, non-STEM coaches often hire a high school student mentor to handle the engineering side.",
+    a: "Also no. Coaches are parent volunteers. We run annual coach training and supply lesson plans, tutorials, and a Slack channel. For FTC, non-STEAM coaches often hire a high school student mentor to handle the engineering side.",
   },
   {
     q: "We don't have a team yet. Can my kid still register?",
@@ -114,10 +118,6 @@ const faqItems = [
   {
     q: "What does it cost?",
     a: "FLL Explore $200, FLL Challenge $400, FTC $500, FRC $800. Cost covers FIRST registration, kits/parts, uniform, competition fees, and coach training. <strong>Financial aid is available; cost should not be a barrier.</strong> Email <a href=\"mailto:robotics@piedmontmakers.org\" class=\"font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red\">robotics@piedmontmakers.org</a> in confidence.",
-  },
-  {
-    q: "Do you accept kids who don't live in Piedmont?",
-    a: "Yes. Our programs are open to East Bay students: Oakland, Berkeley, Lamorinda, and beyond.",
   },
   {
     q: "When do registrations open?",
@@ -152,7 +152,7 @@ const coachResources = [
           From LEGO bricks to championship robots.
         </h1>
         <p class="mt-7 text-lg md:text-xl text-pm-ink/75 leading-relaxed">
-          FIRST Robotics teams across the East Bay, from LEGO bricks in 1st grade to 120-pound competition robots in high school. Kids learn engineering by doing, and the older ones teach the younger ones.
+          FIRST Robotics teams in 20 cities across the East Bay, from LEGO bricks in 1st grade to 120-pound competition robots in high school. Kids learn engineering by doing, and the older ones teach the younger ones.
         </p>
         <p class="mt-4 text-base text-pm-ink/65 leading-relaxed">
           We operate the <strong class="text-pm-ink">largest community-based youth robotics league in the United States</strong>: ~1,000 kids on 125+ teams. 46% come from outside Piedmont, 40% of LEGO League participants are girls, and 87 attend Title 1 schools. STEAM shouldn&apos;t depend on your zip code or your family&apos;s income.
@@ -177,7 +177,7 @@ const coachResources = [
   <section class="mx-auto max-w-7xl px-6 pt-20 pb-24">
     <h2 class="font-display font-bold text-4xl md:text-5xl tracking-tight leading-tight">Pick the right team for your kid.</h2>
     <p class="mt-3 max-w-2xl text-lg text-pm-ink/75 leading-relaxed">
-      This season, ~1,000 kids from 20+ East Bay cities are on a Piedmont Makers team across 125+ teams. Sign-ups for the fall run <strong>March through May</strong>. Financial aid is available; cost should not be a barrier.
+      Sign-ups for the fall run <strong>March through May</strong>. Financial aid is available; cost should not be a barrier.
     </p>
 
     <div class="mt-12 space-y-20">
