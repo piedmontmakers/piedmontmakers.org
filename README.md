@@ -15,15 +15,17 @@ This is a static site built with [Astro](https://astro.build) and Tailwind CSS. 
 | Need to edit... | Look in |
 |---|---|
 | Home page sections | `src/pages/index.astro` |
-| About / board roster | `src/pages/about.astro` |
+| About / board roster | `src/pages/about-us.astro` |
 | Robotics levels + FAQ | `src/pages/robotics.astro` |
-| A specific program page | `src/pages/programs/{slug}.astro` |
+| A specific program page | `src/pages/events/{slug}.astro` |
 | Facilities (10th St + Engineering Lab) | `src/pages/facilities.astro` |
-| Teacher Grants list | `src/pages/grants.astro` |
+| Teacher Grants list | `src/pages/teacher-grants.astro` |
 | Calendar of events | `src/content/events/` (one Markdown file per event) |
-| Blog | `src/content/blog/` (one Markdown file per post) |
+| Blog posts | `src/content/blog/` (one Markdown file per post) |
+| 404 page (with dancing Makey) | `src/pages/404.astro` |
 | Photos | `public/img/` (organized by section) |
 | Brand colors & fonts | `src/styles/global.css` |
+| Analytics events | `src/components/PostHog.astro` + inline scripts on each page |
 
 ## Making changes — three options
 
@@ -42,11 +44,13 @@ Fastest for small text edits or adding a blog post / event.
 ```bash
 git clone https://github.com/piedmontmakers/piedmontmakers.org.git
 cd piedmontmakers.org
-npm install
+npm ci          # prefer over `npm install` — see "Gotchas" below
 npm run dev
 ```
 
 The site runs at <http://localhost:4321/piedmontmakers.org/> with hot reload — open the URL in a browser and your edits show up as you save.
+
+If you need to set up PostHog locally, create a `.env` (gitignored) with `PUBLIC_POSTHOG_PROJECT_TOKEN` and `PUBLIC_POSTHOG_HOST`. The site works fine without these — the snippet no-ops if either is missing.
 
 When you're happy:
 ```bash
@@ -141,7 +145,14 @@ Short version:
 
 ## Tech
 
-Astro 5 (NOT 6 — Astro 6 has a known build issue with our setup), Tailwind CSS v4, `@tailwindcss/typography` for blog prose, content collections for blog + events. Full details in `CLAUDE.md`.
+Astro 5 (NOT 6 — Astro 6 has a known build issue with our setup), Tailwind CSS v4, `@tailwindcss/typography` for blog prose, content collections for blog + events, PostHog for analytics, a hand-rolled RSS feed at `/rss.xml`. SEO basics (canonical, Open Graph, Twitter Card, JSON-LD, `robots.txt`, `llms.txt`) all wired into `BaseLayout`. Full details in `CLAUDE.md`.
+
+## Gotchas
+
+- **Use `npm ci` over `npm install` when possible.** A regular `npm install` can silently drop the `@rolldown/binding-*` optional deps and break the build (`Cannot find module '@rolldown/binding-darwin-arm64'`). If that happens: `git checkout package-lock.json && rm -rf node_modules && npm ci`. When you do need to add a dep, run `npm ci` first to lock the optional deps in, then `npm install <pkg> --include=optional`.
+- **`501(c)(3)` requires a zero-width non-joiner** between `(` and `c`. The body font (Manrope) substitutes `(c)` → © via an OpenType feature that CSS can't reliably disable. Every `501(c)(3)` on the site uses `&zwnj;` in templates or `‌` in TS strings — follow the pattern.
+- **Don't `git add -A`.** Use explicit paths (`git add src/...`). A Claude Code plugin cache directory has snuck into commits before via `-A`.
+- More in `CLAUDE.md` → "Known gotchas".
 
 ## License
 
