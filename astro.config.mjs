@@ -23,7 +23,7 @@ export default defineConfig({
     // Mapped against the Wix sitemap at www.piedmontmakers.org/sitemap.xml.
     '/community': '/about-us',
     '/copy-of-2023-24-s-t-e-a-m-grants': '/teacher-grants#awards-2023-24',
-    '/copy-of-2024-25-s-t-e-a-m-grants': '/teacher-grants#awards-2024-25',
+    '/copy-of-2024-25-s-t-e-a-m-grants': '/teacher-grants#awards-2025-26',
     '/engineering-lab': '/facilities#engineering-lab',
     '/event-list': '/calendar',
     '/general-5': '/teacher-grants#awards-2023-24',
