@@ -34,7 +34,11 @@ html {
 body {
   font-family: var(--font-body);
   color: var(--color-pm-ink);
-  font-feature-settings: "ss01", "ss02";
+  /* Manrope ss01 is the "alternate (c)(r)(tm)" stylistic set — it
+   * silently converts "(c)" to ©, which mangles every "501(c)(3)" on
+   * the site. Keeping ss02 (open digits) which makes the numbers
+   * we display feel less geometric. */
+  font-feature-settings: "ss02";
 }
 
 /* Hand-lettered accent for captions and "tape" labels */
