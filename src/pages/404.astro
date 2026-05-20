@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Ribbon from "../components/Ribbon.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const link = (path: string) => `${base}${path}`;
+
+const suggestions = [
+  { href: "/", label: "Home" },
+  { href: "/robotics", label: "Robotics" },
+  { href: "/events", label: "Events" },
+  { href: "/calendar", label: "Calendar" },
+  { href: "/blog", label: "Blog" },
+  { href: "/about-us", label: "About us" },
+];
+---
+
+<BaseLayout
+  title="Page not found — Piedmont Makers"
+  description="The page you're looking for doesn't seem to exist. Makey's still looking though."
+>
+  <section class="mx-auto max-w-7xl px-6 pt-16 pb-24 md:pt-24 md:pb-32">
+    <div class="grid md:grid-cols-12 gap-10 md:gap-12 items-center">
+      <div class="md:col-span-7 md:order-1">
+        <Ribbon color="purple">404</Ribbon>
+        <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[0.95]">
+          Makey can&apos;t find that one.
+        </h1>
+        <p class="mt-6 max-w-xl text-lg md:text-xl text-pm-ink/75 leading-relaxed">
+          The page might&apos;ve moved, or it might never have existed. Either way, here&apos;s where you can go instead.
+        </p>
+        <p class="mt-8 font-marker text-2xl text-pm-purple">try one of these</p>
+        <ul class="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-2xl">
+          {suggestions.map((s) => (
+            <li>
+              <a
+                href={link(s.href)}
+                class="block bg-pm-paper border-[3px] border-pm-ink p-4 hover:bg-white hover:translate-y-[-2px] transition-all font-display font-semibold text-pm-ink"
+              >
+                → {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="md:col-span-5 md:order-2 flex items-center justify-center">
+        <img
+          src={`${base}/img/brand/makey.png`}
+          alt="Makey, the Piedmont Makers mascot, hopping in place"
+          class="w-56 md:w-72 lg:w-80 h-auto makey-dance"
+          width="320"
+          height="320"
+        />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Bouncy, slightly wobbly idle animation. Pivots from the bottom so
+   * Makey feels grounded — like he's actually hopping in place.
+   * The global prefers-reduced-motion rule in global.css kills it for
+   * motion-sensitive users; the local rule below is belt-and-suspenders. */
+  @keyframes makey-dance {
+    0%   { transform: translateY(0) rotate(-3deg); }
+    20%  { transform: translateY(-14px) rotate(4deg); }
+    40%  { transform: translateY(0) rotate(-2deg); }
+    60%  { transform: translateY(-9px) rotate(3deg); }
+    80%  { transform: translateY(0) rotate(-3deg); }
+    100% { transform: translateY(0) rotate(-3deg); }
+  }
+  .makey-dance {
+    animation: makey-dance 1.6s ease-in-out infinite;
+    transform-origin: bottom center;
+    will-change: transform;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .makey-dance {
+      animation: none;
+      transform: none;
+    }
+  }
+</style>
