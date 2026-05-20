@@ -264,6 +264,7 @@ const grants_2023_24 = {
           </p>
           <a
             href="https://donate.piedmontmakers.org"
+            id="donate-teacher-grants"
             class="mt-6 inline-flex items-center gap-2 ribbon bg-pm-red text-white text-base hover:bg-pm-red-deep transition-colors"
           >
             Donate to teacher grants →
@@ -273,3 +274,14 @@ const grants_2023_24 = {
     </div>
   </section>
 </BaseLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    var donateBtn = document.getElementById('donate-teacher-grants');
+    if (donateBtn) {
+      donateBtn.addEventListener('click', function () {
+        window.posthog?.capture('donate_teacher_grants_clicked');
+      });
+    }
+  });
+</script>

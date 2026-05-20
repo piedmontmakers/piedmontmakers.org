@@ -485,3 +485,39 @@ const events = [
     </div>
   </section>
 </BaseLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Newsletter signup
+    var newsletterForm = document.querySelector('#newsletter form');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', function () {
+        window.posthog?.capture('newsletter_signup_clicked');
+      });
+    }
+
+    // Donate card
+    var donateLink = document.querySelector('a[href="https://donate.piedmontmakers.org"]');
+    if (donateLink) {
+      donateLink.addEventListener('click', function () {
+        window.posthog?.capture('donate_clicked', { source: 'home_how_to_help' });
+      });
+    }
+
+    // Volunteer card
+    var volunteerLinks = document.querySelectorAll('a.block.rounded-3xl.bg-pm-cyan');
+    volunteerLinks.forEach(function (el) {
+      el.addEventListener('click', function () {
+        window.posthog?.capture('volunteer_clicked', { source: 'home_how_to_help' });
+      });
+    });
+
+    // Buy a shirt card
+    var shirtLink = document.querySelector('a[href="https://www.bonfire.com/piedmont-makers-t-shirt/"]');
+    if (shirtLink) {
+      shirtLink.addEventListener('click', function () {
+        window.posthog?.capture('buy_shirt_clicked');
+      });
+    }
+  });
+</script>

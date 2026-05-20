@@ -257,3 +257,14 @@ const faqItems = [
     </div>
   </section>
 </BaseLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Track clicks on newsletter subscribe links on this page
+    document.querySelectorAll('a[href*="#newsletter"]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        window.posthog?.capture('maker_faire_newsletter_clicked');
+      });
+    });
+  });
+</script>

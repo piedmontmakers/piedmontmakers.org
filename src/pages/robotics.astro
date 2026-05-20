@@ -263,7 +263,7 @@ const coachResources = [
             </dl>
 
             <div class="mt-7 flex flex-wrap gap-3">
-              <a href={lvl.register} class={`ribbon text-white text-base hover:opacity-90 transition-opacity ${
+              <a href={lvl.register} data-level={lvl.slug} data-register="true" class={`ribbon text-white text-base hover:opacity-90 transition-opacity ${
                 lvl.color === "red" ? "bg-pm-red hover:bg-pm-red-deep" :
                 lvl.color === "cyan" ? "bg-pm-cyan hover:bg-pm-cyan-deep" :
                 lvl.color === "purple" ? "bg-pm-purple hover:bg-pm-purple-deep" :
@@ -359,3 +359,15 @@ const coachResources = [
     </div>
   </section>
 </BaseLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-register="true"]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        window.posthog?.capture('robotics_register_clicked', {
+          level: el.getAttribute('data-level')
+        });
+      });
+    });
+  });
+</script>

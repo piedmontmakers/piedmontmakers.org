@@ -98,7 +98,7 @@ const programs = [
     <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-14">
       {programs.map((p) => (
         <li>
-          <a href={link(p.href)} class="group block">
+          <a href={link(p.href)} data-program={p.name} class="group block">
             <PhotoCard
               caption={p.caption}
               color={p.color}
@@ -123,3 +123,15 @@ const programs = [
     </ul>
   </section>
 </BaseLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-program]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        window.posthog?.capture('program_card_clicked', {
+          program_name: el.getAttribute('data-program')
+        });
+      });
+    });
+  });
+</script>
