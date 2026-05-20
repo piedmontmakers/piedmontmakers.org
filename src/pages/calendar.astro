@@ -111,7 +111,8 @@ const fmtDateParts = (d: Date) => ({
                 </div>
                 <div class="px-2 py-2 text-center">
                   <div class="font-display font-bold text-4xl md:text-5xl tracking-tight leading-none">{start.day}</div>
-                  <div class="font-display text-[10px] md:text-xs uppercase tracking-[0.18em] text-pm-ink/55 mt-2">{start.weekday} · {start.year}</div>
+                  <div class="mt-2 font-display font-semibold text-sm md:text-base text-pm-ink/80 leading-none">{start.weekday}</div>
+                  <div class="mt-1 font-display text-xs md:text-sm text-pm-ink/55">{start.year}</div>
                 </div>
               </div>
               <div>
@@ -165,9 +166,24 @@ const fmtDateParts = (d: Date) => ({
       <div class="border-b-2 border-pm-ink pb-3">
         <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight text-pm-ink/55">Past events</h2>
       </div>
-      <ul class="mt-2 divide-y divide-pm-ink/10 opacity-80"></ul>
+      <ul class="mt-2 divide-y divide-pm-ink/10 past-events-list"></ul>
     </div>
   </section>
+
+  <!-- Grayscale + lower opacity treatment for the past-events list. Done in
+       a <style> block (not Tailwind utilities) so the filter applies inside
+       the date card too, including the red month bar at the top of each
+       date column. -->
+  <style>
+    .past-events-list {
+      filter: grayscale(0.7);
+      opacity: 0.6;
+    }
+    .past-events-list:hover {
+      filter: grayscale(0);
+      opacity: 1;
+    }
+  </style>
 
   <!-- Client-side date logic. Runs on every page load so the page stays
        accurate without rebuilds. -->
