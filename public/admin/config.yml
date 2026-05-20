@@ -6,9 +6,7 @@ backend:
   name: github
   repo: piedmontmakers/piedmontmakers.org
   branch: main
-  # OAuth proxy URL. Set after deploying the sveltia-cms-auth Cloudflare Worker.
-  # See https://github.com/sveltia/sveltia-cms-auth for the one-click deploy.
-  # base_url: https://sveltia-cms-auth.YOUR-SUBDOMAIN.workers.dev
+  base_url: https://sveltia-cms-auth.ben-68b.workers.dev
 
 # Site URL for the "View live" link inside the CMS, after publish.
 site_url: https://piedmontmakers.github.io/piedmontmakers.org/
