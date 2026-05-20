@@ -27,3 +27,6 @@ pnpm-debug.log*
 !.vscode/extensions.json
 !.vscode/settings.json
 .idea/
+
+# Claude Code skills directory — local plugin cache, not project source
+.claude/
