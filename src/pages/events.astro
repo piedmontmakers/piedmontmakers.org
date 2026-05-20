@@ -59,25 +59,28 @@ const programs = [
     tilt: "right" as const,
     tape: "none" as const,
   },
-  {
-    href: "/events/after-school",
-    name: "After-School Enrichment",
-    when: "PUSD elementary schools",
-    headline: "Hands-on STEAM, after the school day.",
-    blurb: "Tinker Toy Lab (Grades 1-5) and Maker Invention Studio (Grades 3-5). Piloted at Beach Elementary; expanding to more PUSD elementary schools.",
-    color: "cyan" as const,
-    src: "/img/programs/popup.jpg",
-    caption: "After-school enrichment — kids making with paper, markers, and cardboard",
-    alt: "Children at long tables making craft projects in an after-school enrichment session.",
-    tilt: "left" as const,
-    tape: "right" as const,
-  },
+  // After-School Enrichment paused for Fall 2026; restore this card if it
+  // comes back in winter 2026-27 or a later session. The detail page
+  // (/events/after-school) still exists but isn't linked from here.
+  // {
+  //   href: "/events/after-school",
+  //   name: "After-School Enrichment",
+  //   when: "PUSD elementary schools",
+  //   headline: "Hands-on STEAM, after the school day.",
+  //   blurb: "Tinker Toy Lab (Grades 1-5) and Maker Invention Studio (Grades 3-5). Piloted at Beach Elementary; expanding to more PUSD elementary schools.",
+  //   color: "cyan" as const,
+  //   src: "/img/programs/popup.jpg",
+  //   caption: "After-school enrichment, kids making with paper, markers, and cardboard",
+  //   alt: "Children at long tables making craft projects in an after-school enrichment session.",
+  //   tilt: "left" as const,
+  //   tape: "right" as const,
+  // },
 ];
 ---
 
 <BaseLayout
   title="Events — Piedmont Makers"
-  description="Everything Piedmont Makers does beyond the robotics teams: the annual School Maker Faire, popup maker spaces, Build Like a Girl, the 4th of July parade, and after-school enrichment."
+  description="Everything Piedmont Makers does beyond the robotics teams: the annual School Maker Faire, popup maker spaces, Build Like a Girl, and the 4th of July parade."
 >
   <!-- Hero -->
   <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-12">
