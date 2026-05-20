@@ -41,6 +41,58 @@ body {
   font-feature-settings: "ss02";
 }
 
+/* Brand-colored keyboard focus ring for every interactive element.
+ * :focus-visible only fires for keyboard navigation (not mouse clicks),
+ * so it improves accessibility without making the design look noisy. */
+*:focus-visible {
+  outline: 2px solid var(--color-pm-cyan);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Tailwind v4 doesn't ship sr-only by default. Provide it so we can
+ * use focus:not-sr-only on the skip-to-content link. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.focus\:not-sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Respect reduced-motion preference: kill all tilt rotations and
+ * transitions for users who've asked the OS to minimize motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .tilt-left,
+  .tilt-right,
+  .tilt-left-md,
+  .tilt-right-md {
+    transform: none !important;
+  }
+}
+
 /* Hand-lettered accent for captions and "tape" labels */
 .font-marker {
   font-family: var(--font-marker);

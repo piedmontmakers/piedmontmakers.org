@@ -7,12 +7,49 @@ import PostHog from "../components/PostHog.astro";
 interface Props {
   title: string;
   description?: string;
+  /** Optional path to a per-page Open Graph image. Falls back to the brand default. */
+  ogImage?: string;
+  /** When true (on blog posts) emit article-specific OG type. */
+  ogType?: "website" | "article";
 }
 
-const { title, description = "Piedmont Makers — a 501(c)(3) supporting STEAM education and maker culture across the East Bay." } = Astro.props;
+const {
+  title,
+  description = "Piedmont Makers — a 501(c)(3) supporting STEAM education and maker culture across the East Bay.",
+  ogImage,
+  ogType = "website",
+} = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const asset = (path: string) => `${base}${path.startsWith("/") ? path : `/${path}`}`;
+
+// Build absolute URLs for canonical / OG tags. Astro.site is set in
+// astro.config.mjs and flips between the GH Pages staging origin and the
+// apex domain via USE_CUSTOM_DOMAIN.
+const siteOrigin = (Astro.site?.toString() ?? "https://piedmontmakers.org/").replace(/\/$/, "");
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? "https://piedmontmakers.org/").toString();
+const ogImageAbsolute = ogImage
+  ? new URL(asset(ogImage), Astro.site ?? "https://piedmontmakers.org/").toString()
+  : new URL(asset("/img/brand/logo.png"), Astro.site ?? "https://piedmontmakers.org/").toString();
+
+// JSON-LD Organization data so search engines can attach Piedmont Makers
+// the entity to any page on the site.
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "NonprofitOrganization",
+  name: "Piedmont Makers",
+  url: siteOrigin + "/",
+  logo: new URL(asset("/img/brand/logo.png"), Astro.site ?? "https://piedmontmakers.org/").toString(),
+  description: "501(c)(3) nonprofit running FIRST Robotics teams, a community engineering lab, a school maker faire, popup maker spaces, and Build Like a Girl across the East Bay.",
+  foundingDate: "2014",
+  taxID: "47-2831568",
+  email: "hello@piedmontmakers.org",
+  areaServed: { "@type": "AdministrativeArea", name: "East Bay, California" },
+  sameAs: [
+    "https://www.instagram.com/piedmontmakers/",
+    "https://www.linkedin.com/company/piedmont-makers",
+  ],
+};
 ---
 
 <!DOCTYPE html>
@@ -23,23 +60,63 @@ const asset = (path: string) => `${base}${path.startsWith("/") ? path : `/${path
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph (Facebook, LinkedIn, iMessage previews) -->
+    <meta property="og:site_name" content="Piedmont Makers" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageAbsolute} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbsolute} />
+
+    <!-- Feed auto-discovery -->
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Piedmont Makers — Blog"
+      href={asset("/rss.xml")}
+    />
+
+    <!-- Icons / manifest -->
     <link rel="icon" type="image/x-icon" href={asset("/favicon.ico")} sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href={asset("/favicon-32.png")} />
     <link rel="icon" type="image/png" sizes="16x16" href={asset("/favicon-16.png")} />
     <link rel="apple-touch-icon" sizes="180x180" href={asset("/apple-touch-icon.png")} />
     <link rel="manifest" href={asset("/site.webmanifest")} />
     <meta name="theme-color" content="#92278F" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Structured data: NonprofitOrganization -->
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+
     <PostHog />
   </head>
   <body class="bg-pm-paper text-pm-ink antialiased">
+    <!-- Skip-to-content for keyboard + screen-reader users. Hidden by
+         default; appears in the top-left when focused. -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] focus:rounded focus:bg-pm-ink focus:px-4 focus:py-2 focus:font-display focus:font-semibold focus:text-pm-cream"
+    >
+      Skip to main content
+    </a>
     <Nav />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     <Footer />
