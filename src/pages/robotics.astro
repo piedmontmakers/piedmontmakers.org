@@ -167,7 +167,7 @@ const coachResources = [
           FIRST Robotics teams across the East Bay, from LEGO bricks in 1st grade to 120-pound competition robots in high school. Kids learn engineering by doing, and the older ones teach the younger ones.
         </p>
         <p class="mt-4 text-base text-pm-ink/65 leading-relaxed">
-          For the second consecutive year, we operated the <strong class="text-pm-ink">largest community-based youth robotics league in the United States</strong> — ~1,000 kids on 125+ teams. 46% from outside Piedmont.
+          We operate the <strong class="text-pm-ink">largest community-based youth robotics league in the United States</strong>: ~1,000 kids on 125+ teams. 46% come from outside Piedmont, 40% of LEGO League participants are girls, and 87 attend Title 1 schools. STEAM shouldn&apos;t depend on your zip code or your family&apos;s income.
         </p>
       </div>
       <div class="md:col-span-5">
@@ -182,36 +182,6 @@ const coachResources = [
           </div>
         </figure>
       </div>
-    </div>
-  </section>
-
-  <!-- Stats band — per-level student counts -->
-  <section class="bg-pm-ink text-pm-cream">
-    <div class="mx-auto max-w-7xl px-6 py-10 md:py-12">
-      <p class="text-center font-display text-xs uppercase tracking-[0.22em] text-pm-cream/60 mb-6">
-        By level
-      </p>
-      <ul class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 md:divide-x divide-pm-cream/15">
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-red leading-none">407</p>
-          <p class="mt-2 text-sm text-pm-cream/80">FIRST LEGO League Explore <span class="text-pm-cream/55">(K–3)</span></p>
-        </li>
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cyan leading-none">342</p>
-          <p class="mt-2 text-sm text-pm-cream/80">FIRST LEGO League Challenge <span class="text-pm-cream/55">(4–8)</span></p>
-        </li>
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-purple leading-none">84</p>
-          <p class="mt-2 text-sm text-pm-cream/80">FIRST Tech Challenge <span class="text-pm-cream/55">(7–12)</span></p>
-        </li>
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cream leading-none">79</p>
-          <p class="mt-2 text-sm text-pm-cream/80">FIRST Robotics Competition <span class="text-pm-cream/55">(9–12)</span></p>
-        </li>
-      </ul>
-      <p class="mt-8 text-center text-sm text-pm-cream/65 max-w-3xl mx-auto leading-relaxed">
-        40% of LEGO League participants are girls. 87 students came from Title 1 schools. STEAM shouldn&apos;t depend on your zip code or your family&apos;s income.
-      </p>
     </div>
   </section>
 
@@ -237,7 +207,7 @@ const coachResources = [
           </div>
           <div class={`md:col-span-7 ${i % 2 === 1 ? "md:order-1" : ""}`}>
             <Ribbon color={lvl.color}>{lvl.name}</Ribbon>
-            <p class="mt-4 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">
+            <p class="mt-4 font-display font-bold text-2xl md:text-3xl tracking-tight text-pm-ink leading-tight">
               {lvl.ageLabel}
             </p>
             <p class="mt-5 text-lg leading-relaxed text-pm-ink/85">{lvl.blurb}</p>
