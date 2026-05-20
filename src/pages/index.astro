@@ -53,7 +53,7 @@ const roboticsLevels = [
   {
     name: "FIRST LEGO League Explore",
     ages: "K–3rd",
-    blurb: "Gentle intro to robotics with LEGO Education kits.",
+    blurb: "Your kid's first robot. LEGO bricks, simple programming, no pressure.",
     color: "red" as const,
     src: "/img/robotics/fll-explore.jpg",
     caption: "Younger kids building LEGO Technic together",
@@ -62,7 +62,7 @@ const roboticsLevels = [
   {
     name: "FIRST LEGO League Challenge",
     ages: "4th–8th",
-    blurb: "Build LEGO robots, run autonomous missions, present an innovation project.",
+    blurb: "LEGO robots plus a research project. Kids design, code, and present.",
     color: "cyan" as const,
     src: "/img/robotics/fll-challenge.jpg",
     caption: "A Challenge team at the SUBMERGED season tournament",
@@ -71,7 +71,7 @@ const roboticsLevels = [
   {
     name: "FIRST Tech Challenge",
     ages: "7th–12th",
-    blurb: "Custom metal robots, Java programming, regional competitions.",
+    blurb: "Metal robots, Java code, regional tournaments. Middle and high schoolers building serious machines.",
     color: "purple" as const,
     src: "/img/robotics/ftc.jpg",
     caption: "A playoff match at the league tournament",
@@ -80,7 +80,7 @@ const roboticsLevels = [
   {
     name: "FIRST Robotics Competition",
     ages: "high school",
-    blurb: "120-pound competition robots, full build season, real engineering.",
+    blurb: "120 pounds of competition robot. Built by high schoolers, season after season.",
     color: "ink" as const,
     src: "/img/robotics/frc.jpg",
     caption: "Highlander Robotics 8033 around the robot at championship",
@@ -93,7 +93,7 @@ const events = [
     name: "School Maker Faire",
     when: "Sat May 17 · 2026",
     headline: "Our biggest event of the year",
-    blurb: "K-12 students show what they made all year — Rube Goldberg machines, robots, embroidered patches, soldered circuits, 3D-printed everything. Free, open to the public.",
+    blurb: "K-12 kids show what they made all year: Rube Goldberg machines, robots, embroidered patches, soldered circuits, 3D-printed everything. Free, open to the public.",
     color: "red" as const,
     href: "/events/maker-faire",
     src: "/img/programs/maker-faire.jpg",
@@ -105,8 +105,8 @@ const events = [
   {
     name: "Popup Maker Spaces",
     when: "Sporadic Saturdays · Sign up to hear first",
-    headline: "Hands-on workshops, free to drop in",
-    blurb: "A few times a year we open a space and load it with tools — soldering irons, sewing machines, 3D printers, cardboard, hot glue, whatever&apos;s on hand. Show up and make.",
+    headline: "Hands-on workshops, drop in and make",
+    blurb: "A few times a year we open a space and load it with tools: soldering irons, sewing machines, 3D printers, cardboard, hot glue, whatever&apos;s on hand. Show up and make.",
     color: "cyan" as const,
     href: "/events/popup-maker-spaces",
     src: "/img/programs/popup.jpg",
@@ -118,8 +118,8 @@ const events = [
   {
     name: "Build Like a Girl",
     when: "Multiple sessions · Watch the newsletter",
-    headline: "Young girls excited about robotics",
-    blurb: "Mentored by the older female students from our FTC and FRC teams. A confidence-and-tools program: hands-on robotics taught by girls who&apos;ve been doing it for years.",
+    headline: "Inspiring girls in STEAM",
+    blurb: "Older girls from our FRC and FTC teams teach the younger ones. Hands-on robotics with serious tools. By girls, for girls.",
     color: "purple" as const,
     href: "/events/build-like-a-girl",
     src: "/img/programs/build-like-a-girl.jpg",
@@ -161,28 +161,32 @@ const events = [
 
         <div class="md:col-span-6 md:order-2 relative">
           <div class="relative h-[460px] md:h-[540px]">
-            <div class="absolute top-0 right-0 w-[78%] aspect-[4/3] rounded-3xl overflow-hidden border-[3px] border-pm-ink shadow-[var(--shadow-card)] tilt-right">
-              <img
-                src={asset("/img/programs/build-like-a-girl.jpg")}
-                alt="High school students from FRC Team 8033 in purple Piedmont Makers sweatshirts demonstrating a robot to a crowd of younger girls."
-                class="w-full h-full object-cover"
-                loading="eager"
-              />
-            </div>
-            <div class="absolute bottom-0 left-0 w-[58%] aspect-[3/4] rounded-3xl overflow-hidden border-[3px] border-pm-ink shadow-[var(--shadow-card)] tilt-left-md">
+            <!-- Bottom: Maker Faire LEGO table — cyan border, landscape so it sits below BLAG instead of climbing into it -->
+            <div class="absolute bottom-0 left-[2%] w-[70%] aspect-[4/3] rounded-3xl overflow-hidden border-[5px] border-pm-cyan shadow-[var(--shadow-card)] tilt-left-md z-10">
               <img
                 src={asset("/img/programs/maker-faire.jpg")}
                 alt="Kids and parents gathered around a large outdoor LEGO play table at the Piedmont School Maker Faire."
                 class="w-full h-full object-cover"
+                style="object-position: 50% 55%;"
                 loading="eager"
               />
             </div>
-            <div class="absolute top-12 left-0 md:-left-4 w-[40%] aspect-square rounded-2xl overflow-hidden border-[3px] border-pm-ink shadow-[var(--shadow-card)] tilt-right">
+            <!-- Top-left: parade Makey balloon — purple border (Makey is purple), bigger + nudged down/right so it tucks into the seam between the red and cyan cards -->
+            <div class="absolute top-[4%] left-0 md:-left-1 w-[44%] aspect-square rounded-2xl overflow-hidden border-[5px] border-pm-purple shadow-[var(--shadow-card)] tilt-left-md z-20">
               <img
                 src={asset("/img/programs/parade.jpg")}
                 alt="The giant red inflatable Makey rising above the 4th of July Parade — kids in purple Piedmont Makers shirts hold the banner below, red-white-and-blue balloons frame Makey on either side, and a kid in a soapbox car cruises past."
                 class="w-full h-full object-cover"
                 style="object-position: 52% 60%;"
+                loading="eager"
+              />
+            </div>
+            <!-- Top-right: Build Like a Girl — red border. Last so its bottom-left corner sits ON TOP of the cyan card. -->
+            <div class="absolute top-0 right-0 w-[64%] aspect-[4/3] rounded-3xl overflow-hidden border-[5px] border-pm-red shadow-[var(--shadow-card)] tilt-right z-30">
+              <img
+                src={asset("/img/programs/build-like-a-girl.jpg")}
+                alt="High school students from FRC Team 8033 in purple Piedmont Makers sweatshirts demonstrating a robot to a crowd of younger girls."
+                class="w-full h-full object-cover"
                 loading="eager"
               />
             </div>
@@ -197,11 +201,11 @@ const events = [
     <div class="mx-auto max-w-7xl px-6 py-10 md:py-12">
       <ul class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 md:divide-x divide-pm-cream/15">
         <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-red leading-none">912</p>
-          <p class="mt-2 text-sm text-pm-cream/80">students on robotics teams</p>
+          <p class="font-display font-bold text-3xl md:text-4xl text-pm-red leading-none">~1,000</p>
+          <p class="mt-2 text-sm text-pm-cream/80">kids on robotics teams</p>
         </li>
         <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cyan leading-none">91</p>
+          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cyan leading-none">90+</p>
           <p class="mt-2 text-sm text-pm-cream/80">schools across 20 East Bay cities</p>
         </li>
         <li class="text-center md:px-6">
@@ -269,7 +273,7 @@ const events = [
             Come make something with us.
           </h2>
           <p class="mt-5 text-lg text-pm-ink/75 leading-relaxed max-w-xl">
-            Open to anyone. Mostly free. Always hands-on.
+            Year-round community maker events for kids and grown-ups.
           </p>
         </div>
         <div class="md:col-span-5 md:text-right space-y-2">
@@ -318,7 +322,7 @@ const events = [
           Latest from the blog.
         </h2>
         <p class="mt-5 text-lg text-pm-ink/75 leading-relaxed max-w-xl">
-          Project recaps, season updates, behind-the-scenes from board meetings. For things you have to act on, the newsletter is faster.
+          Project recaps, season updates, photos from the field. For sign-up windows and anything time-sensitive, the newsletter is faster.
         </p>
       </div>
       <div class="md:col-span-5 md:text-right">
@@ -373,10 +377,10 @@ const events = [
             <Ribbon color="ink">Newsletter</Ribbon>
           </div>
           <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight leading-[1.02]">
-            The newsletter is how we talk to parents.
+            Don&apos;t miss what&apos;s next.
           </h2>
           <p class="mt-5 max-w-xl text-lg text-white/90 leading-relaxed">
-            One or two emails a month. Robotics sign-up windows, popup maker space dates, Maker Faire prep, board recaps, occasional photos of finished projects. No spam. Unsubscribe anytime.
+            Upcoming programs for your kids, registration deadlines (some sessions close in hours), volunteer opportunities for grown-ups and kids both, and photos from recent events. About one email a month.
           </p>
         </div>
         <div class="md:col-span-5">
@@ -433,7 +437,7 @@ const events = [
           When students build something with their own hands, they build something else too: belief in themselves.
         </h2>
         <p class="mt-6 text-lg text-white/85 leading-relaxed max-w-2xl">
-          We&apos;re a 501(c)(3) run by parents and volunteers. We don&apos;t charge admission to most of what we do. We give $25,000+ in STEAM grants to Piedmont Unified teachers every year. We run robotics teams across the East Bay, a community engineering lab, a school maker faire that&apos;s now in its 12th year, popup maker spaces, and (new in 2025) after-school enrichment.
+          We&apos;re a 501(c)(3) run by parents and volunteers. Most of what we do is free or low-cost. Each year we give $25,000+ in STEAM grants to Piedmont Unified teachers, run robotics teams across the East Bay, host a community engineering lab, put on a school maker faire (now in its 12th year), open popup maker spaces, and (new in 2025) run after-school enrichment.
         </p>
         <p class="mt-4 text-lg text-white/85 leading-relaxed max-w-2xl">
           The reason it all works is the same reason most good community things work: a lot of people show up, regularly, and pitch in.
@@ -469,7 +473,7 @@ const events = [
       <a href={link("/events")} class="block rounded-3xl bg-pm-cyan text-white p-8 hover:bg-pm-cyan-deep transition-colors group">
         <span class="font-marker text-2xl text-pm-cream">we need you!</span>
         <h3 class="mt-2 font-display font-bold text-3xl tracking-tight">Volunteer</h3>
-        <p class="mt-3 text-white/85 leading-relaxed">We&apos;re volunteer-run from top to bottom. Coach a team, mentor at Maker Faire, help with the next popup — every event has its own signup.</p>
+        <p class="mt-3 text-white/85 leading-relaxed">We&apos;re volunteer-run start to finish. Coach a team, mentor at Maker Faire, help with the next popup. Every event has its own signup.</p>
         <p class="mt-6 font-display font-semibold group-hover:text-pm-ink transition-colors">See upcoming events →</p>
       </a>
       <a href="https://www.bonfire.com/piedmont-makers-t-shirt/" class="block rounded-3xl bg-pm-cream-2 text-pm-ink p-8 hover:bg-pm-cream transition-colors group">
