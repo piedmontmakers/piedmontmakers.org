@@ -4,11 +4,98 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
-    <title>Piedmont Makers — Blog CMS</title>
+    <title>Piedmont Makers · Editor</title>
+
+    <!-- Favicon + manifest (relative paths so this works at both the
+         GH Pages base path and the eventual apex domain) -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+    <meta name="theme-color" content="#92278F" />
+
+    <!-- Fonts: load the same display font used elsewhere on the site so
+         the loading splash is on-brand. Body fallback is system. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --pm-cream: #fff6e8;
+        --pm-ink: #0f1b2d;
+        --pm-red: #e51926;
+      }
+      html, body { margin: 0; padding: 0; height: 100%; background: var(--pm-cream); }
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        color: var(--pm-ink);
+      }
+
+      /* Branded loading splash. Sveltia mounts into <body> and replaces
+       * its contents on load, so this only shows briefly. If the CDN is
+       * slow it stays visible — at which point being on-brand matters. */
+      .pm-splash {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        padding: 24px;
+      }
+      .pm-splash img {
+        width: min(280px, 70vw);
+        height: auto;
+        transition: transform 320ms ease-out;
+      }
+      .pm-splash img:hover { transform: rotate(-2deg); }
+      .pm-splash h1 {
+        margin: 0;
+        font-family: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+        font-weight: 800;
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        letter-spacing: -0.02em;
+        text-align: center;
+      }
+      .pm-splash p {
+        margin: 0;
+        font-size: 0.95rem;
+        color: rgba(15, 27, 45, 0.6);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .pm-spinner {
+        width: 14px;
+        height: 14px;
+        border: 2px solid rgba(15, 27, 45, 0.2);
+        border-top-color: var(--pm-red);
+        border-radius: 50%;
+        animation: pm-spin 0.8s linear infinite;
+      }
+      @keyframes pm-spin { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) {
+        .pm-spinner { animation: none; border-top-color: rgba(15, 27, 45, 0.2); }
+      }
+    </style>
   </head>
   <body>
-    <!-- Sveltia CMS loads its own UI into the body, configured by /admin/config.yml.
-         Auth + read/write happens against GitHub via the OAuth backend defined there. -->
-    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+    <!-- Branded splash. Replaced by the Sveltia CMS UI once the script
+         below mounts. Kept lean (one image, inline CSS) so it paints
+         immediately even if Sveltia is slow to load. -->
+    <div class="pm-splash">
+      <img src="../img/brand/logo.png" alt="Piedmont Makers" width="540" height="135" />
+      <h1>Editor</h1>
+      <p><span class="pm-spinner" aria-hidden="true"></span> Loading the CMS…</p>
+    </div>
+
+    <!-- Sveltia CMS. Version pinned for stability; bump intentionally.
+         Check https://github.com/sveltia/sveltia-cms/releases for new
+         versions, then update this URL and test on a branch. -->
+    <script src="https://unpkg.com/@sveltia/cms@0.162.3/dist/sveltia-cms.js"></script>
   </body>
 </html>

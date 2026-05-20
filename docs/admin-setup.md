@@ -62,6 +62,19 @@ Commit and push. The Action will deploy in ~30s.
 
 Open `https://piedmontmakers.org/admin/` (or the staging GH Pages URL while DNS is still pending). You should see a "Sign in with GitHub" button. Click it, approve the OAuth app, and you'll land in the CMS.
 
+## Updating Sveltia CMS
+
+The CDN URL in `public/admin/index.html` is pinned to a specific Sveltia version. Updates are intentional, not automatic.
+
+To bump:
+
+1. Check the latest release at <https://github.com/sveltia/sveltia-cms/releases> (or `curl -sI 'https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js' | grep location`).
+2. Edit the `<script src="...">` line at the bottom of `public/admin/index.html`. Change the version number.
+3. Commit on a branch, push, test at `https://piedmontmakers.github.io/piedmontmakers.org/admin/` once GH Pages deploys. (Sveltia is git-backed, so you can verify the CMS works without actually publishing a real post — just sign in and confirm the post list renders.)
+4. If everything works, merge to `main`. If something breaks, revert the commit.
+
+The trade-off: pinned means you have to remember to update for bug fixes / features. Unpinned (just `@sveltia/cms` with no `@VERSION`) means automatic but risks a breaking change in their UI. Sveltia is 0.x, so neither strategy is risk-free; pinning is the more conservative default.
+
 ## Who can edit?
 
 Anyone who:
