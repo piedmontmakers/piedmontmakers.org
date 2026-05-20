@@ -99,24 +99,24 @@ const programs = [
       {programs.map((p) => (
         <li>
           <a href={link(p.href)} data-program={p.name} class="group block">
-            <PhotoCard
-              caption={p.caption}
-              color={p.color}
-              tilt={p.tilt}
-              tape={p.tape}
-              aspect="landscape"
-              src={p.src}
-              alt={p.alt}
-            />
-            <div class="mt-5 px-1">
-              <Ribbon color={p.color}>{p.name}</Ribbon>
-              <p class="mt-3 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">{p.when}</p>
-              <h2 class="mt-2 font-display font-bold text-2xl md:text-3xl tracking-tight leading-tight">{p.headline}</h2>
-              <p class="mt-3 text-pm-ink/80 leading-relaxed">{p.blurb}</p>
-              <p class="mt-4 font-display font-semibold text-pm-ink group-hover:text-pm-red transition-colors">
-                Learn more →
-              </p>
+            <Ribbon color={p.color}>{p.name}</Ribbon>
+            <p class="mt-3 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">{p.when}</p>
+            <h2 class="mt-2 font-display font-bold text-2xl md:text-3xl tracking-tight leading-tight">{p.headline}</h2>
+            <div class="mt-5">
+              <PhotoCard
+                caption={p.caption}
+                color={p.color}
+                tilt={p.tilt}
+                tape={p.tape}
+                aspect="landscape"
+                src={p.src}
+                alt={p.alt}
+              />
             </div>
+            <p class="mt-3 px-1 text-pm-ink/80 leading-relaxed">{p.blurb}</p>
+            <p class="mt-4 px-1 font-display font-semibold text-pm-ink group-hover:text-pm-red transition-colors">
+              Learn more →
+            </p>
           </a>
         </li>
       ))}

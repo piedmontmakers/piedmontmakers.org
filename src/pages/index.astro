@@ -91,7 +91,7 @@ const roboticsLevels = [
 const events = [
   {
     name: "School Maker Faire",
-    when: "Sat May 17 · 2026",
+    when: "Annual · next May 2027",
     headline: "Our biggest event of the year",
     blurb: "K-12 kids show what they made all year: Rube Goldberg machines, robots, embroidered patches, soldered circuits, 3D-printed everything. Free, open to the public.",
     color: "red" as const,
@@ -160,7 +160,24 @@ const events = [
         </div>
 
         <div class="md:col-span-6 md:order-2 relative">
-          <div class="relative h-[460px] md:h-[540px]">
+          <!-- Mobile: single hero photo. The 3-photo collage doesn't compose well
+               below ~640px width — photos shrink too much to overlap meaningfully
+               and leave dead vertical space. -->
+          <div class="md:hidden">
+            <figure class="tilt-right">
+              <div class="overflow-hidden rounded-3xl border-[5px] border-pm-red shadow-[var(--shadow-card)] aspect-[4/3]">
+                <img
+                  src={asset("/img/programs/build-like-a-girl.jpg")}
+                  alt="High school students from FRC Team 8033 in purple Piedmont Makers sweatshirts demonstrating a robot to a crowd of younger girls."
+                  class="w-full h-full object-cover"
+                  loading="eager"
+                />
+              </div>
+            </figure>
+          </div>
+
+          <!-- Desktop: full 3-photo collage with the deliberate overlap. -->
+          <div class="hidden md:block relative h-[540px]">
             <!-- Bottom: Maker Faire LEGO table — cyan border, landscape so it sits below BLAG instead of climbing into it -->
             <div class="absolute bottom-0 left-[2%] w-[70%] aspect-[4/3] rounded-3xl overflow-hidden border-[5px] border-pm-cyan shadow-[var(--shadow-card)] tilt-left-md z-10">
               <img
@@ -243,20 +260,20 @@ const events = [
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-10">
         {roboticsLevels.map((lvl, i) => (
           <a href={link("/robotics")} class="group block">
-            <PhotoCard
-              caption={lvl.caption}
-              color={lvl.color}
-              tilt={i % 2 === 0 ? "left" : "right"}
-              tape={i === 1 ? "right" : "none"}
-              aspect="square"
-              src={lvl.src}
-              alt={lvl.alt}
-            />
-            <div class="mt-4 px-1">
-              <Ribbon color={lvl.color}>{lvl.name}</Ribbon>
-              <p class="mt-3 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Ages · {lvl.ages}</p>
-              <p class="mt-2 text-pm-ink/80 leading-relaxed text-[0.95rem]">{lvl.blurb}</p>
+            <Ribbon color={lvl.color}>{lvl.name}</Ribbon>
+            <p class="mt-3 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Ages · {lvl.ages}</p>
+            <div class="mt-4">
+              <PhotoCard
+                caption={lvl.caption}
+                color={lvl.color}
+                tilt={i % 2 === 0 ? "left" : "right"}
+                tape={i === 1 ? "right" : "none"}
+                aspect="square"
+                src={lvl.src}
+                alt={lvl.alt}
+              />
             </div>
+            <p class="mt-3 px-1 text-pm-ink/80 leading-relaxed text-[0.95rem]">{lvl.blurb}</p>
           </a>
         ))}
       </div>
@@ -286,24 +303,24 @@ const events = [
       <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-10">
         {events.map((e) => (
           <a href={link(e.href)} class="group block">
-            <PhotoCard
-              caption={e.caption}
-              color={e.color}
-              tilt={e.tilt}
-              tape={e.tape}
-              aspect="landscape"
-              src={e.src}
-              alt={e.alt}
-            />
-            <div class="mt-4 px-1">
-              <Ribbon color={e.color}>{e.name}</Ribbon>
-              <p class="mt-3 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">{e.when}</p>
-              <h3 class="mt-2 font-display font-bold text-2xl tracking-tight leading-tight">{e.headline}</h3>
-              <p class="mt-3 text-pm-ink/80 leading-relaxed">{e.blurb}</p>
-              <p class="mt-4 font-display font-semibold text-pm-ink group-hover:text-pm-red transition-colors">
-                Learn more →
-              </p>
+            <Ribbon color={e.color}>{e.name}</Ribbon>
+            <p class="mt-3 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">{e.when}</p>
+            <h3 class="mt-2 font-display font-bold text-2xl tracking-tight leading-tight">{e.headline}</h3>
+            <div class="mt-4">
+              <PhotoCard
+                caption={e.caption}
+                color={e.color}
+                tilt={e.tilt}
+                tape={e.tape}
+                aspect="landscape"
+                src={e.src}
+                alt={e.alt}
+              />
             </div>
+            <p class="mt-3 px-1 text-pm-ink/80 leading-relaxed">{e.blurb}</p>
+            <p class="mt-4 px-1 font-display font-semibold text-pm-ink group-hover:text-pm-red transition-colors">
+              Learn more →
+            </p>
           </a>
         ))}
       </div>
