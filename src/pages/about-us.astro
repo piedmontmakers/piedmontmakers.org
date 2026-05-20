@@ -5,17 +5,13 @@ import Ribbon from "../components/Ribbon.astro";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
 
-// Board is a list of names. Some have piedmontmakers.org emails; those with
-// emails are flagged so we can render a mailto link. Email addresses are
-// public on the existing Wix site — repeating them here is a deliberate
-// choice. If spam becomes an issue we can layer an EmailObfuscated component.
 // 2026–27 board slate. Paul Morrison wears two hats (Secretary + VP FTC)
 // and appears in both Officers and Robotics — that's intentional.
 const board = {
   officers: [
-    { name: "Kevin Clark", role: "Co-President", email: "kevin@piedmontmakers.org" },
-    { name: "Ben Stein", role: "Co-President", email: "ben@piedmontmakers.org" },
-    { name: "Dave Ragones", role: "Treasurer (Interim)", email: "david@piedmontmakers.org" },
+    { name: "Kevin Clark", role: "Co-President" },
+    { name: "Ben Stein", role: "Co-President" },
+    { name: "Dave Ragones", role: "Treasurer (Interim)" },
     { name: "Paul Morrison", role: "Secretary" },
   ],
   robotics: [
@@ -160,11 +156,6 @@ const impactStats = [
             <li>
               <p class="font-display font-bold text-lg tracking-tight">{m.name}</p>
               {m.role && <p class="text-sm text-pm-ink/65">{m.role}</p>}
-              {m.email && (
-                <a href={`mailto:${m.email}`} class="mt-1 inline-block font-body text-sm text-pm-ink underline underline-offset-4 decoration-pm-red hover:text-pm-red">
-                  {m.email}
-                </a>
-              )}
             </li>
           ))}
         </ul>
