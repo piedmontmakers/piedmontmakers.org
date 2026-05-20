@@ -101,6 +101,7 @@ const navItems: NavItem[] = [
       ))}
       <a
         href="https://donate.piedmontmakers.org"
+        data-nav-donate="desktop"
         class="ribbon bg-pm-red text-white text-sm font-semibold tracking-tight shadow-sm hover:bg-pm-red-deep transition-colors"
       >
         Donate
@@ -160,6 +161,7 @@ const navItems: NavItem[] = [
         <li class="pt-4">
           <a
             href="https://donate.piedmontmakers.org"
+            data-nav-donate="mobile"
             class="ribbon bg-pm-red text-white text-base font-semibold inline-block"
           >
             Donate
@@ -203,6 +205,16 @@ const navItems: NavItem[] = [
     });
     window.addEventListener("resize", function () {
       if (window.innerWidth >= 768) setOpen(false);
+    });
+
+    // PostHog: capture clicks on either nav donate button, tagged with
+    // surface (desktop or mobile) so we can compare in the dashboard.
+    document.querySelectorAll("[data-nav-donate]").forEach(function (el) {
+      el.addEventListener("click", function () {
+        window.posthog?.capture("donate_nav_clicked", {
+          source: el.getAttribute("data-nav-donate"),
+        });
+      });
     });
   })();
 </script>
