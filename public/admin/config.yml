@@ -1,0 +1,78 @@
+# Sveltia CMS config — blog-only CMS for piedmontmakers.org.
+# UI lives at /admin/ (served as static files). Auth + writes go through
+# GitHub via an OAuth proxy. See /docs/admin-setup.md for setup steps.
+
+backend:
+  name: github
+  repo: piedmontmakers/piedmontmakers.org
+  branch: main
+  # OAuth proxy URL. Set after deploying the sveltia-cms-auth Cloudflare Worker.
+  # See https://github.com/sveltia/sveltia-cms-auth for the one-click deploy.
+  # base_url: https://sveltia-cms-auth.YOUR-SUBDOMAIN.workers.dev
+
+# Site URL for the "View live" link inside the CMS, after publish.
+site_url: https://piedmontmakers.github.io/piedmontmakers.org/
+display_url: https://piedmontmakers.org/
+logo_url: /img/brand/logo.png
+
+# Where uploaded images go in the repo. Matches the existing convention
+# for hero images (heroImage: "/img/blog/...").
+media_folder: public/img/blog
+public_folder: /img/blog
+
+collections:
+  - name: blog
+    label: Blog posts
+    label_singular: Blog post
+    folder: src/content/blog
+    create: true
+    delete: true
+    # Filename pattern. Astro's content collection uses the filename as
+    # the post ID, so YYYY-MM-DD-slug.md is what we want.
+    # {{slug}} auto-slugifies from the title field.
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    # Sort options surfaced in the post list
+    sortable_fields: [pubDate, title]
+    # Preview pane on the right while editing
+    editor:
+      preview: true
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish date
+        name: pubDate
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        picker_utc: true
+        hint: "Pick the date the post should be dated. Used for sorting and the dateline."
+      - label: Author
+        name: author
+        widget: string
+        required: false
+        default: "Piedmont Makers"
+      - label: Excerpt
+        name: excerpt
+        widget: text
+        required: false
+        hint: "One-sentence summary shown on the blog index and in social previews."
+      - label: Hero image
+        name: heroImage
+        widget: image
+        required: false
+        hint: "Optional. Appears at the top of the post and on the blog listing card."
+      - label: Hero image alt text
+        name: heroImageAlt
+        widget: string
+        required: false
+        hint: "Describe the photo for screen readers. Skip if there's no hero image."
+      - label: Hero image caption
+        name: heroImageCaption
+        widget: string
+        required: false
+        hint: "Rendered as a caption under the hero. Skip if there's no hero image."
+      - label: Body
+        name: body
+        widget: markdown
+        hint: "Write the post in Markdown. For inline images, use <figure><img src='/piedmontmakers.org/img/blog/...'/></figure> — that path prefix is required in production."
