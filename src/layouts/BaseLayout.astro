@@ -15,7 +15,7 @@ interface Props {
 
 const {
   title,
-  description = "Piedmont Makers — a 501(c)(3) supporting STEAM education and maker culture across the East Bay.",
+  description = "Piedmont Makers — a 501(‌c)(3) supporting STEAM education and maker culture across the East Bay.",
   ogImage,
   ogType = "website",
 } = Astro.props;
@@ -40,7 +40,7 @@ const orgSchema = {
   name: "Piedmont Makers",
   url: siteOrigin + "/",
   logo: new URL(asset("/img/brand/logo.png"), Astro.site ?? "https://piedmontmakers.org/").toString(),
-  description: "501(c)(3) nonprofit running FIRST Robotics teams, a community engineering lab, a school maker faire, popup maker spaces, and Build Like a Girl across the East Bay.",
+  description: "501(‌c)(3) nonprofit running FIRST Robotics teams, a community engineering lab, a school maker faire, popup maker spaces, and Build Like a Girl across the East Bay.",
   foundingDate: "2014",
   taxID: "47-2831568",
   email: "hello@piedmontmakers.org",

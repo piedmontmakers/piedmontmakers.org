@@ -45,7 +45,7 @@ export async function GET(context: APIContext) {
   <channel>
     <title>Piedmont Makers — Blog</title>
     <link>${baseUrl}/blog</link>
-    <description>News, project recaps, and updates from Piedmont Makers — a 501(c)(3) supporting STEAM education and maker culture across the East Bay.</description>
+    <description>News, project recaps, and updates from Piedmont Makers — a 501(‌c)(3) supporting STEAM education and maker culture across the East Bay.</description>
     <language>en-us</language>
     <atom:link href="${baseUrl}/rss.xml" rel="self" type="application/rss+xml" />
 ${items}
