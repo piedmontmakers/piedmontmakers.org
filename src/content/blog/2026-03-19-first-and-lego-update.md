@@ -2,7 +2,7 @@
 title: Updates from FIRST and LEGO
 pubDate: 2026-03-19
 author: Piedmont Makers
-excerpt: FIRST and LEGO Education are ending their nearly three-decade partnership after the 2026–2027 season. Here's what that means for our FLL programs.
+excerpt: FIRST and LEGO Education are ending their nearly three-decade partnership after the 2026–2027 season. Here's what that means for our LEGO League programs.
 heroImageAlt: ''
 heroImageCaption: ''
 ---

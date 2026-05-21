@@ -119,6 +119,8 @@ Avoid **time-locked framing** that goes stale fast. "New in Fall 2025" reads as 
 
 **STEM → STEAM.** Always STEAM (Science, Technology, Engineering, Arts, Math) site-wide. Including derived phrasing like "non-STEM coaches" → "non-STEAM coaches." Exception: the verbatim mission statement uses "S.T.E.A.M." with periods — leave that alone.
 
+**Minimize "FLL" jargon in prose.** Prefer "LEGO League" (colloquial) or "FIRST LEGO League" (formal) when writing for parents. FLL is acceptable in space-constrained UI: buttons, photoCaption labels, nav sublinks, coach-training titles, alt text, code variable names. Visible body prose should spell it out. FTC and FRC abbreviations are fine — Ben hasn't flagged those as jargon, and parents shopping for high-school robotics encounter them often enough.
+
 **Don't bold names of honored individuals.** Mary G. Ross, Annie Easley Cannon, Mary Wynne Montague, etc. get plain text, no `<strong>`. Bold reads as emphasis-for-the-reader-to-act-on; honoree names are just listed.
 
 **"Piedmont" vs "East Bay" rule.** Keep "Piedmont" only in:

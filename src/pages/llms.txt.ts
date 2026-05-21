@@ -18,7 +18,7 @@ export async function GET(context: APIContext) {
 
 ## Programs
 
-- [Robotics](${path("/robotics")}): FIRST Robotics teams from kindergarten through high school. Four levels: FLL Explore (Grades K–3), FLL Challenge (Grades 4–8), FTC FIRST Tech Challenge (Grades 7–12), FRC FIRST Robotics Competition (Grades 9–12, Highlander Robotics Team 8033).
+- [Robotics](${path("/robotics")}): FIRST Robotics teams from kindergarten through high school. Four levels: LEGO League Explore (Grades K–3), LEGO League Challenge (Grades 4–8), FIRST Tech Challenge / FTC (Grades 7–12), FIRST Robotics Competition / FRC (Grades 9–12, Highlander Robotics Team 8033).
 - [Events](${path("/events")}): School Maker Faire (annual May event at Piedmont High School), Popup Maker Spaces, Build Like a Girl, 4th of July Parade, After-School Enrichment.
 - [Facilities](${path("/facilities")}): 10th Street regulation FRC field in Oakland; Mary G. Ross Engineering Lab at Piedmont High School.
 - [Teacher Grants](${path("/teacher-grants")}): annual STEAM grants to Piedmont Unified School District teachers.
