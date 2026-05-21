@@ -212,7 +212,7 @@ const hiddenCount = majorRest.length + labDonors.length;
           The community engineering classroom at Piedmont High School. Home base for FTC robotics teams, after-school engineering programs, and the annual K–8 robotics open houses where prospective families see what robotics looks like up close.
         </p>
         <p class="mt-4 text-pm-ink/75 leading-relaxed">
-          The space is named for Mary G. Ross, the first known Native American female engineer and a pioneer at Lockheed's Skunk Works. The interior features dedicated portraits of three women who shaped American STEAM (Annie Easley Cannon, Mary Wynne Montague, and Mary G. Ross), introduced at the dedication ceremony by members of Highlander Robotics 8033.
+          The space is named for Mary G. Ross, the first known Native American female engineer and a pioneer at Lockheed's Skunk Works. Three of the lab's rooms honor pioneering women in STEAM, with stipple portraits dedicated at the ribbon-cutting ceremony by members of Highlander Robotics 8033.
         </p>
 
         <dl class="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
@@ -240,6 +240,66 @@ const hiddenCount = majorRest.length + labDonors.length;
           alt="Interior of the Mary G. Ross Engineering Lab at Piedmont High School — high schoolers in purple shirts working at tall plywood benches around an FRC robot frame, with team banners, the Team Social board, and FRC parts visible in the background."
         />
       </div>
+    </div>
+
+    <!-- Women STEAM leaders honored in the lab's spaces. Stipple portraits
+         dedicated by Highlander Robotics 8033 at the 2023 ribbon-cutting. -->
+    <div class="mt-16">
+      <Ribbon color="purple">Women STEAM leaders</Ribbon>
+      <h3 class="mt-5 font-display font-bold text-2xl md:text-3xl tracking-tight leading-tight max-w-3xl">
+        The lab's spaces are named for three pioneering women in STEAM.
+      </h3>
+
+      <ul class="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-10 md:gap-12">
+        <li class="text-center">
+          <img
+            src={`${base}/img/facilities/lab-portraits/cannon.png`}
+            alt="Stipple portrait of Annie Jump Cannon"
+            class="w-full max-w-[240px] mx-auto h-auto"
+            width="600"
+            height="540"
+            loading="lazy"
+          />
+          <p class="mt-2 font-display font-bold text-xl md:text-2xl tracking-tight">Annie Jump Cannon</p>
+          <p class="mt-1 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Engineering Patio</p>
+          <p class="mt-3 text-sm text-pm-ink/75 leading-relaxed max-w-[26ch] mx-auto">
+            Astronomer who developed the modern stellar classification system while cataloguing over 350,000 stars.
+          </p>
+          <p class="mt-2 font-display text-xs tracking-tight text-pm-ink/55">1863–1941</p>
+        </li>
+        <li class="text-center">
+          <img
+            src={`${base}/img/facilities/lab-portraits/montague.png`}
+            alt="Stipple portrait of Raye Montague"
+            class="w-full max-w-[240px] mx-auto h-auto"
+            width="600"
+            height="540"
+            loading="lazy"
+          />
+          <p class="mt-2 font-display font-bold text-xl md:text-2xl tracking-tight">Raye Montague</p>
+          <p class="mt-1 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Computer Lab · ST-127</p>
+          <p class="mt-3 text-sm text-pm-ink/75 leading-relaxed max-w-[26ch] mx-auto">
+            Naval engineer, computer programmer, and the first computer-aided ship designer.
+          </p>
+          <p class="mt-2 font-display text-xs tracking-tight text-pm-ink/55">1935–2018</p>
+        </li>
+        <li class="text-center">
+          <img
+            src={`${base}/img/facilities/lab-portraits/ross.png`}
+            alt="Stipple portrait of Mary G. Ross"
+            class="w-full max-w-[240px] mx-auto h-auto"
+            width="600"
+            height="540"
+            loading="lazy"
+          />
+          <p class="mt-2 font-display font-bold text-xl md:text-2xl tracking-tight">Mary G. Ross</p>
+          <p class="mt-1 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Engineering Lab · ST-128</p>
+          <p class="mt-3 text-sm text-pm-ink/75 leading-relaxed max-w-[26ch] mx-auto">
+            Aerospace engineer whose Skunk Works efforts shaped the U.S. space program.
+          </p>
+          <p class="mt-2 font-display text-xs tracking-tight text-pm-ink/55">1908–2008</p>
+        </li>
+      </ul>
     </div>
 
     <!-- Donor list — show a preview, then a collapsible <details> for everyone else -->
