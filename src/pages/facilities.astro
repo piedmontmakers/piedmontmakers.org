@@ -241,16 +241,14 @@ const hiddenCount = majorRest.length + labDonors.length;
         />
       </div>
     </div>
+  </section>
 
-    <!-- Women STEAM leaders honored in the lab's spaces. Stipple portraits
-         dedicated by Highlander Robotics 8033 at the 2023 ribbon-cutting. -->
-    <div class="mt-16">
-      <Ribbon color="purple">Women STEAM leaders</Ribbon>
-      <h3 class="mt-5 font-display font-bold text-2xl md:text-3xl tracking-tight leading-tight max-w-3xl">
-        The lab's spaces are named for three pioneering women in STEAM.
-      </h3>
-
-      <ul class="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-10 md:gap-12">
+  <!-- Full-bleed white strip for the three stipple portraits. White
+       background matches the portraits' own backgrounds so the cards
+       blend cleanly into the page. -->
+  <section class="bg-white border-y border-pm-ink/10">
+    <div class="mx-auto max-w-7xl px-6 py-16 md:py-20">
+      <ul class="grid grid-cols-1 sm:grid-cols-3 gap-10 md:gap-12">
         <li class="text-center">
           <img
             src={`${base}/img/facilities/lab-portraits/cannon.png`}
@@ -301,9 +299,11 @@ const hiddenCount = majorRest.length + labDonors.length;
         </li>
       </ul>
     </div>
+  </section>
 
-    <!-- Donor list — show a preview, then a collapsible <details> for everyone else -->
-    <div class="mt-12 bg-pm-cream-2/60 border-l-4 border-pm-purple p-6 md:p-8">
+  <!-- Donor list — sibling of the Engineering Lab content section -->
+  <section class="mx-auto max-w-7xl px-6 py-16">
+    <div class="bg-pm-cream-2/60 border-l-4 border-pm-purple p-6 md:p-8">
       <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Donors</p>
       <p class="mt-2 text-sm text-pm-ink/75 leading-relaxed max-w-2xl">
         The Engineering Lab exists because of these families, companies, and foundations. Listed in the order they appear on the donor wall inside the lab itself.
