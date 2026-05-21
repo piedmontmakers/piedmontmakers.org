@@ -31,6 +31,53 @@ const grants_2025_26 = {
   ],
 };
 
+const grants_2024_25 = {
+  total: "$31,472",
+  schools: 6,
+  projects: 24,
+  applications: { submitted: 32, requested: "$60,000" },
+  awards: [
+    {
+      group: "Tri-School (Beach, Havens, Wildwood)",
+      subtotal: "$3,950",
+      projects: [
+        "Beach TK: manipulatives, activities, experiences",
+        "Beach 4th grade: sewn LED circuit project",
+        "Havens kindergarten: science books + math tiles",
+        "Havens: Variquest die-cut machine needles",
+        "Wildwood 4th grade: art supplies",
+        "Library Maker/STEAM books (3 campuses)",
+      ],
+    },
+    {
+      group: "Piedmont Middle School",
+      subtotal: "$6,980",
+      projects: [
+        "Science: solar-powered car kits",
+        "Fab Lab: computer + monitor",
+        "Fab Lab: projector",
+        "Music: flex-arrangement chamber music",
+        "Spanish: piñata-making supplies",
+        "Slime Club + Fish Keeping Club materials",
+      ],
+    },
+    {
+      group: "Piedmont & Millennium High School",
+      subtotal: "$20,542",
+      projects: [
+        "Health Science: cardiac dissection tissue",
+        "Biology: gel electrophoresis boxes + micropipettes",
+        "Guitar Engineering: speaker project parts",
+        "Chemistry: ECG and blood pressure sensors",
+        "AP Physics C: professional development",
+        "Math: graphing calculators + tools",
+        "Ceramics: special glazes for Japanese tea ceremony",
+        "Computer Science: Raspberry Pi parts + Arduino PD",
+      ],
+    },
+  ],
+};
+
 const grants_2023_24 = {
   total: "$24,677",
   totalGrants: "$20,977",
@@ -87,21 +134,21 @@ const grants_2023_24 = {
     </p>
   </section>
 
-  <!-- Combined totals strip -->
+  <!-- Cumulative totals strip — three years of grants -->
   <section class="bg-pm-ink text-pm-cream">
     <div class="mx-auto max-w-7xl px-6 py-12">
       <ul class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 md:divide-x divide-pm-cream/15">
         <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-red leading-none">$25,694</p>
-          <p class="mt-2 text-sm text-pm-cream/80">awarded 2025-26</p>
+          <p class="font-display font-bold text-3xl md:text-4xl text-pm-red leading-none">$81K+</p>
+          <p class="mt-2 text-sm text-pm-cream/80">awarded over the past 3 years</p>
         </li>
         <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cyan leading-none">21</p>
-          <p class="mt-2 text-sm text-pm-cream/80">projects funded 2025-26</p>
+          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cyan leading-none">60+</p>
+          <p class="mt-2 text-sm text-pm-cream/80">classroom projects funded</p>
         </li>
         <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-purple leading-none">$24,677</p>
-          <p class="mt-2 text-sm text-pm-cream/80">awarded 2023-24</p>
+          <p class="font-display font-bold text-3xl md:text-4xl text-pm-purple leading-none">6</p>
+          <p class="mt-2 text-sm text-pm-cream/80">PUSD schools, all served</p>
         </li>
         <li class="text-center md:px-6">
           <p class="font-display font-bold text-3xl md:text-4xl text-pm-cream leading-none">100%</p>
@@ -197,39 +244,92 @@ const grants_2023_24 = {
     </div>
   </section>
 
-  <!-- 2023-24 awards -->
-  <section id="awards-2023-24" class="mx-auto max-w-7xl px-6 pt-24 scroll-mt-20">
-    <div class="flex flex-wrap items-end justify-between gap-4 border-b-2 border-pm-ink pb-4">
-      <div>
-        <Ribbon color="cyan">2023–24</Ribbon>
-        <h2 class="mt-4 font-display font-bold text-4xl md:text-5xl tracking-tight">
-          {grants_2023_24.total} across {grants_2023_24.schools} schools.
-        </h2>
-      </div>
-      <p class="font-display text-sm text-pm-ink/65">
-        {grants_2023_24.projects} projects · {grants_2023_24.totalGrants} in classroom grants {grants_2023_24.storageNote}
-      </p>
-    </div>
-
-    <p class="mt-6 text-lg text-pm-ink/75 leading-relaxed max-w-3xl">
-      December 2023 set a then-record: $20,977 in classroom grants plus $3,700 for engineering lab storage. Funded the laser cutter at the middle school, gel electrophoresis machines at the high school, and the playground blocks the elementary kids still ask for.
+  <!-- Past years header -->
+  <section class="mx-auto max-w-7xl px-6 pt-24">
+    <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight">Past years</h2>
+    <p class="mt-3 max-w-2xl text-pm-ink/65 leading-relaxed">
+      Two earlier rounds. Tap to see each year's breakdown by school.
     </p>
+  </section>
 
-    <div class="mt-10 space-y-8">
-      {grants_2023_24.awards.map((group) => (
-        <div class="border-l-4 border-pm-cyan pl-6">
-          <div class="flex items-baseline justify-between gap-4">
-            <h3 class="font-display font-bold text-xl md:text-2xl tracking-tight">{group.group}</h3>
-            <span class="font-mono font-bold text-pm-cyan">{group.subtotal}</span>
-          </div>
-          <ul class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-pm-ink/80">
-            {group.projects.map((p) => (
-              <li class="text-sm leading-snug">· {p}</li>
-            ))}
-          </ul>
+  <!-- 2024-25 awards (collapsible) -->
+  <section id="awards-2024-25" class="mx-auto max-w-7xl px-6 pt-8 scroll-mt-20">
+    <details class="group border-b-2 border-pm-ink/15">
+      <summary class="cursor-pointer list-none py-5 flex flex-wrap items-end justify-between gap-4 hover:bg-pm-cream-2/40 -mx-3 px-3 rounded transition-colors">
+        <div>
+          <Ribbon color="purple">2024–25</Ribbon>
+          <h3 class="mt-4 font-display font-bold text-3xl md:text-4xl tracking-tight">
+            {grants_2024_25.total} across all {grants_2024_25.schools} PUSD schools.
+          </h3>
         </div>
-      ))}
-    </div>
+        <p class="font-display text-sm text-pm-ink/65 flex items-center gap-3">
+          <span>{grants_2024_25.projects} projects · {grants_2024_25.applications.submitted} applications, {grants_2024_25.applications.requested} requested</span>
+          <span aria-hidden="true" class="font-display font-semibold text-pm-ink group-open:rotate-180 transition-transform">▾</span>
+        </p>
+      </summary>
+
+      <div class="pb-12">
+        <p class="mt-6 text-lg text-pm-ink/75 leading-relaxed max-w-3xl">
+          December 2024 set the all-time record: $31,472 across 24 projects, a 24% jump over the prior year. Funded solar car kits at the middle school, cardiac dissection tissue and gel electrophoresis machines at the high school, ceramics glazes for the Japanese tea ceremony unit, and Maker/STEAM books across every elementary library.
+        </p>
+
+        <div class="mt-10 space-y-8">
+          {grants_2024_25.awards.map((group) => (
+            <div class="border-l-4 border-pm-purple pl-6">
+              <div class="flex items-baseline justify-between gap-4">
+                <h4 class="font-display font-bold text-xl md:text-2xl tracking-tight">{group.group}</h4>
+                <span class="font-mono font-bold text-pm-purple">{group.subtotal}</span>
+              </div>
+              <ul class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-pm-ink/80">
+                {group.projects.map((p) => (
+                  <li class="text-sm leading-snug">· {p}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 2023-24 awards (collapsible) -->
+  <section id="awards-2023-24" class="mx-auto max-w-7xl px-6 scroll-mt-20">
+    <details class="group border-b-2 border-pm-ink/15">
+      <summary class="cursor-pointer list-none py-5 flex flex-wrap items-end justify-between gap-4 hover:bg-pm-cream-2/40 -mx-3 px-3 rounded transition-colors">
+        <div>
+          <Ribbon color="cyan">2023–24</Ribbon>
+          <h3 class="mt-4 font-display font-bold text-3xl md:text-4xl tracking-tight">
+            {grants_2023_24.total} across {grants_2023_24.schools} schools.
+          </h3>
+        </div>
+        <p class="font-display text-sm text-pm-ink/65 flex items-center gap-3">
+          <span>{grants_2023_24.projects} projects · {grants_2023_24.totalGrants} in classroom grants {grants_2023_24.storageNote}</span>
+          <span aria-hidden="true" class="font-display font-semibold text-pm-ink group-open:rotate-180 transition-transform">▾</span>
+        </p>
+      </summary>
+
+      <div class="pb-12">
+        <p class="mt-6 text-lg text-pm-ink/75 leading-relaxed max-w-3xl">
+          December 2023: $20,977 in classroom grants plus $3,700 for Engineering Lab storage. Funded the laser cutter at the middle school, gel electrophoresis machines at the high school, and the playground blocks the elementary kids still ask for.
+        </p>
+
+        <div class="mt-10 space-y-8">
+          {grants_2023_24.awards.map((group) => (
+            <div class="border-l-4 border-pm-cyan pl-6">
+              <div class="flex items-baseline justify-between gap-4">
+                <h4 class="font-display font-bold text-xl md:text-2xl tracking-tight">{group.group}</h4>
+                <span class="font-mono font-bold text-pm-cyan">{group.subtotal}</span>
+              </div>
+              <ul class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-pm-ink/80">
+                {group.projects.map((p) => (
+                  <li class="text-sm leading-snug">· {p}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </details>
   </section>
 
   <!-- How to apply -->
