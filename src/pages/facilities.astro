@@ -123,11 +123,15 @@ const hiddenCount = majorRest.length + labDonors.length;
         <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight leading-tight">
           The only community-accessible full-size FRC field in the Bay Area.
         </h2>
+        <p class="mt-3 font-display text-sm uppercase tracking-[0.18em] text-pm-ink/55">Built and operated by Highlander Robotics 8033</p>
         <p class="mt-5 text-lg text-pm-ink/85 leading-relaxed">
-          A regulation-size FIRST Robotics Competition field inside a warehouse-style space in Oakland. Home base for FRC Team 8033 and a working lab for our FTC teams, and a shared resource for robotics teams across the region.
+          A regulation-size FIRST Robotics Competition field inside a warehouse-style space in Oakland. Team 8033 runs it; Piedmont Makers serves as the 501(&zwnj;c)(3) fiscal sponsor. Home base for 8033, working lab for our FTC teams, and a shared resource for robotics teams across the region.
         </p>
         <p class="mt-4 text-pm-ink/75 leading-relaxed">
-          We started in 2025 with <em>The Loom</em>, a temporary 10,000 sq ft facility nearby. The proof of concept worked. Teams that used to drive to East Palo Alto for full-field practice could now practice close to home, and 19 guest teams logged 200+ practice hours during the season. When the landlord proposed a rent increase, we partnered with Highlander Robotics to grant-fund a permanent home at 3100 East 10th Street.
+          The whole thing was 8033's idea. In 2025 the team piloted the concept at <em>The Loom</em>, a temporary 10,000 sq ft facility nearby, to prove that a community-accessible full-size FRC field would actually get used. It did: teams that used to drive to East Palo Alto for full-field practice could now practice close to home, and 19 guest teams logged 200+ practice hours during the season.
+        </p>
+        <p class="mt-4 text-pm-ink/75 leading-relaxed">
+          When the landlord proposed a rent increase, 8033 ran a capital campaign and raised <strong>$245K from corporate and individual donors</strong> to secure a permanent home at 3100 East 10th Street. Piedmont Makers signed the multi-year lease and handles the fiscal-sponsorship side; the team built out the space, runs the day-to-day, and hosts the guest teams.
         </p>
         <p class="mt-4 text-pm-ink/75 leading-relaxed">
           Build benches, tooling, a regulation field, and enough open floor for robots to drive around. Active members and visitors check in on arrival, and all visitors sign a one-time waiver before entering the build floor.
@@ -165,29 +169,29 @@ const hiddenCount = majorRest.length + labDonors.length;
       </div>
     </div>
 
-    <!-- 10th Street stats -->
+    <!-- 10th Street stats — credits 8033's role explicitly -->
     <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-6 bg-pm-ink text-pm-cream p-8 md:p-10">
       <div class="text-center md:px-2">
-        <p class="font-display font-bold text-3xl md:text-4xl text-pm-cyan leading-none">900+</p>
-        <p class="mt-2 text-xs md:text-sm text-pm-cream/80">volunteer hours families put into the field</p>
+        <p class="font-display font-bold text-3xl md:text-4xl text-pm-cyan leading-none">$245K</p>
+        <p class="mt-2 text-xs md:text-sm text-pm-cream/80">raised by 8033 for the build-out</p>
       </div>
       <div class="text-center md:px-2">
-        <p class="font-display font-bold text-3xl md:text-4xl text-pm-red leading-none">19</p>
-        <p class="mt-2 text-xs md:text-sm text-pm-cream/80">guest teams from across the region</p>
+        <p class="font-display font-bold text-3xl md:text-4xl text-pm-red leading-none">900+</p>
+        <p class="mt-2 text-xs md:text-sm text-pm-cream/80">volunteer hours by 8033 students and families</p>
       </div>
       <div class="text-center md:px-2">
-        <p class="font-display font-bold text-3xl md:text-4xl text-pm-purple leading-none">200+</p>
-        <p class="mt-2 text-xs md:text-sm text-pm-cream/80">practice hours logged</p>
+        <p class="font-display font-bold text-3xl md:text-4xl text-pm-purple leading-none">19</p>
+        <p class="mt-2 text-xs md:text-sm text-pm-cream/80">guest teams hosted by 8033</p>
       </div>
       <div class="text-center md:px-2">
-        <p class="font-display font-bold text-3xl md:text-4xl text-pm-cream leading-none">Multi-year</p>
-        <p class="mt-2 text-xs md:text-sm text-pm-cream/80">lease signed at 3100 East 10th</p>
+        <p class="font-display font-bold text-3xl md:text-4xl text-pm-cream leading-none">200+</p>
+        <p class="mt-2 text-xs md:text-sm text-pm-cream/80">guest practice hours during the season</p>
       </div>
     </div>
 
     <!-- 10th Street sponsors -->
     <div class="mt-6 bg-pm-cream-2/60 border-l-4 border-pm-cyan p-6 md:p-8">
-      <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">2025 sponsors</p>
+      <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Sponsors of 8033's 10th Street campaign</p>
       <ul class="mt-3 space-y-1.5">
         {tenthStreetSponsors.map((s) => (
           <li class="flex items-baseline justify-between gap-4 border-b border-pm-ink/10 pb-1.5 last:border-0">
