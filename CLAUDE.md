@@ -2,7 +2,7 @@
 
 You are working on **piedmontmakers.org**, the public website of Piedmont Makers, a 501(c)(3) nonprofit running FIRST Robotics teams, a community engineering lab, a School Maker Faire, popup maker spaces, and Build Like a Girl across the **East Bay**. The owner is Ben Stein, who serves as Co-President.
 
-The site is being rebuilt off Wix. Stable enough that real photos and real content are wired in; iteration is ongoing.
+The site is live at https://piedmontmakers.org/. The full Wix migration is done — there's no parallel staging site anymore. Blog post editing happens through Sveltia CMS at `/admin/` (see `docs/admin-setup.md`); page structure and design edits happen in the codebase.
 
 ## Live URLs
 
@@ -52,6 +52,7 @@ src/
 │   ├── Footer.astro                 3-col footer + watermark + SVG socials
 │   ├── PostHog.astro                Inline analytics snippet, imported by BaseLayout
 │   ├── Ribbon.astro                 SIGNATURE ELEMENT — the banner from the logo
+│   ├── Banner.astro                 Brand-colored announcement card (eyebrow + headline + CTA)
 │   ├── PhotoCard.astro              Tilt + tape + caption photo treatment
 │   ├── Scribble.astro               Hand-drawn SVG accents (underline, arrow, etc.)
 │   ├── FAQ.astro                    <details>-based collapsible FAQ
@@ -63,6 +64,7 @@ src/
 ├── layouts/BaseLayout.astro
 └── styles/global.css                Tailwind imports + theme tokens + custom utilities
 public/
+├── admin/                                           Sveltia CMS shell (index.html + config.yml)
 ├── img/{brand,programs,robotics,facilities,blog}/   Brand assets + page photos
 ├── favicon.ico + icon-*.png + apple-touch-icon.png  Generated from Makey
 └── site.webmanifest
@@ -97,7 +99,7 @@ Page containers: every section uses `mx-auto max-w-7xl px-6` so the left edge al
 
 **Make the community the hero AND show that we're a great org worth supporting.** Kids = innovators. Adults = volunteers. AND we're confidently the org doing this work — confident impact statements ("the largest community-based youth robotics league in the United States," "~1,000 kids on 125+ teams") instill trust in parents and donors, they aren't bragging.
 
-- ✅ **Stats bands** are welcome on home, about, and grants. Frame as community-in-numbers ("~1,000 kids across 90+ schools") rather than org-look-at-us ("we run the largest league"). The "largest community-based youth robotics league in America" claim is a credibility signal, not a brag — use it.
+- ✅ **Stats bands** are welcome on home, about, robotics, and grants. Frame as community-in-numbers ("~1,000 kids across 90+ schools") rather than org-look-at-us ("we run the largest league"). The "largest community-based youth robotics league in America" claim is a credibility signal, not a brag — use it. **Home stats band's current four**: ~1,000 kids · 90+ schools (20 East Bay cities) · $25K+ in teacher grants annually · 40% girls in LEGO League. These should stay in sync with the canonical numbers used elsewhere.
 - ✅ **VoicesBand** stays — community quote band. Currently one real quote from Roy on home; band removed from /robotics. Placeholder quotes were purged.
 
 **Headlines lead with value to families, not org-internal facts.** Two patterns that got fixed this session:
@@ -120,7 +122,14 @@ Avoid **time-locked framing** that goes stale fast. "New in Fall 2025" reads as 
 
 **Minimize "FLL" jargon in prose.** Prefer "LEGO League" (colloquial) or "FIRST LEGO League" (formal) when writing for parents. FLL is acceptable in space-constrained UI: buttons, photoCaption labels, nav sublinks, coach-training titles, alt text, code variable names. Visible body prose should spell it out. FTC and FRC abbreviations are fine — Ben hasn't flagged those as jargon, and parents shopping for high-school robotics encounter them often enough.
 
-**Don't bold names of honored individuals.** Mary G. Ross, Annie Easley Cannon, Mary Wynne Montague, etc. get plain text, no `<strong>`. Bold reads as emphasis-for-the-reader-to-act-on; honoree names are just listed.
+**Don't bold names of honored individuals.** Mary G. Ross, Annie Jump Cannon, Raye Montague get plain text, no `<strong>`. Bold reads as emphasis-for-the-reader-to-act-on; honoree names are just listed.
+
+**Names of the three women honored at the Engineering Lab** (corrected this session from earlier mistakes — these are the verified names on the actual portraits inside the lab):
+- **Annie Jump Cannon** (1863–1941, Engineering Patio) — astronomer who developed the modern stellar classification system. *Not* "Annie Easley Cannon" — that conflated two different people.
+- **Raye Montague** (1935–2018, Computer Lab / ST-127) — naval engineer, first computer-aided ship designer. *Not* "Mary Wynne Montague."
+- **Mary G. Ross** (1908–2008, Engineering Lab / ST-128) — aerospace engineer at Lockheed's Skunk Works. The lab as a whole is named after her.
+
+**10th Street facility framing: Highlander Robotics 8033 owns the story.** PM is the 501(c)(3) fiscal sponsor on the lease; 8033 had the idea, ran the Loom pilot, raised the $245K capital campaign, runs the day-to-day, and hosts the guest teams. When writing about 10th Street, lead with 8033's leadership — that framing serves their future FRC Impact submissions and reflects what actually happened.
 
 **"Piedmont" vs "East Bay" rule.** Keep "Piedmont" only in:
 - The org name (Piedmont Makers)
@@ -195,6 +204,26 @@ When adding new CTAs, register a matching `posthog.capture()` call in a small in
 - 2+ voices → 3-col grid with vertical divider rules
 
 Home uses 1 voice (Roy's quote). /robotics' band was removed (was placeholder content). If you collect real quotes later, drop them into either pattern.
+
+## Banner component (announcement callouts)
+
+`src/components/Banner.astro` is a brand-colored card for time-bound announcements. Props: `eyebrow` (small Ribbon label), `headline` (display bold), `body` (optional second line), `ctaLabel` + `ctaHref` (both optional, together), `color` (`red` | `cyan` | `purple`, default `cyan`).
+
+Style: 3px brand-color border, 8%-opacity brand-color tinted background, rounded-2xl, soft padding. Sits inside the page's `max-w-7xl px-6` shell — not a full-bleed browser-chrome strip.
+
+Current use: `/robotics` has a cyan banner at the top announcing Fall 2026 registration ("Register by June 1"). When the deadline passes, either delete the `<Banner ... />` block or update the dates. The robotics page has a comment marking the section as time-bound.
+
+For other one-off announcements (new program, dated callout), drop `<Banner ... />` wherever you want it on a page.
+
+## Expandable "Past years" pattern on /teacher-grants
+
+`/teacher-grants` has three years' data ($25,694 in 2025-26, $31,472 in 2024-25, $24,677 in 2023-24). The current year is expanded with the full per-school table + testimonials + AP Physics C callout. Past years are wrapped in `<details>` elements under a "Past years" section header. Each summary shows year ribbon + total + project count + a ▾ that rotates 180° on open. Same pattern would work elsewhere if a page outgrows its inline content.
+
+## Blog CMS (Sveltia)
+
+`/admin/` runs Sveltia CMS for editing blog posts in a friendly UI. Two static files (`public/admin/index.html` + `public/admin/config.yml`) load the JS bundle from unpkg, pinned to a specific version. Auth via GitHub OAuth, proxied through a Cloudflare Worker (`sveltia-cms-auth.ben-68b.workers.dev`). Authorization model: anyone with **Write access on the repo** can save posts; saves become commits authored by the editor's GitHub user.
+
+Setup details (GitHub OAuth App, Worker secrets, how to grant editor access) live in `docs/admin-setup.md`. To bump Sveltia versions: edit the `<script src>` URL in `public/admin/index.html`, test, push.
 
 ## Content editing patterns
 
@@ -284,7 +313,7 @@ Commits push to `main` → GitHub Action deploys to GitHub Pages in ~30 seconds.
 - **`@astrojs/rss` is not installed.** Its install path drops the `@rolldown` optional bindings (see above). RSS is hand-rolled in `src/pages/rss.xml.ts`. If you change the feed, edit that file; don't reach for the package.
 - **Tailwind arbitrary `grid-cols`** uses underscores between values, not commas: `grid-cols-[80px_1fr]` works; `grid-cols-[80px,1fr]` silently fails to a single column.
 - **YAML dates parse as midnight UTC.** When formatting for display use `getUTCDate()` / `timeZone: "UTC"` so day numbers don't shift backward on the West Coast.
-- **`base` path matters** for internal links. Use the `link()` / `asset()` helpers that strip the trailing slash and prepend `BASE_URL`. Internal hrefs in event/blog frontmatter should start with `/` and the template resolver prefixes the base. Dynamic endpoints (`rss.xml.ts`, `robots.txt.ts`, `llms.txt.ts`) compose URLs by concatenating `context.site` + `import.meta.env.BASE_URL` to handle the staging vs apex domain switch.
+- **`base` path matters** for internal links. Use the `link()` / `asset()` helpers that strip the trailing slash and prepend `BASE_URL`. With `USE_CUSTOM_DOMAIN=true` (apex deploy, current state) the base is `/`; locally without the env var, it's `/piedmontmakers.org/`. Dynamic endpoints (`rss.xml.ts`, `robots.txt.ts`, `llms.txt.ts`) compose absolute URLs by concatenating `context.site` + `import.meta.env.BASE_URL` so they work in either mode.
 - **Image paths in Markdown body** need the full `/piedmontmakers.org/...` path because the Markdown pipeline doesn't run the resolver.
 
 ## External services (out of scope to migrate)
@@ -311,13 +340,11 @@ Commits push to `main` → GitHub Action deploys to GitHub Pages in ~30 seconds.
 
 ## Open TODOs flagged in pages
 
-- Mailing address on `/about-us` (currently nothing rendered — `dt`/`dd` removed)
-- Real photos for events that don't have them yet (most past events have no actions/landing pages — that's OK)
-- Email obfuscation for the board emails on `/about-us` if spam becomes a problem
-- DNS cutover to apex `piedmontmakers.org` + setting `USE_CUSTOM_DOMAIN=true` in the Action
-- 12th Annual Maker Faire 2026 recap stats (the recap card still says "Recap details and 2026 photos are coming soon")
+- Mailing address on `/about-us` (currently nothing rendered — `dt`/`dd` was removed when no PO box was confirmed)
+- 12th Annual Maker Faire 2026 recap stats (the recap card on `/events/maker-faire` still says "Recap details and 2026 photos are coming soon")
 - Real OG image (currently uses the brand logo PNG, not the ideal 1200×630 ratio)
-- Real student / coach quotes for the VoicesBand pattern (home currently uses one real quote from Roy)
+- More real student / coach quotes for the VoicesBand pattern (home currently uses one real quote from Roy; more would let us swap to the 3-up grid if desired)
+- **After-school enrichment program**: paused for Fall 2026. The nav link + `/events` hub card are commented out; the detail page at `/events/after-school` still exists. Revisit when the program returns (likely winter 2026-27 or later) — uncomment one line in each of `Nav.astro` and `events.astro`.
 
 ## Helpful first moves on a fresh task
 

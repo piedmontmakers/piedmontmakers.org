@@ -20,15 +20,23 @@ This is a static site built with [Astro](https://astro.build) and Tailwind CSS. 
 | Facilities (10th St + Engineering Lab) | `src/pages/facilities.astro` |
 | Teacher Grants list | `src/pages/teacher-grants.astro` |
 | Calendar of events | `src/content/events/` (one Markdown file per event) |
-| Blog posts | `src/content/blog/` (one Markdown file per post) |
+| Blog posts | `src/content/blog/` (or use the CMS at `/admin/`) |
 | 404 page (with dancing Makey) | `src/pages/404.astro` |
 | Photos | `public/img/` (organized by section) |
 | Brand colors & fonts | `src/styles/global.css` |
 | Analytics events | `src/components/PostHog.astro` + inline scripts on each page |
 
-## Making changes — three options
+## Making changes
 
-### Option 1: GitHub web editor (no install needed)
+### For blog posts: the CMS at /admin
+
+The fastest path for publishing blog posts is the **Sveltia CMS** at <https://piedmontmakers.org/admin/>. Sign in with GitHub (you need Write access on the repo), pick the Blog collection, and write your post in a friendly editor. Saves become commits authored by your GitHub user and deploy in about a minute.
+
+Setup details + how to grant editors access live in [docs/admin-setup.md](docs/admin-setup.md).
+
+### For everything else: three options
+
+#### Option 1: GitHub web editor (no install needed)
 
 Fastest for small text edits or adding a blog post / event.
 
@@ -38,7 +46,7 @@ Fastest for small text edits or adding a blog post / event.
 4. At the bottom, write a short commit message and click **Commit changes**
 5. Wait ~30 seconds — the GitHub Action rebuilds and deploys
 
-### Option 2: Clone locally + edit by hand
+#### Option 2: Clone locally + edit by hand
 
 ```bash
 git clone https://github.com/piedmontmakers/piedmontmakers.org.git
@@ -58,18 +66,18 @@ git commit -m "Short description of what changed"
 git push
 ```
 
-### Option 3: Clone locally + use Claude Code
+#### Option 3: Clone locally + use Claude Code
 
 This is how most of the site was built. Claude Code reads `CLAUDE.md` at the repo root and gets full project context — tech stack, voice rules, file map, conventions.
 
 ```bash
 git clone https://github.com/piedmontmakers/piedmontmakers.org.git
 cd piedmontmakers.org
-npm install
-claude   # or open in the Claude Code IDE plugin
+npm ci         # not `npm install` — see "Gotchas" below
+claude         # or open in the Claude Code IDE plugin
 ```
 
-Then talk to it: *"Add a new blog post about the spring open house"*, *"Add the FTC league championship to the events calendar for November 15"*, *"Swap the photo on the Maker Faire page"*, etc. Claude will read `CLAUDE.md`, follow the project's conventions, edit the right files, and you can review the changes before committing.
+Then talk to it: *"Add the FTC league championship to the events calendar for November 15"*, *"Swap the photo on the Maker Faire page"*, *"Add a banner to the robotics page announcing summer camp registration"*, etc. Claude will read `CLAUDE.md`, follow the project's conventions, edit the right files, and you can review the changes before committing.
 
 Keep `npm run dev` running in another terminal while you work — Claude will check the browser preview as it edits.
 
