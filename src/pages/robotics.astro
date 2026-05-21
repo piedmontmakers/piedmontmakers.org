@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
 import PhotoCard from "../components/PhotoCard.astro";
 import FAQ from "../components/FAQ.astro";
+import Banner from "../components/Banner.astro";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
@@ -143,8 +144,21 @@ const coachResources = [
   title="Robotics — Piedmont Makers"
   description="FIRST Robotics teams for kids from kindergarten through high school. Open to East Bay students. Kids learn engineering by doing, and the older kids teach the younger ones."
 >
+  <!-- Announcement: Fall 2026 robotics registration open.
+       Remove or update when registration closes. -->
+  <section class="mx-auto max-w-7xl px-6 pt-10 md:pt-12">
+    <Banner
+      color="cyan"
+      eyebrow="Now open"
+      headline="Robotics registration is open for Fall 2026"
+      body="Sign your kid up for FLL Explore, FLL Challenge, or FTC. FRC registration opens soon."
+      ctaLabel="Pick a level"
+      ctaHref="#fll-explore"
+    />
+  </section>
+
   <!-- Hero -->
-  <section class="mx-auto max-w-7xl px-6 pt-16 pb-12">
+  <section class="mx-auto max-w-7xl px-6 pt-10 md:pt-12 pb-12">
     <div class="grid md:grid-cols-12 gap-10 md:gap-12 items-center">
       <div class="md:col-span-7">
         <Ribbon color="red">Robotics</Ribbon>

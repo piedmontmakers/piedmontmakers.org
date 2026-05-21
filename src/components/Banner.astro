@@ -1,0 +1,79 @@
+---
+import Ribbon from "./Ribbon.astro";
+
+type Color = "red" | "cyan" | "purple";
+
+interface Props {
+  /** Small label rendered inside a Ribbon at the top-left (e.g. "Now open"). */
+  eyebrow: string;
+  /** Main announcement line. Set in display font, bold. */
+  headline: string;
+  /** Optional second line of context. */
+  body?: string;
+  /** Optional CTA. Label + href together; either both or neither. */
+  ctaLabel?: string;
+  ctaHref?: string;
+  /** Accent color. Defaults to cyan. */
+  color?: Color;
+  /** Extra classes appended to the outer container. */
+  class?: string;
+}
+
+const {
+  eyebrow,
+  headline,
+  body,
+  ctaLabel,
+  ctaHref,
+  color = "cyan",
+  class: extra = "",
+} = Astro.props;
+
+// Resolve CTA href against the site base path. External (http*) URLs pass through.
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const linkHref = ctaHref
+  ? /^(https?:)?\/\//.test(ctaHref) || ctaHref.startsWith("#")
+    ? ctaHref
+    : `${base}${ctaHref.startsWith("/") ? ctaHref : `/${ctaHref}`}`
+  : undefined;
+
+const palette = {
+  red: { border: "border-pm-red", bg: "bg-pm-red/8", cta: "bg-pm-red hover:bg-pm-red-deep" },
+  cyan: { border: "border-pm-cyan", bg: "bg-pm-cyan/8", cta: "bg-pm-cyan hover:bg-pm-cyan-deep" },
+  purple: { border: "border-pm-purple", bg: "bg-pm-purple/8", cta: "bg-pm-purple hover:bg-pm-purple-deep" },
+}[color];
+---
+
+<aside
+  role="region"
+  aria-label="Announcement"
+  class:list={[
+    "rounded-2xl border-[3px] p-5 md:p-7 shadow-[var(--shadow-card)]",
+    palette.border,
+    palette.bg,
+    extra,
+  ]}
+>
+  <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
+    <div class="flex-1 min-w-[16rem]">
+      <Ribbon color={color}>{eyebrow}</Ribbon>
+      <h2 class="mt-3 font-display font-bold text-xl md:text-2xl tracking-tight leading-tight text-pm-ink">
+        {headline}
+      </h2>
+      {body && (
+        <p class="mt-2 text-pm-ink/75 leading-relaxed">{body}</p>
+      )}
+    </div>
+    {ctaLabel && linkHref && (
+      <a
+        href={linkHref}
+        class:list={[
+          "ribbon text-white text-sm font-semibold whitespace-nowrap transition-colors shrink-0",
+          palette.cta,
+        ]}
+      >
+        {ctaLabel} →
+      </a>
+    )}
+  </div>
+</aside>
