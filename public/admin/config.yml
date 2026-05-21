@@ -9,7 +9,7 @@ backend:
   base_url: https://sveltia-cms-auth.ben-68b.workers.dev
 
 # Site URL for the "View live" link inside the CMS, after publish.
-site_url: https://piedmontmakers.github.io/piedmontmakers.org/
+site_url: https://piedmontmakers.org/
 display_url: https://piedmontmakers.org/
 logo_url: /img/brand/logo.png
 

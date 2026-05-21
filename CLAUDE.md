@@ -6,10 +6,9 @@ The site is being rebuilt off Wix. Stable enough that real photos and real conte
 
 ## Live URLs
 
-- Staging (current): https://piedmontmakers.github.io/piedmontmakers.org/
-- Production (after DNS cutover): https://piedmontmakers.org/
+- Live: https://piedmontmakers.org/
 
-`astro.config.mjs` flips `base` and `site` on the `USE_CUSTOM_DOMAIN=true` env var. The custom-domain switch is a one-line config change + DNS update; not done yet.
+`astro.config.mjs` flips `base` and `site` on the `USE_CUSTOM_DOMAIN=true` env var (set in `.github/workflows/deploy.yml`). To revert to the GH Pages subpath URL, drop that env var.
 
 ## Tech stack
 

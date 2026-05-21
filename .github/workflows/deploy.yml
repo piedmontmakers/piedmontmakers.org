@@ -29,6 +29,9 @@ jobs:
         run: npm ci
       - name: Build Astro site
         run: npm run build
+        env:
+          # Flip Astro's site/base to the apex domain. See astro.config.mjs.
+          USE_CUSTOM_DOMAIN: 'true'
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

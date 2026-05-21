@@ -15,7 +15,7 @@ Go to **GitHub → Piedmont Makers org → Settings → Developer settings → O
 | Field | Value |
 |---|---|
 | Application name | `Piedmont Makers Blog CMS` |
-| Homepage URL | `https://piedmontmakers.github.io/piedmontmakers.org/` (or apex when cut over) |
+| Homepage URL | `https://piedmontmakers.org/` |
 | Authorization callback URL | **Filled in after step 2.** Leave blank for now and come back. |
 
 Click **Register application**. On the resulting page:

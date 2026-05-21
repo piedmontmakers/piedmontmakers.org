@@ -6,8 +6,7 @@ This is a static site built with [Astro](https://astro.build) and Tailwind CSS. 
 
 ## Quick links
 
-- **Live site (staging)**: <https://piedmontmakers.github.io/piedmontmakers.org/>
-- **Production** (after DNS cutover): <https://piedmontmakers.org>
+- **Live site**: <https://piedmontmakers.org>
 - **Issues & feature requests**: <https://github.com/piedmontmakers/piedmontmakers.org/issues>
 
 ## What's where
