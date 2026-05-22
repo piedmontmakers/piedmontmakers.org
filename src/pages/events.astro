@@ -59,6 +59,20 @@ const programs = [
     tilt: "right" as const,
     tape: "none" as const,
   },
+  {
+    href: "/di",
+    name: "Destination Imagination",
+    when: "Pilot · Fall 2026",
+    headline: "Creative problem-solving as a team sport.",
+    blurb: "Teams of up to 7 kids pick an open-ended challenge each fall, build a solution over the school year, and present it at a spring tournament. K-12. New this season, in partnership with Cal DI.",
+    color: "cyan" as const,
+    // TODO: swap to a DI-specific photo once we have one from the pilot season.
+    src: "/img/programs/popup.jpg",
+    caption: "Kids building together at a popup maker space",
+    alt: "Children working together on a building project at long tables in a community hall.",
+    tilt: "left" as const,
+    tape: "right" as const,
+  },
   // After-School Enrichment paused for Fall 2026; restore this card if it
   // comes back in winter 2026-27 or a later session. The detail page
   // (/events/after-school) still exists but isn't linked from here.
@@ -79,17 +93,17 @@ const programs = [
 ---
 
 <BaseLayout
-  title="Events — Piedmont Makers"
-  description="Everything Piedmont Makers does beyond the robotics teams: the annual School Maker Faire, popup maker spaces, Build Like a Girl, and the 4th of July parade."
+  title="Events &amp; Programs — Piedmont Makers"
+  description="Everything Piedmont Makers does beyond the robotics teams: the annual School Maker Faire, popup maker spaces, Build Like a Girl, the 4th of July parade, and our Destination Imagination pilot."
 >
   <!-- Hero -->
   <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-12">
-    <Ribbon color="cyan">Events</Ribbon>
+    <Ribbon color="cyan">Events &amp; Programs</Ribbon>
     <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-6xl tracking-tight leading-[0.98]">
       Come make something with us.
     </h1>
     <p class="mt-6 max-w-2xl text-lg md:text-xl text-pm-ink/75 leading-relaxed">
-      Year-round community maker events for kids and grown-ups. Each one a chance to make something together.
+      Year-round community maker events and programs for kids and grown-ups. Each one a chance to make something together.
     </p>
     <p class="mt-4 max-w-2xl text-pm-ink/65 leading-relaxed">
       For specific upcoming dates, see the <a href={link("/calendar")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">calendar</a>.
