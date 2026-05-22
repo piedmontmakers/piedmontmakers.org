@@ -14,7 +14,7 @@ const challenges = [
   },
   {
     name: "Scientific",
-    blurb: "Investigate a real-world phenomenon and present what you learned. Research, models, experiments.",
+    blurb: "Investigate a hands-on phenomenon and present what you learned. Research, models, experiments.",
   },
   {
     name: "Engineering",
@@ -32,42 +32,50 @@ const challenges = [
     name: "Service Learning",
     blurb: "Identify a community need and act on it. Document the impact and share what changed.",
   },
-  {
-    name: "Rising Stars!",
-    blurb: "Non-competitive K-2 introduction. Kids try the creative-problem-solving process at their own pace.",
-  },
 ];
 
-const levels = [
-  { name: "Early Learning", grades: "PK-2", note: "Non-competitive" },
-  { name: "Elementary", grades: "Grades 3-5" },
-  { name: "Middle", grades: "Grades 6-8" },
-  { name: "Secondary", grades: "Grades 9-12" },
+const pilotFacts = [
+  {
+    label: "Two to four teams",
+    body: "Up to seven kids per team. Grades 3-5 for the pilot year. K-2 and middle school come in 2027-2028 if the pilot lands.",
+  },
+  {
+    label: "$200 per registrant",
+    body: "Same price as our LEGO League Explore program. Covers DI national and state registration, team materials, the season T-shirt, and Regional tournament fees.",
+  },
+  {
+    label: "Six challenges to pick from",
+    body: "Engineering, Fine Arts, Service Learning, Improvisational, Scientific, Technical. Each team self-selects based on what they're drawn to.",
+  },
+  {
+    label: "Plugs into a global program",
+    body: "DI was founded in 1982 and reaches 150,000+ students across 30+ countries each year. Our pilot connects into California's regional and state tournament circuit, with the chance to advance to Global Finals.",
+  },
 ];
 
 const seasonSteps = [
   {
     when: "Fall",
-    what: "Challenges released. Teams form (up to 7 kids), pick one of the seven challenges, and start designing a solution.",
+    what: "Teams form. DI releases the new season's six challenges. Each team picks one and starts designing a solution.",
   },
   {
     when: "Winter",
-    what: "Build, rehearse, refine. Teams meet weekly with a team manager (a parent volunteer, not a coach in the teaching sense).",
+    what: "Weekly team meetings. Build, rehearse, refine, with a parent team manager facilitating (not leading the work).",
   },
   {
     when: "Spring",
-    what: "Regional tournament, then the California State Tournament. Top teams advance to Global Finals.",
+    what: "California Regional and State tournaments. Each team performs their eight-minute solution and tackles a surprise Instant Challenge.",
   },
   {
     when: "May",
-    what: "Global Finals at the University of Tennessee in Knoxville. Teams from across the U.S. and 30+ countries.",
+    what: "Global Finals at the University of Tennessee in Knoxville for teams that advance.",
   },
 ];
 ---
 
 <BaseLayout
   title="Destination Imagination — Piedmont Makers"
-  description="Piedmont Makers is piloting Destination Imagination in Fall 2026: a team-based creative problem-solving program for K-12 students, in partnership with California Destination Imagination."
+  description="Piedmont Makers is piloting Destination Imagination in Fall 2026: a team-based creative problem-solving program for grades 3-5 students, with regional tournaments through California Destination Imagination."
 >
   <!-- Hero -->
   <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-8">
@@ -81,21 +89,21 @@ const seasonSteps = [
           Creative problem-solving as a team sport.
         </h1>
         <p class="mt-7 text-lg md:text-xl text-pm-ink/75 leading-relaxed">
-          Destination Imagination (DI) is a global program where teams of up to seven kids pick an open-ended challenge each fall, spend the school year building a solution, and present it at a spring tournament. K through 12. No experience required.
+          Destination Imagination (DI) is a global program where teams of up to seven kids pick an open-ended challenge each fall, spend the school year building a solution, and present it live at a spring tournament. Off-screen by design. Builds the creativity and confidence that matter most in an increasingly AI-driven world. No experience required.
         </p>
         <p class="mt-4 text-pm-ink/75 leading-relaxed">
-          We&apos;re piloting DI in the East Bay starting fall 2026, in partnership with <a href="https://www.caldi.org" target="_blank" rel="noopener" class="font-display font-semibold underline underline-offset-4 decoration-pm-cyan hover:text-pm-cyan-deep">California Destination Imagination</a>.
+          We&apos;re piloting DI in the East Bay starting fall 2026. The pilot connects into <a href="https://www.caldi.org" target="_blank" rel="noopener" class="font-display font-semibold underline underline-offset-4 decoration-pm-cyan hover:text-pm-cyan-deep">California Destination Imagination</a>&apos;s regional tournament circuit.
         </p>
       </div>
       <div class="md:col-span-5">
-        <!-- TODO: replace with a DI-specific photo when we have one from the pilot season. -->
+        <!-- TODO: replace with a Piedmont Makers DI pilot photo when we have one. Current image sourced from caldi.org pending permission. -->
         <PhotoCard
-          caption="Kids building together at a popup maker space"
+          caption="DI tournament day"
           color="cyan"
           tilt="right"
-          aspect="square"
-          src="/img/programs/popup.jpg"
-          alt="Children working together on a building project at long tables in a community hall."
+          aspect="landscape"
+          src="/img/programs/destination-imagination.jpg"
+          alt="Two kids in bright costume hats and pom-poms holding handmade letters spelling 'DI' in front of a green and blue balloon arch."
         />
       </div>
     </div>
@@ -124,7 +132,7 @@ const seasonSteps = [
           Eight months of work, one eight-minute presentation.
         </h3>
         <p class="mt-4 text-pm-ink/80 leading-relaxed">
-          Each team picks one of seven open-ended challenges in September and spends the school year on it. Research, design, build, rehearse. Adults can&apos;t do the work for them. Interference rules are strict, and that&apos;s part of the point.
+          Each team picks one of six open-ended challenges in September and spends the school year building a solution: a skit they wrote, props, costumes, often a technical device, all performed live in eight minutes at the spring tournament. Adults can&apos;t do the work for them. Interference rules are strict, and that&apos;s part of the point.
         </p>
       </article>
       <article class="bg-pm-paper border-[3px] border-pm-ink p-7 md:p-8">
@@ -139,9 +147,9 @@ const seasonSteps = [
     </div>
   </section>
 
-  <!-- Seven challenge tracks -->
+  <!-- Six challenge tracks -->
   <section class="mx-auto max-w-7xl px-6 py-12">
-    <Ribbon color="cyan">Seven challenge tracks</Ribbon>
+    <Ribbon color="cyan">Six challenge tracks</Ribbon>
     <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
       Pick the flavor that fits your team.
     </h2>
@@ -153,25 +161,6 @@ const seasonSteps = [
         <li class="bg-pm-paper border-[3px] border-pm-ink p-5">
           <p class="font-display font-bold text-lg tracking-tight">{c.name}</p>
           <p class="mt-2 text-sm text-pm-ink/75 leading-relaxed">{c.blurb}</p>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <!-- Age levels -->
-  <section class="mx-auto max-w-7xl px-6 py-12">
-    <Ribbon color="cyan">Every grade band</Ribbon>
-    <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
-      From PK kids exploring the process to high schoolers competing for Global Finals.
-    </h2>
-    <ul class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-      {levels.map((lvl) => (
-        <li class="bg-pm-paper border-[3px] border-pm-ink p-5 text-center">
-          <p class="font-display font-bold text-xl tracking-tight">{lvl.name}</p>
-          <p class="mt-1 font-display text-sm text-pm-ink/65">{lvl.grades}</p>
-          {lvl.note && (
-            <p class="mt-2 font-marker text-base text-pm-purple">{lvl.note}</p>
-          )}
         </li>
       ))}
     </ul>
@@ -195,65 +184,4 @@ const seasonSteps = [
     </div>
   </section>
 
-  <!-- Cal DI partnership -->
-  <section class="mx-auto max-w-7xl px-6 py-16">
-    <div class="grid md:grid-cols-12 gap-10 items-center">
-      <div class="md:col-span-7">
-        <Ribbon color="cyan">Partnership</Ribbon>
-        <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
-          Why we&apos;re piloting DI alongside our robotics teams.
-        </h2>
-        <p class="mt-5 text-lg text-pm-ink/75 leading-relaxed">
-          Robotics is one path into hands-on STEAM. DI is a different one, with a wider front door. The challenge tracks reach kids who love theater, writing, and visual art as readily as kids who love mechanisms. Teams stay small (up to seven), and adults stay out of the work.
-        </p>
-        <p class="mt-4 text-pm-ink/75 leading-relaxed">
-          <a href="https://www.caldi.org" target="_blank" rel="noopener" class="font-display font-semibold underline underline-offset-4 decoration-pm-cyan hover:text-pm-cyan-deep">California Destination Imagination</a> is the statewide affiliate that runs regional and state tournaments. They&apos;ve been doing this in California since the 1980s and are helping us launch.
-        </p>
-      </div>
-      <div class="md:col-span-5">
-        <PhotoCard
-          caption="Build Like a Girl mentoring: older kids leading younger ones"
-          color="cyan"
-          tilt="left"
-          tape="left"
-          aspect="square"
-          src="/img/programs/build-like-a-girl.jpg"
-          alt="High school students in purple Piedmont Makers sweatshirts working alongside younger students on a hands-on build."
-        />
-      </div>
-    </div>
-  </section>
-
-  <!-- Get involved -->
-  <section class="bg-pm-ink text-pm-cream">
-    <div class="mx-auto max-w-7xl px-6 py-16 md:py-20">
-      <Ribbon color="cyan">Get involved</Ribbon>
-      <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight max-w-3xl">
-        Team managers, families, and host venues wanted.
-      </h2>
-      <div class="mt-8 grid md:grid-cols-3 gap-6">
-        <div>
-          <p class="font-display font-bold text-xl tracking-tight">Team managers</p>
-          <p class="mt-2 text-pm-cream/80 leading-relaxed">
-            DI&apos;s version of a coach. No technical background required. The training Cal DI provides covers everything; what matters most is consistency through the season.
-          </p>
-        </div>
-        <div>
-          <p class="font-display font-bold text-xl tracking-tight">Families</p>
-          <p class="mt-2 text-pm-cream/80 leading-relaxed">
-            If you have a kid (or a pair of friends) interested, tell us. Teams form in the fall and meet weekly. Most teams are mixed-grade within a level.
-          </p>
-        </div>
-        <div>
-          <p class="font-display font-bold text-xl tracking-tight">Host venues</p>
-          <p class="mt-2 text-pm-cream/80 leading-relaxed">
-            Teams meet weekly somewhere quiet with tables, power, and tolerance for cardboard scraps. Same kind of space as our popup maker spaces.
-          </p>
-        </div>
-      </div>
-      <p class="mt-10 text-pm-cream/85 leading-relaxed max-w-2xl">
-        Interested in any of the above? Email <a href="mailto:hello@piedmontmakers.org" class="font-display font-semibold underline underline-offset-4 decoration-pm-cyan hover:text-pm-cyan">hello@piedmontmakers.org</a> and we&apos;ll loop you into the pilot planning. Registration windows and team-manager training dates will land in <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-cyan hover:text-pm-cyan">the newsletter</a>.
-      </p>
-    </div>
-  </section>
 </BaseLayout>
