@@ -1,0 +1,187 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Ribbon from "../components/Ribbon.astro";
+import PhotoCard from "../components/PhotoCard.astro";
+import Banner from "../components/Banner.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const link = (path: string) => `${base}${path}`;
+
+const challenges = [
+  {
+    name: "Technical",
+    blurb: "Build a device or invention that performs a task. Mechanisms, contraptions, working prototypes.",
+  },
+  {
+    name: "Scientific",
+    blurb: "Investigate a hands-on phenomenon and present what you learned. Research, models, experiments.",
+  },
+  {
+    name: "Engineering",
+    blurb: "Design a structure that holds weight, withstands force, or solves a structural problem.",
+  },
+  {
+    name: "Fine Arts",
+    blurb: "Tell a story through performance, visual art, and design. Theater meets making.",
+  },
+  {
+    name: "Improvisational",
+    blurb: "Research a topic, then improvise a sketch on a twist revealed at the tournament.",
+  },
+  {
+    name: "Service Learning",
+    blurb: "Identify a community need and act on it. Document the impact and share what changed.",
+  },
+];
+
+const pilotFacts = [
+  {
+    label: "Two to four teams",
+    body: "Up to seven kids per team. Grades 3-5 for the pilot year. K-2 and middle school come in 2027-2028 if the pilot lands.",
+  },
+  {
+    label: "$200 per registrant",
+    body: "Same price as our LEGO League Explore program. Covers DI national and state registration, team materials, the season T-shirt, and Regional tournament fees.",
+  },
+  {
+    label: "Six challenges to pick from",
+    body: "Engineering, Fine Arts, Service Learning, Improvisational, Scientific, Technical. Each team self-selects based on what they're drawn to.",
+  },
+  {
+    label: "Plugs into a global program",
+    body: "DI was founded in 1982 and reaches 150,000+ students across 30+ countries each year. Our pilot connects into California's regional and state tournament circuit, with the chance to advance to Global Finals.",
+  },
+];
+
+const seasonSteps = [
+  {
+    when: "Fall",
+    what: "Teams form. DI releases the new season's six challenges. Each team picks one and starts designing a solution.",
+  },
+  {
+    when: "Winter",
+    what: "Weekly team meetings. Build, rehearse, refine, with a parent team manager facilitating (not leading the work).",
+  },
+  {
+    when: "Spring",
+    what: "California Regional and State tournaments. Each team performs their eight-minute solution and tackles a surprise Instant Challenge.",
+  },
+  {
+    when: "May",
+    what: "Global Finals at the University of Tennessee in Knoxville for teams that advance.",
+  },
+];
+---
+
+<BaseLayout
+  title="Destination Imagination — Piedmont Makers"
+  description="Piedmont Makers is piloting Destination Imagination in Fall 2026: a team-based creative problem-solving program for grades 3-5 students, with regional tournaments through California Destination Imagination."
+>
+  <!-- Hero -->
+  <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-8">
+    <a href={link("/events")} class="font-display font-semibold text-pm-ink hover:text-pm-red underline-offset-4 hover:underline">
+      ← All events &amp; programs
+    </a>
+    <div class="mt-6 grid md:grid-cols-12 gap-10 md:gap-12 items-start">
+      <div class="md:col-span-7">
+        <Ribbon color="cyan">Destination Imagination</Ribbon>
+        <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-6xl tracking-tight leading-[0.98]">
+          Creative problem-solving as a team sport.
+        </h1>
+        <p class="mt-7 text-lg md:text-xl text-pm-ink/75 leading-relaxed">
+          Destination Imagination (DI) is a global program where teams of up to seven kids pick an open-ended challenge each fall, spend the school year building a solution, and present it live at a spring tournament. Off-screen by design. Builds the creativity and confidence that matter most in an increasingly AI-driven world. No experience required.
+        </p>
+        <p class="mt-4 text-pm-ink/75 leading-relaxed">
+          We&apos;re piloting DI in the East Bay starting fall 2026. The pilot connects into <a href="https://www.caldi.org" target="_blank" rel="noopener" class="font-display font-semibold underline underline-offset-4 decoration-pm-cyan hover:text-pm-cyan-deep">California Destination Imagination</a>&apos;s regional tournament circuit.
+        </p>
+      </div>
+      <div class="md:col-span-5">
+        <!-- TODO: replace with a Piedmont Makers DI pilot photo when we have one. Current image sourced from caldi.org pending permission. -->
+        <PhotoCard
+          caption="DI tournament day"
+          color="cyan"
+          tilt="right"
+          aspect="landscape"
+          src="/img/programs/destination-imagination.jpg"
+          alt="Two kids in bright costume hats and pom-poms holding handmade letters spelling 'DI' in front of a green and blue balloon arch."
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Pilot announcement banner -->
+  <section class="mx-auto max-w-7xl px-6 pb-4">
+    <Banner
+      eyebrow="Pilot · Fall 2026"
+      headline="New this season."
+      body="We're standing up our first DI teams this fall. Details about coach training, team formation, and where teams will meet are coming together now. Subscribe to the newsletter to hear when sign-ups open."
+      color="cyan"
+    />
+  </section>
+
+  <!-- What is DI -->
+  <section class="mx-auto max-w-7xl px-6 py-12">
+    <Ribbon color="cyan">How it works</Ribbon>
+    <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
+      Two parts: a season-long Team Challenge and a surprise Instant Challenge.
+    </h2>
+    <div class="mt-8 grid md:grid-cols-2 gap-6">
+      <article class="bg-pm-paper border-[3px] border-pm-ink p-7 md:p-8">
+        <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-cyan-deep">Team Challenge</p>
+        <h3 class="mt-2 font-display font-bold text-2xl tracking-tight leading-tight">
+          Eight months of work, one eight-minute presentation.
+        </h3>
+        <p class="mt-4 text-pm-ink/80 leading-relaxed">
+          Each team picks one of six open-ended challenges in September and spends the school year building a solution: a skit they wrote, props, costumes, often a technical device, all performed live in eight minutes at the spring tournament. Adults can&apos;t do the work for them. Interference rules are strict, and that&apos;s part of the point.
+        </p>
+      </article>
+      <article class="bg-pm-paper border-[3px] border-pm-ink p-7 md:p-8">
+        <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-purple">Instant Challenge</p>
+        <h3 class="mt-2 font-display font-bold text-2xl tracking-tight leading-tight">
+          A problem they&apos;ve never seen, solved in five to eight minutes.
+        </h3>
+        <p class="mt-4 text-pm-ink/80 leading-relaxed">
+          At every tournament, each team walks into a room and gets a brand-new problem with a small pile of materials. Sometimes it&apos;s a building task, sometimes performance, sometimes both. Practiced through the year; revealed cold on the day.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Six challenge tracks -->
+  <section class="mx-auto max-w-7xl px-6 py-12">
+    <Ribbon color="cyan">Six challenge tracks</Ribbon>
+    <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
+      Pick the flavor that fits your team.
+    </h2>
+    <p class="mt-4 max-w-2xl text-pm-ink/75 leading-relaxed">
+      Specific challenge prompts change each year. The categories don&apos;t. A team that loves theater can find a home alongside a team that loves circuits.
+    </p>
+    <ul class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {challenges.map((c) => (
+        <li class="bg-pm-paper border-[3px] border-pm-ink p-5">
+          <p class="font-display font-bold text-lg tracking-tight">{c.name}</p>
+          <p class="mt-2 text-sm text-pm-ink/75 leading-relaxed">{c.blurb}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Season timeline -->
+  <section class="bg-pm-cream-2/60 mt-12">
+    <div class="mx-auto max-w-7xl px-6 py-16">
+      <Ribbon color="cyan">The season</Ribbon>
+      <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
+        A school-year arc, ending in a spring tournament.
+      </h2>
+      <ol class="mt-8 space-y-5 max-w-3xl">
+        {seasonSteps.map((step) => (
+          <li class="grid grid-cols-[6rem_1fr] md:grid-cols-[8rem_1fr] gap-4 md:gap-6 items-start">
+            <span class="font-display font-bold text-pm-cyan-deep text-lg md:text-xl tracking-tight">{step.when}</span>
+            <span class="text-pm-ink/80 leading-relaxed">{step.what}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+</BaseLayout>
