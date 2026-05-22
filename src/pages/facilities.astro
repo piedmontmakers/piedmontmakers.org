@@ -147,13 +147,30 @@ const hiddenCount = majorRest.length + labDonors.length;
           </div>
           <div>
             <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Address</dt>
-            <dd class="mt-0.5 font-semibold">3100 East 10th Street<br />Oakland, CA</dd>
+            <dd class="mt-0.5 font-semibold">
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=3100+East+10th+Street+Oakland+CA"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="underline underline-offset-4 decoration-pm-ink/30 hover:decoration-pm-red hover:text-pm-red transition-colors"
+              >3100 East 10th Street<br />Oakland, CA</a>
+            </dd>
           </div>
           <div>
             <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Hours</dt>
             <dd class="mt-0.5 text-pm-ink/65 italic">During practice &amp; build season</dd>
           </div>
         </dl>
+
+        <!-- Small Google Maps embed. Keyless ?output=embed URL, lazy-loaded
+             so it doesn't block the page render. -->
+        <iframe
+          src="https://www.google.com/maps?q=3100+East+10th+Street+Oakland+CA&output=embed"
+          title="Map: 3100 East 10th Street, Oakland"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="mt-6 w-full h-44 md:h-48 rounded-lg border-2 border-pm-ink/15"
+        ></iframe>
 
         <div class="mt-8 flex flex-wrap gap-3">
           <a
@@ -225,7 +242,14 @@ const hiddenCount = majorRest.length + labDonors.length;
         <dl class="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
           <div>
             <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Address</dt>
-            <dd class="mt-0.5 font-semibold">800 Magnolia Ave<br />Piedmont, CA 94611</dd>
+            <dd class="mt-0.5 font-semibold">
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=800+Magnolia+Ave+Piedmont+CA+94611"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="underline underline-offset-4 decoration-pm-ink/30 hover:decoration-pm-red hover:text-pm-red transition-colors"
+              >800 Magnolia Ave<br />Piedmont, CA 94611</a>
+            </dd>
           </div>
           <div>
             <dt class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Dedicated</dt>
@@ -236,6 +260,15 @@ const hiddenCount = majorRest.length + labDonors.length;
             <dd class="mt-0.5 text-pm-ink/65 italic">During programs &amp; open houses</dd>
           </div>
         </dl>
+
+        <!-- Small Google Maps embed for the Engineering Lab. -->
+        <iframe
+          src="https://www.google.com/maps?q=800+Magnolia+Ave+Piedmont+CA+94611&output=embed"
+          title="Map: 800 Magnolia Ave, Piedmont, CA 94611"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="mt-6 w-full h-44 md:h-48 rounded-lg border-2 border-pm-ink/15"
+        ></iframe>
       </div>
       <div class="md:col-span-5 md:order-2">
         <PhotoCard
