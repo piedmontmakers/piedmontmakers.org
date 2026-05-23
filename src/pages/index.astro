@@ -37,6 +37,7 @@ const MAILCHIMP_HONEYPOT_NAME = "b_edc89d8dd41a4ea6ee9352d9a_83b9d5d7df";
 const roboticsLevels = [
   {
     name: "FIRST LEGO League Explore",
+    slug: "fll-explore",
     ages: "K–3rd",
     blurb: "Your kid's first robot. LEGO bricks, simple programming, no pressure.",
     color: "red" as const,
@@ -46,6 +47,7 @@ const roboticsLevels = [
   },
   {
     name: "FIRST LEGO League Challenge",
+    slug: "fll-challenge",
     ages: "4th–8th",
     blurb: "LEGO robots plus a research project. Kids design, code, and present.",
     color: "cyan" as const,
@@ -55,6 +57,7 @@ const roboticsLevels = [
   },
   {
     name: "FIRST Tech Challenge",
+    slug: "ftc",
     ages: "7th–12th",
     blurb: "Metal robots, Java code, regional tournaments. Middle and high schoolers building serious machines.",
     color: "purple" as const,
@@ -64,6 +67,7 @@ const roboticsLevels = [
   },
   {
     name: "FIRST Robotics Competition",
+    slug: "frc",
     ages: "high school",
     blurb: "120 pounds of competition robot. Built by high schoolers, season after season.",
     color: "ink" as const,
@@ -244,7 +248,7 @@ const events = [
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-10">
         {roboticsLevels.map((lvl, i) => (
-          <a href={link("/robotics")} class="group block">
+          <a href={`${link("/robotics")}#${lvl.slug}`} class="group block">
             <Ribbon color={lvl.color}>{lvl.name}</Ribbon>
             <p class="mt-3 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Ages · {lvl.ages}</p>
             <div class="mt-4">
