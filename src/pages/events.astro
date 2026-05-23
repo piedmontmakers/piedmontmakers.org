@@ -8,6 +8,19 @@ const link = (path: string) => `${base}${path}`;
 
 const programs = [
   {
+    href: "/robotics",
+    name: "Robotics Teams",
+    when: "School year · K–12",
+    headline: "Four levels, from LEGO to metal.",
+    blurb: "Our flagship program. ~1,000 kids on 125+ FIRST robotics teams across the East Bay, making us the largest community-based youth robotics league in the United States. Registration runs each spring for the following school year.",
+    color: "red" as const,
+    src: "/img/robotics/robotics-hero.jpg",
+    caption: "Piedmont Makers robotics teams across the four levels",
+    alt: "Composite photo of Piedmont Makers FIRST robotics teams from LEGO League through Highlander Robotics.",
+    tilt: "left" as const,
+    tape: "none" as const,
+  },
+  {
     href: "/events/maker-faire",
     name: "School Maker Faire",
     when: "Each May",
@@ -93,7 +106,7 @@ const programs = [
 
 <BaseLayout
   title="Events &amp; Programs — Piedmont Makers"
-  description="Everything Piedmont Makers does beyond the robotics teams: the annual School Maker Faire, popup maker spaces, Build Like a Girl, the 4th of July parade, and our Destination Imagination pilot."
+  description="Everything Piedmont Makers does: FIRST robotics teams across the East Bay, the annual School Maker Faire, popup maker spaces, Build Like a Girl, the 4th of July parade, and our Destination Imagination pilot."
 >
   <!-- Hero -->
   <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-12">
