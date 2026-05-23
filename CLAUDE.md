@@ -303,7 +303,7 @@ npm run build        # verify before commit
 
 **Stage specific files when committing**, not `git add -A`. The Claude Code plugin cache (`.claude/skills/`) sat next to the working tree and snuck into one commit via `-A`. `.claude/` is now in `.gitignore`, but staging explicit paths is still safer.
 
-Commits push to `main` → GitHub Action deploys to GitHub Pages in ~30 seconds.
+**Commit directly to `main` by default.** This is a small, single-maintainer site — the typical workflow is edit → build → commit → push to `main`. The GitHub Action deploys to GitHub Pages in ~30 seconds. Feature branches and worktrees are available when you want them (long-running experiments, parallel sessions, anything you want to review before it ships) but they are not the default. If the harness or task framing assigns you a branch, honor it; if Ben asks you to push to `main`, push to `main`.
 
 ## Known gotchas
 
