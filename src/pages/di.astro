@@ -2,7 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
 import PhotoCard from "../components/PhotoCard.astro";
-import Banner from "../components/Banner.astro";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
@@ -91,9 +90,6 @@ const seasonSteps = [
         <p class="mt-7 text-lg md:text-xl text-pm-ink/75 leading-relaxed">
           Destination Imagination (DI) is a global program where teams of up to seven kids pick an open-ended challenge each fall, spend the school year building a solution, and present it live at a spring tournament. Off-screen by design. Builds the creativity and confidence that matter most in an increasingly AI-driven world. No experience required.
         </p>
-        <p class="mt-4 text-pm-ink/75 leading-relaxed">
-          We&apos;re piloting DI in the East Bay starting fall 2026. The pilot connects into <a href="https://www.caldi.org" target="_blank" rel="noopener" class="font-display font-semibold underline underline-offset-4 decoration-pm-cyan hover:text-pm-cyan-deep">California Destination Imagination</a>&apos;s regional tournament circuit.
-        </p>
       </div>
       <div class="md:col-span-5">
         <!-- TODO: replace with a Piedmont Makers DI pilot photo when we have one. Current image sourced from caldi.org pending permission. -->
@@ -109,14 +105,32 @@ const seasonSteps = [
     </div>
   </section>
 
-  <!-- Pilot announcement banner -->
+  <!-- Pilot announcement + intro video -->
   <section class="mx-auto max-w-7xl px-6 pb-4">
-    <Banner
-      eyebrow="Pilot · Fall 2026"
-      headline="New this season."
-      body="We're standing up our first DI teams this fall. Details about coach training, team formation, and where teams will meet are coming together now. Subscribe to the newsletter to hear when sign-ups open."
-      color="cyan"
-    />
+    <aside
+      role="region"
+      aria-label="Pilot announcement"
+      class="rounded-2xl border-[3px] border-pm-cyan bg-pm-cyan/8 p-5 md:p-7 shadow-[var(--shadow-card)]"
+    >
+      <Ribbon color="cyan">Pilot · Fall 2026</Ribbon>
+      <h2 class="mt-3 font-display font-bold text-xl md:text-2xl tracking-tight leading-tight text-pm-ink">
+        New this season.
+      </h2>
+      <p class="mt-2 text-pm-ink/75 leading-relaxed">
+        We&apos;re standing up our first DI teams this fall. Details about coach training, team formation, and where teams will meet are coming together now. Subscribe to the newsletter to hear when sign-ups open.
+      </p>
+      <div class="mt-5 mx-auto max-w-2xl lg:max-w-4xl xl:max-w-5xl aspect-video overflow-hidden rounded-xl bg-black">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/dntLYGIXAdU?start=1&rel=0"
+          title="Destination Imagination Changes Lives"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"
+          loading="lazy"
+          class="h-full w-full border-0"
+        ></iframe>
+      </div>
+    </aside>
   </section>
 
   <!-- What is DI -->
