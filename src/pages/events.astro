@@ -8,25 +8,12 @@ const link = (path: string) => `${base}${path}`;
 
 const programs = [
   {
-    href: "/robotics",
-    name: "Robotics",
-    when: "School year · K–12",
-    headline: "Four levels, from LEGO to metal.",
-    blurb: "Our flagship program. ~1,000 kids on 125+ FIRST robotics teams across the East Bay, making us the largest community-based youth robotics league in the United States. Registration runs each spring for the following school year.",
-    color: "red" as const,
-    src: "/img/robotics/robotics-hero.jpg",
-    caption: "Piedmont Makers robotics teams across the four levels",
-    alt: "Composite photo of Piedmont Makers FIRST robotics teams from LEGO League through Highlander Robotics.",
-    tilt: "left" as const,
-    tape: "none" as const,
-  },
-  {
     href: "/events/maker-faire",
     name: "School Maker Faire",
     when: "Each May",
     headline: "Our biggest event of the year.",
     blurb: "K-12 students show what they made all year. Free, open to the public, 11am-3pm at Piedmont High School. The 12th annual just wrapped. Next faire is May 2027.",
-    color: "cyan" as const,
+    color: "red" as const,
     src: "/img/programs/maker-faire.jpg",
     caption: "Kids at the Maker Faire LEGO play table",
     alt: "Children and parents gathered around a large outdoor LEGO play table at the Piedmont School Maker Faire.",
@@ -39,7 +26,7 @@ const programs = [
     when: "Sporadic Saturdays",
     headline: "Hands-on workshops, drop in and make.",
     blurb: "A few times a year we open a space and load it with tools: soldering irons, sewing machines, 3D printers, hot glue, cardboard. Watch the newsletter for the next date.",
-    color: "purple" as const,
+    color: "cyan" as const,
     src: "/img/programs/popup.jpg",
     caption: "Kids and parents making at a popup maker space",
     alt: "Children and parents at long tables making craft projects with paper, markers, and cardboard inside a community hall.",
@@ -52,7 +39,7 @@ const programs = [
     when: "Multiple sessions",
     headline: "Inspiring girls in STEAM.",
     blurb: "Mentored by the older female students from our FTC and FRC teams. A confidence-and-tools program: hands-on robotics taught by girls who've been doing it for years.",
-    color: "red" as const,
+    color: "purple" as const,
     src: "/img/programs/build-like-a-girl.jpg",
     caption: "Older FRC students demoing a robot to a crowd of younger girls",
     alt: "High school students in purple Piedmont Makers sweatshirts demonstrating a robot to a crowd of young girls.",
@@ -65,7 +52,7 @@ const programs = [
     when: "July 4 each year",
     headline: "Our 15-foot robot down Highland Ave.",
     blurb: "FRC Team 8033 drives the parade robot. Robotics teams march. We took home the Highland Cup in 2025 after placing 2nd in 2024. Spectators in lawn chairs encouraged.",
-    color: "cyan" as const,
+    color: "red" as const,
     src: "/img/programs/july-4.jpg",
     caption: "Piedmont Makers crew with the inflatable Makey on Highland Ave",
     alt: "A large group of Piedmont Makers kids and parents in matching shirts posing with the Piedmont Makers banner in front of a 15-foot inflatable red Makey robot on Highland Avenue.",
@@ -78,7 +65,7 @@ const programs = [
     when: "Pilot · Fall 2026",
     headline: "Creative problem-solving as a team sport.",
     blurb: "Teams of up to 7 kids pick an open-ended challenge each fall, build a solution over the school year, and present it at a spring tournament. K-12. New this season, in partnership with Cal DI.",
-    color: "purple" as const,
+    color: "cyan" as const,
     src: "/img/programs/di-students-tournament.jpg",
     caption: "DI team members at a tournament",
     alt: "Three young girls in white lab coats decorated with handmade patches, watching attentively at a Destination Imagination tournament.",
@@ -106,7 +93,7 @@ const programs = [
 
 <BaseLayout
   title="Events &amp; Programs — Piedmont Makers"
-  description="Everything Piedmont Makers does: FIRST robotics teams across the East Bay, the annual School Maker Faire, popup maker spaces, Build Like a Girl, the 4th of July parade, and our Destination Imagination pilot."
+  description="Year-round Piedmont Makers events and programs: the annual School Maker Faire, popup maker spaces, Build Like a Girl, the 4th of July parade, a Destination Imagination pilot, and FIRST robotics teams across the East Bay."
 >
   <!-- Hero -->
   <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-12">
@@ -122,8 +109,8 @@ const programs = [
     </p>
   </section>
 
-  <!-- 4 program cards -->
-  <section class="mx-auto max-w-7xl px-6 pb-20">
+  <!-- Program cards -->
+  <section class="mx-auto max-w-7xl px-6 pb-16">
     <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-14">
       {programs.map((p) => (
         <li>
@@ -150,6 +137,36 @@ const programs = [
         </li>
       ))}
     </ul>
+  </section>
+
+  <!-- "By the way, we also run robotics" — de-emphasized callout to /robotics -->
+  <section class="mx-auto max-w-7xl px-6 pb-20">
+    <a
+      href={link("/robotics")}
+      data-program="Robotics"
+      class="group grid grid-cols-1 md:grid-cols-[14rem_1fr] items-center gap-6 rounded-2xl border-[2px] border-pm-ink/15 bg-pm-paper px-5 py-5 md:px-6 md:py-6 transition-colors hover:border-pm-red/50"
+    >
+      <div class="overflow-hidden rounded-xl">
+        <img
+          src={link("/img/robotics/robotics-hero.jpg")}
+          alt="Piedmont Makers FIRST robotics team members gathered around their robot."
+          class="w-full aspect-[4/3] object-cover"
+          loading="lazy"
+        />
+      </div>
+      <div>
+        <span class="font-marker text-2xl text-pm-red">psst &mdash;</span>
+        <h2 class="mt-1 font-display font-bold text-2xl md:text-3xl tracking-tight leading-tight text-pm-ink">
+          We also run robotics.
+        </h2>
+        <p class="mt-2 text-pm-ink/75 leading-relaxed">
+          ~1,000 kids on 125+ FIRST teams, K through 12, across the East Bay.
+        </p>
+        <p class="mt-3 font-display font-semibold text-pm-ink group-hover:text-pm-red transition-colors">
+          See the four levels &rarr;
+        </p>
+      </div>
+    </a>
   </section>
 </BaseLayout>
 
