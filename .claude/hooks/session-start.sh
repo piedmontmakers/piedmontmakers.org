@@ -8,13 +8,18 @@ fi
 
 cd "$CLAUDE_PROJECT_DIR"
 
-# Attribute commits to the repo owner's GitHub identity instead of the
-# harness default (Claude <noreply@anthropic.com>). Scoped to this repo
-# via `git config` (no --global). The noreply email format
-# `<id>+<login>@users.noreply.github.com` keeps the private email hidden
-# while still linking commits to the GitHub account.
-git config user.name "David Ragones"
-git config user.email "871083+dragones@users.noreply.github.com"
+# Attribute commits to the session user instead of the harness default
+# (Claude <noreply@anthropic.com>). Scoped to this repo via `git config`
+# (no --global). Uses CLAUDE_CODE_USER_EMAIL, which the web harness sets
+# to the signed-in Anthropic account's email — when that email is also
+# verified on the user's GitHub account (github.com/settings/emails),
+# GitHub auto-links the commit to that account (avatar + contributor
+# graph). The display name falls back to the email local-part since the
+# harness's global user.name is the generic "Claude".
+if [ -n "${CLAUDE_CODE_USER_EMAIL:-}" ]; then
+  git config user.email "$CLAUDE_CODE_USER_EMAIL"
+  git config user.name "${CLAUDE_CODE_USER_EMAIL%@*}"
+fi
 
 # Bypass the harness-assigned claude/* branch. Per CLAUDE.md this project
 # commits directly to main; switch over before the agent loop starts so we
