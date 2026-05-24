@@ -83,11 +83,9 @@ const labDonors = [
   "Chris Kibarian",
 ];
 
-// How many names to show before the "See all" disclosure.
-const PREVIEW_COUNT = 8;
-const majorPreview = labMajorDonors.slice(0, PREVIEW_COUNT);
-const majorRest = labMajorDonors.slice(PREVIEW_COUNT);
-const hiddenCount = majorRest.length + labDonors.length;
+// Major donors render in full by default; the regular Donors list is
+// tucked behind a "See all" disclosure to keep the panel scannable.
+const additionalCount = labDonors.length;
 ---
 
 <BaseLayout
@@ -364,24 +362,19 @@ const hiddenCount = majorRest.length + labDonors.length;
 
       <p class="mt-6 font-display text-[0.7rem] uppercase tracking-[0.18em] text-pm-ink/55">Major donors</p>
       <ul class="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-1 text-xs text-pm-ink/85">
-        {majorPreview.map((d) => <li>{d}</li>)}
+        {labMajorDonors.map((d) => <li>{d}</li>)}
       </ul>
 
-      <details class="group mt-3">
+      <details class="group mt-6">
         <summary class="cursor-pointer list-none inline-flex items-center gap-2 font-display font-semibold text-sm text-pm-ink hover:text-pm-red transition-colors">
-          <span class="group-open:hidden">See all {hiddenCount}+ donors →</span>
-          <span class="hidden group-open:inline">Hide the full list ↑</span>
+          <span class="group-open:hidden">See all {additionalCount}+ additional donors →</span>
+          <span class="hidden group-open:inline">Hide additional donors ↑</span>
         </summary>
-        <div class="mt-4 space-y-5">
-          <ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-1 text-xs text-pm-ink/85">
-            {majorRest.map((d) => <li>{d}</li>)}
+        <div class="mt-4">
+          <p class="font-display text-[0.7rem] uppercase tracking-[0.18em] text-pm-ink/55">Donors</p>
+          <ul class="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-1 text-xs text-pm-ink/85">
+            {labDonors.map((d) => <li>{d}</li>)}
           </ul>
-          <div>
-            <p class="font-display text-[0.7rem] uppercase tracking-[0.18em] text-pm-ink/55">Donors</p>
-            <ul class="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-1 text-xs text-pm-ink/85">
-              {labDonors.map((d) => <li>{d}</li>)}
-            </ul>
-          </div>
         </div>
       </details>
     </div>
