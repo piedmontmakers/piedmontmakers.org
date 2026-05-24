@@ -361,7 +361,7 @@ const additionalCount = labDonors.length;
       </p>
 
       <p class="mt-6 font-display text-[0.7rem] uppercase tracking-[0.18em] text-pm-ink/55">Major donors</p>
-      <ul class="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-1 text-xs text-pm-ink/85">
+      <ul class="mt-2 columns-2 sm:columns-3 md:columns-4 gap-x-4 text-xs text-pm-ink/85 [&>li]:break-inside-avoid [&>li]:py-0.5">
         {labMajorDonors.map((d) => <li>{d}</li>)}
       </ul>
 
@@ -372,7 +372,7 @@ const additionalCount = labDonors.length;
         </summary>
         <div class="mt-4">
           <p class="font-display text-[0.7rem] uppercase tracking-[0.18em] text-pm-ink/55">Donors</p>
-          <ul class="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-1 text-xs text-pm-ink/85">
+          <ul class="mt-2 columns-2 sm:columns-3 md:columns-4 gap-x-4 text-xs text-pm-ink/85 [&>li]:break-inside-avoid [&>li]:py-0.5">
             {labDonors.map((d) => <li>{d}</li>)}
           </ul>
         </div>
