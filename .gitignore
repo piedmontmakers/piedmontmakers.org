@@ -28,5 +28,7 @@ pnpm-debug.log*
 !.vscode/settings.json
 .idea/
 
-# Claude Code skills directory — local plugin cache, not project source
-.claude/
+# Claude Code local cache and per-user settings. Committed project config
+# (hooks, settings.json, commands) is tracked normally.
+.claude/skills/
+.claude/settings.local.json
