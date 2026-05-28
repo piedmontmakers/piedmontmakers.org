@@ -32,3 +32,8 @@ pnpm-debug.log*
 # (hooks, settings.json, commands) is tracked normally.
 .claude/skills/
 .claude/settings.local.json
+
+# Agent plugin/skill caches. Project-level agent instructions and hook adapters
+# are tracked via AGENTS.md, CLAUDE.md, .claude/settings.json, and .codex/hooks.json.
+.agents/skills/
+.codex/skills/

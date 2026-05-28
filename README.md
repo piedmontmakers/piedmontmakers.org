@@ -61,25 +61,33 @@ If you need to set up PostHog locally, create a `.env` (gitignored) with `PUBLIC
 
 When you're happy:
 ```bash
-git add .
+git add path/to/changed-file
 git commit -m "Short description of what changed"
 git push
 ```
 
-#### Option 3: Clone locally + use Claude Code
+#### Option 3: Clone locally + use an AI coding agent
 
-This is how most of the site was built. Claude Code reads `CLAUDE.md` at the repo root and gets full project context — tech stack, voice rules, file map, conventions.
+This is how most of the site was built. The repo is configured for Claude Code and Codex:
+
+- Codex reads `AGENTS.md`.
+- Claude Code reads `CLAUDE.md`, which imports `AGENTS.md`.
+- Project hooks live in `.codex/hooks.json` and `.claude/settings.json`.
+- Shared hook logic lives in `scripts/agent-hooks/`.
+- If your agent asks whether to trust this repo, approve it only after reviewing the hook scripts.
+- Claude users can run `/hooks` to confirm project hooks loaded.
 
 ```bash
 git clone https://github.com/piedmontmakers/piedmontmakers.org.git
 cd piedmontmakers.org
 npm ci         # not `npm install` — see "Gotchas" below
 claude         # or open in the Claude Code IDE plugin
+# or: codex
 ```
 
-Then talk to it: *"Add the FTC league championship to the events calendar for November 15"*, *"Swap the photo on the Maker Faire page"*, *"Add a banner to the robotics page announcing summer camp registration"*, etc. Claude will read `CLAUDE.md`, follow the project's conventions, edit the right files, and you can review the changes before committing.
+Then talk to it: *"Add the FTC league championship to the events calendar for November 15"*, *"Swap the photo on the Maker Faire page"*, *"Add a banner to the robotics page announcing summer camp registration"*, etc. The agent will read the project instructions, follow the site's conventions, edit the right files, and you can review the changes before committing.
 
-Keep `npm run dev` running in another terminal while you work — Claude will check the browser preview as it edits.
+Keep `npm run dev` running in another terminal while you work so the agent can check the browser preview as it edits.
 
 ## Adding an event
 
@@ -148,18 +156,18 @@ Short version:
 - Audience is **parents across the East Bay**, not just Piedmont
 - **Kids and volunteers are the heroes**, not the org
 - Keep "Piedmont" in the name and in literal place names; don't use it to scope the audience
-- See `CLAUDE.md` for the full set of voice rules
+- See `AGENTS.md` for the full set of voice rules
 
 ## Tech
 
-Astro 5 (NOT 6 — Astro 6 has a known build issue with our setup), Tailwind CSS v4, `@tailwindcss/typography` for blog prose, content collections for blog + events, PostHog for analytics, a hand-rolled RSS feed at `/rss.xml`. SEO basics (canonical, Open Graph, Twitter Card, JSON-LD, `robots.txt`, `llms.txt`) all wired into `BaseLayout`. Full details in `CLAUDE.md`.
+Astro 5 (NOT 6 — Astro 6 has a known build issue with our setup), Tailwind CSS v4, `@tailwindcss/typography` for blog prose, content collections for blog + events, PostHog for analytics, a hand-rolled RSS feed at `/rss.xml`. SEO basics (canonical, Open Graph, Twitter Card, JSON-LD, `robots.txt`, `llms.txt`) all wired into `BaseLayout`. Full details in `AGENTS.md`.
 
 ## Gotchas
 
 - **Use `npm ci` over `npm install` when possible.** A regular `npm install` can silently drop the `@rolldown/binding-*` optional deps and break the build (`Cannot find module '@rolldown/binding-darwin-arm64'`). If that happens: `git checkout package-lock.json && rm -rf node_modules && npm ci`. When you do need to add a dep, run `npm ci` first to lock the optional deps in, then `npm install <pkg> --include=optional`.
 - **`501(c)(3)` requires a zero-width non-joiner** between `(` and `c`. The body font (Manrope) substitutes `(c)` → © via an OpenType feature that CSS can't reliably disable. Every `501(c)(3)` on the site uses `&zwnj;` in templates or `‌` in TS strings — follow the pattern.
-- **Don't `git add -A`.** Use explicit paths (`git add src/...`). A Claude Code plugin cache directory has snuck into commits before via `-A`.
-- More in `CLAUDE.md` → "Known gotchas".
+- **Don't `git add -A`.** Use explicit paths (`git add src/...`). Agent plugin cache directories have snuck into commits before via `-A`.
+- More in `AGENTS.md` → "Known gotchas".
 
 ## License
 

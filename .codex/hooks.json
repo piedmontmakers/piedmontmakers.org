@@ -1,0 +1,25 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Shell|exec_command",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CODEX_WORKSPACE:-$PWD}/scripts/agent-hooks/block-branch.sh\""
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CODEX_WORKSPACE:-$PWD}/scripts/agent-hooks/session-start.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}
