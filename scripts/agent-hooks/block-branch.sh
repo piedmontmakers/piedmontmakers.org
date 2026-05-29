@@ -1,6 +1,6 @@
 #!/bin/bash
 # Block accidental branch creation/switching in agent sessions.
-# The repo workflow is direct commits to main unless Ben explicitly asks for a branch.
+# The repo workflow is direct commits to main unless the user explicitly asks for a branch.
 
 set -euo pipefail
 

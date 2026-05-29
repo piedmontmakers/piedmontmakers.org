@@ -2,7 +2,7 @@
 
 This is the canonical project instruction file for AI coding agents. Claude Code reads `CLAUDE.md`, which imports this file with `@AGENTS.md`; Codex reads this file directly. Project hook adapters live in `.claude/settings.json` and `.codex/hooks.json`, and both call shared scripts in `scripts/agent-hooks/`.
 
-You are working on **piedmontmakers.org**, the public website of Piedmont Makers, a 501(c)(3) nonprofit running FIRST Robotics teams, a community engineering lab, a School Maker Faire, popup maker spaces, and Build Like a Girl across the **East Bay**. The owner is Ben Stein, who serves as Co-President.
+You are working on **piedmontmakers.org**, the public website of Piedmont Makers, a 501(c)(3) nonprofit running FIRST Robotics teams, a community engineering lab, a School Maker Faire, popup maker spaces, and Build Like a Girl across the **East Bay**. The site is maintained for the Piedmont Makers team, whose board members and program leads rely on these instructions to keep edits consistent.
 
 The site is live at https://piedmontmakers.org/. The full Wix migration is done — there's no parallel staging site anymore. Blog post editing happens through Sveltia CMS at `/admin/` (see `docs/admin-setup.md`); page structure and design edits happen in the codebase.
 
@@ -112,7 +112,7 @@ The "sold out in minutes" line is fine as **FOMO copy in body** (e.g. newsletter
 
 Avoid **time-locked framing** that goes stale fast. "New in Fall 2025" reads as old in the 2026-27 school year. Prefer evergreen phrasing or the actual current year.
 
-**Don't write LLM tells.** The user will spot them. Specific things to avoid (in addition to Ben's global agent instructions):
+**Don't write LLM tells.** The maintainers will spot them. Specific things to avoid (in addition to any user-level agent instructions):
 - `actually` / `actual` as emphasis — every instance got purged in May 2026, please don't bring them back
 - `real` as emphasis filler ("real engineering," "real tools," "real impact"). Replaced with `serious`, `working`, `full`, or just dropped — purged site-wide in May 2026
 - "It's not X, it's Y" rhythm
@@ -223,7 +223,7 @@ For other one-off announcements (new program, dated callout), drop `<Banner ... 
 
 ## Blog CMS (Sveltia)
 
-`/admin/` runs Sveltia CMS for editing blog posts in a friendly UI. Two static files (`public/admin/index.html` + `public/admin/config.yml`) load the JS bundle from unpkg, pinned to a specific version. Auth via GitHub OAuth, proxied through a Cloudflare Worker (`sveltia-cms-auth.ben-68b.workers.dev`). Authorization model: anyone with **Write access on the repo** can save posts; saves become commits authored by the editor's GitHub user.
+`/admin/` runs Sveltia CMS for editing blog posts in a friendly UI. Two static files (`public/admin/index.html` + `public/admin/config.yml`) load the JS bundle from unpkg, pinned to a specific version. Auth uses GitHub OAuth, proxied through the Cloudflare Worker configured in `public/admin/config.yml`. Authorization model: anyone with **Write access on the repo** can save posts; saves become commits authored by the editor's GitHub user.
 
 Setup details (GitHub OAuth App, Worker secrets, how to grant editor access) live in `docs/admin-setup.md`. To bump Sveltia versions: edit the `<script src>` URL in `public/admin/index.html`, test, push.
 
