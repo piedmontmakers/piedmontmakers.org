@@ -194,6 +194,7 @@ Custom conversion events (in addition to autocapture):
 | `volunteer_clicked` | home "How to help" card | `source: 'home_how_to_help'` |
 | `buy_shirt_clicked` | home Bonfire card | — |
 | `robotics_register_clicked` | each TeamSnap button on /robotics | `level: fll-explore \| fll-challenge \| ftc \| frc` |
+| `di_register_clicked` | TeamSnap button on /di | `source: 'di_page'` |
 | `program_card_clicked` | /events program cards | `program_name` |
 | `maker_faire_newsletter_clicked` | newsletter links on /events/maker-faire | — |
 
