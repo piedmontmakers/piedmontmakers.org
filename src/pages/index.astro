@@ -494,10 +494,15 @@ const events = [
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', function () {
-    // Newsletter signup
+    // Newsletter signup. The form uses target="_blank", so the page stays put
+    // and a visitor can hit Subscribe repeatedly — each submit would otherwise
+    // fire a duplicate event. Guard so we capture at most once per page load.
     var newsletterForm = document.querySelector('#newsletter form');
     if (newsletterForm) {
+      var newsletterCaptured = false;
       newsletterForm.addEventListener('submit', function () {
+        if (newsletterCaptured) return;
+        newsletterCaptured = true;
         window.posthog?.capture('newsletter_signup_clicked');
       });
     }
