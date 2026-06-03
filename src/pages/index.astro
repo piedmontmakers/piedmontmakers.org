@@ -38,6 +38,7 @@ const fmtEventParts = (d: Date) => ({
   month: d.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" }).toUpperCase(),
   day: d.getUTCDate().toString(),
   weekday: d.toLocaleDateString("en-US", { weekday: "short", timeZone: "UTC" }),
+  year: d.getUTCFullYear().toString(),
 });
 
 const voices = [
@@ -262,10 +263,16 @@ const events = [
       <ul class="divide-y divide-pm-ink/10">
         {upcomingEvents.map((e) => {
           const p = fmtEventParts(e.data.startDate);
+          const end = e.data.endDate ? fmtEventParts(e.data.endDate) : null;
+          // Same-month range shows as "8–12" / "Mon–Fri"; the box stays anchored
+          // on the start date. Mirrors /calendar's multi-day treatment.
+          const sameMonthRange =
+            end !== null && end.iso !== p.iso && end.month === p.month && end.year === p.year;
           const timeRange = e.data.startTime && e.data.endTime
             ? `${e.data.startTime} – ${e.data.endTime}`
             : (e.data.startTime || null);
-          const metaLine = [p.weekday, timeRange, e.data.location].filter(Boolean).join(" · ");
+          const weekday = sameMonthRange && end ? `${p.weekday}–${end.weekday}` : p.weekday;
+          const metaLine = [weekday, timeRange, e.data.location].filter(Boolean).join(" · ");
           // Link to the event's row on /calendar (anchored by date) rather than
           // its first action, so visitors see every link — register, tickets,
           // the Meet URL — instead of being dropped on one destination.
@@ -275,7 +282,9 @@ const events = [
               <a href={rowHref} data-upcoming-link data-event-title={e.data.title} class="group flex items-center gap-4 py-3.5">
                 <div class="shrink-0 w-12 text-center">
                   <div class="font-display text-[0.62rem] uppercase tracking-[0.18em] text-pm-red font-semibold leading-none">{p.month}</div>
-                  <div class="mt-1 font-display font-bold text-2xl leading-none text-pm-ink">{p.day}</div>
+                  <div class:list={["mt-1 font-display font-bold leading-none text-pm-ink", sameMonthRange ? "text-xl tracking-tight" : "text-2xl"]}>
+                    {sameMonthRange && end ? `${p.day}–${end.day}` : p.day}
+                  </div>
                 </div>
                 <div class="min-w-0 flex-1">
                   <h3 class="font-display font-bold text-lg tracking-tight leading-tight group-hover:text-pm-red transition-colors">{e.data.title}</h3>
