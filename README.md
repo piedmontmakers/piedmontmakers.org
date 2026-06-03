@@ -114,6 +114,36 @@ The events calendar at `/events` reads from Markdown files in `src/content/event
 
 Action types: `tickets`, `register`, `volunteer`, `exhibit`, `info`. Color-coded buttons in the calendar.
 
+## Adding a page callout
+
+Use the reusable `Banner` component for time-bound announcements on any page. Keep the component in `src/components/Banner.astro`; add or remove only the page-level instance.
+
+In the page frontmatter:
+
+```astro
+import Banner from "../components/Banner.astro";
+```
+
+For nested pages, adjust the relative path, for example `../../components/Banner.astro` inside `src/pages/events/`.
+
+Then place the callout inside the standard page shell:
+
+```astro
+<!-- Time-bound announcement: remove or update after DATE. -->
+<section class="mx-auto max-w-7xl px-6 pt-10 md:pt-12">
+  <Banner
+    color="cyan"
+    eyebrow="Now open"
+    headline="Registration is open"
+    body="Short context line."
+    ctaLabel="Register"
+    ctaHref="/robotics"
+  />
+</section>
+```
+
+Colors: `red`, `cyan`, or `purple`. If the CTA points to a site path, use a root-relative URL such as `/robotics`; the component handles the base path.
+
 ## Adding a blog post
 
 Drop a Markdown file in `src/content/blog/YYYY-MM-DD-slug.md`:

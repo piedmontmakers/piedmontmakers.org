@@ -210,13 +210,35 @@ Home uses 1 voice (Roy's quote). /robotics' band was removed (was placeholder co
 
 ## Banner component (announcement callouts)
 
-`src/components/Banner.astro` is a brand-colored card for time-bound announcements. Props: `eyebrow` (small Ribbon label), `headline` (display bold), `body` (optional second line), `ctaLabel` + `ctaHref` (both optional, together), `color` (`red` | `cyan` | `purple`, default `cyan`).
+`src/components/Banner.astro` is a brand-colored card for time-bound announcements on any page. Props: `eyebrow` (small Ribbon label), `headline` (display bold), `body` (optional second line), `ctaLabel` + `ctaHref` (both optional, together), `color` (`red` | `cyan` | `purple`, default `cyan`).
 
 Style: 3px brand-color border, 8%-opacity brand-color tinted background, rounded-2xl, soft padding. Sits inside the page's `max-w-7xl px-6` shell — not a full-bleed browser-chrome strip.
 
-Current use: `/robotics` has a cyan banner at the top announcing Fall 2026 registration ("Register by June 1"). When the deadline passes, either delete the `<Banner ... />` block or update the dates. The robotics page has a comment marking the section as time-bound.
+To add a callout, import it in the page frontmatter:
 
-For other one-off announcements (new program, dated callout), drop `<Banner ... />` wherever you want it on a page.
+```astro
+import Banner from "../components/Banner.astro";
+```
+
+Adjust the relative path for nested pages, for example `../../components/Banner.astro` inside `src/pages/events/`.
+
+Then place it inside the standard shell wherever the announcement belongs:
+
+```astro
+<!-- Time-bound announcement: remove or update after DATE. -->
+<section class="mx-auto max-w-7xl px-6 pt-10 md:pt-12">
+  <Banner
+    color="cyan"
+    eyebrow="Now open"
+    headline="Registration is open"
+    body="Short context line."
+    ctaLabel="Register"
+    ctaHref="/robotics"
+  />
+</section>
+```
+
+Use red for urgent registration or donate asks, cyan for general announcements, and purple for Build Like a Girl or mascot-forward moments. Date-bound callouts must include a nearby comment with the date or condition for removal. When the deadline passes, delete only the page-level `<section>` and unused import; keep `Banner.astro` for future use.
 
 ## Expandable "Past years" pattern on /teacher-grants
 
