@@ -5,6 +5,13 @@ import Ribbon from "../components/Ribbon.astro";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
+const calendarFeedUrl = new URL(
+  `${base}/calendar.ics`,
+  Astro.site ?? "https://piedmontmakers.org/"
+).toString();
+const googleCalendarSubscribeUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(
+  calendarFeedUrl
+)}`;
 
 // Lets event frontmatter use internal paths like "/robotics" without baking
 // in the base prefix. External URLs (http:// or //) pass through.
@@ -91,7 +98,7 @@ const fmtDateParts = (d: Date) => ({
       What's coming up.
     </h1>
     <p class="mt-6 max-w-2xl text-lg text-pm-ink/75 leading-relaxed">
-      Robotics matches and scrimmages, Maker Faire, popup spaces, Build Like a Girl sessions, the 4th of July parade. To hear about new dates first, <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">subscribe to the newsletter</a>.
+      Robotics matches and scrimmages, Maker Faire, popup spaces, Build Like a Girl sessions, the 4th of July parade. The best way to stay up to date is our <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">newsletter</a>, or <a href={googleCalendarSubscribeUrl} class="font-display font-semibold underline underline-offset-4 decoration-pm-cyan hover:text-pm-cyan-deep">subscribe to our calendar</a>.
     </p>
   </section>
 
