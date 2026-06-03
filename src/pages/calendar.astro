@@ -13,7 +13,6 @@ const calendarFeedSubscribeUrl = calendarFeedUrl.replace(/^https?:\/\//, "webcal
 const googleCalendarSubscribeUrl = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(
   calendarFeedSubscribeUrl
 )}`;
-const appleCalendarSubscribeUrl = calendarFeedSubscribeUrl;
 
 // Lets event frontmatter use internal paths like "/robotics" without baking
 // in the base prefix. External URLs (http:// or //) pass through.
@@ -100,7 +99,10 @@ const fmtDateParts = (d: Date) => ({
       What's coming up.
     </h1>
     <p class="mt-6 max-w-2xl text-lg text-pm-ink/75 leading-relaxed">
-      Robotics matches and scrimmages, Maker Faire, popup spaces, Build Like a Girl sessions, the 4th of July parade. The best way to stay up to date is our <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">newsletter</a>. Subscribe: <a href={googleCalendarSubscribeUrl} class="font-display font-semibold underline underline-offset-4 decoration-pm-cyan hover:text-pm-cyan-deep">Google Calendar</a> or <a href={appleCalendarSubscribeUrl} class="font-display font-semibold underline underline-offset-4 decoration-pm-purple hover:text-pm-purple-deep">Apple Calendar</a>.
+      Robotics matches and scrimmages, Maker Faire, popup spaces, Build Like a Girl sessions, the 4th of July parade. The best way to stay up to date is our <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">newsletter</a>. Subscribe with <a href={googleCalendarSubscribeUrl} class="font-display font-semibold underline underline-offset-4 decoration-pm-cyan hover:text-pm-cyan-deep">Google Calendar</a>.
+    </p>
+    <p class="mt-3 max-w-2xl text-sm md:text-base text-pm-ink/65 leading-relaxed">
+      Apple Calendar: open Calendar, choose File &gt; New Calendar Subscription, then paste <code class="rounded bg-pm-cream px-1.5 py-0.5 font-mono text-[0.92em] text-pm-ink break-all">{calendarFeedUrl}</code>.
     </p>
   </section>
 

@@ -114,6 +114,8 @@ The events calendar at `/events` reads from Markdown files in `src/content/event
 
 Action types: `tickets`, `register`, `volunteer`, `exhibit`, `info`. Color-coded buttons in the calendar.
 
+The subscribable calendar feed is generated at `/calendar.ics`. Google Calendar uses the direct subscribe link on `/calendar`; Apple Calendar users should copy the HTTPS feed URL into Calendar > File > New Calendar Subscription. Avoid direct Apple `webcal://` links, which can fail silently in Chrome on macOS.
+
 ## Adding a page callout
 
 Use the reusable `Banner` component for time-bound announcements on any page. Keep the component in `src/components/Banner.astro`; add or remove only the page-level instance.

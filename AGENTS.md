@@ -302,6 +302,8 @@ The `/calendar` page splits Upcoming vs Past via a client-side script that reads
 
 The subscribable calendar feed at `/calendar.ics` is generated at build time from the same `src/content/events/` collection. When you add or edit an event Markdown file, the next build updates the feed automatically. Do not hand-edit an `.ics` file or add a separate hook unless the event data model changes.
 
+On `/calendar`, Google Calendar can use the direct `cid=webcal://...` subscribe shortcut. Do not make the Apple Calendar option a bare `webcal://` link: Chrome on macOS may do nothing. Show the HTTPS feed URL and tell Mac users to paste it into Calendar > File > New Calendar Subscription.
+
 When events you authored go stale (predictions about future events that didn't happen, dates that shifted), reconcile against the real Google Calendar before assuming. The iCal feed is:
 ```
 https://calendar.google.com/calendar/ical/c_ca0d518d3a95ba84eebd97fe845dfd15778a4846de449f20f4e233f098b4dc51%40group.calendar.google.com/public/basic.ics
