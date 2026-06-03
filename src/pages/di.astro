@@ -8,6 +8,7 @@ const link = (path: string) => `${base}${path}`;
 
 const REGISTER = "https://go.teamsnap.com/forms/524140";
 const INFO_SESSION = "https://docs.google.com/presentation/d/1-r_DnbgfpT_6fSucgNk3oOdca_AlCBbcZ38TrPaflw4";
+const INFO_SESSION_VIDEO = "https://youtu.be/gCG83G7V2Nc";
 
 const registerFacts = [
   { label: "Grades", value: "3–8 (pilot year)" },
@@ -134,6 +135,12 @@ const seasonSteps = [
             <a href={INFO_SESSION} class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
               Info session slides →
             </a>
+            <a href={INFO_SESSION_VIDEO} data-watch-info="true" class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5" aria-hidden="true">
+                <path d="M6.3 2.841A1.5 1.5 0 0 0 4 4.11v11.78a1.5 1.5 0 0 0 2.3 1.269l9.344-5.89a1.5 1.5 0 0 0 0-2.538L6.3 2.84Z" />
+              </svg>
+              Watch info session
+            </a>
           </div>
           <p class="mt-5 text-sm text-pm-ink/70 leading-relaxed">
             Questions? Email <a href="mailto:di@piedmontmakers.org" class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">di@piedmontmakers.org</a>.
@@ -245,6 +252,11 @@ const seasonSteps = [
     document.querySelectorAll('[data-register="true"]').forEach(function (el) {
       el.addEventListener('click', function () {
         window.posthog?.capture('di_register_clicked', { source: 'di_page' });
+      });
+    });
+    document.querySelectorAll('[data-watch-info="true"]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        window.posthog?.capture('di_watch_info_session_clicked', { source: 'di_page' });
       });
     });
   });
