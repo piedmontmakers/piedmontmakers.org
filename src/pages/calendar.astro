@@ -114,6 +114,10 @@ const fmtDateParts = (d: Date) => ({
           const start = fmtDateParts(e.data.startDate);
           const anchorId = anchorFor(start.iso);
           const end = e.data.endDate ? fmtDateParts(e.data.endDate) : null;
+          const isRange = end !== null && end.iso !== start.iso;
+          // A same-month range fits in the date box as "8–12" / "MON–FRI".
+          // Cross-month ranges fall back to the start date plus a "Through …" chip.
+          const sameMonthRange = isRange && end?.month === start.month && end?.year === start.year;
           const program = e.data.program;
           const timeRange = e.data.startTime && e.data.endTime
             ? `${e.data.startTime} – ${e.data.endTime}`
@@ -131,8 +135,12 @@ const fmtDateParts = (d: Date) => ({
                   {start.month}
                 </div>
                 <div class="px-2 py-2 text-center">
-                  <div class="font-display font-bold text-4xl md:text-5xl tracking-tight leading-none">{start.day}</div>
-                  <div class="mt-2 font-display font-semibold text-sm md:text-base text-pm-ink/80 leading-none">{start.weekday}</div>
+                  <div class:list={["font-display font-bold tracking-tight leading-none", sameMonthRange ? "text-3xl md:text-4xl" : "text-4xl md:text-5xl"]}>
+                    {sameMonthRange && end ? `${start.day}–${end.day}` : start.day}
+                  </div>
+                  <div class="mt-2 font-display font-semibold text-sm md:text-base text-pm-ink/80 leading-none">
+                    {sameMonthRange && end ? `${start.weekday}–${end.weekday}` : start.weekday}
+                  </div>
                   <div class="mt-1 font-display text-xs md:text-sm text-pm-ink/55">{start.year}</div>
                 </div>
               </div>
@@ -141,7 +149,7 @@ const fmtDateParts = (d: Date) => ({
                   <span class:list={["inline-flex items-center px-2.5 py-0.5 text-xs font-display font-semibold tracking-tight rounded-full", programColor[program]]}>
                     {programLabel[program]}
                   </span>
-                  {end && (
+                  {isRange && !sameMonthRange && end && (
                     <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">
                       Through {end.month} {end.day}
                     </span>

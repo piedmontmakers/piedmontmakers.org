@@ -123,17 +123,31 @@ export async function GET(context: APIContext) {
       `SUMMARY:${escapeText(event.data.title)}`
     );
 
+    const endIso = event.data.endDate
+      ? event.data.endDate.toISOString().slice(0, 10)
+      : startIso;
+    const isMultiDay = endIso > startIso;
+
     if (startTime) {
       lines.push(
         `DTSTART;TZID=${TIMEZONE}:${formatLocalDateTime(event.data.startDate, startTime)}`
       );
       if (endTime) {
+        // A timed multi-day event (a camp that meets the same hours each day)
+        // is a daily recurrence, not one continuous block running overnight.
+        // Keep DTEND on the start day and repeat with DAILY;COUNT across the
+        // inclusive span. Correct for a single contiguous Mon–Fri week; a span
+        // that skips a weekend would need an explicit BYDAY.
         lines.push(
-          `DTEND;TZID=${TIMEZONE}:${formatLocalDateTime(
-            event.data.endDate ?? event.data.startDate,
-            endTime
-          )}`
+          `DTEND;TZID=${TIMEZONE}:${formatLocalDateTime(event.data.startDate, endTime)}`
         );
+        if (isMultiDay && event.data.endDate) {
+          const dayCount =
+            Math.round(
+              (event.data.endDate.valueOf() - event.data.startDate.valueOf()) / 86400000
+            ) + 1;
+          lines.push(`RRULE:FREQ=DAILY;COUNT=${dayCount}`);
+        }
       }
     } else {
       const endDate = addDays(event.data.endDate ?? event.data.startDate, 1);
