@@ -7,6 +7,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
 
 const REGISTER = "https://go.teamsnap.com/forms/524140";
+const INFO_SESSION = "https://docs.google.com/presentation/d/1-r_DnbgfpT_6fSucgNk3oOdca_AlCBbcZ38TrPaflw4";
 
 const registerFacts = [
   { label: "Grades", value: "3–8 (pilot year)" },
@@ -126,9 +127,12 @@ const seasonSteps = [
           <p class="mt-5 text-pm-ink/80 leading-relaxed">
             We&apos;re standing up two to four teams of up to seven kids each for our first DI season, grades 3-8. No experience required, for kids or parents. Register your kid as an individual and we&apos;ll place them on a team, or round up a friend group and sign up together.
           </p>
-          <div class="mt-8">
+          <div class="mt-8 flex flex-wrap gap-3">
             <a href={REGISTER} data-register="true" class="ribbon bg-pm-cyan hover:bg-pm-cyan-deep text-white text-base hover:opacity-90 transition-opacity">
               Register on TeamSnap →
+            </a>
+            <a href={INFO_SESSION} class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
+              Info session slides →
             </a>
           </div>
         </div>
