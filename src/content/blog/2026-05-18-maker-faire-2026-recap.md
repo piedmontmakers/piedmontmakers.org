@@ -10,9 +10,10 @@ heroImageCaption: "Seventh grader Sierra (right) brought her crochet to a make-y
 
 On May 17, the Piedmont High School campus turned into a daylong STEAM carnival for the 12th annual Piedmont School Maker Faire. Nearly 1,000 people came through to build things, race things, and see what makers of every age had been up to all year.
 
-> "What makes our School Maker Faire special is that the maker spirit goes both directions: adults run hands-on projects for kids, and kids get to exhibit what they've built to adults. Add in great weather and almost 1,000 attendees and we get one of the best days on our Piedmont Makers calendar. Our maker community came out in force and you could feel it."
->
-> — Ben Stein, co-president of Piedmont Makers
+<blockquote>
+  <p>What makes our School Maker Faire special is that the maker spirit goes both directions: adults run hands-on projects for kids, and kids get to exhibit what they've built to adults. Add in great weather and almost 1,000 attendees and we get one of the best days on our Piedmont Makers calendar. Our maker community came out in force and you could feel it.</p>
+  <footer>— Ben Stein, co-president of Piedmont Makers</footer>
+</blockquote>
 
 ## Hands-on in every direction
 
@@ -53,8 +54,9 @@ Partners from around the East Bay set up alongside the students. Payam Music, an
 
 Piedmont became the first school district in the country to host an official K-12 School Maker Faire back in 2014, the same year Dave Ragones and Vince Monical co-founded Piedmont Makers. Twelve years later, the Faire has grown into one of the high points of our year.
 
-> "As with all of Piedmont Makers' programs, we couldn't do it without hundreds of volunteer hours. A huge thank you to board members Ella Grossberg and Brian Van Osdol for their leadership, and to the dozens of volunteers who made this day possible."
->
-> — Ben Stein, co-president of Piedmont Makers
+<blockquote>
+  <p>As with all of Piedmont Makers' programs, we couldn't do it without hundreds of volunteer hours. A huge thank you to board members Ella Grossberg and Brian Van Osdol for their leadership, and to the dozens of volunteers who made this day possible.</p>
+  <footer>— Ben Stein, co-president of Piedmont Makers</footer>
+</blockquote>
 
 We'll be back next May. To hear when (and how to exhibit or volunteer), the [newsletter](/#newsletter) is the best place to start, and you can always learn more on the [School Maker Faire page](/events/maker-faire).
