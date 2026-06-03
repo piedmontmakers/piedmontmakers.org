@@ -11,7 +11,7 @@ This morning FIRST and LEGO Education announced that they're ending their partne
 
 ## What this means for Piedmont Makers
 
-**Our Fall 2026 LEGO League season will run as planned.** Registration for this fall is open ([sign up today!](/piedmontmakers.org/robotics)) and we're hosting a **Robotics Open House on Tuesday, March 24 at 7pm** for families to learn more — tell your friends. We can answer more questions there.
+**Our Fall 2026 LEGO League season will run as planned.** Registration for this fall is open ([sign up today!](/robotics)) and we're hosting a **Robotics Open House on Tuesday, March 24 at 7pm** for families to learn more — tell your friends. We can answer more questions there.
 
 For 2027 and beyond, we'll evaluate options as both FIRST and LEGO Education share more details. Our commitment remains the same:
 

@@ -13,7 +13,7 @@ Highlander Robotics Team 8033 attended the first ever Nor Cal District Champions
 This year, FIRST Robotics Competition (FRC) moved from the regional model to the district model in California. The team won **Impact**, the most prestigious judged award, at the San Francisco District tournament in March. In past years, this would have secured attendance at the Worlds Championship in Houston. However, it qualified them for CANCMP where only 2 of 11 Impact-award winning teams would advance to Worlds.
 
 <figure>
-  <img src="/piedmontmakers.org/img/blog/highlander-april-2026/wisp-shooting-fuel.jpg" alt="Highlander Robotics' 2026 robot, Wisp, mid-shot, ejecting a foam 'fuel' ball into a competition hub." />
+  <img src="/img/blog/highlander-april-2026/wisp-shooting-fuel.jpg" alt="Highlander Robotics' 2026 robot, Wisp, mid-shot, ejecting a foam 'fuel' ball into a competition hub." />
   <figcaption>Our 2026 robot Wisp shooting "fuel" into the hub.</figcaption>
 </figure>
 
@@ -31,7 +31,7 @@ The 8033 mentors are proud of the students' work. Highlights include:
 - Community mentoring, volunteering at robotics tournaments, and engaging kids at Fourth of July, Harvest Festival, and Maker Faire.
 
 <figure>
-  <img src="/piedmontmakers.org/img/blog/highlander-april-2026/team-ambassadors.jpg" alt="Four Highlander Robotics team ambassadors smiling for the camera in matching uniforms at a competition." />
+  <img src="/img/blog/highlander-april-2026/team-ambassadors.jpg" alt="Four Highlander Robotics team ambassadors smiling for the camera in matching uniforms at a competition." />
   <figcaption>Team ambassadors tell judges about our Outreach. L–R: Vice Captain Software Athena Li; Captain Cassie Colby; Ashley Sang; Zoe Snyder.</figcaption>
 </figure>
 
@@ -40,7 +40,7 @@ The 8033 mentors are proud of the students' work. Highlights include:
 We invite you to see what the team built in person — Wisp will be at the **School Maker Faire on May 17, 2026**, along with a representative slice of the year's other engineering projects.
 
 <figure>
-  <img src="/piedmontmakers.org/img/blog/highlander-april-2026/pit-crew.jpg" alt="Three Highlander Robotics pit crew members working in close quarters between matches." />
+  <img src="/img/blog/highlander-april-2026/pit-crew.jpg" alt="Three Highlander Robotics pit crew members working in close quarters between matches." />
   <figcaption>Pit crew has very tight turn-around times between matches. L–R: Pit Lead Nate Welch, Tristan Milsum, Sam Boyd.</figcaption>
 </figure>
 

@@ -248,12 +248,12 @@ heroImageCaption: "Caption rendered under the hero."
 Body in Markdown. Inline images use HTML <figure> tags:
 
 <figure>
-  <img src="/piedmontmakers.org/img/blog/your-post-slug/photo-a.jpg" alt="..." />
+  <img src="/img/blog/your-post-slug/photo-a.jpg" alt="..." />
   <figcaption>Caption text.</figcaption>
 </figure>
 ```
 
-Image paths in Markdown frontmatter use `/img/...` (resolver prepends base). Inline `<img>` in body Markdown needs the full `/piedmontmakers.org/...` because the prose pipeline doesn't run the resolver.
+Image paths in Markdown frontmatter use `/img/...` (resolver prepends base). Inline `<img>` and Markdown links in body content must be **root-relative** (`/img/...`, `/robotics`) too: the prose pipeline doesn't run the resolver, and the production deploy uses `base: '/'` (apex domain), so a hardcoded `/piedmontmakers.org/...` path 404s live. Caveat: root-relative body paths 404 in local `npm run dev` (dev base is `/piedmontmakers.org/`); verify them with `USE_CUSTOM_DOMAIN=true npm run build` served from `dist`, not the dev server.
 
 ### Add an event
 
@@ -319,7 +319,7 @@ npm run build        # verify before commit
 - **Tailwind arbitrary `grid-cols`** uses underscores between values, not commas: `grid-cols-[80px_1fr]` works; `grid-cols-[80px,1fr]` silently fails to a single column.
 - **YAML dates parse as midnight UTC.** When formatting for display use `getUTCDate()` / `timeZone: "UTC"` so day numbers don't shift backward on the West Coast.
 - **`base` path matters** for internal links. Use the `link()` / `asset()` helpers that strip the trailing slash and prepend `BASE_URL`. With `USE_CUSTOM_DOMAIN=true` (apex deploy, current state) the base is `/`; locally without the env var, it's `/piedmontmakers.org/`. Dynamic endpoints (`rss.xml.ts`, `robots.txt.ts`, `llms.txt.ts`) compose absolute URLs by concatenating `context.site` + `import.meta.env.BASE_URL` so they work in either mode.
-- **Image paths in Markdown body** need the full `/piedmontmakers.org/...` path because the Markdown pipeline doesn't run the resolver.
+- **Image paths and links in Markdown body** must be root-relative (`/img/...`, `/robotics`) because the Markdown pipeline doesn't run the resolver and the production deploy uses `base: '/'`. A hardcoded `/piedmontmakers.org/...` body path 404s on the live apex site. (This reversed when the site moved from the GH Pages subpath to the apex domain.) These root-relative body paths 404 in `npm run dev`; verify with `USE_CUSTOM_DOMAIN=true npm run build` served from `dist`.
 
 ## External services (out of scope to migrate)
 
