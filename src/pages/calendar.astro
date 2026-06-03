@@ -9,8 +9,9 @@ const calendarFeedUrl = new URL(
   `${base}/calendar.ics`,
   Astro.site ?? "https://piedmontmakers.org/"
 ).toString();
-const googleCalendarSubscribeUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(
-  calendarFeedUrl
+const calendarFeedSubscribeUrl = calendarFeedUrl.replace(/^https?:\/\//, "webcal://");
+const googleCalendarSubscribeUrl = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(
+  calendarFeedSubscribeUrl
 )}`;
 
 // Lets event frontmatter use internal paths like "/robotics" without baking
