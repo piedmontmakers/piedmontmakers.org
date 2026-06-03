@@ -26,6 +26,8 @@ assert.match(
   calendarPage,
   /href="https:\/\/calendar\.google\.com\/calendar\/r\?cid=webcal%3A%2F%2F[^"]+calendar\.ics"/
 );
+assert.match(calendarPage, />Google Calendar</);
+assert.match(calendarPage, /href="webcal:\/\/[^"]+calendar\.ics"[^>]*>Apple Calendar</);
 assert.doesNotMatch(calendarPage, /calendar\/render\?cid=https%3A/);
 
 console.log("calendar.ics feed contract looks good");
