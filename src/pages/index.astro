@@ -13,8 +13,10 @@ const latestPosts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
+// timeZone: "UTC" because YAML dates parse as midnight UTC; without it the
+// displayed day shifts back one on West-Coast / non-UTC builds.
 const formatDate = (d: Date) =>
-  d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 
 const asset = (path: string) => `${base}${path.startsWith("/") ? path : `/${path}`}`;
 const blogThumbFallback = "/img/brand/makey.png";
@@ -37,14 +39,6 @@ const fmtEventParts = (d: Date) => ({
   day: d.getUTCDate().toString(),
   weekday: d.toLocaleDateString("en-US", { weekday: "short", timeZone: "UTC" }),
 });
-
-// Event action URLs may be internal ("/events/...") or external; resolve
-// internal paths against the base. Mirrors the helper on /calendar.
-const resolveEventUrl = (url: string) => {
-  if (/^(https?:)?\/\//.test(url)) return url;
-  if (url.startsWith("/")) return `${base}${url}`;
-  return url;
-};
 
 const voices = [
   {
@@ -272,9 +266,10 @@ const events = [
             ? `${e.data.startTime} – ${e.data.endTime}`
             : (e.data.startTime || null);
           const metaLine = [p.weekday, timeRange, e.data.location].filter(Boolean).join(" · ");
-          const rowHref = e.data.actions && e.data.actions.length > 0
-            ? resolveEventUrl(e.data.actions[0].url)
-            : link("/calendar");
+          // Link to the event's row on /calendar (anchored by date) rather than
+          // its first action, so visitors see every link — register, tickets,
+          // the Meet URL — instead of being dropped on one destination.
+          const rowHref = `${link("/calendar")}#${p.iso}`;
           return (
             <li class="hidden" data-event-date={p.iso}>
               <a href={rowHref} data-upcoming-link data-event-title={e.data.title} class="group flex items-center gap-4 py-3.5">

@@ -58,6 +58,17 @@ const events = (await getCollection("events")).sort(
   (a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf()
 );
 
+// Each row gets an id equal to its date (e.g. id="2026-07-02") so the home
+// "Coming up" teaser can deep-link straight to the event's full detail here.
+// If two events share a date, later ones get -2, -3 suffixes to keep ids
+// unique; the teaser always links to the bare date (first event that day).
+const anchorSeen = new Map<string, number>();
+const anchorFor = (iso: string) => {
+  const n = (anchorSeen.get(iso) ?? 0) + 1;
+  anchorSeen.set(iso, n);
+  return n === 1 ? iso : `${iso}-${n}`;
+};
+
 // YAML dates like 2026-05-17 are parsed as midnight UTC. Format using UTC
 // methods so the displayed day matches what's in the frontmatter, regardless
 // of the build server's timezone.
@@ -93,6 +104,7 @@ const fmtDateParts = (d: Date) => ({
       <ul class="mt-2 divide-y divide-pm-ink/10" data-events-list>
         {events.map((e) => {
           const start = fmtDateParts(e.data.startDate);
+          const anchorId = anchorFor(start.iso);
           const end = e.data.endDate ? fmtDateParts(e.data.endDate) : null;
           const program = e.data.program;
           const timeRange = e.data.startTime && e.data.endTime
@@ -101,7 +113,8 @@ const fmtDateParts = (d: Date) => ({
           const metaLine = [e.data.location, timeRange].filter(Boolean).join(" · ");
           return (
             <li
-              class="grid grid-cols-[88px_1fr] md:grid-cols-[112px_1fr] gap-x-5 md:gap-x-7 py-6"
+              id={anchorId}
+              class="grid grid-cols-[88px_1fr] md:grid-cols-[112px_1fr] gap-x-5 md:gap-x-7 py-6 scroll-mt-28"
               data-event-date={start.iso}
               data-event-program={program}
             >
@@ -183,6 +196,18 @@ const fmtDateParts = (d: Date) => ({
       filter: grayscale(0);
       opacity: 1;
     }
+    /* When arriving from a "Coming up" deep link (/calendar#2026-07-02),
+       pull the eye to the matched row with a cyan outline and a brief flash. */
+    [data-event-date]:target {
+      outline: 2px solid var(--color-pm-cyan);
+      outline-offset: 10px;
+      border-radius: 4px;
+      animation: pm-target-flash 1.8s ease-out 1;
+    }
+    @keyframes pm-target-flash {
+      0% { background-color: color-mix(in srgb, var(--color-pm-cyan) 16%, transparent); }
+      100% { background-color: transparent; }
+    }
   </style>
 
   <!-- Client-side date logic. Runs on every page load so the page stays
@@ -213,6 +238,13 @@ const fmtDateParts = (d: Date) => ({
       const upcomingCount = upcomingList.children.length;
       if (past.length > 0) pastSection.classList.remove("hidden");
       if (upcomingCount === 0 && emptyUpcoming) emptyUpcoming.classList.remove("hidden");
+
+      // If we opened on a #date anchor, re-scroll to it: moving past events
+      // above may have shifted the row after the browser's initial jump.
+      if (location.hash.length > 1) {
+        const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        if (target) target.scrollIntoView();
+      }
     })();
   </script>
 </BaseLayout>
