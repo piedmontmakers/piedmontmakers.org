@@ -11,8 +11,10 @@ const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
+// timeZone: "UTC" because YAML dates parse as midnight UTC; without it the
+// displayed day shifts back one on West-Coast / non-UTC builds.
 const formatDate = (d: Date) =>
-  d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
 
 // Posts without a hero image fall back to Makey on his purple background —
 // distinctive, on-brand, no fabricated photos.
