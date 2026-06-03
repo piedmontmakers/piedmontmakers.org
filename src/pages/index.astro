@@ -19,6 +19,33 @@ const formatDate = (d: Date) =>
 const asset = (path: string) => `${base}${path.startsWith("/") ? path : `/${path}`}`;
 const blogThumbFallback = "/img/brand/makey.png";
 
+// "Coming up" teaser — dated events from the calendar collection. We render
+// everything from ~2 days ago forward; the inline script at the bottom reveals
+// only the rows that fall inside the next 14 days (and the section itself only
+// if at least one does), so the window stays accurate without a rebuild — the
+// same client-side approach /calendar uses.
+const upcomingCutoff = Date.now() - 2 * 24 * 60 * 60 * 1000;
+const upcomingEvents = (await getCollection("events"))
+  .filter((e) => e.data.startDate.valueOf() >= upcomingCutoff)
+  .sort((a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf());
+
+// YAML dates parse as midnight UTC; format with UTC methods so the day number
+// matches the frontmatter regardless of the build server's timezone.
+const fmtEventParts = (d: Date) => ({
+  iso: d.toISOString().slice(0, 10),
+  month: d.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" }).toUpperCase(),
+  day: d.getUTCDate().toString(),
+  weekday: d.toLocaleDateString("en-US", { weekday: "short", timeZone: "UTC" }),
+});
+
+// Event action URLs may be internal ("/events/...") or external; resolve
+// internal paths against the base. Mirrors the helper on /calendar.
+const resolveEventUrl = (url: string) => {
+  if (/^(https?:)?\/\//.test(url)) return url;
+  if (url.startsWith("/")) return `${base}${url}`;
+  return url;
+};
+
 const voices = [
   {
     quote: "Piedmont Makers is what makes this community special.",
@@ -222,6 +249,48 @@ const events = [
           <p class="font-display font-bold text-3xl md:text-4xl text-pm-cream leading-none">40%</p>
           <p class="mt-2 text-sm text-pm-cream/80">girls in LEGO League</p>
         </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- COMING UP — calendar events within the next 14 days. Hidden by default;
+       the inline script at the bottom reveals it only when at least one
+       rendered row falls inside the window (and hides it otherwise). Mirrors
+       /calendar's client-side date logic so the window stays correct without a
+       rebuild. -->
+  <section data-upcoming-section class="hidden mx-auto max-w-7xl px-6 pt-16 md:pt-20">
+    <div class="rounded-2xl border-[3px] border-pm-cyan bg-pm-cyan/[0.07] p-6 md:p-7">
+      <div class="flex items-center gap-4 pb-4 mb-1 border-b border-pm-ink/10">
+        <Ribbon color="cyan">Coming up</Ribbon>
+        <span class="font-marker text-xl text-pm-purple hidden sm:inline">Don&apos;t miss it!</span>
+        <a href={link("/calendar")} class="ml-auto inline-flex items-center gap-1.5 font-display font-semibold text-sm text-pm-ink hover:text-pm-red underline-offset-4 hover:underline whitespace-nowrap">Full calendar →</a>
+      </div>
+      <ul class="divide-y divide-pm-ink/10">
+        {upcomingEvents.map((e) => {
+          const p = fmtEventParts(e.data.startDate);
+          const timeRange = e.data.startTime && e.data.endTime
+            ? `${e.data.startTime} – ${e.data.endTime}`
+            : (e.data.startTime || null);
+          const metaLine = [p.weekday, timeRange, e.data.location].filter(Boolean).join(" · ");
+          const rowHref = e.data.actions && e.data.actions.length > 0
+            ? resolveEventUrl(e.data.actions[0].url)
+            : link("/calendar");
+          return (
+            <li class="hidden" data-event-date={p.iso}>
+              <a href={rowHref} data-upcoming-link data-event-title={e.data.title} class="group flex items-center gap-4 py-3.5">
+                <div class="shrink-0 w-12 text-center">
+                  <div class="font-display text-[0.62rem] uppercase tracking-[0.18em] text-pm-red font-semibold leading-none">{p.month}</div>
+                  <div class="mt-1 font-display font-bold text-2xl leading-none text-pm-ink">{p.day}</div>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <h3 class="font-display font-bold text-lg tracking-tight leading-tight group-hover:text-pm-red transition-colors">{e.data.title}</h3>
+                  {metaLine && <p class="text-sm text-pm-ink/65">{metaLine}</p>}
+                </div>
+                <span aria-hidden="true" class="shrink-0 font-display text-lg text-pm-ink/35 group-hover:text-pm-red group-hover:translate-x-0.5 transition-all">→</span>
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </div>
   </section>
@@ -532,5 +601,38 @@ const events = [
         window.posthog?.capture('buy_shirt_clicked');
       });
     }
+
+    // "Coming up" teaser — reveal only rows dated within the next 14 days
+    // (cap 4), then unhide the whole section if at least one qualifies. Date
+    // logic runs client-side so the window is accurate to the visitor's day.
+    (function () {
+      var section = document.querySelector('[data-upcoming-section]');
+      if (!section) return;
+      var items = Array.prototype.slice.call(section.querySelectorAll('[data-event-date]'));
+      if (!items.length) return;
+      var pad = function (n) { return String(n).padStart(2, '0'); };
+      var toStr = function (d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
+      var now = new Date();
+      var todayStr = toStr(now);
+      var horizon = new Date(now);
+      horizon.setDate(horizon.getDate() + 14);
+      var horizonStr = toStr(horizon);
+      var shown = 0;
+      items.forEach(function (li) {
+        var d = li.dataset.eventDate;
+        if (d >= todayStr && d <= horizonStr && shown < 4) {
+          li.classList.remove('hidden');
+          shown++;
+        }
+      });
+      if (shown > 0) section.classList.remove('hidden');
+    })();
+
+    // "Coming up" row clicks — targeted by data attribute, not class chains.
+    document.querySelectorAll('[data-upcoming-link]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        window.posthog?.capture('upcoming_event_clicked', { title: el.getAttribute('data-event-title') });
+      });
+    });
   });
 </script>
