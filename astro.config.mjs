@@ -31,7 +31,7 @@ export default defineConfig({
     '/meet-the-makers': '/events/maker-faire/meet-the-makers',
     '/school-maker-faire': '/events/maker-faire',
     '/tech-social': '/',
-    '/10th-street': '/facilities#tenth-street',
+    '/10th-street': '/10th-street-check-in',
     // Note: Wix `/events` (their event listing page) cannot redirect to
     // `/calendar` because `/events` is now our real Events hub (formerly
     // /programs). Visitors with stale Wix /events bookmarks land on Events
