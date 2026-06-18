@@ -26,6 +26,8 @@ const levels = [
     detail: "Teams of 5–6 kids meet at a coach's home for 12 weekly hour-long sessions, then present their build and poster at the LEGO League Explore Festival at Piedmont Middle School the weekend after Thanksgiving. Two parent volunteers coach each team. Piedmont Makers supplies the LEGO kit, week-by-week lesson plans, August coach training, and an active Slack channel for coaches who haven't done this before.",
     color: "red" as const,
     register: "https://go.teamsnap.com/forms/514678",
+    registerOpen: false,
+    registerClosedLabel: "Registration closed",
     openHousePresentation: FLL_OPEN_HOUSE,
     coachTraining: "https://docs.google.com/presentation/d/1jBY7H9uDC_g0mSyCAU0224bk-PF7VX2UZRfzVJce7IM/edit",
     photoCaption: "LEGO League Explore team building during a session",
@@ -44,6 +46,8 @@ const levels = [
     detail: "Teams of 5–8 meet 1–2 times a week from August through December. The season ends at the Piedmont Makers Community Tournament at Piedmont Middle School: 12 game tables, two arenas, real referees, awards including Best Costume. Teams who want more can opt into the Competitive Track for regional qualifiers in January and February. Piedmont Makers delivers a 4'×8' game table to the coach's house and supplies the LEGO Spike Prime kits, week-by-week guides, August coach training, and a Slack community of 110+ coaches.",
     color: "cyan" as const,
     register: "https://go.teamsnap.com/forms/514677",
+    registerOpen: false,
+    registerClosedLabel: "Registration closed",
     openHousePresentation: FLL_OPEN_HOUSE,
     coachTraining: "https://docs.google.com/presentation/d/1scLujr4eManFaMf4fRJ0-ID0fNtmCCPvsemqU47bZ00/edit?usp=drivesdk",
     photoCaption: "LEGO League Challenge team at the SUBMERGED season tournament",
@@ -256,7 +260,7 @@ const coachResources = [
                   aria-disabled="true"
                   class="ribbon bg-pm-ink/35 text-pm-cream/85 text-base cursor-not-allowed select-none"
                 >
-                  Registration opening soon
+                  {lvl.registerClosedLabel || "Registration opening soon"}
                 </span>
               ) : (
                 <a href={lvl.register} data-level={lvl.slug} data-register="true" class={`ribbon text-white text-base hover:opacity-90 transition-opacity ${
