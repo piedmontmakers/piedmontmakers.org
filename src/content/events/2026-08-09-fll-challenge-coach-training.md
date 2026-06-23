@@ -1,5 +1,5 @@
 ---
-title: "LEGO League Challenge Coach Training (Founder + Future)"
+title: "LEGO League Challenge Coach Training"
 startDate: 2026-08-09
 location: "Alan Harvey Theater, Piedmont High School"
 program: "robotics"
