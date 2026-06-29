@@ -7,11 +7,8 @@ import FAQ from "../components/FAQ.astro";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
 
-// Two open-house decks cover all four levels:
-// - the K–8 deck covers FLL Explore + FLL Challenge
-// - the advanced deck covers FTC + FRC
-const FLL_OPEN_HOUSE = "https://docs.google.com/presentation/d/1_HkY0Hny-GwCP15v0RREwJrp2LgjbV0jnYSsxrxopLs/edit?slide=id.p1#slide=id.p1";
-const ADVANCED_OPEN_HOUSE = "https://docs.google.com/presentation/d/1uSq2ODJfOfVmrZ2rZzReYHg0ZKkWTCFwDNWufXIUw1I/edit?slide=id.p1#slide=id.p1";
+// - the K–8 open-house deck covers FLL Explore + FLL Challenge
+const FLL_OPEN_HOUSE = "https://docs.google.com/presentation/d/1_HkY0Hny-GwCP15v0RREwJrp2LgjbV0jnYSsxrxopLs/preview";
 
 const levels = [
   {
@@ -29,7 +26,7 @@ const levels = [
     registerOpen: false,
     registerClosedLabel: "Registration closed",
     openHousePresentation: FLL_OPEN_HOUSE,
-    coachTraining: "https://docs.google.com/presentation/d/1jBY7H9uDC_g0mSyCAU0224bk-PF7VX2UZRfzVJce7IM/edit",
+    coachTraining: "https://docs.google.com/presentation/d/1jBY7H9uDC_g0mSyCAU0224bk-PF7VX2UZRfzVJce7IM/preview",
     photoCaption: "LEGO League Explore team building during a session",
     photoSrc: "/img/robotics/fll-explore.jpg",
     photoAlt: "Four young boys in purple Piedmont Makers shirts sitting on the floor of a gym building LEGO Technic structures together.",
@@ -49,7 +46,7 @@ const levels = [
     registerOpen: false,
     registerClosedLabel: "Registration closed",
     openHousePresentation: FLL_OPEN_HOUSE,
-    coachTraining: "https://docs.google.com/presentation/d/1scLujr4eManFaMf4fRJ0-ID0fNtmCCPvsemqU47bZ00/edit?usp=drivesdk",
+    coachTraining: "https://docs.google.com/presentation/d/1scLujr4eManFaMf4fRJ0-ID0fNtmCCPvsemqU47bZ00/preview",
     photoCaption: "LEGO League Challenge team at the SUBMERGED season tournament",
     photoSrc: "/img/robotics/fll-challenge.jpg",
     photoAlt: "Five girls in maroon Piedmont Makers shirts working at a FLL Challenge competition table with a LEGO ocean-themed game board.",
@@ -66,8 +63,8 @@ const levels = [
     detail: "Teams of 6–12 kids practice at coach/parent homes or our robotics practice facility in Oakland, learning Java programming, CAD, and digital fabrication along the way. They compete in the East Bay Hills FTC League qualifying tournaments. Many teams bring on a Highlander Robotics high schooler as a student mentor so a non-STEAM parent can still run a strong team.",
     color: "purple" as const,
     register: "https://go.teamsnap.com/forms/518591",
-    openHousePresentation: ADVANCED_OPEN_HOUSE,
-    coachTraining: "https://docs.google.com/presentation/d/1vXAiiNybRtcjCHtEPieloUVmRC61gApdo7jxT0mnOQE/edit?slide=id.g2f5f9f04be4_0_35",
+    openHousePresentation: "https://docs.google.com/presentation/d/1plUPHhN3mBLRrkNKo9q8S0FCrr9Wg64-duD7N3sXZSY/preview",
+    coachTraining: "https://docs.google.com/presentation/d/1vXAiiNybRtcjCHtEPieloUVmRC61gApdo7jxT0mnOQE/preview",
     photoCaption: "FTC Team 18133 at robot inspection",
     photoSrc: "/img/robotics/ftc.jpg",
     photoAlt: "Members of FTC Team 18133 in matching green hoodies and safety glasses gathered around their robot at the inspection table at a competition.",
@@ -84,7 +81,7 @@ const levels = [
     detail: "Team 8033 has 50+ kids organized into specialty subgroups (mechanical, electrical, software, scouting, fundraising, business) so members can focus on what they love instead of doing everything. Practice happens at our robotics practice <a href='/facilities#tenth-street' class='underline decoration-pm-cyan/40 underline-offset-2 hover:decoration-pm-cyan'>facility</a> in Oakland, the only community-accessible regulation FRC field in the Bay Area. Beyond build season, Team 8033 develops <a href='https://apps.apple.com/us/app/lovat-dashboard/id6467466592' class='underline decoration-pm-cyan/40 underline-offset-2 hover:decoration-pm-cyan'>Lovat</a> (a scouting app used by 800+ FRC teams worldwide), runs the annual a-CAD-emy summer camp teaching middle schoolers Onshape CAD, mentors local LEGO League teams, and shares training programs with 40+ other FRC teams worldwide.",
     color: "ink" as const,
     register: "https://go.teamsnap.com/forms/523636/signups/new",
-    openHousePresentation: ADVANCED_OPEN_HOUSE,
+    openHousePresentation: "https://docs.google.com/presentation/d/1uSq2ODJfOfVmrZ2rZzReYHg0ZKkWTCFwDNWufXIUw1I/preview",
     detailLink: "https://frc8033.com",
     detailLinkLabel: "Team site: frc8033.com",
     photoCaption: "Highlander Robotics 8033 huddled around the robot at a tournament",
