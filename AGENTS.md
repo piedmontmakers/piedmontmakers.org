@@ -379,9 +379,10 @@ npm run build        # verify before commit
 
 ## Helpful first moves on a fresh task
 
-1. `git log --oneline -20` to see recent direction
-2. `npm run dev` and open the relevant page in the browser
-3. Edit. HMR shows it immediately.
-4. `npm run build` before committing — catches schema/route errors
-5. Commit messages: focused, descriptive, no Co-Authored-By line (per the user's global preference)
-6. Stage explicit paths (`git add src/...`), not `git add -A`
+1. **Re-sync first: `git fetch origin main && git merge --ff-only origin/main`.** A long-lived session's checkout drifts behind live `main` — content files (events, blog posts) get added out-of-band, so what's on disk isn't what's deployed. Do this at the start of every task, not just at session start (the SessionStart hook only fires once; `main` keeps moving during the session). Corollary: if a local search comes up empty but the user is certain something exists, suspect a stale checkout — re-sync, or read `main` directly through the GitHub API — before concluding it's absent.
+2. `git log --oneline -20` to see recent direction
+3. `npm run dev` and open the relevant page in the browser
+4. Edit. HMR shows it immediately.
+5. `npm run build` before committing — catches schema/route errors
+6. Commit messages: focused, descriptive, no Co-Authored-By line (per the user's global preference)
+7. Stage explicit paths (`git add src/...`), not `git add -A`
