@@ -73,4 +73,4 @@ collections:
       - label: Body
         name: body
         widget: markdown
-        hint: "Write the post in Markdown. For inline images, use <figure><img src='/piedmontmakers.org/img/blog/...'/></figure> — that path prefix is required in production."
+        hint: "Write the post in Markdown. For inline images, use <figure><img src='/img/blog/...'/></figure> with a root-relative path. Do not prefix paths with /piedmontmakers.org — that 404s on the live site."
