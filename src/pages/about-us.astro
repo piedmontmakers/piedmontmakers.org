@@ -45,6 +45,12 @@ const board = {
   ],
 };
 
+// Unique people on the board proper (staff listed separately); Paul
+// Morrison's two hats count once.
+const boardMemberCount = new Set(
+  [...board.officers, ...board.robotics, ...board.programs, ...board.atLarge].map((m) => m.name)
+).size;
+
 const impactStats = [
   { number: "~1,000", label: "kids on robotics teams", color: "text-pm-red" },
   { number: "90+", label: "schools across 25+ East Bay cities", color: "text-pm-cyan" },
@@ -145,7 +151,7 @@ const impactStats = [
       The people doing the work.
     </h2>
     <p class="mt-5 max-w-2xl text-pm-ink/75 leading-relaxed">
-      Twenty-three volunteer board members for the 2026–27 slate. Parents, alumni, and community members. Board terms run annually with elections at the spring board meeting.
+      A volunteer board of {boardMemberCount} for the 2026–27 slate. Parents, alumni, and community members. Board terms run annually with elections at the spring board meeting.
     </p>
 
     <div class="mt-12 space-y-12">
