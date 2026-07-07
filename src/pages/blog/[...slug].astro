@@ -51,7 +51,7 @@ const next = idx < all.length - 1 ? all[idx + 1] : null;
         <h1 class="mt-6 font-display font-bold text-pm-ink text-4xl md:text-5xl tracking-tight leading-[1.02]">
           {post.data.title}
         </h1>
-        <p class="mt-5 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">
+        <p class="mt-5 font-display text-xs uppercase tracking-[0.18em] text-pm-ink/70">
           {formatDate(post.data.pubDate)}{post.data.author && ` · ${post.data.author}`}
           {post.data.updatedDate && (
             <span class="ml-3 text-pm-ink/40">
@@ -109,7 +109,7 @@ const next = idx < all.length - 1 ? all[idx + 1] : null;
     <div class="max-w-3xl border-t-2 border-pm-ink pt-8 grid sm:grid-cols-2 gap-6">
       {prev ? (
         <a href={link(`/blog/${prev.id}`)} class="group block">
-          <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">← Newer post</p>
+          <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/70">← Newer post</p>
           <p class="mt-2 font-display font-semibold text-lg leading-tight group-hover:text-pm-red transition-colors">
             {prev.data.title}
           </p>
@@ -117,7 +117,7 @@ const next = idx < all.length - 1 ? all[idx + 1] : null;
       ) : <div />}
       {next ? (
         <a href={link(`/blog/${next.id}`)} class="group block sm:text-right">
-          <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">Older post →</p>
+          <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/70">Older post →</p>
           <p class="mt-2 font-display font-semibold text-lg leading-tight group-hover:text-pm-red transition-colors">
             {next.data.title}
           </p>

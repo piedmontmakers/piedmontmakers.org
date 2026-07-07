@@ -9,6 +9,9 @@
   --color-pm-cyan-deep: #0089BD;
   --color-pm-purple: #92278F;
   --color-pm-purple-deep: #6E1D6C;
+  /* Lightened mascot purple for text on pm-ink backgrounds; the base purple
+     only reaches 2.3:1 contrast there. */
+  --color-pm-purple-light: #BA6CB6;
   --color-pm-ink: #0F1B2D;
   --color-pm-ink-soft: #2A3548;
   --color-pm-cream: #FFF6E8;

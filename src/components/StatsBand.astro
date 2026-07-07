@@ -14,10 +14,12 @@ const { stats, size = "default", pad = "default" } = Astro.props;
 
 // Numbers cycle through the brand palette unless a stat pins its own color.
 const cycle: StatColor[] = ["red", "cyan", "purple", "cream"];
+// The band background is always pm-ink; base purple only hits 2.3:1 there,
+// so the numbers use the lightened tint.
 const colorClass: Record<StatColor, string> = {
   red: "text-pm-red",
   cyan: "text-pm-cyan",
-  purple: "text-pm-purple",
+  purple: "text-pm-purple-light",
   cream: "text-pm-cream",
 };
 

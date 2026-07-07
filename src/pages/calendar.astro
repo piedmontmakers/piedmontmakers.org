@@ -144,7 +144,7 @@ const fmtDateParts = (d: Date) => ({
                   <div class="mt-2 font-display font-semibold text-sm md:text-base text-pm-ink/80 leading-none">
                     {sameMonthRange && end ? `${start.weekday}–${end.weekday}` : start.weekday}
                   </div>
-                  <div class="mt-1 font-display text-xs md:text-sm text-pm-ink/55">{start.year}</div>
+                  <div class="mt-1 font-display text-xs md:text-sm text-pm-ink/70">{start.year}</div>
                 </div>
               </div>
               <div>
@@ -153,7 +153,7 @@ const fmtDateParts = (d: Date) => ({
                     {programLabel[program]}
                   </span>
                   {isRange && !sameMonthRange && end && (
-                    <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/55">
+                    <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/70">
                       Through {end.month} {end.day}
                     </span>
                   )}
@@ -196,7 +196,7 @@ const fmtDateParts = (d: Date) => ({
     <!-- PAST — JS will fill this with anything earlier than today -->
     <div data-events-past class="mt-16 hidden">
       <div class="border-b-2 border-pm-ink pb-3">
-        <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight text-pm-ink/55">Past events</h2>
+        <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight text-pm-ink/70">Past events</h2>
       </div>
       <ul class="mt-2 divide-y divide-pm-ink/10 past-events-list"></ul>
     </div>

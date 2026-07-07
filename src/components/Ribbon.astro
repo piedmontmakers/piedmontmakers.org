@@ -13,9 +13,12 @@ interface Props {
 
 const { color = "red", size = "default", flip = false, class: extra = "" } = Astro.props;
 
+// Cyan and cream ribbons carry ink text: white on the brand cyan is only
+// 2.5:1 contrast, well short of WCAG AA. The other backgrounds pass with
+// the default white from global.css.
 const colorClass = {
   red: "bg-pm-red",
-  cyan: "bg-pm-cyan",
+  cyan: "bg-pm-cyan text-pm-ink",
   purple: "bg-pm-purple",
   ink: "bg-pm-ink",
   cream: "bg-pm-cream text-pm-ink",
