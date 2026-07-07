@@ -72,6 +72,8 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [tailwindcss()],
+    // JSDoc cast: @tailwindcss/vite and Astro bundle separate vite type trees,
+    // so the plugin type never matches even though it works at runtime.
+    plugins: [/** @type {any} */ (tailwindcss())],
   },
 });
