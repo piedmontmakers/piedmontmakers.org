@@ -21,7 +21,7 @@ const palette = [
     <h1 class="mt-4 font-display font-bold tracking-tight text-pm-ink text-5xl md:text-7xl leading-[0.95]">
       The style<br />guide.
     </h1>
-    <p class="mt-6 max-w-2xl font-serif text-xl text-pm-ink-soft leading-relaxed">
+    <p class="mt-6 max-w-2xl font-body text-xl text-pm-ink-soft leading-relaxed">
       Built from the colors, ribbons, and mascot already in the Piedmont Makers logo. Used across every page so the site reads as one publication rather than ten templates.
     </p>
   </section>
@@ -39,7 +39,7 @@ const palette = [
             <p class="font-display text-2xl font-bold tracking-tight">{c.name}</p>
             <p class="mt-1 font-mono text-sm opacity-80">{c.hex}</p>
           </div>
-          <p class="font-serif text-sm leading-snug opacity-90">{c.role}</p>
+          <p class="font-body text-sm leading-snug opacity-90">{c.role}</p>
         </div>
       ))}
     </div>
@@ -63,13 +63,13 @@ const palette = [
         </div>
         <div>
           <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50">Body — Newsreader</p>
-          <p class="font-serif text-lg leading-relaxed mt-2 max-w-2xl">
+          <p class="font-body text-lg leading-relaxed mt-2 max-w-2xl">
             Piedmont Makers is a 501(&zwnj;c)(3) nonprofit running youth robotics teams, a community engineering lab, a yearly school maker faire, and a monthly tech speaker series. Hands-on workshops, a full toolset, and a friendly cyan robot named Makey watching over the whole thing.
           </p>
         </div>
         <div>
           <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50">Caption — Newsreader italic small</p>
-          <p class="font-serif italic text-sm text-pm-ink-soft mt-2">FRC team during the 2026 regional, Mary G. Ross Engineering Lab</p>
+          <p class="font-body italic text-sm text-pm-ink-soft mt-2">FRC team during the 2026 regional, Mary G. Ross Engineering Lab</p>
         </div>
       </div>
       <div class="md:col-span-5 bg-pm-cream rounded-3xl p-8">
@@ -88,7 +88,7 @@ const palette = [
             <span class="font-mono text-xs text-pm-ink/60">20/1.3</span>
           </li>
           <li class="py-3 flex items-baseline justify-between gap-4">
-            <span class="font-serif text-base">Body paragraph</span>
+            <span class="font-body text-base">Body paragraph</span>
             <span class="font-mono text-xs text-pm-ink/60">16/1.65</span>
           </li>
           <li class="py-3 flex items-baseline justify-between gap-4">
@@ -106,7 +106,7 @@ const palette = [
       <h2 class="font-display text-3xl font-bold tracking-tight">03 &nbsp; Ribbon banners</h2>
       <span class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/50">The signature element.</span>
     </div>
-    <p class="mt-6 max-w-2xl font-serif text-lg text-pm-ink-soft leading-relaxed">
+    <p class="mt-6 max-w-2xl font-body text-lg text-pm-ink-soft leading-relaxed">
       Pulled directly from the logo. Used for section headings, badges, and the donate CTA. Three brand colors, three sizes, optional flipped tail.
     </p>
 
@@ -191,7 +191,7 @@ const palette = [
         <div class="p-6">
           <Ribbon color="red">FLL Explore</Ribbon>
           <h3 class="font-display font-bold text-2xl mt-4">For curious K-3rd graders</h3>
-          <p class="mt-2 font-serif text-pm-ink-soft leading-relaxed">A gentle introduction to robotics and engineering with LEGO Education kits.</p>
+          <p class="mt-2 font-body text-pm-ink-soft leading-relaxed">A gentle introduction to robotics and engineering with LEGO Education kits.</p>
         </div>
       </article>
       <article class="rounded-3xl overflow-hidden bg-white shadow-[var(--shadow-card)] border border-pm-ink/5">
@@ -201,7 +201,7 @@ const palette = [
         <div class="p-6">
           <Ribbon color="cyan">FLL Challenge</Ribbon>
           <h3 class="font-display font-bold text-2xl mt-4">For 4th–8th graders</h3>
-          <p class="mt-2 font-serif text-pm-ink-soft leading-relaxed">Build LEGO robots, run autonomous missions, and present a research project.</p>
+          <p class="mt-2 font-body text-pm-ink-soft leading-relaxed">Build LEGO robots, run autonomous missions, and present a research project.</p>
         </div>
       </article>
       <article class="rounded-3xl overflow-hidden bg-white shadow-[var(--shadow-card)] border border-pm-ink/5">
@@ -211,7 +211,7 @@ const palette = [
         <div class="p-6">
           <Ribbon color="purple">FTC</Ribbon>
           <h3 class="font-display font-bold text-2xl mt-4">For 7th–12th graders</h3>
-          <p class="mt-2 font-serif text-pm-ink-soft leading-relaxed">Design and program a competition robot using metal, custom parts, and Java.</p>
+          <p class="mt-2 font-body text-pm-ink-soft leading-relaxed">Design and program a competition robot using metal, custom parts, and Java.</p>
         </div>
       </article>
     </div>
@@ -230,10 +230,10 @@ const palette = [
       </div>
       <div>
         <Ribbon color="cyan">A cast member, not an icon</Ribbon>
-        <p class="mt-6 font-serif text-lg leading-relaxed text-pm-ink-soft">
+        <p class="mt-6 font-body text-lg leading-relaxed text-pm-ink-soft">
           Makey is the cyan robot who lives in the corner of the logo. On the rebuilt site he gets to be big: featured in heros, peeking out of section corners, holding placards in the empty states. He's the most recognizable thing about the brand. Use him.
         </p>
-        <p class="mt-4 font-serif text-lg leading-relaxed text-pm-ink-soft">
+        <p class="mt-4 font-body text-lg leading-relaxed text-pm-ink-soft">
           Sizing: minimum 96px tall in nav/footer, 256px+ in feature blocks, full-bleed for hero treatments.
         </p>
       </div>
@@ -245,7 +245,7 @@ const palette = [
     <div class="rounded-3xl bg-pm-ink text-pm-cream p-10 md:p-14">
       <Ribbon color="red">Living document</Ribbon>
       <h2 class="mt-6 font-display font-bold text-3xl md:text-4xl tracking-tight">This page is the system.</h2>
-      <p class="mt-4 max-w-2xl font-serif text-lg text-pm-cream/80 leading-relaxed">
+      <p class="mt-4 max-w-2xl font-body text-lg text-pm-cream/80 leading-relaxed">
         Edit <code class="font-mono text-pm-cream bg-white/10 px-1.5 py-0.5 rounded">src/styles/global.css</code> and <code class="font-mono text-pm-cream bg-white/10 px-1.5 py-0.5 rounded">src/components/Ribbon.astro</code> to change the system in one place. Every page on the site picks up the change automatically.
       </p>
     </div>
