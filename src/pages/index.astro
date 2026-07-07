@@ -555,7 +555,7 @@ const events = [
         <p class="mt-3 text-white/85 leading-relaxed">We&apos;re volunteer-run start to finish. Coach a team, mentor at Maker Faire, help with the next popup. Every event has its own signup.</p>
         <p class="mt-6 font-display font-semibold group-hover:text-pm-ink transition-colors">See upcoming events →</p>
       </a>
-      <a href="https://www.bonfire.com/piedmont-makers-t-shirt/" class="block rounded-3xl bg-pm-cream-2 text-pm-ink p-8 hover:bg-pm-cream transition-colors group">
+      <a id="buy-shirt-home" href="https://www.bonfire.com/piedmont-makers-t-shirt/" class="block rounded-3xl bg-pm-cream-2 text-pm-ink p-8 hover:bg-pm-cream transition-colors group">
         <span class="font-marker text-2xl text-pm-purple">on Bonfire</span>
         <h3 class="mt-2 font-display font-bold text-3xl tracking-tight">Buy a shirt</h3>
         <p class="mt-3 text-pm-ink/75 leading-relaxed">Makey, in full color, on quality cotton. Proceeds fund the programs.</p>
@@ -599,7 +599,7 @@ const events = [
     }
 
     // Buy a shirt card
-    var shirtLink = document.querySelector('a[href="https://www.bonfire.com/piedmont-makers-t-shirt/"]');
+    var shirtLink = document.querySelector('#buy-shirt-home');
     if (shirtLink) {
       shirtLink.addEventListener('click', function () {
         window.posthog?.capture('buy_shirt_clicked');

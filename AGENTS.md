@@ -195,8 +195,10 @@ Custom conversion events (in addition to autocapture):
 | `buy_shirt_clicked` | home Bonfire card | — |
 | `robotics_register_clicked` | each TeamSnap button on /robotics | `level: fll-explore \| fll-challenge \| ftc \| frc` |
 | `di_register_clicked` | TeamSnap button on /di | `source: 'di_page'` |
+| `di_watch_info_session_clicked` | info-session video link on /di | `source: 'di_page'` |
 | `program_card_clicked` | /events program cards | `program_name` |
 | `maker_faire_newsletter_clicked` | newsletter links on /events/maker-faire | — |
+| `upcoming_event_clicked` | home "What's coming up" event rows | `title` |
 
 When adding new CTAs, register a matching `posthog.capture()` call in a small inline `<script is:inline>` at the bottom of the page (see /robotics or /teacher-grants for the pattern). **Target by `id` or `data-` attribute, not class chains** — a fragile `a.block.rounded-3xl.bg-pm-cyan` selector caused a false-attribution bug; IDs are durable to styling changes.
 
