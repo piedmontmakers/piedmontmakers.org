@@ -1,0 +1,48 @@
+---
+import type { Stat, StatColor } from "../data/stats";
+
+interface Props {
+  /** Four (usually) stats, rendered left to right. */
+  stats: Stat[];
+  /** Number size. About-us uses "large"; everywhere else the default. */
+  size?: "default" | "large";
+  /** Vertical padding preset for the inner container. */
+  pad?: "default" | "tight" | "roomy";
+}
+
+const { stats, size = "default", pad = "default" } = Astro.props;
+
+// Numbers cycle through the brand palette unless a stat pins its own color.
+const cycle: StatColor[] = ["red", "cyan", "purple", "cream"];
+const colorClass: Record<StatColor, string> = {
+  red: "text-pm-red",
+  cyan: "text-pm-cyan",
+  purple: "text-pm-purple",
+  cream: "text-pm-cream",
+};
+
+const numberSize =
+  size === "large" ? "text-4xl md:text-5xl" : "text-3xl md:text-4xl";
+const padClass = {
+  tight: "py-8 md:py-10",
+  default: "py-10 md:py-12",
+  roomy: "py-14 md:py-16",
+}[pad];
+---
+
+<section class="bg-pm-ink text-pm-cream">
+  <div class={`mx-auto max-w-7xl px-6 ${padClass}`}>
+    <slot name="header" />
+    <ul class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 md:divide-x divide-pm-cream/15">
+      {stats.map((s, i) => (
+        <li class="text-center md:px-6">
+          <p class={`font-display font-bold ${numberSize} leading-none ${colorClass[s.color ?? cycle[i % cycle.length]]}`}>
+            {s.number}
+          </p>
+          <p class="mt-2 text-sm text-pm-cream/80 leading-snug">{s.label}</p>
+        </li>
+      ))}
+    </ul>
+    <slot name="footer" />
+  </div>
+</section>

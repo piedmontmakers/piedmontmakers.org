@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
+import StatsBand from "../components/StatsBand.astro";
+import { parseAmount, formatAmountKPlus, formatCountPlus } from "../data/stats";
 
 const grants_2025_26 = {
   total: "$25,694",
@@ -117,6 +119,14 @@ const grants_2023_24 = {
     },
   ],
 };
+
+// Roll-ups for the totals strip, computed from the year data above so they
+// can't drift when a new round is added.
+const allYears = [grants_2025_26, grants_2024_25, grants_2023_24];
+const totalAwarded = formatAmountKPlus(
+  allYears.reduce((sum, y) => sum + parseAmount(y.total), 0)
+);
+const totalProjects = formatCountPlus(allYears.reduce((sum, y) => sum + y.projects, 0));
 ---
 
 <BaseLayout
@@ -134,29 +144,15 @@ const grants_2023_24 = {
     </p>
   </section>
 
-  <!-- Cumulative totals strip — three years of grants -->
-  <section class="bg-pm-ink text-pm-cream">
-    <div class="mx-auto max-w-7xl px-6 py-12">
-      <ul class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 md:divide-x divide-pm-cream/15">
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-red leading-none">$81K+</p>
-          <p class="mt-2 text-sm text-pm-cream/80">awarded over the past 3 years</p>
-        </li>
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cyan leading-none">60+</p>
-          <p class="mt-2 text-sm text-pm-cream/80">classroom projects funded</p>
-        </li>
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-purple leading-none">6</p>
-          <p class="mt-2 text-sm text-pm-cream/80">PUSD schools, all served</p>
-        </li>
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cream leading-none">100%</p>
-          <p class="mt-2 text-sm text-pm-cream/80">of grants go to PUSD teachers</p>
-        </li>
-      </ul>
-    </div>
-  </section>
+  <!-- Cumulative totals strip — computed from the per-year data above -->
+  <StatsBand
+    stats={[
+      { number: totalAwarded, label: `awarded over the past ${allYears.length} years` },
+      { number: totalProjects, label: "classroom projects funded" },
+      { number: "6", label: "PUSD schools, all served" },
+      { number: "100%", label: "of grants go to PUSD teachers" },
+    ]}
+  />
 
   <!-- 2025-26 awards -->
   <section id="awards-2025-26" class="mx-auto max-w-7xl px-6 pt-20 scroll-mt-20">

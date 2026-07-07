@@ -4,7 +4,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
 import PhotoCard from "../components/PhotoCard.astro";
 import Scribble from "../components/Scribble.astro";
+import StatsBand from "../components/StatsBand.astro";
 import VoicesBand from "../components/VoicesBand.astro";
+import { stats } from "../data/stats";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
@@ -228,28 +230,14 @@ const events = [
   </section>
 
   <!-- STATS BAND — community in numbers, builds confidence -->
-  <section class="bg-pm-ink text-pm-cream">
-    <div class="mx-auto max-w-7xl px-6 py-10 md:py-12">
-      <ul class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 md:divide-x divide-pm-cream/15">
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-red leading-none">~1,000</p>
-          <p class="mt-2 text-sm text-pm-cream/80">kids on robotics teams</p>
-        </li>
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cyan leading-none">90+</p>
-          <p class="mt-2 text-sm text-pm-cream/80">schools across 25+ East Bay cities</p>
-        </li>
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-purple leading-none">$25K+</p>
-          <p class="mt-2 text-sm text-pm-cream/80">in teacher grants annually</p>
-        </li>
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cream leading-none">40%</p>
-          <p class="mt-2 text-sm text-pm-cream/80">girls in LEGO League</p>
-        </li>
-      </ul>
-    </div>
-  </section>
+  <StatsBand
+    stats={[
+      { number: stats.kidsOnTeams, label: "kids on robotics teams" },
+      { number: stats.schools, label: `schools across ${stats.cities} East Bay cities` },
+      { number: "$25K+", label: "in teacher grants annually" },
+      { number: stats.girlsInLegoLeague, label: "girls in LEGO League" },
+    ]}
+  />
 
   <!-- COMING UP — calendar events within the next 14 days. Hidden by default;
        the inline script at the bottom reveals it only when at least one

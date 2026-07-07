@@ -3,6 +3,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
 import PhotoCard from "../components/PhotoCard.astro";
 import FAQ from "../components/FAQ.astro";
+import StatsBand from "../components/StatsBand.astro";
+import { stats } from "../data/stats";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
@@ -174,31 +176,19 @@ const coachResources = [
   </section>
 
   <!-- Impact stats band — matches the home page treatment -->
-  <section class="bg-pm-ink text-pm-cream">
-    <div class="mx-auto max-w-7xl px-6 py-8 md:py-10">
-      <p class="text-center font-display font-semibold text-base md:text-lg text-pm-cream max-w-2xl mx-auto leading-snug mb-7">
-        STEAM shouldn&apos;t depend on your zip code or your family&apos;s income.
-      </p>
-      <ul class="grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-6 md:divide-x divide-pm-cream/15">
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-red leading-none">~1,000</p>
-          <p class="mt-2 text-sm text-pm-cream/80">kids on robotics teams</p>
-        </li>
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cyan leading-none">40%</p>
-          <p class="mt-2 text-sm text-pm-cream/80">girls in LEGO League</p>
-        </li>
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-purple leading-none">10%</p>
-          <p class="mt-2 text-sm text-pm-cream/80">from Title 1 schools</p>
-        </li>
-        <li class="text-center md:px-6">
-          <p class="font-display font-bold text-3xl md:text-4xl text-pm-cream leading-none">46%</p>
-          <p class="mt-2 text-sm text-pm-cream/80">from outside Piedmont</p>
-        </li>
-      </ul>
-    </div>
-  </section>
+  <StatsBand
+    pad="tight"
+    stats={[
+      { number: stats.kidsOnTeams, label: "kids on robotics teams" },
+      { number: stats.girlsInLegoLeague, label: "girls in LEGO League" },
+      { number: stats.titleOneShare, label: "from Title 1 schools" },
+      { number: stats.outsidePiedmontShare, label: "from outside Piedmont" },
+    ]}
+  >
+    <p slot="header" class="text-center font-display font-semibold text-base md:text-lg text-pm-cream max-w-2xl mx-auto leading-snug mb-7">
+      STEAM shouldn&apos;t depend on your zip code or your family&apos;s income.
+    </p>
+  </StatsBand>
 
   <!-- The four levels -->
   <section class="mx-auto max-w-7xl px-6 pt-20 pb-24">

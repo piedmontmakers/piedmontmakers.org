@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
+import StatsBand from "../components/StatsBand.astro";
+import { stats, type Stat } from "../data/stats";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
@@ -51,11 +53,11 @@ const boardMemberCount = new Set(
   [...board.officers, ...board.robotics, ...board.programs, ...board.atLarge].map((m) => m.name)
 ).size;
 
-const impactStats = [
-  { number: "~1,000", label: "kids on robotics teams", color: "text-pm-red" },
-  { number: "90+", label: "schools across 25+ East Bay cities", color: "text-pm-cyan" },
-  { number: "1,900+", label: "volunteer hours logged", color: "text-pm-purple" },
-  { number: "$25,694", label: "in teacher grants awarded", color: "text-pm-cream" },
+const impactStats: Stat[] = [
+  { number: stats.kidsOnTeams, label: "kids on robotics teams" },
+  { number: stats.schools, label: `schools across ${stats.cities} East Bay cities` },
+  { number: stats.volunteerHours, label: "volunteer hours logged" },
+  { number: "$25,694", label: "in teacher grants awarded" },
 ];
 ---
 
@@ -107,25 +109,15 @@ const impactStats = [
   </section>
 
   <!-- Impact stats -->
-  <section class="bg-pm-ink text-pm-cream">
-    <div class="mx-auto max-w-7xl px-6 py-14 md:py-16">
-      <div class="text-center mb-10">
-        <Ribbon color="cyan">By the numbers</Ribbon>
-        <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight">The largest community-based youth robotics league in the US</h2>
-      </div>
-      <ul class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 md:divide-x divide-pm-cream/15">
-        {impactStats.map((s) => (
-          <li class="text-center md:px-6">
-            <p class:list={["font-display font-bold text-4xl md:text-5xl leading-none", s.color]}>{s.number}</p>
-            <p class="mt-3 text-sm text-pm-cream/80 leading-snug">{s.label}</p>
-          </li>
-        ))}
-      </ul>
-      <p class="mt-10 text-center text-sm text-pm-cream/65 max-w-2xl mx-auto leading-relaxed">
-        Plus an annual School Maker Faire that drew 1,000+ visitors and 80+ student exhibitors, a Highland Cup win in the 2025 Piedmont 4th of July Parade, a $420K+ capital campaign that built the Mary G. Ross Engineering Lab at Piedmont High School, and a multi-year lease on a permanent 10th Street robotics field in Oakland. 40% of LEGO League participants are girls; 87 students came from Title 1 schools.
-      </p>
+  <StatsBand stats={impactStats} size="large" pad="roomy">
+    <div slot="header" class="text-center mb-10">
+      <Ribbon color="cyan">By the numbers</Ribbon>
+      <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight">The largest community-based youth robotics league in the US</h2>
     </div>
-  </section>
+    <p slot="footer" class="mt-10 text-center text-sm text-pm-cream/65 max-w-2xl mx-auto leading-relaxed">
+      Plus an annual School Maker Faire that drew 1,000+ visitors and 80+ student exhibitors, a Highland Cup win in the 2025 Piedmont 4th of July Parade, a $420K+ capital campaign that built the Mary G. Ross Engineering Lab at Piedmont High School, and a multi-year lease on a permanent 10th Street robotics field in Oakland. 40% of LEGO League participants are girls; 87 students came from Title 1 schools.
+    </p>
+  </StatsBand>
 
   <!-- Letter from leadership -->
   <section class="mx-auto max-w-7xl px-6 pt-20">
