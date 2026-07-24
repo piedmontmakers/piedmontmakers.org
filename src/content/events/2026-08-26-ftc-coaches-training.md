@@ -1,7 +1,7 @@
 ---
 title: "FTC Coaches Training"
 startDate: 2026-08-26
-startTime: "6:00 PM"
+startTime: "7:00 PM"
 endTime: "9:00 PM"
 location: "10th Street practice field, Oakland"
 program: "robotics"
