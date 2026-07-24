@@ -25,7 +25,7 @@ const blogThumbFallback = "/img/brand/makey.png";
 
 // "Coming up" teaser — dated events from the calendar collection. We render
 // everything from ~2 days ago forward; the inline script at the bottom reveals
-// only the rows that fall inside the next 14 days (and the section itself only
+// only the rows that fall inside the next 30 days (and the section itself only
 // if at least one does), so the window stays accurate without a rebuild — the
 // same client-side approach /calendar uses.
 const upcomingCutoff = Date.now() - 2 * 24 * 60 * 60 * 1000;
@@ -239,7 +239,7 @@ const events = [
     ]}
   />
 
-  <!-- COMING UP — calendar events within the next 14 days. Hidden by default;
+  <!-- COMING UP — calendar events within the next 30 days. Hidden by default;
        the inline script at the bottom reveals it only when at least one
        rendered row falls inside the window (and hides it otherwise). Mirrors
        /calendar's client-side date logic so the window stays correct without a
@@ -348,7 +348,7 @@ const events = [
         </div>
         <div class="md:col-span-5 md:text-right space-y-2">
           <a href={link("/events")} class="inline-flex items-center gap-2 font-display font-semibold text-pm-ink hover:text-pm-red underline-offset-4 hover:underline">
-            All upcoming dates →
+            All Our Programs →
           </a>
         </div>
       </div>
@@ -597,8 +597,8 @@ const events = [
       });
     }
 
-    // "Coming up" teaser — reveal only rows dated within the next 14 days
-    // (cap 4), then unhide the whole section if at least one qualifies. Date
+    // "Coming up" teaser — reveal only rows dated within the next 30 days
+    // (cap 5), then unhide the whole section if at least one qualifies. Date
     // logic runs client-side so the window is accurate to the visitor's day.
     (function () {
       var section = document.querySelector('[data-upcoming-section]');
@@ -610,16 +610,22 @@ const events = [
       var now = new Date();
       var todayStr = toStr(now);
       var horizon = new Date(now);
-      horizon.setDate(horizon.getDate() + 14);
+      horizon.setDate(horizon.getDate() + 30);
       var horizonStr = toStr(horizon);
       var shown = 0;
+      var lastShown = null;
       items.forEach(function (li) {
         var d = li.dataset.eventDate;
-        if (d >= todayStr && d <= horizonStr && shown < 4) {
+        if (d >= todayStr && d <= horizonStr && shown < 5) {
           li.classList.remove('hidden');
+          lastShown = li;
           shown++;
         }
       });
+      // divide-y draws a bottom rule on every :not(:last-child). The rows we
+      // leave hidden are still children, so without this the final visible row
+      // trails a stray rule into the card's padding.
+      if (lastShown) lastShown.classList.add('border-b-0');
       if (shown > 0) section.classList.remove('hidden');
     })();
 
