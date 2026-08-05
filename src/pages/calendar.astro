@@ -10,6 +10,10 @@ const calendarFeedUrl = new URL(
   Astro.site ?? "https://piedmontmakers.org/"
 ).toString();
 const calendarFeedSubscribeUrl = calendarFeedUrl.replace(/^https?:\/\//, "webcal://");
+// Word-break opportunities before each "/" and "." so the URL wraps at
+// sensible points (never mid-"http"). <wbr> inserts no characters, so a
+// copied URL stays intact for pasting into Apple Calendar.
+const calendarFeedUrlHtml = calendarFeedUrl.replace(/([./])/g, "<wbr>$1");
 const googleCalendarSubscribeUrl = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(
   calendarFeedSubscribeUrl
 )}`;
@@ -20,6 +24,27 @@ const resolveUrl = (url: string) => {
   if (/^(https?:)?\/\//.test(url)) return url;
   if (url.startsWith("/")) return `${base}${url}`;
   return url;
+};
+
+// Known venues → precise Google Maps query. Substring match so gym/room
+// variants ("Piedmont High School Student Center", "… (Buzz Gym)") all
+// resolve to the campus address. Falls back to the raw location string,
+// which Google Maps resolves fine for well-named places.
+const venueAddress: [RegExp, string][] = [
+  [/10th Street/i, "3100 East 10th Street, Oakland, CA"],
+  [/Piedmont Middle School/i, "Piedmont Middle School, 740 Magnolia Ave, Piedmont, CA 94611"],
+  [/Alan Harvey Theater|Mary G\. Ross|Piedmont High School/i, "Piedmont High School, 800 Magnolia Ave, Piedmont, CA 94611"],
+  [/Piedmont Park/i, "Piedmont Park, 711 Highland Ave, Piedmont, CA 94611"],
+  [/Berean Christian/i, "Berean Christian High School, 245 El Divisadero Ave, Walnut Creek, CA 94598"],
+  [/Acalanes/i, "Acalanes High School, 1200 Pleasant Hill Rd, Lafayette, CA 94549"],
+];
+
+// Virtual "locations" get no map link.
+const isVirtualLocation = (loc: string) => /zoom|google meet|virtual|online/i.test(loc);
+
+const mapsUrl = (loc: string) => {
+  const query = venueAddress.find(([re]) => re.test(loc))?.[1] ?? loc;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 };
 
 const programLabel: Record<string, string> = {
@@ -102,7 +127,7 @@ const fmtDateParts = (d: Date) => ({
       Robotics matches and scrimmages, Maker Faire, popup spaces, Build Like a Girl sessions, the 4th of July parade. The best way to stay up to date is our <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">newsletter</a>. Subscribe with <a href={googleCalendarSubscribeUrl} class="font-display font-semibold underline underline-offset-4 decoration-pm-cyan hover:text-pm-cyan-deep">Google Calendar</a>.
     </p>
     <p class="mt-3 max-w-2xl text-sm md:text-base text-pm-ink/65 leading-relaxed">
-      Apple Calendar: open Calendar, choose File &gt; New Calendar Subscription, then paste <code class="rounded bg-pm-cream px-1.5 py-0.5 font-mono text-[0.92em] text-pm-ink break-all">{calendarFeedUrl}</code>.
+      Apple Calendar: open Calendar, choose File &gt; New Calendar Subscription, then paste <code class="rounded bg-pm-cream px-1.5 py-0.5 font-mono text-[0.92em] text-pm-ink break-words" set:html={calendarFeedUrlHtml}></code>.
     </p>
   </section>
 
@@ -125,7 +150,7 @@ const fmtDateParts = (d: Date) => ({
           const timeRange = e.data.startTime && e.data.endTime
             ? `${e.data.startTime} – ${e.data.endTime}`
             : (e.data.startTime || null);
-          const metaLine = [e.data.location, timeRange].filter(Boolean).join(" · ");
+          const location = e.data.location;
           return (
             <li
               id={anchorId}
@@ -161,8 +186,21 @@ const fmtDateParts = (d: Date) => ({
                 <h3 class="mt-2 font-display font-bold text-xl md:text-2xl tracking-tight leading-tight">
                   {e.data.title}
                 </h3>
-                {metaLine && (
-                  <p class="mt-1.5 text-sm text-pm-ink/65 font-medium">{metaLine}</p>
+                {(location || timeRange) && (
+                  <p class="mt-1.5 text-sm text-pm-ink/65 font-medium">
+                    {location && (isVirtualLocation(location) ? (
+                      <span>{location}</span>
+                    ) : (
+                      <a
+                        href={mapsUrl(location)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="underline decoration-pm-ink/25 underline-offset-2 hover:text-pm-ink hover:decoration-pm-cyan"
+                      >{location}</a>
+                    ))}
+                    {location && timeRange ? " · " : ""}
+                    {timeRange}
+                  </p>
                 )}
                 {e.data.summary && (
                   <p class="mt-2 text-pm-ink/80 leading-relaxed">{e.data.summary}</p>
