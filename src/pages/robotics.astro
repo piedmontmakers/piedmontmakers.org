@@ -83,7 +83,8 @@ const levels = [
     detail: `Team 8033 has 50+ kids organized into specialty subgroups (mechanical, electrical, software, scouting, fundraising, business) so members can focus on what they love instead of doing everything. Practice happens at our robotics practice <a href='${link("/facilities#tenth-street")}' class='underline decoration-pm-cyan/40 underline-offset-2 hover:decoration-pm-cyan'>facility</a> in Oakland, the only community-accessible regulation FRC field in the Bay Area. Beyond build season, Team 8033 develops <a href='https://apps.apple.com/us/app/lovat-dashboard/id6467466592' class='underline decoration-pm-cyan/40 underline-offset-2 hover:decoration-pm-cyan'>Lovat</a> (a scouting app used by 800+ FRC teams worldwide), runs the annual a-CAD-emy summer camp teaching middle schoolers Onshape CAD, mentors local LEGO League teams, and shares training programs with 40+ other FRC teams worldwide.`,
     color: "ink" as const,
     register: "https://go.teamsnap.com/forms/523636/signups/new",
-    openHousePresentation: "https://docs.google.com/presentation/d/1uSq2ODJfOfVmrZ2rZzReYHg0ZKkWTCFwDNWufXIUw1I/preview",
+    openHousePresentation: "https://www.frc8033.com/faq",
+    openHouseLabel: "8033 FAQ →",
     detailLink: "https://frc8033.com",
     detailLinkLabel: "Team site: frc8033.com",
     photoCaption: "Highlander Robotics 8033 huddled around the robot at a tournament",
@@ -266,7 +267,7 @@ const coachResources = [
               )}
               {lvl.openHousePresentation && (
                 <a href={lvl.openHousePresentation} class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
-                  Open House slides →
+                  {lvl.openHouseLabel || "Open House slides →"}
                 </a>
               )}
               {lvl.detailLink && (
