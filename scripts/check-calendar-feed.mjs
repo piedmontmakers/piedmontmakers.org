@@ -8,6 +8,11 @@ const eventsDir = new URL("../src/content/events/", import.meta.url);
 const ics = await readFile(feedPath, "utf8");
 const calendarPage = await readFile(calendarPagePath, "utf8");
 
+// The displayed feed URL carries <wbr> break opportunities so a long URL wraps
+// on narrow screens. <wbr> contributes no characters, so assertions about what
+// a visitor reads and copies run against the page with those tags stripped.
+const calendarPageText = calendarPage.replace(/<wbr\s*\/?>/g, "");
+
 assert.match(ics, /^BEGIN:VCALENDAR\r?\n/);
 assert.match(ics, /\r?\nVERSION:2\.0\r?\n/);
 assert.match(ics, /\r?\nPRODID:-\/\/Piedmont Makers\/\/Calendar\/\/EN\r?\n/);
@@ -67,7 +72,7 @@ assert.match(
 assert.match(calendarPage, />Google Calendar</);
 assert.match(calendarPage, /Apple Calendar/);
 assert.match(calendarPage, /New Calendar Subscription/);
-assert.match(calendarPage, />https:\/\/[^<]+calendar\.ics</);
+assert.match(calendarPageText, />https:\/\/[^<]+calendar\.ics</);
 assert.doesNotMatch(calendarPage, /href="webcal:\/\//);
 assert.doesNotMatch(calendarPage, /calendar\/render\?cid=https%3A/);
 
