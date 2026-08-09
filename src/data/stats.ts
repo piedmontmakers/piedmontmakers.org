@@ -2,6 +2,9 @@
  * Single source of truth for the headline numbers that appear across the
  * site (stat bands, hero copy, llms.txt). Update here, not in page markup.
  *
+ * kidsOnTeams and teams are the 2026-27 season figures from the FLL Challenge
+ * coach training deck ("150+ teams, 1000+ students in 2026-27").
+ *
  * NOTE: AGENTS.md's "canonical stats" note says 20 East Bay cities while the
  * site had standardized on 25+ before this file existed. 25+ is kept here so
  * nothing changes visually; reconcile with the real roster count and update
@@ -9,9 +12,9 @@
  */
 export const stats = {
   /** Kids on robotics teams each season. */
-  kidsOnTeams: "~1,000",
+  kidsOnTeams: "1,000+",
   /** FIRST teams across all four levels. */
-  teams: "125+",
+  teams: "150+",
   /** Schools those kids come from. */
   schools: "90+",
   /** East Bay cities those schools span. */

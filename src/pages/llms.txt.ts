@@ -1,4 +1,5 @@
 import type { APIContext } from "astro";
+import { stats } from "../data/stats";
 
 // llms.txt — an emerging convention for giving LLMs a structured, plaintext
 // overview of a site. Generated dynamically so the URLs resolve correctly
@@ -14,7 +15,7 @@ export async function GET(context: APIContext) {
 
   const body = `# Piedmont Makers
 
-> 501(‌c)(3) nonprofit running FIRST Robotics teams, a community engineering lab, a school maker faire, popup maker spaces, and Build Like a Girl across the East Bay. Founded 2014. Largest community-based youth robotics league in the United States — ~1,000 kids on 125+ teams across 90+ schools.
+> 501(‌c)(3) nonprofit running FIRST Robotics teams, a community engineering lab, a school maker faire, popup maker spaces, and Build Like a Girl across the East Bay. Founded 2014. Largest community-based youth robotics league in the United States — ${stats.kidsOnTeams} kids on ${stats.teams} teams across ${stats.schools} schools.
 
 ## Programs
 

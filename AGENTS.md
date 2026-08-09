@@ -99,14 +99,14 @@ Page containers: every section uses `mx-auto max-w-7xl px-6` so the left edge al
 
 **Audience: parents across the East Bay shopping for kid programs.** Not just Piedmont. Not corporate donors as the primary read.
 
-**Make the community the hero AND show that we're a great org worth supporting.** Kids = innovators. Adults = volunteers. AND we're confidently the org doing this work — confident impact statements ("the largest community-based youth robotics league in the United States," "~1,000 kids on 125+ teams") instill trust in parents and donors, they aren't bragging.
+**Make the community the hero AND show that we're a great org worth supporting.** Kids = innovators. Adults = volunteers. AND we're confidently the org doing this work — confident impact statements ("the largest community-based youth robotics league in the United States," "1,000+ kids on 150+ teams") instill trust in parents and donors, they aren't bragging.
 
-- ✅ **Stats bands** are welcome on home, about, robotics, and grants. Frame as community-in-numbers ("~1,000 kids across 90+ schools") rather than org-look-at-us ("we run the largest league"). The "largest community-based youth robotics league in America" claim is a credibility signal, not a brag — use it. **Home stats band's current four**: ~1,000 kids · 90+ schools (20 East Bay cities) · $25K+ in teacher grants annually · 40% girls in LEGO League. These should stay in sync with the canonical numbers used elsewhere.
+- ✅ **Stats bands** are welcome on home, about, robotics, and grants. Frame as community-in-numbers ("1,000+ kids across 90+ schools") rather than org-look-at-us ("we run the largest league"). The "largest community-based youth robotics league in America" claim is a credibility signal, not a brag — use it. **Home stats band's current four**: 1,000+ kids · 90+ schools (25+ East Bay cities) · $25K+ in teacher grants annually · 40% girls in LEGO League. Headline numbers live in `src/data/stats.ts`, not in page markup — edit them there and every band, hero line, and `llms.txt` follows. The 2026-27 figures (1,000+ kids, 150+ teams) come from the FLL Challenge coach training deck.
 - ✅ **VoicesBand** stays — community quote band. Currently one real quote from Roy on home; band removed from /robotics. Placeholder quotes were purged.
 
 **Headlines lead with value to families, not org-internal facts.** Two patterns that got fixed this session:
 - ❌ "Two new programs. Both sold out in minutes." (org FOMO) → ✅ "Hands-on STEAM, after the school day."
-- ❌ "Built in partnership with PUSD through a $245,000 capital campaign and dedicated April 29, 2023" leading a section → ✅ "The community engineering classroom at Piedmont High School. Home base for FTC robotics teams, after-school engineering programs, and the annual K-8 robotics open houses." Move fundraising history to the meta-grid / donor list.
+- ❌ "Built in partnership with PUSD through a $420,000 capital campaign and dedicated April 29, 2023" leading a section → ✅ "The community engineering classroom at Piedmont High School. Home base for FTC robotics teams, after-school engineering programs, and the annual K-8 robotics open houses." Move fundraising history to the meta-grid / donor list.
 
 The "sold out in minutes" line is fine as **FOMO copy in body** (e.g. newsletter CTA), just not as a headline.
 
@@ -147,7 +147,7 @@ Anywhere else that describes the audience, rewrite to **"East Bay"** or **"Piedm
 
 **Do publish dollar amounts the org GAVE OUT.** Teacher grant totals, per-school breakdowns, individual grant amounts to named teachers — all fair game on `/teacher-grants`. That's accountability.
 
-**Aggregate campaign totals** are OK *only when* they sum across enough donors that the total reveals no individual's amount. The Engineering Lab capital campaign ($245K across 60+ donors) qualifies. The 10th Street facility campaign had only 2-3 named donors — the aggregate would reveal individual amounts by subtraction, so we don't publish it either.
+**Aggregate campaign totals** are OK *only when* they sum across enough donors that the total reveals no individual's amount. The Engineering Lab capital campaign ($420K+ across 60+ donors) qualifies. Don't confuse it with the 10th Street campaign's $245K, which we don't publish. The 10th Street facility campaign had only 2-3 named donors — the aggregate would reveal individual amounts by subtraction, so we don't publish it either.
 
 ## Mobile patterns
 
