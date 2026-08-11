@@ -124,11 +124,44 @@ const fmtDateParts = (d: Date) => ({
       What's coming up.
     </h1>
     <p class="mt-6 max-w-2xl text-lg text-pm-ink/75 leading-relaxed">
-      Robotics matches and scrimmages, Maker Faire, popup spaces, Build Like a Girl sessions, the 4th of July parade. The best way to stay up to date is our <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">newsletter</a>. Subscribe with <a href={googleCalendarSubscribeUrl} class="font-display font-semibold underline underline-offset-4 decoration-pm-cyan hover:text-pm-cyan-deep">Google Calendar</a>.
+      Robotics matches and scrimmages, Maker Faire, popup spaces, Build Like a Girl sessions, the 4th of July parade. The best way to stay up to date is our <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">newsletter</a>.
     </p>
-    <p class="mt-3 max-w-2xl text-sm md:text-base text-pm-ink/65 leading-relaxed">
-      Apple Calendar: open Calendar, choose File &gt; New Calendar Subscription, then paste <code class="rounded bg-pm-cream px-1.5 py-0.5 font-mono text-[0.92em] text-pm-ink break-words" set:html={calendarFeedUrlHtml}></code>.
-    </p>
+
+    <!-- Two subscribe options, given equal visual weight. Apple gets a
+         pasteable HTTPS URL rather than a webcal:// link, which Chrome on
+         macOS silently ignores. -->
+    <div class="mt-8 max-w-3xl">
+      <h2 class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/60">
+        Subscribe to this calendar
+      </h2>
+      <div class="mt-4 grid gap-6 sm:grid-cols-2">
+        <div class="flex flex-col border-t-2 border-pm-ink/15 pt-4">
+          <h3 class="font-display font-bold text-lg tracking-tight">Google Calendar</h3>
+          <p class="mt-1.5 text-sm text-pm-ink/70 leading-relaxed">
+            Adds the feed to your calendar in one click.
+          </p>
+          <a
+            href={googleCalendarSubscribeUrl}
+            class="group mt-3 inline-flex items-center gap-2 self-start font-display font-semibold text-sm text-pm-ink hover:text-pm-cyan-deep transition-colors"
+          >
+            <span class="underline underline-offset-4 decoration-pm-cyan">Subscribe</span>
+            <span class="text-pm-cyan transition-transform group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+        <div class="flex flex-col border-t-2 border-pm-ink/15 pt-4">
+          <h3 class="font-display font-bold text-lg tracking-tight">Apple Calendar</h3>
+          <p class="mt-1.5 text-sm text-pm-ink/70 leading-relaxed">
+            Open Calendar, choose File &gt; New Calendar Subscription, then paste this address.
+          </p>
+          <div class="mt-3">
+            <code
+              class="block rounded bg-pm-cream px-2.5 py-2 font-mono text-[0.8rem] leading-relaxed text-pm-ink break-words"
+              set:html={calendarFeedUrlHtml}
+            ></code>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="mx-auto max-w-7xl px-6 pb-20 md:pb-28">
