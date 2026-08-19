@@ -7,6 +7,7 @@ import Scribble from "../components/Scribble.astro";
 import StatsBand from "../components/StatsBand.astro";
 import VoicesBand from "../components/VoicesBand.astro";
 import { stats } from "../data/stats";
+import { voices } from "../data/voices";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
@@ -43,14 +44,6 @@ const fmtEventParts = (d: Date) => ({
   year: d.getUTCFullYear().toString(),
 });
 
-const voices = [
-  {
-    quote: "Piedmont Makers is what makes this community special.",
-    name: "Roy",
-    role: "father of 3",
-    accentColor: "red" as const,
-  },
-];
 
 // Mailchimp audience details extracted from the unsubscribe link in the
 // January 2026 newsletter campaign. Hidden honeypot input name must be
