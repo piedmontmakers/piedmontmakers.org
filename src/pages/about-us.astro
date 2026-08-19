@@ -3,56 +3,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
 import StatsBand from "../components/StatsBand.astro";
 import { stats, type Stat } from "../data/stats";
+import { board, boardMemberCount } from "../data/board";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
 
-// 2026–27 board slate. Paul Morrison wears two hats (Secretary + VP FTC)
-// and appears in both Officers and Robotics — that's intentional.
-const board = {
-  officers: [
-    { name: "Kevin Clark", role: "Co-President" },
-    { name: "Ben Stein", role: "Co-President" },
-    { name: "Dave Ragones", role: "Co-Founder & Treasurer (Interim)" },
-    { name: "Paul Morrison", role: "Secretary" },
-  ],
-  robotics: [
-    { name: "Paul Morrison", role: "VP, FIRST Tech Challenge" },
-    { name: "Lara Oliver", role: "VP, FIRST Tech Challenge" },
-    { name: "Pat Holder", role: "VP, FIRST LEGO League Challenge" },
-    { name: "Shelley Rea", role: "VP, FIRST LEGO League Challenge" },
-    { name: "Marta Lusky", role: "VP, FIRST LEGO League Explore" },
-    { name: "David Koslow", role: "VP, FIRST LEGO League Explore" },
-    { name: "Natalia Feretti", role: "VP, FIRST Robotics Competition" },
-  ],
-  programs: [
-    { name: "Ella Grossberg", role: "VP, School Maker Faire" },
-    { name: "Brian Van Osdol", role: "VP, School Maker Faire" },
-    { name: "Rebecca Heywood", role: "VP, Grants" },
-    { name: "Margaret Bridges", role: "VP, Grants" },
-    { name: "Julie Veit", role: "VP, Operations" },
-    { name: "Mallory Casperson", role: "VP, Fundraising" },
-    { name: "Keren Khouri", role: "10th St Coordination" },
-    { name: "Ken Khouri", role: "10th St Tech Lead" },
-    { name: "Dave Ragones", role: "Destination Imagination" },
-  ],
-  atLarge: [
-    { name: "Greg Wolff", role: "Master Maker" },
-    { name: "Alex Seiden" },
-    { name: "Larraine Seiden" },
-    { name: "Joel Tornatore" },
-    { name: "Dave McMurtry" },
-  ],
-  staff: [
-    { name: "Alya Hameed", role: "FLL/FTC Program Manager" },
-  ],
-};
-
-// Unique people on the board proper (staff listed separately); Paul
-// Morrison's two hats count once.
-const boardMemberCount = new Set(
-  [...board.officers, ...board.robotics, ...board.programs, ...board.atLarge].map((m) => m.name)
-).size;
 
 const impactStats: Stat[] = [
   { number: stats.kidsOnTeams, label: "kids on robotics teams" },
