@@ -30,12 +30,19 @@ const padClass = {
   default: "py-10 md:py-12",
   roomy: "py-14 md:py-16",
 }[pad];
+
+// Bands are usually four across. A three-stat band gets its own column count
+// so it doesn't leave an empty fourth slot on desktop or orphan the last stat
+// on its own row on mobile. Class strings are written out in full because
+// Tailwind scans source text and can't see interpolated names.
+const gridCols =
+  stats.length === 3 ? "grid-cols-3 md:grid-cols-3" : "grid-cols-2 md:grid-cols-4";
 ---
 
 <section class="bg-pm-ink text-pm-cream">
   <div class={`mx-auto max-w-7xl px-6 ${padClass}`}>
     <slot name="header" />
-    <ul class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 md:divide-x divide-pm-cream/15">
+    <ul class={`grid ${gridCols} gap-y-8 gap-x-6 md:divide-x divide-pm-cream/15`}>
       {stats.map((s, i) => (
         <li class="text-center md:px-6">
           <p class={`font-display font-bold ${numberSize} leading-none ${colorClass[s.color ?? cycle[i % cycle.length]]}`}>
