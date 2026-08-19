@@ -220,9 +220,12 @@ import { grants_2025_26, grants_2024_25, grants_2023_24, allYears, totalAwarded,
           <p class="mt-4 text-pm-ink/75 leading-relaxed">
             The application is short: a one-page description of the project, who it serves, what it costs, and what students will make or learn. We fund the things classroom budgets miss.
           </p>
-          <div class="mt-8 inline-flex items-center gap-4 rounded-2xl border-[3px] border-pm-ink bg-pm-paper p-5">
+          <!-- max-w-full + min-w-0 + break-words let this shrink-to-fit box
+               shrink on a phone. Without them its min-content width is set by
+               the unbreakable email address and the whole page scrolls sideways. -->
+          <div class="mt-8 inline-flex max-w-full flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-4 rounded-2xl border-[3px] border-pm-ink bg-pm-paper p-5">
             <span class="font-marker text-2xl text-pm-purple shrink-0">heads up —</span>
-            <p class="font-body text-pm-ink/85 leading-relaxed">
+            <p class="min-w-0 [overflow-wrap:anywhere] font-body text-pm-ink/85 leading-relaxed">
               The grant application form for next round will be posted here when applications open. In the meantime, email <a href="mailto:grants@piedmontmakers.org" class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">grants@piedmontmakers.org</a> with questions.
             </p>
           </div>
