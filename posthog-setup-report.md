@@ -1,6 +1,8 @@
 <wizard-report>
 # PostHog post-wizard report
 
+> Snapshot from the initial PostHog setup; not maintained. See the PostHog section of AGENTS.md for the current event list.
+
 PostHog analytics has been integrated into piedmontmakers.org. The web snippet initializes on every page via a new `PostHog.astro` component imported into `BaseLayout.astro`. Eight custom events are captured across five pages using client-side `<script is:inline>` blocks. Environment variables are stored in `.env` (gitignored).
 
 | Event | Description | File |
