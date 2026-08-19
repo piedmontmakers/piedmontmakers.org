@@ -44,7 +44,7 @@ Multiple people edit this site through AI agents, with a wide range of technical
 - `src/content.config.ts` (content schemas)
 - `.github/workflows/*`
 - `public/admin/*` (CMS shell — breaking it locks editors out)
-- `scripts/agent-hooks/*`, `.claude/settings.json`, `.codex/hooks.json`, `.codex/config.toml`
+- `scripts/agent-hooks/*`, `.claude/settings.json`, `.codex/hooks.json`, `.codex/config.toml`, `.mcp.json` (defines commands that run on every editor's machine)
 - `.agents/skills/*`, `.claude/skills/*`
 - `CLAUDE.md`, `AGENTS.md`
 

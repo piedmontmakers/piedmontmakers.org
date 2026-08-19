@@ -29,6 +29,8 @@ Edit routine content freely: calendar events, blog posts, dates, links, names, a
 
 A hosted session may be required to work on a managed branch instead of `main`. If Claude mentions a branch, pull request, or handoff at the end, the change is not live yet. Send the handoff to an admin so it can be merged and deployed.
 
+One limit of web sessions: the cloud sandbox has no browser, so Claude there can check that the site builds but cannot *see* the pages. Text and calendar edits are fine from the web; for anything visual (layouts, new sections, photos in context), prefer a local session where Claude can screenshot the result, or check the live site yourself a minute after the push.
+
 ## Claude Code or Codex on your computer
 
 One-time setup takes about 15 minutes:

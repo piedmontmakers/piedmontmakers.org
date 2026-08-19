@@ -103,7 +103,7 @@ is_red_zone_path() {
     .github/workflows/*|\
     public/admin/*|\
     scripts/agent-hooks/*|\
-    .claude/settings.json|\
+    .claude/settings.json|.mcp.json|\
     .codex/hooks.json|.codex/config.toml|\
     .agents/skills/*|.claude/skills/*|\
     claude.md|agents.md)

@@ -206,6 +206,16 @@ sips --resampleWidth 1600 --setProperty formatOptions 82 \
   "source.jpg" --out public/img/blog/slug/photo.jpg
 ```
 
+## Optional extras (browser verification, analytics)
+
+Nothing beyond the prerequisites is required — the repo carries its own skills, hooks, and agent config. Three optional layers, in increasing order of setup:
+
+- **Chrome-DevTools MCP (zero install, ships with the repo).** The committed `.mcp.json` configures the [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) server. On your first agent session in this repo, Claude Code asks once whether to enable the project's MCP servers — approve, and the agent can take screenshots, click through pages, check the mobile viewport, and read console errors during `web-verify`. Needs Chrome installed; `npx` fetches the server on first use.
+- **Claude in Chrome extension (manual, nicer).** The browser extension drives your real Chrome session. It can't be provisioned from the repo — install it from your Claude settings and sign in. Worth it if you do frequent layout work; redundant if the DevTools MCP covers you.
+- **PostHog MCP (admins only).** For querying site analytics conversationally. Needs a PostHog API credential, so it stays in personal config rather than the repo. Editors never need it.
+
+Cloud sessions (claude.ai/code) have none of these — no browser reaches the sandbox — so `web-verify` there falls back to build checks and `curl`, and says so. Do visually sensitive changes (layouts, new sections, brand-adjacent work) in a local session with browser verification.
+
 ## When something goes wrong
 
 - **The deploy shows a red ✗**: nothing shipped; the previous version of the site is still live. Open the failed run in the Actions tab, read which step failed (`check`, alt-text, build, or calendar feed), fix, and push again. Or paste the log to your agent.
