@@ -1,0 +1,4 @@
+# Keep the full canonical project policy available if it grows near Codex's
+# default 32 KiB instruction limit. AGENTS.md is kept smaller as the primary
+# portability measure.
+project_doc_max_bytes = 65536
