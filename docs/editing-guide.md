@@ -57,7 +57,7 @@ codex
 
 You can also open the folder in the Codex desktop app or a Claude Code editor integration.
 
-When the client asks whether to trust the folder or enable project hooks, review `scripts/agent-hooks/`, then approve it. Run `/hooks` to confirm the hooks loaded. Startup hooks do not install dependencies; ask the agent to use `project-bootstrap` if `node_modules` is missing.
+When the client asks whether to trust the folder or enable project hooks, review `scripts/agent-hooks/`, then approve it. Claude Code installs dependencies automatically when a session starts in a fresh clone; in Codex, ask the agent to use `project-bootstrap` if the build complains about missing packages.
 
 ## Shared instructions, hooks, and skills
 

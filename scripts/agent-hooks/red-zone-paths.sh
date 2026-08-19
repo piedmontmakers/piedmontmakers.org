@@ -42,6 +42,24 @@ hook_maintainer_bypass() {
   [ "${PM_MAINTAINER:-}" = "1" ] || [ -f "$root/.agent-maintainer" ]
 }
 
+# Collapse "." and ".." segments lexically so traversal through directories
+# that do not exist on disk (where cd-based normalization can't help) still
+# resolves before red-zone matching. Input must be absolute.
+lexical_collapse() {
+  local input="$1" out="" seg rest
+  rest="${input#/}"
+  while [ -n "$rest" ]; do
+    seg="${rest%%/*}"
+    if [ "$seg" = "$rest" ]; then rest=""; else rest="${rest#*/}"; fi
+    case "$seg" in
+      ''|'.') ;;
+      '..') out="${out%/*}" ;;
+      *) out="$out/$seg" ;;
+    esac
+  done
+  printf '/%s' "${out#/}"
+}
+
 hook_relative_path() {
   local root="$1"
   local path="$2"
@@ -52,6 +70,8 @@ hook_relative_path() {
     /*) full_path="$path" ;;
     *) full_path="$root/$path" ;;
   esac
+
+  full_path="$(lexical_collapse "$full_path")"
 
   parent="${full_path%/*}"
   basename="${full_path##*/}"
@@ -67,11 +87,16 @@ hook_relative_path() {
   esac
 }
 
+# Matching is case-insensitive (patterns below are lowercase): macOS APFS is
+# case-insensitive, so agents.md and Package.json open the red-zone files.
 is_red_zone_path() {
-  case "$1" in
+  local lowered
+  lowered="$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')"
+
+  case "$lowered" in
     src/styles/global.css|\
-    src/components/Nav.astro|\
-    src/layouts/BaseLayout.astro|\
+    src/components/nav.astro|\
+    src/layouts/baselayout.astro|\
     astro.config.mjs|\
     package.json|package-lock.json|\
     src/content.config.ts|\
@@ -81,7 +106,7 @@ is_red_zone_path() {
     .claude/settings.json|\
     .codex/hooks.json|.codex/config.toml|\
     .agents/skills/*|.claude/skills/*|\
-    CLAUDE.md|AGENTS.md)
+    claude.md|agents.md)
       return 0
       ;;
   esac

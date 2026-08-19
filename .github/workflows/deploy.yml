@@ -31,6 +31,8 @@ jobs:
         run: npm run check
       - name: Alt-text check
         run: node scripts/check-alt-text.mjs
+      - name: Hook contract tests
+        run: bash scripts/agent-hooks/test-hooks.sh
       - name: Build Astro site
         run: npm run build
         env:

@@ -11,6 +11,7 @@
     "start": "astro dev",
     "build": "astro build",
     "test:calendar-feed": "npm run build && node scripts/check-calendar-feed.mjs",
+    "test:hooks": "bash scripts/agent-hooks/test-hooks.sh",
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check"

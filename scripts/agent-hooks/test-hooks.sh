@@ -95,11 +95,26 @@ touch "$marker"
 assert_hook "Marker bypass allows a red-zone patch" "$repo_root" "$repo_root/scripts/agent-hooks/protect-paths-codex.sh" "$codex_red_payload" 0 "" ""
 rm -f "$marker"
 
+# Traversal through a directory that does not exist on disk must still resolve.
+codex_ghost_traversal_payload="$(jq -cn --arg cwd "$repo_root" '{hook_event_name:"PreToolUse",tool_name:"apply_patch",cwd:$cwd,tool_input:{command:"*** Begin Patch\n*** Add File: no-such-dir/../AGENTS.md\n@@\n+new\n*** End Patch"}}')"
+assert_hook "Codex denies traversal through a nonexistent dir" "$repo_root" "$repo_root/scripts/agent-hooks/protect-paths-codex.sh" "$codex_ghost_traversal_payload" 2 "" "AGENTS.md is a red-zone file"
+
+# APFS is case-insensitive: a differently-cased path opens the same file.
+claude_case_payload="$(jq -cn --arg path "$repo_root/agents.md" --arg cwd "$repo_root" '{hook_event_name:"PreToolUse",tool_name:"Edit",cwd:$cwd,tool_input:{file_path:$path}}')"
+assert_hook "Claude asks on a case-variant red-zone path" "$repo_root" "$repo_root/scripts/agent-hooks/protect-paths.sh" "$claude_case_payload" 0 '"permissionDecision":"ask"' ""
+
 for command in \
   "git switch -c test-portability" \
   "git checkout -B test-portability" \
   "git switch --orphan test-portability" \
-  "git worktree add -b test-portability /tmp/pm-test-worktree"; do
+  "git worktree add -b test-portability /tmp/pm-test-worktree" \
+  "git checkout -q -b test-portability" \
+  "git -C . switch claude/test-portability" \
+  "git -c user.name=x checkout -b test-portability" \
+  "git stash branch test-portability" \
+  "git branch --track test-portability main" \
+  "git branch -m main claude/test-portability" \
+  "git branch test-portability"; do
   branch_payload="$(jq -cn --arg command "$command" --arg cwd "$repo_root" '{hook_event_name:"PreToolUse",tool_name:"Bash",cwd:$cwd,tool_input:{command:$command}}')"
   assert_hook "Branch guard blocks: $command" "$repo_root" "$repo_root/scripts/agent-hooks/block-branch.sh" "$branch_payload" 2 "" "BLOCKED:"
 done
@@ -107,12 +122,27 @@ done
 checkout_file_payload="$(jq -cn --arg cwd "$repo_root" '{hook_event_name:"PreToolUse",tool_name:"Bash",cwd:$cwd,tool_input:{command:"git checkout src/data/stats.ts"}}')"
 assert_hook "Branch guard allows file checkout" "$repo_root" "$repo_root/scripts/agent-hooks/block-branch.sh" "$checkout_file_payload" 0 "" ""
 
+# Read-only and cleanup shapes must stay allowed (pipes, redirections, listing
+# flags, branch deletion for stray-branch cleanup, plain stash).
+for command in \
+  "git branch | grep test" \
+  "git branch 2>/dev/null" \
+  "git branch -a" \
+  "git branch --show-current" \
+  "git branch -D stale-branch" \
+  "git checkout main" \
+  "git switch main" \
+  "git stash && git pull --rebase origin main"; do
+  allow_payload="$(jq -cn --arg command "$command" --arg cwd "$repo_root" '{hook_event_name:"PreToolUse",tool_name:"Bash",cwd:$cwd,tool_input:{command:$command}}')"
+  assert_hook "Branch guard allows: $command" "$repo_root" "$repo_root/scripts/agent-hooks/block-branch.sh" "$allow_payload" 0 "" ""
+done
+
 no_jq_stdout="$(mktemp)"
 no_jq_stderr="$(mktemp)"
 no_jq_bin="$(mktemp -d)"
 ln -s /bin/cat "$no_jq_bin/cat"
 ln -s /usr/bin/grep "$no_jq_bin/grep"
-no_jq_payload='{"tool_input":{"command":"git checkout -B portability-test"}}'
+no_jq_payload='{"tool_input":{"command":"git branch -M main claude/portability-test"}}'
 printf '%s' "$no_jq_payload" | PATH="$no_jq_bin" /bin/bash "$repo_root/scripts/agent-hooks/block-branch.sh" >"$no_jq_stdout" 2>"$no_jq_stderr"
 no_jq_status=$?
 if [ "$no_jq_status" -ne 2 ]; then

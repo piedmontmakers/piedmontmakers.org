@@ -120,7 +120,7 @@ Then talk to it: *"Add the FTC league championship to the events calendar for No
 
 Keep `npm run dev` running in another terminal while you work so the agent can check the browser preview as it edits.
 
-The clients share two project skills. Ask for `web-verify` after frontend changes (`/web-verify` in Claude Code or `$web-verify` in Codex). Use `project-bootstrap` when dependencies are missing. Startup hooks do not install packages automatically.
+The clients share two project skills. Ask for `web-verify` after frontend changes (`/web-verify` in Claude Code or `$web-verify` in Codex). Claude Code sessions install dependencies automatically at startup when `node_modules` is missing; in Codex (no startup hook), run `npm ci --include=optional` or ask for `project-bootstrap`.
 
 Some hosted agent sessions must use a managed branch or worktree. The agent should say clearly when its commit has not reached `main`; no change is live until `main` is pushed and the deploy succeeds.
 

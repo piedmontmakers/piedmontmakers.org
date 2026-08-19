@@ -23,13 +23,18 @@ Inspect running Astro processes and their working directories with `ps`, `pgrep`
 
 If dependencies are missing, follow the `project-bootstrap` skill before starting the server.
 
-When no matching server exists, start one for this checkout. Use port 4321 in the primary checkout when free; use an available port from 4322 upward for a linked worktree. Write its log under `/tmp`, include the port and process ID in the filename, and wait until Astro reports that it is ready.
+When no matching server exists, start one for this checkout. Use port 4321 in the primary checkout when free; use an available port from 4322 upward for a linked worktree. Start it with `NODE_OPTIONS=--max-http-header-size=65536` — browser-automation requests can carry large headers, and without the flag the server answers HTTP 431 and sends you chasing a phantom regression. Write its log under `/tmp`, include the port and process ID in the filename, and wait until Astro reports that it is ready.
 
-The local site base is `/piedmontmakers.org/`, so a page path uses:
+A worktree-local server emits a Vite `serving allow list` warning because `node_modules` lives in the primary checkout. It is harmless — pages load and `npm run build` is unaffected. Treat it as a blocker only if a real asset 404s.
+
+The local site base is `/piedmontmakers.org`, so URLs are:
 
 ```text
-http://localhost:<port>/piedmontmakers.org/<path>
+http://localhost:<port>/piedmontmakers.org          # home — NO trailing slash; with one it 404s in dev
+http://localhost:<port>/piedmontmakers.org/<path>   # any other page
 ```
+
+The 404 page is branded and renders as a normal-looking document, so a wrong URL can fool a screenshot check into reporting success. Before judging any page, confirm you are not looking at the 404 (its title contains "404" and it shows the dancing Makey).
 
 ## 2. Use the available browser capability
 
