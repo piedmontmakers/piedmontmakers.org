@@ -27,7 +27,7 @@ So: edit freely for normal content (calendar events, blog posts, dates, links, n
 3. Open the `piedmontmakers/piedmontmakers.org` repository.
 4. Type what you want changed (see example prompts below). Claude edits the site in the cloud and shows you what it did.
 
-One caution for web sessions: depending on how the session ends, your change may land directly on the live site or arrive as a "pull request" that Ben has to approve before it goes live. If Claude mentions a branch or a pull request at the end, tell Ben so your work doesn't sit unnoticed. <!-- TODO(Phase 7): after Ben's validation session, replace this paragraph with the confirmed behavior. -->
+Web sessions work the same as local ones: your change goes straight to the live site, committed under your name. One caution: if Claude ever mentions a "branch" or a "pull request" at the end of a session instead of saying it pushed to main, your work hasn't gone live — tell Ben so it doesn't sit unnoticed. (This has happened before; a teammate's fix sat unpublished for months.)
 
 ## Claude Code on your own computer
 
