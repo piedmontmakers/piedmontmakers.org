@@ -12,7 +12,7 @@
 
 ## Global Constraints
 
-- Work directly on `main` because Ben explicitly approved the repository's direct-to-`main` workflow.
+- Work directly on `main` because the user explicitly approved the repository's direct-to-`main` workflow.
 - Push each atomic commit immediately.
 - Keep Claude's `permissionDecision: "ask"` behavior for red-zone edits.
 - Deny unapproved Codex red-zone patches because Codex does not support `PreToolUse` `"ask"` decisions.

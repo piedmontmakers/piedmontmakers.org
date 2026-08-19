@@ -7,10 +7,10 @@ This guide is for Piedmont Makers folks who want to update the website by descri
 **A push to `main` goes live on piedmontmakers.org in about a minute.** There is no draft mode or approval step.
 
 - Every change is recorded in git and can be undone.
-- Ben gets a Slack notification for each commit.
+- Commit and deploy notifications go to `#github-notifications` in the Piedmont Makers Slack workspace.
 - Automatic checks run before each deploy. If a change breaks the site, the deploy stops and the previous version stays up.
 
-Edit routine content freely: calendar events, blog posts, dates, links, names, and numbers. If the agent says a change affects a red-zone file or the site's design or architecture, check with Ben before approving it.
+Edit routine content freely: calendar events, blog posts, dates, links, names, and numbers. If the agent says a change affects a red-zone file or the site's design or architecture, check with an admin before approving it.
 
 ## Pick your path
 
@@ -23,17 +23,17 @@ Edit routine content freely: calendar events, blog posts, dates, links, names, a
 ## Claude Code on the web
 
 1. Go to [claude.ai/code](https://claude.ai/code) and sign in.
-2. Connect your GitHub account when prompted. You need access to `piedmontmakers/piedmontmakers.org`; ask Ben if it is missing.
+2. Connect your GitHub account when prompted. You need access to `piedmontmakers/piedmontmakers.org`; ask an admin if it is missing.
 3. Open the repository and describe the change.
 4. Review the files and verification results before accepting the commit.
 
-A hosted session may be required to work on a managed branch instead of `main`. If Claude mentions a branch, pull request, or handoff at the end, the change is not live yet. Send the handoff to Ben so it can be merged and deployed.
+A hosted session may be required to work on a managed branch instead of `main`. If Claude mentions a branch, pull request, or handoff at the end, the change is not live yet. Send the handoff to an admin so it can be merged and deployed.
 
 ## Claude Code or Codex on your computer
 
 One-time setup takes about 15 minutes:
 
-1. Get a GitHub account with write access to the repository from Ben.
+1. Ask an admin for write access to the repository.
 2. Install git. On a Mac, open Terminal and run `git --version`; macOS offers to install it if needed.
 3. Install Node.js 24 LTS from [nodejs.org](https://nodejs.org).
 4. Install `jq`, which the Codex red-zone hook uses to inspect patches: `brew install jq` with Homebrew, or use [jqlang.github.io/jq](https://jqlang.github.io/jq/).
@@ -74,7 +74,7 @@ Use the `web-verify` skill after frontend work. In Claude Code, enter `/web-veri
 
 Claude Code opens a confirmation prompt before editing a red-zone file. Approve it only when the requested work requires that file.
 
-Codex cannot pause a `PreToolUse` hook for the same confirmation, so it blocks the first patch. After Ben approves the change, create the gitignored `.agent-maintainer` file at the repository root and retry. Remove the marker when the approved work is complete. Launching the client with `PM_MAINTAINER=1` provides the same local bypass.
+Codex cannot pause a `PreToolUse` hook for the same confirmation, so it blocks the first patch. After an admin approves the change, create the gitignored `.agent-maintainer` file at the repository root and retry. Remove the marker when the approved work is complete. Launching the client with `PM_MAINTAINER=1` provides the same local bypass.
 
 ## Example prompts
 
@@ -92,12 +92,12 @@ The agent should edit the appropriate files, run the repository checks, show you
 ## After a push
 
 - The change appears at [piedmontmakers.org](https://piedmontmakers.org) in about a minute. Hard-refresh with Cmd+Shift+R if needed.
-- The Slack channel shows the commit and deploy status.
-- A failed deploy means the checks caught a problem and the previous site remains live. Give the failure log to the agent or tell Ben.
+- The `#github-notifications` channel in the Piedmont Makers Slack workspace shows the commit and deploy status.
+- A failed deploy means the checks caught a problem and the previous site remains live. Give the failure log to the agent or tell an admin.
 
 ## Made a mistake?
 
-Every version is saved. Tell the agent: **"Revert my last change and push `main`."** You can also message Ben with what changed and roughly when.
+Every version is saved. Tell the agent: **"Revert my last change and push `main`."** You can also message an admin with what changed and roughly when.
 
 ## Rules the agents already know
 

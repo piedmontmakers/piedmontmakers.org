@@ -90,7 +90,7 @@ is_red_zone_path() {
 }
 
 red_zone_reason() {
-  printf "%s is a red-zone file: it shapes the site's design or agent architecture, and a push to main goes live with no review. Proceed only when changing this file was the user's explicit goal. If it was not expected, stop and check with Ben. See 'Edit zones' in AGENTS.md." "$1"
+  printf "%s is a red-zone file: it shapes the site's design or agent architecture, and a push to main goes live with no review. Proceed only when changing this file was the user's explicit goal. If it was not expected, stop and check with an admin. See 'Edit zones' in AGENTS.md." "$1"
 }
 
 claude_edit_paths() {

@@ -44,7 +44,7 @@ Multiple people edit this site through AI agents, with a wide range of technical
 - `.agents/skills/*`, `.claude/skills/*`
 - `CLAUDE.md`, `AGENTS.md`
 
-Before touching a red-zone file, ask the user explicitly: "this changes the site's design/architecture and affects every page — are you sure?" If the person you're working with isn't Ben (the maintainer), suggest checking with Ben before proceeding. PreToolUse hooks use the same path list as a backstop: Claude Code asks for confirmation, while Codex denies an unapproved patch until `PM_MAINTAINER=1` or the gitignored `.agent-maintainer` marker is present. A deliberate, confirmed red-zone change is fine.
+Before touching a red-zone file, ask the user explicitly: "this changes the site's design/architecture and affects every page — are you sure?" If the person you're working with isn't an admin, suggest checking with one before proceeding. PreToolUse hooks use the same path list as a backstop: Claude Code asks for confirmation, while Codex denies an unapproved patch until `PM_MAINTAINER=1` or the gitignored `.agent-maintainer` marker is present. A deliberate, confirmed red-zone change is fine.
 
 ## Tech stack
 
@@ -153,7 +153,7 @@ npm run build        # verify before commit
 
 **Push immediately after every commit: `git push origin main`.** Several people edit this repo now. An unpushed commit never deploys, and it strands the next editor on a stale `main`. If the push is rejected because someone else pushed first, run `git pull --rebase origin main` and push again.
 
-**Commit message convention: `Area: what changed` subject, plus a body.** Subject matches the existing history: `Robotics: mark FTC registration closed`, `Calendar: add Oct 10 FRC scrimmage`, `About Us: add Dave Ragones`, `Blog: …`, `Repo: …`, `CI: …`. Imperative mood, no Co-Authored-By line. For anything beyond a trivial one-file tweak, add a blank line and a short body: what concretely changed, why, and any non-obvious context (what was verified, what prompted it). These messages are the site's changelog and land in the team Slack channel — write them for the board member reading them there.
+**Commit message convention: `Area: what changed` subject, plus a body.** Subject matches the existing history: `Robotics: mark FTC registration closed`, `Calendar: add Oct 10 FRC scrimmage`, `About Us: add Dave Ragones`, `Blog: …`, `Repo: …`, `CI: …`. Imperative mood, no Co-Authored-By line. For anything beyond a trivial one-file tweak, add a blank line and a short body: what concretely changed, why, and any non-obvious context (what was verified, what prompted it). These messages are the site's changelog and land in `#github-notifications` in the Piedmont Makers Slack workspace, so write them for the board member reading them there.
 
 **To undo a bad change**, `git revert <sha>` and push — the revert deploys like any other commit. Never force-push `main`, and never rewrite history that's already on the remote.
 

@@ -214,7 +214,7 @@ sips --resampleWidth 1600 --setProperty formatOptions 82 \
 
 ## Notifications (Slack)
 
-The team Slack channel gets a message for every commit and every deploy via the official GitHub Slack app. One-time setup, for reference:
+The `#github-notifications` channel in the Piedmont Makers Slack workspace gets a message for every commit and deploy via the official GitHub Slack app. One-time setup, for reference:
 
 1. Install the [GitHub app for Slack](https://slack.github.com) in the workspace.
 2. In the channel: `/github subscribe piedmontmakers/piedmontmakers.org commits:all workflows:{event:"push" branch:"main"} deployments`
