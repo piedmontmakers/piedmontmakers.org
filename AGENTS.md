@@ -86,6 +86,15 @@ src/
 ├── content/
 │   ├── blog/                        One Markdown file per post
 │   └── events/                      One Markdown file per dated event
+├── data/                            EDIT HERE for routine content changes (all green-zone)
+│   ├── stats.ts                     Headline impact numbers + amount formatters
+│   ├── robotics-levels.ts           /robotics levels: registration toggles, TeamSnap + deck URLs
+│   ├── robotics-faq.ts              /robotics FAQ entries
+│   ├── board.ts                     /about-us board roster
+│   ├── teacher-grants.ts            /teacher-grants per-year award tables
+│   ├── support.ts                   /support donate URL, giving levels, card copy
+│   ├── programs.ts                  /events hub program cards
+│   └── voices.ts                    Home-page community quotes (VoicesBand)
 ├── content.config.ts                Zod schemas for blog + events
 ├── layouts/BaseLayout.astro
 └── styles/global.css                Tailwind imports + theme tokens + custom utilities
@@ -278,6 +287,22 @@ Setup details (GitHub OAuth App, Worker secrets, how to grant editor access) liv
 
 ## Content editing patterns
 
+### Routine content edits (src/data/)
+
+Most "update the website" requests are edits to one data file, no page markup involved:
+
+| Request | File | Edit |
+|---|---|---|
+| Registration opened/closed for a level | `src/data/robotics-levels.ts` | Flip that level's `registerOpen`; adjust `registerClosedLabel` if needed |
+| New coach-training / open-house deck link | `src/data/robotics-levels.ts` | Update `coachTraining` / `openHousePresentation` (and `coachResources` titles at the bottom) |
+| Robotics FAQ change | `src/data/robotics-faq.ts` | Edit the `faqItems` entry |
+| Board member added / role change | `src/data/board.ts` | Edit the matching group; count and page update automatically |
+| New teacher-grant round | `src/data/teacher-grants.ts` | Add a year object following the newest year's shape, add it to `allYears`; totals recompute. Page needs a new `<details>` block for the retired year — see the "Past years" pattern below |
+| Headline stat change | `src/data/stats.ts` | Edit the value; every band, hero line, and `llms.txt` follows |
+| Support-page links or giving levels | `src/data/support.ts` | Edit constants/arrays |
+| Program card copy on /events | `src/data/programs.ts` | Edit the card |
+| New community quote | `src/data/voices.ts` | Add a `Voice`; 2+ quotes switches the band to the 3-up grid |
+
 ### Add a blog post
 
 Drop a Markdown file in `src/content/blog/YYYY-MM-DD-slug.md`:
@@ -407,7 +432,7 @@ npm run build        # verify before commit
 - 12th Annual Maker Faire 2026 recap stats (the recap card on `/events/maker-faire` still says "Recap details and 2026 photos are coming soon")
 - Real OG image (currently uses the brand logo PNG, not the ideal 1200×630 ratio)
 - More real student / coach quotes for the VoicesBand pattern (home currently uses one real quote from Roy; more would let us swap to the 3-up grid if desired)
-- **After-school enrichment program**: paused for Fall 2026. The nav link + `/events` hub card are commented out; the detail page at `/events/after-school` still exists. Revisit when the program returns (likely winter 2026-27 or later) — uncomment one line in each of `Nav.astro` and `events.astro`.
+- **After-school enrichment program**: paused for Fall 2026. The nav link + `/events` hub card are commented out; the detail page at `/events/after-school` still exists. Revisit when the program returns (likely winter 2026-27 or later) — uncomment the nav link in `Nav.astro` and the card block in `src/data/programs.ts`.
 
 ## Helpful first moves on a fresh task
 
