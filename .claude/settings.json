@@ -19,6 +19,15 @@
             "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/agent-hooks/block-branch.sh\""
           }
         ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/agent-hooks/protect-paths.sh\""
+          }
+        ]
       }
     ]
   }

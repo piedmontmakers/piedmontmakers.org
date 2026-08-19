@@ -11,7 +11,18 @@ fi
 
 [ -z "$payload" ] && exit 0
 
-cmd="$(printf '%s' "$payload" | jq -r '.tool_input.command // .tool_input.cmd // .command // .cmd // .input.command // .input.cmd // empty' 2>/dev/null || true)"
+if command -v jq >/dev/null 2>&1; then
+  cmd="$(printf '%s' "$payload" | jq -r '.tool_input.command // .tool_input.cmd // .command // .cmd // .input.command // .input.cmd // empty' 2>/dev/null || true)"
+else
+  # jq missing: we can't parse the command out of the payload, but branch
+  # creation is still detectable in the raw JSON. Block that; allow the rest
+  # rather than degrading to allow-everything silently.
+  if printf '%s' "$payload" | grep -qE 'git[[:space:]]+(checkout[[:space:]]+-b|switch[[:space:]]+(-c|--create))'; then
+    echo "BLOCKED: This repo commits directly to main. Do not create branches. See AGENTS.md." >&2
+    exit 2
+  fi
+  exit 0
+fi
 [ -z "$cmd" ] && exit 0
 
 if echo "$cmd" | grep -qE '(^|[[:space:]])git[[:space:]]+(checkout[[:space:]]+-b|switch[[:space:]]+(-c|--create)|branch[[:space:]]+[^-])'; then
