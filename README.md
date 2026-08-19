@@ -9,21 +9,43 @@ This is a static site built with [Astro](https://astro.build) and Tailwind CSS. 
 - **Live site**: <https://piedmontmakers.org>
 - **Issues & feature requests**: <https://github.com/piedmontmakers/piedmontmakers.org/issues>
 
+## Start here
+
+Pick the row that sounds like you:
+
+| You | Go to |
+|---|---|
+| "I just want to write blog posts" | The CMS at <https://piedmontmakers.org/admin/> — sign in with GitHub, write, publish. Access setup: [docs/admin-setup.md](docs/admin-setup.md) |
+| "I want to change the site by describing it in plain English" (no coding needed) | **[docs/editing-guide.md](docs/editing-guide.md)** — Claude Code on the web or on your computer, step by step |
+| "I'm comfortable with git and npm" | Keep reading this README |
+
+Two things everyone should know before their first edit:
+
+1. **A push to `main` is live on the public site in about a minute, with no review step.** Automated checks (`astro check`, alt-text, calendar-feed contract) gate the deploy, so a broken build never ships — but wrong *content* will. Look at what you're pushing.
+2. **Some files ask for confirmation before editing.** Brand tokens, the nav, the base layout, configs, and workflows are "red-zone": AI agent sessions will prompt you to confirm before touching them, and the edit-zones section of [AGENTS.md](AGENTS.md) explains the tiers. It's a confirmation, not a lock — deliberate changes are fine.
+
 ## What's where
+
+Routine content lives in plain data files under `src/data/` — most edits never touch page markup.
 
 | Need to edit... | Look in |
 |---|---|
-| Home page sections | `src/pages/index.astro` |
-| About / board roster | `src/pages/about-us.astro` |
-| Robotics levels + FAQ | `src/pages/robotics.astro` |
-| A specific program page | `src/pages/events/{slug}.astro` |
-| Facilities (10th St + Engineering Lab) | `src/pages/facilities.astro` |
-| Teacher Grants list | `src/pages/teacher-grants.astro` |
 | Calendar of events | `src/content/events/` (one Markdown file per event) |
 | Blog posts | `src/content/blog/` (or use the CMS at `/admin/`) |
+| Robotics levels: registration open/closed, TeamSnap + deck links | `src/data/robotics-levels.ts` |
+| Robotics FAQ | `src/data/robotics-faq.ts` |
+| Board roster | `src/data/board.ts` |
+| Teacher Grants tables | `src/data/teacher-grants.ts` |
+| Headline stats (kids, teams, schools...) | `src/data/stats.ts` |
+| Support page links + giving levels | `src/data/support.ts` |
+| Program cards on /events | `src/data/programs.ts` |
+| Community quotes on the home page | `src/data/voices.ts` |
+| Home page sections | `src/pages/index.astro` |
+| A specific program page | `src/pages/events/{slug}.astro` |
+| Facilities (10th St + Engineering Lab) | `src/pages/facilities.astro` |
 | 404 page (with dancing Makey) | `src/pages/404.astro` |
 | Photos | `public/img/` (organized by section) |
-| Brand colors & fonts | `src/styles/global.css` |
+| Brand colors & fonts | `src/styles/global.css` (red-zone — confirm before editing) |
 | Analytics events | `src/components/PostHog.astro` + inline scripts on each page |
 
 ## Making changes
@@ -47,6 +69,8 @@ Fastest for small text edits or adding a blog post / event.
 5. Wait ~30 seconds — the GitHub Action rebuilds and deploys
 
 #### Option 2: Clone locally + edit by hand
+
+Prerequisites: a GitHub account with write access to this repo, git, Node 20+ (see `.nvmrc`), and `jq` (used by the agent hook scripts; `brew install jq`).
 
 ```bash
 git clone https://github.com/piedmontmakers/piedmontmakers.org.git
@@ -76,6 +100,12 @@ This is how most of the site was built. The repo is configured for Claude Code a
 - Shared hook logic lives in `scripts/agent-hooks/`.
 - If your agent asks whether to trust this repo, approve it only after reviewing the hook scripts.
 - Claude users can run `/hooks` to confirm project hooks loaded.
+
+Three guardrails to know about (all soft — everything is recoverable from git history):
+
+- **Branch guard**: `block-branch.sh` blocks branch creation/switching; the workflow is direct commits to `main`, pushed immediately.
+- **Red-zone confirmation**: `protect-paths.sh` pops a confirmation prompt when a session tries to edit design/architecture files (brand tokens, nav, layout, configs, workflows). The list lives in the hook and in the "Edit zones" section of `AGENTS.md`.
+- **Maintainer bypass**: if the red-zone prompts get in your way and you know what you're doing, create a gitignored `.claude/settings.local.json` containing `{ "env": { "PM_MAINTAINER": "1" } }` to skip them on your machine.
 
 ```bash
 git clone https://github.com/piedmontmakers/piedmontmakers.org.git
@@ -170,6 +200,22 @@ Put any photos for the post under `public/img/blog/slug/`. Resize to a reasonabl
 sips --resampleWidth 1600 --setProperty formatOptions 82 \
   "source.jpg" --out public/img/blog/slug/photo.jpg
 ```
+
+## When something goes wrong
+
+- **The deploy shows a red ✗**: nothing shipped; the previous version of the site is still live. Open the failed run in the Actions tab, read which step failed (`check`, alt-text, build, or calendar feed), fix, and push again. Or paste the log to your agent.
+- **Undo a bad change**: `git revert <sha> && git push`. The revert deploys like any other commit. Never force-push `main`.
+- **Build broken after an `npm install`**: `git checkout package-lock.json && rm -rf node_modules && npm ci` (see Gotchas).
+
+## Notifications (Slack)
+
+The team Slack channel gets a message for every commit and every deploy via the official GitHub Slack app. One-time setup, for reference:
+
+1. Install the [GitHub app for Slack](https://slack.github.com) in the workspace.
+2. In the channel: `/github subscribe piedmontmakers/piedmontmakers.org commits:all workflows:{event:"push" branch:"main"} deployments`
+3. Optional noise trim: `/github unsubscribe piedmontmakers/piedmontmakers.org issues pulls`
+
+The `workflows` and `deployments` subscriptions are the safety net: a failed deploy (content that built locally but failed a check) shows up in the channel instead of failing silently.
 
 ## What's already external (don't touch)
 
