@@ -70,7 +70,7 @@ Fastest for small text edits or adding a blog post / event.
 
 #### Option 2: Clone locally + edit by hand
 
-Prerequisites: a GitHub account with write access to this repo, git, Node 24 LTS (see `.nvmrc`; CI builds on 24), and `jq` (used by the agent hook scripts; `brew install jq`).
+Prerequisites: a GitHub account with write access to this repo, git, Node 24 LTS (see `.nvmrc`; CI builds on 24), and `jq` (used by the agent hook scripts; `brew install jq`). For agent editing, a plan with a frontier model: `.claude/settings.json` defaults Claude Code to Opus (Sonnet 4.5+ is also fine; override locally with `/model` or `.claude/settings.local.json`), and AGENTS.md tells small/fast-tier models to disclose themselves and stand down to content-only edits.
 
 ```bash
 git clone https://github.com/piedmontmakers/piedmontmakers.org.git

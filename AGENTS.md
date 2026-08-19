@@ -22,6 +22,10 @@ Keep this file in context for every task. Read only the additional reference tha
 
 These references contain procedures and inventory. This file remains authoritative for safety, voice, accessibility, verification, and git workflow.
 
+## Model check (before anything else)
+
+This repo expects a current frontier model: Claude Opus or Sonnet (4.5 or newer) or the equivalent top Codex tier. `.claude/settings.json` defaults Claude Code sessions to Opus. If you are a small or fast tier model (e.g. Haiku, a "mini"/"nano" variant, or anything older than the above), say so to the user before doing anything, recommend switching (`/model opus` in Claude Code), and until they switch, restrict yourself to green-zone content edits and do not push. Edits here go straight to a live public site.
+
 ## Edit zones (read this first)
 
 Multiple people edit this site through AI agents, with a wide range of technical experience. A push to `main` is live on piedmontmakers.org in about a minute with no review step, so edits are tiered by blast radius:

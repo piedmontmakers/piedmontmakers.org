@@ -37,7 +37,7 @@ One-time setup takes about 15 minutes:
 2. Install git. On a Mac, open Terminal and run `git --version`; macOS offers to install it if needed.
 3. Install Node.js 24 LTS from [nodejs.org](https://nodejs.org).
 4. Install `jq`, which the Codex red-zone hook uses to inspect patches: `brew install jq` with Homebrew, or use [jqlang.github.io/jq](https://jqlang.github.io/jq/).
-5. Install [Claude Code](https://claude.com/claude-code), [Codex](https://developers.openai.com/codex/), or both.
+5. Install [Claude Code](https://claude.com/claude-code), [Codex](https://developers.openai.com/codex/), or both. You need a plan that includes a top-tier model: the repo is set up for Claude Opus (Sonnet 4.5+ also works) or the equivalent top Codex model. Claude Code sessions in this folder select Opus automatically; if your plan doesn't include it, pick Sonnet when prompted. Don't edit the site with a "fast"/"mini" model — quality matters more than speed here, and the agent has standing instructions to warn you if a weak model is driving.
 6. Get the site by pasting these commands into Terminal one line at a time:
 
    ```bash
