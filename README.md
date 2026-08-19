@@ -75,7 +75,7 @@ Prerequisites: a GitHub account with write access to this repo, git, Node 24 LTS
 ```bash
 git clone https://github.com/piedmontmakers/piedmontmakers.org.git
 cd piedmontmakers.org
-npm ci          # prefer over `npm install` — see "Gotchas" below
+npm ci --include=optional
 npm run dev
 ```
 
@@ -111,7 +111,7 @@ Three guardrails to know about:
 ```bash
 git clone https://github.com/piedmontmakers/piedmontmakers.org.git
 cd piedmontmakers.org
-npm ci         # not `npm install` — see "Gotchas" below
+npm ci --include=optional
 claude         # or open in the Claude Code IDE plugin
 # or open this folder in the Codex app / run codex
 ```
@@ -210,7 +210,7 @@ sips --resampleWidth 1600 --setProperty formatOptions 82 \
 
 - **The deploy shows a red ✗**: nothing shipped; the previous version of the site is still live. Open the failed run in the Actions tab, read which step failed (`check`, alt-text, build, or calendar feed), fix, and push again. Or paste the log to your agent.
 - **Undo a bad change**: `git revert <sha> && git push`. The revert deploys like any other commit. Never force-push `main`.
-- **Build broken after an `npm install`**: `git checkout package-lock.json && rm -rf node_modules && npm ci` (see Gotchas).
+- **Build broken after an `npm install`**: `git checkout package-lock.json && rm -rf node_modules && npm ci --include=optional` (see Gotchas).
 
 ## Notifications (Slack)
 
@@ -247,7 +247,7 @@ Astro 5 (NOT 6 — Astro 6 has a known build issue with our setup), Tailwind CSS
 
 ## Gotchas
 
-- **Use `npm ci` over `npm install` when possible.** A regular `npm install` can silently drop the `@rolldown/binding-*` optional deps and break the build (`Cannot find module '@rolldown/binding-darwin-arm64'`). If that happens: `git checkout package-lock.json && rm -rf node_modules && npm ci`. When you do need to add a dep, run `npm ci` first to lock the optional deps in, then `npm install <pkg> --include=optional`.
+- **Use `npm ci --include=optional` for a clean install.** A regular `npm install` can silently drop the `@rolldown/binding-*` optional deps and break the build (`Cannot find module '@rolldown/binding-darwin-arm64'`). If that happens: `git checkout package-lock.json && rm -rf node_modules && npm ci --include=optional`. When you need to add a dependency, run the clean install first, then `npm install <pkg> --include=optional`.
 - **`501(c)(3)` requires a zero-width non-joiner** between `(` and `c`. The body font (Manrope) substitutes `(c)` → © via an OpenType feature that CSS can't reliably disable. Every `501(c)(3)` on the site uses `&zwnj;` in templates or `‌` in TS strings — follow the pattern.
 - **Don't `git add -A`.** Use explicit paths (`git add src/...`). Agent plugin cache directories have snuck into commits before via `-A`.
 - More in `AGENTS.md` → "Known gotchas".

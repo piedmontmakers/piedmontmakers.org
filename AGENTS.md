@@ -139,8 +139,9 @@ Read `docs/agent/content-recipes.md` before changing routine data, publishing a 
 ## Workflow
 
 ```bash
-npm install          # see warning in Known gotchas
+npm ci --include=optional
 npm run dev          # leave this running — the user previews changes via HMR
+npm run check
 npm run build        # verify before commit
 ```
 
@@ -161,7 +162,7 @@ npm run build        # verify before commit
 ## Known gotchas
 
 - **Astro 5, NOT 6.** Astro 6 + `@tailwindcss/vite` triggers the rolldown native-binding bug on macOS-arm64 under npm 11.
-- **`npm install` can drop `@rolldown/binding-*` optional deps.** Symptom: build fails with `Cannot find module '@rolldown/binding-darwin-arm64'` after an otherwise-innocent `npm install <something>`. Recovery: `git checkout package-lock.json && rm -rf node_modules && npm ci`. For adding new deps, prefer `npm ci` first (to lock the optional deps from the lockfile) then `npm install <pkg> --include=optional`.
+- **`npm install` can drop `@rolldown/binding-*` optional deps.** Symptom: build fails with `Cannot find module '@rolldown/binding-darwin-arm64'` after an otherwise-innocent `npm install <something>`. Recovery: `git checkout package-lock.json && rm -rf node_modules && npm ci --include=optional`. For adding new deps, run `npm ci --include=optional` first, then `npm install <pkg> --include=optional`.
 - **`501(c)(3)` renders as `501©(3)`.** Manrope substitutes the `(c)` glyph sequence to © via an OpenType feature that `font-feature-settings: "ss02"` (dropping ss01) doesn't reach. The bulletproof fix: zero-width non-joiner between `(` and `c`. Use `&zwnj;` in template text, U+200C literal `‌` in TS strings. All existing `501(c)(3)` on the site already uses this — follow the pattern when adding new ones.
 - **`@astrojs/rss` is not installed.** Its install path drops the `@rolldown` optional bindings (see above). RSS is hand-rolled in `src/pages/rss.xml.ts`. If you change the feed, edit that file; don't reach for the package.
 - **Tailwind arbitrary `grid-cols`** uses underscores between values, not commas: `grid-cols-[80px_1fr]` works; `grid-cols-[80px,1fr]` silently fails to a single column.
