@@ -1,7 +1,7 @@
 <wizard-report>
 # PostHog post-wizard report
 
-> Snapshot from the initial PostHog setup; not maintained. See the PostHog section of AGENTS.md for the current event list.
+> Snapshot from the initial PostHog setup; not maintained. See `docs/agent/posthog.md` for the current event list and implementation rules.
 
 PostHog analytics has been integrated into piedmontmakers.org. The web snippet initializes on every page via a new `PostHog.astro` component imported into `BaseLayout.astro`. Eight custom events are captured across five pages using client-side `<script is:inline>` blocks. Environment variables are stored in `.env` (gitignored).
 
@@ -27,8 +27,8 @@ We've built some insights and a dashboard to track user behavior based on the ev
 - [Robotics registrations by level](/insights/sHI4vdWM) — bar chart broken down by level
 - [Program card clicks by program](/insights/Rrr5vmtd) — bar chart broken down by program name
 
-### Agent skill
+### Current agent guidance
 
-We've left an agent skill folder in your project at `.claude/skills/integration-astro-static/`. You can use this context for further agent development when using Claude Code. This will help ensure the model provides the most up-to-date approaches for integrating PostHog.
+Current PostHog guidance is maintained in `docs/agent/posthog.md` and routed from `AGENTS.md`, so Claude Code and Codex receive the same project-specific instructions.
 
 </wizard-report>

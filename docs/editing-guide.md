@@ -1,88 +1,104 @@
-# Editing the website with Claude
+# Editing the website with an AI coding agent
 
-This guide is for Piedmont Makers folks who want to update the website by describing changes in plain English. No coding or command-line experience needed. If you're comfortable with git and npm, the developer section of the [README](../README.md) is the faster read.
+This guide is for Piedmont Makers folks who want to update the website by describing changes in plain English. No coding or command-line experience is required. If you are comfortable with git and npm, the developer section of the [README](../README.md) is the faster read.
 
 ## The one rule to understand
 
-**Anything you save goes live on piedmontmakers.org within about a minute.** There is no draft mode and no approval step. That's less scary than it sounds:
+**A push to `main` goes live on piedmontmakers.org in about a minute.** There is no draft mode or approval step.
 
-- Every change is recorded in history and can be undone. Nothing is ever lost.
-- Ben gets a Slack notification for every change, with your name on it.
-- Automatic checks run before each deploy. If your change would break the site, the deploy stops and the old site stays up.
+- Every change is recorded in git and can be undone.
+- Ben gets a Slack notification for each commit.
+- Automatic checks run before each deploy. If a change breaks the site, the deploy stops and the previous version stays up.
 
-So: edit freely for normal content (calendar events, blog posts, dates, links, names, numbers). If Claude ever warns you that a change affects "the site's design or architecture," stop and check with Ben before saying yes.
+Edit routine content freely: calendar events, blog posts, dates, links, names, and numbers. If the agent says a change affects a red-zone file or the site's design or architecture, check with Ben before approving it.
 
 ## Pick your path
 
 | You want to... | Use |
 |---|---|
-| Write or edit **blog posts** only | The web editor at [piedmontmakers.org/admin](https://piedmontmakers.org/admin/) — sign in with GitHub, no install. See [admin-setup.md](admin-setup.md) for access. |
-| Make **any change** by describing it, no install | **Claude Code on the web** (below) |
-| Work on your own computer with live preview | **Claude Code locally** (below) |
+| Write or edit **blog posts** only | The web editor at [piedmontmakers.org/admin](https://piedmontmakers.org/admin/). Sign in with GitHub; no agent is needed. See [admin-setup.md](admin-setup.md) for access. |
+| Make **any change** without installing software | **Claude Code on the web** |
+| Work locally with a live preview | **Claude Code or Codex** |
 
-## Claude Code on the web (easiest)
+## Claude Code on the web
 
 1. Go to [claude.ai/code](https://claude.ai/code) and sign in.
-2. Connect your GitHub account when prompted (you need access to the `piedmontmakers/piedmontmakers.org` repo — ask Ben).
-3. Open the `piedmontmakers/piedmontmakers.org` repository.
-4. Type what you want changed (see example prompts below). Claude edits the site in the cloud and shows you what it did.
+2. Connect your GitHub account when prompted. You need access to `piedmontmakers/piedmontmakers.org`; ask Ben if it is missing.
+3. Open the repository and describe the change.
+4. Review the files and verification results before accepting the commit.
 
-Web sessions work the same as local ones: your change goes straight to the live site, committed under your name. One caution: if Claude ever mentions a "branch" or a "pull request" at the end of a session instead of saying it pushed to main, your work hasn't gone live — tell Ben so it doesn't sit unnoticed. (This has happened before; a teammate's fix sat unpublished for months.)
+A hosted session may be required to work on a managed branch instead of `main`. If Claude mentions a branch, pull request, or handoff at the end, the change is not live yet. Send the handoff to Ben so it can be merged and deployed.
 
-## Claude Code on your own computer
+## Claude Code or Codex on your computer
 
-One-time setup (15 minutes, mostly waiting on installers):
+One-time setup takes about 15 minutes:
 
-1. **GitHub account** with write access to the repo — ask Ben.
-2. **Install git**: on a Mac, open Terminal (Cmd+Space, type "Terminal") and run `git --version`; macOS offers to install it if missing.
-3. **Install Node.js**: download the LTS installer from [nodejs.org](https://nodejs.org) (currently version 24).
-4. **Install jq** (used by the repo's safety checks): `brew install jq` if you have Homebrew, or download from [jqlang.github.io/jq](https://jqlang.github.io/jq/).
-5. **Install Claude Code**: follow [the install instructions](https://claude.com/claude-code), then run `claude` once to sign in.
-6. **Get the site** — paste these into Terminal one line at a time:
+1. Get a GitHub account with write access to the repository from Ben.
+2. Install git. On a Mac, open Terminal and run `git --version`; macOS offers to install it if needed.
+3. Install Node.js 24 LTS from [nodejs.org](https://nodejs.org).
+4. Install `jq`, which the Codex red-zone hook uses to inspect patches: `brew install jq` with Homebrew, or use [jqlang.github.io/jq](https://jqlang.github.io/jq/).
+5. Install [Claude Code](https://claude.com/claude-code), [Codex](https://developers.openai.com/codex/), or both.
+6. Get the site by pasting these commands into Terminal one line at a time:
 
-   ```
+   ```bash
    git clone https://github.com/piedmontmakers/piedmontmakers.org.git
    cd piedmontmakers.org
-   npm ci
+   npm ci --include=optional
    ```
 
-Every editing session after that is just:
+Launch your preferred client from the repository:
 
-```
+```bash
 cd piedmontmakers.org
 claude
+# or
+codex
 ```
 
-When Claude asks whether to trust the folder the first time, say yes — the repo's project instructions and safety hooks are what make it behave well here.
+You can also open the folder in the Codex desktop app or a Claude Code editor integration.
+
+When the client asks whether to trust the folder or enable project hooks, review `scripts/agent-hooks/`, then approve it. Run `/hooks` to confirm the hooks loaded. Startup hooks do not install dependencies; ask the agent to use `project-bootstrap` if `node_modules` is missing.
+
+## Shared instructions, hooks, and skills
+
+Both clients receive the same project policy:
+
+- Codex reads `AGENTS.md` directly.
+- Claude Code reads `CLAUDE.md`, which imports `AGENTS.md`.
+- Client adapters live in `.codex/hooks.json` and `.claude/settings.json`; shared hook logic lives in `scripts/agent-hooks/`.
+- Project skills live in `.agents/skills/`. Claude Code reaches the same files through `.claude/skills/` symlinks.
+
+Use the `web-verify` skill after frontend work. In Claude Code, enter `/web-verify`; in Codex, enter `$web-verify` or ask for it by name.
+
+### Red-zone approval differs by client
+
+Claude Code opens a confirmation prompt before editing a red-zone file. Approve it only when the requested work requires that file.
+
+Codex cannot pause a `PreToolUse` hook for the same confirmation, so it blocks the first patch. After Ben approves the change, create the gitignored `.agent-maintainer` file at the repository root and retry. Remove the marker when the approved work is complete. Launching the client with `PM_MAINTAINER=1` provides the same local bypass.
 
 ## Example prompts
 
-Talk to Claude the way you'd brief a helpful colleague. Real examples that work:
+Brief either agent as you would a helpful colleague:
 
-- "Add an event to the calendar: FLL scrimmage at Havens Elementary on March 14 from 10am to 2pm. Registration link is https://…"
+- "Add a calendar event: LEGO League scrimmage at Havens Elementary on March 14 from 10am to 2pm. Registration link is https://..."
 - "The FTC league meet on Nov 8 moved to 1pm. Update the calendar."
-- "Update the robotics page: LEGO League Challenge registration is now open, the link is https://go.teamsnap.com/…"
+- "LEGO League Challenge registration is open. Update the robotics page with this TeamSnap link: https://go.teamsnap.com/..."
 - "Add Jane Doe to the board roster as VP, Popup Maker Spaces."
-- "Fix the typo on the About Us page — 'engneering' should be 'engineering'."
-- "Write a blog post about last weekend's tournament. Here are three photos and my notes: …"
+- "Fix the 'engneering' typo on the About Us page."
+- "Write a blog post about last weekend's tournament using these photos and notes."
 
-Claude will make the edit, run the site's checks, show you what changed, commit it with your name, and push it live. Saying yes to its routine confirmations is normal.
+The agent should edit the appropriate files, run the repository checks, show you the diff, commit with a clear message, and push `main`. Review its summary. If it says the commit is only on a branch or in a worktree, it has not reached the live site.
 
-**The exception:** if Claude warns that a file is "red-zone" or "changes the site's design/architecture," that's the guardrail for things like brand colors, the navigation bar, and the deploy machinery. Say no unless changing that was genuinely the point of your request, and loop in Ben.
+## After a push
 
-## After you push
-
-- The change is live at [piedmontmakers.org](https://piedmontmakers.org) in about a minute. Hard-refresh (Cmd+Shift+R) if you don't see it.
-- The Slack channel shows your commit and the deploy status.
-- A red ✗ on the deploy means the checks caught a problem and **nothing shipped** — the old site is still up. Paste the error to Claude ("the deploy failed, here's the log — fix it") or tell Ben. A green ✓ means you're live.
+- The change appears at [piedmontmakers.org](https://piedmontmakers.org) in about a minute. Hard-refresh with Cmd+Shift+R if needed.
+- The Slack channel shows the commit and deploy status.
+- A failed deploy means the checks caught a problem and the previous site remains live. Give the failure log to the agent or tell Ben.
 
 ## Made a mistake?
 
-Don't panic, and don't try to fix it by force. Every version of the site is saved.
+Every version is saved. Tell the agent: **"Revert my last change and push `main`."** You can also message Ben with what changed and roughly when.
 
-- Tell Claude: **"Revert my last change and push."** It will restore the previous version and deploy it.
-- Or message Ben with roughly what you changed and when.
+## Rules the agents already know
 
-## Rules Claude already knows (so you don't have to)
-
-The repo carries instructions ([AGENTS.md](../AGENTS.md)) that Claude reads at the start of every session: the site's voice and audience, brand rules, which files are safe to edit, always pulling the latest version before starting, committing with clear messages, and pushing right after committing. You don't need to memorize any of it — but if Claude seems to be going against something you read there, trust the file and say so.
+The repository instructions cover the site's audience and voice, brand rules, edit zones, verification, commit messages, and deployment workflow. You do not need to memorize them. If an agent conflicts with [AGENTS.md](../AGENTS.md), point it to the relevant section. System and managed-environment restrictions still take precedence, and the agent should report any resulting handoff clearly.

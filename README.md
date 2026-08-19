@@ -16,13 +16,13 @@ Pick the row that sounds like you:
 | You | Go to |
 |---|---|
 | "I just want to write blog posts" | The CMS at <https://piedmontmakers.org/admin/> — sign in with GitHub, write, publish. Access setup: [docs/admin-setup.md](docs/admin-setup.md) |
-| "I want to change the site by describing it in plain English" (no coding needed) | **[docs/editing-guide.md](docs/editing-guide.md)** — Claude Code on the web or on your computer, step by step |
+| "I want to change the site by describing it in plain English" (no coding needed) | **[docs/editing-guide.md](docs/editing-guide.md)** — Claude Code and Codex, step by step |
 | "I'm comfortable with git and npm" | Keep reading this README |
 
 Two things everyone should know before their first edit:
 
 1. **A push to `main` is live on the public site in about a minute, with no review step.** Automated checks (`astro check`, alt-text, calendar-feed contract) gate the deploy, so a broken build never ships — but wrong *content* will. Look at what you're pushing.
-2. **Some files ask for confirmation before editing.** Brand tokens, the nav, the base layout, configs, and workflows are "red-zone": AI agent sessions will prompt you to confirm before touching them, and the edit-zones section of [AGENTS.md](AGENTS.md) explains the tiers. It's a confirmation, not a lock — deliberate changes are fine.
+2. **Some files require explicit approval before editing.** Brand tokens, the nav, the base layout, configs, and workflows are "red-zone." Claude Code asks for confirmation; Codex blocks the patch until a maintainer enables the local bypass. The edit-zones section of [AGENTS.md](AGENTS.md) explains the tiers.
 
 ## What's where
 
@@ -99,25 +99,30 @@ This is how most of the site was built. The repo is configured for Claude Code a
 - Project hooks live in `.codex/hooks.json` and `.claude/settings.json`.
 - Shared hook logic lives in `scripts/agent-hooks/`.
 - If your agent asks whether to trust this repo, approve it only after reviewing the hook scripts.
-- Claude users can run `/hooks` to confirm project hooks loaded.
+- Run `/hooks` in either client to confirm that the project hooks loaded.
+- Portable project skills live in `.agents/skills/`; Claude discovers relative symlinks under `.claude/skills/`.
 
-Three guardrails to know about (all soft — everything is recoverable from git history):
+Three guardrails to know about:
 
 - **Branch guard**: `block-branch.sh` blocks branch creation/switching; the workflow is direct commits to `main`, pushed immediately.
-- **Red-zone confirmation**: `protect-paths.sh` pops a confirmation prompt when a session tries to edit design/architecture files (brand tokens, nav, layout, configs, workflows). The list lives in the hook and in the "Edit zones" section of `AGENTS.md`.
-- **Maintainer bypass**: if the red-zone prompts get in your way and you know what you're doing, create a gitignored `.claude/settings.local.json` containing `{ "env": { "PM_MAINTAINER": "1" } }` to skip them on your machine.
+- **Red-zone protection**: Claude Code opens a confirmation prompt for design and architecture files. Codex denies the first patch and explains how to proceed. Both adapters use the same path list in `scripts/agent-hooks/red-zone-paths.sh`.
+- **Maintainer bypass**: after the user approves a red-zone change, create the gitignored `.agent-maintainer` marker at the repository root or launch the client with `PM_MAINTAINER=1`. Remove the marker when the approved work is finished.
 
 ```bash
 git clone https://github.com/piedmontmakers/piedmontmakers.org.git
 cd piedmontmakers.org
 npm ci         # not `npm install` — see "Gotchas" below
 claude         # or open in the Claude Code IDE plugin
-# or: codex
+# or open this folder in the Codex app / run codex
 ```
 
 Then talk to it: *"Add the FTC league championship to the events calendar for November 15"*, *"Swap the photo on the Maker Faire page"*, *"Add a banner to the robotics page announcing summer camp registration"*, etc. The agent will read the project instructions, follow the site's conventions, edit the right files, and you can review the changes before committing.
 
 Keep `npm run dev` running in another terminal while you work so the agent can check the browser preview as it edits.
+
+The clients share two project skills. Ask for `web-verify` after frontend changes (`/web-verify` in Claude Code or `$web-verify` in Codex). Use `project-bootstrap` when dependencies are missing. Startup hooks do not install packages automatically.
+
+Some hosted agent sessions must use a managed branch or worktree. The agent should say clearly when its commit has not reached `main`; no change is live until `main` is pushed and the deploy succeeds.
 
 ## Adding an event
 
