@@ -44,6 +44,7 @@ src/
 │   ├── blog/index.astro             Blog list
 │   ├── blog/[...slug].astro         Blog post template
 │   ├── 404.astro                    Branded 404 with dancing Makey
+│   ├── support.astro                QR-code landing page for donors + volunteers (unlinked by design)
 │   ├── styleguide.astro             Design-system reference
 │   ├── rss.xml.ts                   Hand-rolled RSS 2.0 endpoint
 │   ├── robots.txt.ts                Dynamic robots.txt (points at sitemap)
@@ -188,10 +189,10 @@ Custom conversion events (in addition to autocapture):
 | Event | Where | Properties |
 |---|---|---|
 | `newsletter_signup_clicked` | home Mailchimp form submit | — |
-| `donate_clicked` | home "How to help" card | `source: 'home_how_to_help'` |
+| `donate_clicked` | home "How to help" card; /support hero + main cards | `source: 'home_how_to_help' \| 'support_page_hero' \| 'support_page_main'` |
 | `donate_nav_clicked` | nav donate ribbon (every page) | `source: 'desktop' \| 'mobile'` |
 | `donate_teacher_grants_clicked` | /teacher-grants CTA | — |
-| `volunteer_clicked` | home "How to help" card | `source: 'home_how_to_help'` |
+| `volunteer_clicked` | home "How to help" card; /support hero + main cards | `source: 'home_how_to_help' \| 'support_page_hero' \| 'support_page_main'` |
 | `buy_shirt_clicked` | home Bonfire card | — |
 | `robotics_register_clicked` | each TeamSnap button on /robotics | `level: fll-explore \| fll-challenge \| ftc \| frc` |
 | `di_register_clicked` | TeamSnap button on /di | `source: 'di_page'` |

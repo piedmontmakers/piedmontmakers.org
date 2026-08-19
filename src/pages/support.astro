@@ -1,0 +1,200 @@
+---
+// Standalone landing page for QR codes handed to prospective donors and
+// volunteers. Deliberately not linked from Nav or Footer: people arrive here
+// by scanning a code on a flyer, banner, or table card, almost always on a
+// phone. Mobile layout is the primary target, not an afterthought.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Ribbon from "../components/Ribbon.astro";
+import StatsBand from "../components/StatsBand.astro";
+import PhotoCard from "../components/PhotoCard.astro";
+import { stats } from "../data/stats";
+
+const DONATE = "https://donate.piedmontmakers.org";
+const VOLUNTEER_EMAIL = "hello@piedmontmakers.org";
+// Pre-filled subject so inbound volunteer mail is easy to triage.
+const VOLUNTEER_MAILTO = `mailto:${VOLUNTEER_EMAIL}?subject=${encodeURIComponent(
+  "I'd like to volunteer with Piedmont Makers"
+)}`;
+
+// Reach and equity numbers. These matter most to the donor/volunteer read:
+// they show the programs land beyond one zip code and beyond one demographic.
+const reach = [
+  { number: stats.teams, label: "teams across all four FIRST levels" },
+  { number: stats.outsidePiedmontShare, label: "of kids come from outside Piedmont" },
+  { number: stats.titleOneShare, label: "of participants come from Title 1 schools" },
+  { number: stats.volunteerHours, label: "volunteer hours logged in a year" },
+];
+
+const whatSupportDoes = [
+  {
+    title: "Puts a robotics kit in a kid's hands",
+    body: "LEGO kits, competition parts, game tables, and uniforms, supplied to every team so families aren't buying their way in.",
+  },
+  {
+    title: "Keeps cost from deciding who participates",
+    body: "Financial aid is available at every level, quietly and on request. No kid gets turned away over the fee.",
+  },
+  {
+    title: "Backs the adults who make it work",
+    body: "Coach training, lesson plans, and a Slack community of 130+ coaches, so a parent with no engineering background can still run a strong team.",
+  },
+];
+---
+
+<BaseLayout
+  title="Support Piedmont Makers"
+  description="Piedmont Makers puts hands-on STEAM within reach of 1,000+ East Bay kids a year. Donate or volunteer to help keep it going."
+>
+  <!-- HERO -->
+  <section class="mx-auto max-w-7xl px-6 pt-10 md:pt-16 pb-10 md:pb-14">
+    <div class="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
+      <div class="md:col-span-7">
+        <Ribbon color="red">Piedmont Makers</Ribbon>
+        <h1 class="mt-6 font-display font-bold text-pm-ink text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.02]">
+          {stats.kidsOnTeams} East Bay kids are building robots this season.
+        </h1>
+        <p class="mt-5 text-lg text-pm-ink/75 leading-relaxed">
+          We're a volunteer-run 501(&zwnj;c)(3) putting hands-on STEAM within reach of families across the East Bay: FIRST Robotics teams from kindergarten through high school, a community engineering lab, a school maker faire, and grants that put tools into classrooms.
+        </p>
+        <p class="mt-3 font-marker text-2xl text-pm-purple">two ways to jump in &darr;</p>
+
+        <!-- Primary actions sit above the fold on a phone. Full-width taps on
+             mobile, side by side from sm up. -->
+        <div class="mt-6 flex flex-col sm:flex-row gap-3">
+          <a
+            id="support-donate-hero"
+            href={DONATE}
+            class="ribbon bg-pm-red hover:bg-pm-red-deep text-white text-base justify-center text-center transition-colors"
+          >
+            Donate &rarr;
+          </a>
+          <a
+            id="support-volunteer-hero"
+            href={VOLUNTEER_MAILTO}
+            class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors"
+          >
+            Volunteer &rarr;
+          </a>
+        </div>
+      </div>
+
+      <div class="md:col-span-5">
+        <PhotoCard
+          src="/img/robotics/robotics-hero.jpg"
+          alt="A LEGO League Challenge team in yellow Piedmont Makers shirts around a large LEGO competition table at a tournament, with a crowd of spectators behind them."
+          caption="Kids from across the East Bay at a season tournament."
+          tilt="right"
+          tape="left"
+          aspect="landscape"
+        />
+      </div>
+    </div>
+  </section>
+
+  <StatsBand
+    stats={[
+      { number: stats.kidsOnTeams, label: "kids on robotics teams" },
+      { number: stats.schools, label: `schools across ${stats.cities} East Bay cities` },
+      { number: "$25K+", label: "in teacher grants annually" },
+      { number: stats.girlsInLegoLeague, label: "girls in LEGO League" },
+    ]}
+  />
+
+  <!-- IMPACT -->
+  <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-4">
+    <div class="max-w-3xl">
+      <Ribbon color="cyan">The impact</Ribbon>
+      <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
+        The largest community-based youth robotics league in the United States.
+      </h2>
+      <p class="mt-5 text-pm-ink/75 leading-relaxed">
+        It runs on parent coaches, high school mentors, and donors who cover what registration fees don't. Kids learn engineering by building something that has to work on competition day, and the older kids teach the younger ones.
+      </p>
+    </div>
+
+    <ul class="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8">
+      {reach.map((r) => (
+        <li class="border-t-2 border-pm-ink/15 pt-4">
+          <p class="font-display font-bold text-3xl md:text-4xl tracking-tight leading-none text-pm-ink">
+            {r.number}
+          </p>
+          <p class="mt-2 text-sm text-pm-ink/70 leading-snug">{r.label}</p>
+        </li>
+      ))}
+    </ul>
+
+    <div class="mt-14 grid md:grid-cols-3 gap-6 md:gap-8">
+      {whatSupportDoes.map((item) => (
+        <div class="bg-pm-paper border-[3px] border-pm-ink p-6">
+          <h3 class="font-display font-bold text-xl tracking-tight leading-tight">{item.title}</h3>
+          <p class="mt-3 text-pm-ink/75 leading-relaxed">{item.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- CALLS TO ACTION -->
+  <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-20 md:pb-24">
+    <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+      <a
+        id="support-donate-main"
+        href={DONATE}
+        class="group block rounded-3xl bg-pm-ink text-pm-cream p-8 md:p-10 hover:bg-pm-ink-soft transition-colors"
+      >
+        <Ribbon color="red">Donate</Ribbon>
+        <h3 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
+          Fund a kid's season.
+        </h3>
+        <p class="mt-4 text-pm-cream/85 leading-relaxed">
+          Your gift buys kits and parts, covers competition fees, and pays for the financial aid that keeps cost from deciding who gets to participate.
+        </p>
+        <p class="mt-6 font-display font-semibold text-pm-cream group-hover:text-pm-red transition-colors">
+          Go to donate.piedmontmakers.org &rarr;
+        </p>
+        <p class="mt-2 font-marker text-xl text-pm-red">tax-deductible!</p>
+      </a>
+
+      <a
+        id="support-volunteer-main"
+        href={VOLUNTEER_MAILTO}
+        class="group block rounded-3xl border-[3px] border-pm-ink bg-pm-paper p-8 md:p-10 hover:bg-white transition-colors"
+      >
+        <Ribbon color="cyan">Volunteer</Ribbon>
+        <h3 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
+          Spend your season with the kids.
+        </h3>
+        <p class="mt-4 text-pm-ink/75 leading-relaxed">
+          Coach a team, mentor at a tournament, judge at the maker faire, or lend a few hours where they're needed. No engineering background required. We train you.
+        </p>
+        <p class="mt-6 font-display font-semibold text-pm-ink group-hover:text-pm-cyan-deep transition-colors break-words">
+          Email {VOLUNTEER_EMAIL} &rarr;
+        </p>
+        <p class="mt-2 font-marker text-xl text-pm-purple">we'll write back!</p>
+      </a>
+    </div>
+
+    <p class="mt-10 text-center text-sm text-pm-ink/65 leading-relaxed">
+      Piedmont Makers is a registered 501(&zwnj;c)(3) nonprofit. EIN 47-2831568. Serving the East Bay since 2014.
+    </p>
+  </section>
+
+  <!-- Conversion tracking. Targets ids, not class chains, so restyling can't
+       silently break attribution. -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      var events = [
+        ['support-donate-hero', 'donate_clicked', 'support_page_hero'],
+        ['support-donate-main', 'donate_clicked', 'support_page_main'],
+        ['support-volunteer-hero', 'volunteer_clicked', 'support_page_hero'],
+        ['support-volunteer-main', 'volunteer_clicked', 'support_page_main'],
+      ];
+      events.forEach(function (entry) {
+        var el = document.getElementById(entry[0]);
+        if (!el) return;
+        el.addEventListener('click', function () {
+          window.posthog?.capture(entry[1], { source: entry[2] });
+        });
+      });
+    });
+  </script>
+</BaseLayout>
