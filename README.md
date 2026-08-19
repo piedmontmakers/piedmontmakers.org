@@ -70,7 +70,7 @@ Fastest for small text edits or adding a blog post / event.
 
 #### Option 2: Clone locally + edit by hand
 
-Prerequisites: a GitHub account with write access to this repo, git, Node 20+ (see `.nvmrc`), and `jq` (used by the agent hook scripts; `brew install jq`).
+Prerequisites: a GitHub account with write access to this repo, git, Node 24 LTS (see `.nvmrc`; CI builds on 24), and `jq` (used by the agent hook scripts; `brew install jq`).
 
 ```bash
 git clone https://github.com/piedmontmakers/piedmontmakers.org.git

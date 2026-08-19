@@ -35,7 +35,7 @@ One-time setup (15 minutes, mostly waiting on installers):
 
 1. **GitHub account** with write access to the repo — ask Ben.
 2. **Install git**: on a Mac, open Terminal (Cmd+Space, type "Terminal") and run `git --version`; macOS offers to install it if missing.
-3. **Install Node.js**: download the LTS installer from [nodejs.org](https://nodejs.org) (version 20 or newer).
+3. **Install Node.js**: download the LTS installer from [nodejs.org](https://nodejs.org) (currently version 24).
 4. **Install jq** (used by the repo's safety checks): `brew install jq` if you have Homebrew, or download from [jqlang.github.io/jq](https://jqlang.github.io/jq/).
 5. **Install Claude Code**: follow [the install instructions](https://claude.com/claude-code), then run `claude` once to sign in.
 6. **Get the site** — paste these into Terminal one line at a time:
