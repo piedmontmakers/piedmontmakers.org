@@ -44,7 +44,7 @@ Multiple people edit this site through AI agents, with a wide range of technical
 - `.agents/skills/*`, `.claude/skills/*`
 - `CLAUDE.md`, `AGENTS.md`
 
-Before touching a red-zone file, ask the user explicitly: "this changes the site's design/architecture and affects every page — are you sure?" If the person you're working with isn't Ben (the maintainer), suggest checking with Ben before proceeding. A PreToolUse hook (`scripts/agent-hooks/protect-paths.sh`) surfaces a confirmation prompt on these paths as a backstop; the hook's list and this list must be kept in sync. Neither is a hard block — a deliberate, confirmed red-zone change is fine.
+Before touching a red-zone file, ask the user explicitly: "this changes the site's design/architecture and affects every page — are you sure?" If the person you're working with isn't Ben (the maintainer), suggest checking with Ben before proceeding. PreToolUse hooks use the same path list as a backstop: Claude Code asks for confirmation, while Codex denies an unapproved patch until `PM_MAINTAINER=1` or the gitignored `.agent-maintainer` marker is present. A deliberate, confirmed red-zone change is fine.
 
 ## Tech stack
 
@@ -176,7 +176,7 @@ External-service ownership, facility addresses, and known page follow-ups live i
 
 ## Helpful first moves on a fresh task
 
-1. **Re-sync first: `git fetch origin main && git merge --ff-only origin/main`.** A long-lived session's checkout drifts behind live `main` — content files (events, blog posts) get added out-of-band, so what's on disk isn't what's deployed. Do this at the start of every task, not just at session start (the SessionStart hook only fires once; `main` keeps moving during the session). Corollary: if a local search comes up empty but the user is certain something exists, suspect a stale checkout — re-sync, or read `main` directly through the GitHub API — before concluding it's absent.
+1. **Re-sync first: `git fetch origin main && git merge --ff-only origin/main`.** A long-lived session's checkout drifts behind live `main` — content files (events, blog posts) get added out-of-band, so what's on disk isn't what's deployed. Do this at the start of every task; client startup behavior cannot keep `main` synchronized during a session. Corollary: if a local search comes up empty but the user is certain something exists, suspect a stale checkout — re-sync, or read `main` directly through the GitHub API — before concluding it's absent.
 2. `git log --oneline -20` to see recent direction
 3. `npm run dev` and open the relevant page in the browser
 4. Edit. HMR shows it immediately.
