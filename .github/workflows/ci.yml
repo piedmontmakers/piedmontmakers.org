@@ -1,9 +1,10 @@
 name: CI
 
+# Pushes to main are covered by deploy.yml, which runs these same checks
+# before deploying; this workflow covers PRs (rare, but web sessions and the
+# CMS can open them) and manual runs.
 on:
   pull_request:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -28,6 +29,8 @@ jobs:
         run: npm ci
       - name: Type + content check
         run: npm run check
+      - name: Alt-text check
+        run: node scripts/check-alt-text.mjs
       - name: Build (apex config, matches deploy)
         run: npm run build
         env:

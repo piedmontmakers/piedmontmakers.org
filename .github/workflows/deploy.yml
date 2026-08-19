@@ -27,11 +27,17 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm ci
+      - name: Type + content check
+        run: npm run check
+      - name: Alt-text check
+        run: node scripts/check-alt-text.mjs
       - name: Build Astro site
         run: npm run build
         env:
           # Flip Astro's site/base to the apex domain. See astro.config.mjs.
           USE_CUSTOM_DOMAIN: 'true'
+      - name: Calendar feed contract
+        run: node scripts/check-calendar-feed.mjs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
