@@ -29,12 +29,17 @@ pnpm-debug.log*
 !.vscode/settings.json
 .idea/
 
-# Claude Code local cache and per-user settings. Committed project config
-# (hooks, settings.json, commands) is tracked normally.
-.claude/skills/
+# Claude Code local cache and per-user settings. Portable project skills are
+# symlinked to the canonical .agents copies below.
+.claude/skills/*
+!.claude/skills/web-verify
+!.claude/skills/project-bootstrap
 .claude/settings.local.json
 
-# Agent plugin/skill caches. Project-level agent instructions and hook adapters
-# are tracked via AGENTS.md, CLAUDE.md, .claude/settings.json, and .codex/hooks.json.
-.agents/skills/
+# Ignore generated skill caches while keeping the two project-owned skills.
+.agents/skills/*
+!.agents/skills/web-verify/
+!.agents/skills/web-verify/**
+!.agents/skills/project-bootstrap/
+!.agents/skills/project-bootstrap/**
 .codex/skills/
