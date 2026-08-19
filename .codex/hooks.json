@@ -2,30 +2,20 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Bash|Shell|exec_command",
+        "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"${CODEX_WORKSPACE:-$PWD}/scripts/agent-hooks/block-branch.sh\""
+            "command": "bash \"$(git rev-parse --show-toplevel)/scripts/agent-hooks/block-branch.sh\""
           }
         ]
       },
       {
-        "matcher": "Edit|Write|MultiEdit|apply_patch",
+        "matcher": "apply_patch",
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"${CODEX_WORKSPACE:-$PWD}/scripts/agent-hooks/protect-paths.sh\""
-          }
-        ]
-      }
-    ],
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"${CODEX_WORKSPACE:-$PWD}/scripts/agent-hooks/session-start.sh\""
+            "command": "bash \"$(git rev-parse --show-toplevel)/scripts/agent-hooks/protect-paths-codex.sh\""
           }
         ]
       }

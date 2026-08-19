@@ -17,7 +17,7 @@ else
   # jq missing: we can't parse the command out of the payload, but branch
   # creation is still detectable in the raw JSON. Block that; allow the rest
   # rather than degrading to allow-everything silently.
-  if printf '%s' "$payload" | grep -qE 'git[[:space:]]+(checkout[[:space:]]+-b|switch[[:space:]]+(-c|--create))'; then
+  if printf '%s' "$payload" | grep -qE 'git[[:space:]]+(checkout[[:space:]]+(-b|-B|--orphan)|switch[[:space:]]+(-c|-C|--create|--orphan)|worktree[[:space:]]+add|branch[[:space:]]+[^-])'; then
     echo "BLOCKED: This repo commits directly to main. Do not create branches. See AGENTS.md." >&2
     exit 2
   fi
@@ -25,7 +25,9 @@ else
 fi
 [ -z "$cmd" ] && exit 0
 
-if echo "$cmd" | grep -qE '(^|[[:space:]])git[[:space:]]+(checkout[[:space:]]+-b|switch[[:space:]]+(-c|--create)|branch[[:space:]]+[^-])'; then
+git_prefix='(^|[;&|[:space:]])([^[:space:]]*/)?git([[:space:]]+-C[[:space:]]+[^[:space:]]+)*[[:space:]]+'
+
+if echo "$cmd" | grep -qE "${git_prefix}(checkout[[:space:]]+(-b|-B|--orphan)|switch[[:space:]]+(-c|-C|--create|--orphan)|worktree[[:space:]]+add|branch[[:space:]]+([^ -]|(-m|-M|-c|-C|--move|--copy)[[:space:]]))"; then
   echo "BLOCKED: This repo commits directly to main. Do not create branches. See AGENTS.md." >&2
   exit 2
 fi
