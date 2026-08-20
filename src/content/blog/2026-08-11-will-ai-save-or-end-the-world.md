@@ -22,4 +22,4 @@ Our panel of Piedmont residents:
 
 The panel discussion will be recorded and posted to the City of Piedmont and PUSD websites for later viewing.
 
-Tickets are $50, a tax-deductible donation to Piedmont Boosters. We hope to see you there.
+**[Buy tickets](https://piedmontstore.org/products/ai-will-it-save-or-end-the-world)** for $50, a tax-deductible donation to Piedmont Boosters. We hope to see you there.
