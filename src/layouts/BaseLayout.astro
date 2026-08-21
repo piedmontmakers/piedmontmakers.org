@@ -61,9 +61,15 @@ const orgSchema = {
   taxID: "47-2831568",
   email: "hello@piedmontmakers.org",
   areaServed: { "@type": "AdministrativeArea", name: "East Bay, California" },
+  // Every public profile from the footer, so knowledge graphs can reconcile
+  // the organization entity. scripts/check-structured-data.mjs asserts this
+  // list stays in sync with Footer.astro's social links.
   sameAs: [
     "https://www.instagram.com/piedmontmakers/",
     "https://www.linkedin.com/company/piedmont-makers",
+    "https://www.youtube.com/channel/UCwhVj67myzJX6X7ZxCxai6g",
+    "https://x.com/piedmontmakers",
+    "https://www.facebook.com/groups/piedmontmakers",
   ],
 };
 ---

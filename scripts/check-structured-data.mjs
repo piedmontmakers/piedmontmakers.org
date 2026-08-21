@@ -96,6 +96,21 @@ if (existsSync("dist/robotics/index.html")) {
   fail("dist/robotics/index.html missing");
 }
 
+// ── Org sameAs: stays in sync with the footer's social-profile links ──
+const SOCIAL_HOSTS = ["instagram.com", "linkedin.com", "youtube.com", "x.com", "facebook.com"];
+const footer = readFileSync("src/components/Footer.astro", "utf8");
+const footerSocials = [...footer.matchAll(/href="(https:\/\/[^"]+)"/g)]
+  .map((m) => m[1])
+  .filter((url) => SOCIAL_HOSTS.some((h) => new URL(url).hostname.endsWith(h)));
+const org = ofType(home, "NonprofitOrganization")[0];
+const sameAs = org?.sameAs ?? [];
+for (const url of footerSocials) {
+  if (!sameAs.includes(url)) fail(`orgSchema sameAs missing footer social link: ${url}`);
+}
+for (const url of sameAs) {
+  if (!footerSocials.includes(url)) fail(`orgSchema sameAs lists a URL not in the footer: ${url}`);
+}
+
 if (failures.length > 0) {
   console.error("Structured-data contract failures:");
   for (const f of failures) console.error(`  ${f}`);
