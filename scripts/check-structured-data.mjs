@@ -73,6 +73,29 @@ if (existsSync("dist/blog")) {
   fail("dist/blog missing");
 }
 
+// ── /robotics: FAQPage with one Question per src/data/robotics-faq.ts entry ──
+if (existsSync("dist/robotics/index.html")) {
+  const faqSource = readFileSync("src/data/robotics-faq.ts", "utf8");
+  // Count question entries format-insensitively (q: followed by a string
+  // literal; the interface's `q: string;` declaration doesn't match).
+  const sourceCount = (faqSource.match(/\bq:\s*"/g) ?? []).length;
+  const faqPages = ofType(extractSchemas("dist/robotics/index.html"), "FAQPage");
+  if (faqPages.length !== 1) {
+    fail(`dist/robotics/index.html: expected exactly one FAQPage schema, found ${faqPages.length}`);
+  } else {
+    const questions = faqPages[0].mainEntity ?? [];
+    if (questions.length !== sourceCount) {
+      fail(`dist/robotics/index.html: ${questions.length} FAQPage questions for ${sourceCount} faqItems entries`);
+    }
+    for (const q of questions) {
+      if (!q.name || !q.acceptedAnswer?.text) fail(`robotics FAQ question missing name/answer: ${q.name ?? "?"}`);
+      if (/<[a-z]/i.test(q.acceptedAnswer?.text ?? "")) fail(`robotics FAQ answer contains HTML: ${q.name}`);
+    }
+  }
+} else {
+  fail("dist/robotics/index.html missing");
+}
+
 if (failures.length > 0) {
   console.error("Structured-data contract failures:");
   for (const f of failures) console.error(`  ${f}`);

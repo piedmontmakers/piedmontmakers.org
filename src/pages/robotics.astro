@@ -11,11 +11,26 @@ import { faqItems } from "../data/robotics-faq";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const link = (path: string) => `${base}${path}`;
 
+// schema.org FAQPage built from the same data the page renders, so FAQ edits
+// in src/data/robotics-faq.ts update the structured data automatically.
+// Answers are stripped to plain text (schema disallows most inline HTML).
+// scripts/check-structured-data.mjs asserts one Question per faqItems entry.
+const stripHtml = (html: string) => html.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: stripHtml(item.a) },
+  })),
+};
 ---
 
 <BaseLayout
   title="Robotics — Piedmont Makers"
   description="FIRST Robotics teams for kids from kindergarten through high school. Open to East Bay students. Kids learn engineering by doing, and the older kids teach the younger ones."
+  structuredData={faqSchema}
 >
   <!-- Hero -->
   <section class="mx-auto max-w-7xl px-6 pt-10 md:pt-12 pb-12">
