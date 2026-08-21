@@ -46,6 +46,33 @@ if (existsSync("dist/calendar/index.html")) {
   fail("dist/calendar/index.html missing");
 }
 
+// ── Blog posts: one BlogPosting per built post, with date + author ──
+const postFiles = readdirSync("src/content/blog").filter((f) => f.endsWith(".md") && !f.startsWith("_"));
+if (existsSync("dist/blog")) {
+  const postDirs = readdirSync("dist/blog", { withFileTypes: true }).filter((d) => d.isDirectory());
+  if (postDirs.length !== postFiles.length) {
+    fail(`dist/blog: ${postDirs.length} built posts for ${postFiles.length} content files`);
+  }
+  for (const dir of postDirs) {
+    const page = join("dist/blog", dir.name, "index.html");
+    const postings = ofType(extractSchemas(page), "BlogPosting");
+    if (postings.length !== 1) {
+      fail(`${page}: expected exactly one BlogPosting schema, found ${postings.length}`);
+      continue;
+    }
+    const p = postings[0];
+    if (!p.headline || !p.datePublished || !p.author) {
+      fail(`${page}: BlogPosting missing headline/datePublished/author`);
+    }
+    const html = readFileSync(page, "utf8");
+    if (!html.includes('property="article:published_time"')) {
+      fail(`${page}: missing article:published_time meta`);
+    }
+  }
+} else {
+  fail("dist/blog missing");
+}
+
 if (failures.length > 0) {
   console.error("Structured-data contract failures:");
   for (const f of failures) console.error(`  ${f}`);

@@ -32,6 +32,38 @@ const all = (await getCollection("blog")).sort(
 const idx = all.findIndex((p) => p.id === post.id);
 const prev = idx > 0 ? all[idx - 1] : null;
 const next = idx < all.length - 1 ? all[idx + 1] : null;
+
+// schema.org BlogPosting, built from the post's frontmatter so every new
+// post gets dated, attributed structured data automatically.
+// scripts/check-structured-data.mjs asserts one per built post page.
+const site = Astro.site ?? new URL("https://piedmontmakers.org/");
+const siteOrigin = site.toString().replace(/\/$/, "");
+const canonicalUrl = new URL(Astro.url.pathname, site).toString();
+const isoDate = (d: Date) => d.toISOString().slice(0, 10);
+const publishedTime = isoDate(post.data.pubDate);
+const modifiedTime = post.data.updatedDate ? isoDate(post.data.updatedDate) : undefined;
+const authorName = post.data.author ?? "Piedmont Makers";
+const postSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  ...(post.data.excerpt ? { description: post.data.excerpt } : {}),
+  datePublished: publishedTime,
+  dateModified: modifiedTime ?? publishedTime,
+  author:
+    authorName === "Piedmont Makers"
+      ? { "@type": "Organization", name: "Piedmont Makers", url: siteOrigin + "/" }
+      : { "@type": "Person", name: authorName },
+  publisher: {
+    "@type": "Organization",
+    name: "Piedmont Makers",
+    url: siteOrigin + "/",
+    logo: { "@type": "ImageObject", url: new URL(asset("/img/brand/logo.png"), site).toString() },
+  },
+  ...(heroSrc ? { image: new URL(heroSrc, site).toString() } : {}),
+  mainEntityOfPage: canonicalUrl,
+  url: canonicalUrl,
+};
 ---
 
 <BaseLayout
@@ -39,6 +71,9 @@ const next = idx < all.length - 1 ? all[idx + 1] : null;
   description={post.data.excerpt}
   ogType="article"
   ogImage={post.data.heroImage}
+  structuredData={postSchema}
+  publishedTime={publishedTime}
+  modifiedTime={modifiedTime}
 >
   <article class="mx-auto max-w-7xl px-6 pt-12 md:pt-16 pb-12">
     <div class="max-w-3xl">

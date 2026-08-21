@@ -17,6 +17,9 @@ interface Props {
    * these from their source data so structured data always tracks content.
    */
   structuredData?: object | object[];
+  /** ISO dates for article: meta tags; only emitted when ogType is "article". */
+  publishedTime?: string;
+  modifiedTime?: string;
 }
 
 const {
@@ -25,6 +28,8 @@ const {
   ogImage,
   ogType = "website",
   structuredData,
+  publishedTime,
+  modifiedTime,
 } = Astro.props;
 
 const pageSchemas = structuredData
@@ -81,6 +86,12 @@ const orgSchema = {
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImageAbsolute} />
     <meta property="og:locale" content="en_US" />
+    {ogType === "article" && publishedTime && (
+      <meta property="article:published_time" content={publishedTime} />
+    )}
+    {ogType === "article" && modifiedTime && (
+      <meta property="article:modified_time" content={modifiedTime} />
+    )}
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
