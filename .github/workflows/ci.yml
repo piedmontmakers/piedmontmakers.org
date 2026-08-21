@@ -39,3 +39,5 @@ jobs:
           USE_CUSTOM_DOMAIN: 'true'
       - name: Calendar feed contract
         run: node scripts/check-calendar-feed.mjs
+      - name: Structured-data contract
+        run: node scripts/check-structured-data.mjs

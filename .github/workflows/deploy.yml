@@ -40,6 +40,8 @@ jobs:
           USE_CUSTOM_DOMAIN: 'true'
       - name: Calendar feed contract
         run: node scripts/check-calendar-feed.mjs
+      - name: Structured-data contract
+        run: node scripts/check-structured-data.mjs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:

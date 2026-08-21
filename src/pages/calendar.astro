@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { parseTime, isoDate, isoLocalDateTime } from "../lib/event-time";
 import Ribbon from "../components/Ribbon.astro";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -113,11 +114,65 @@ const fmtDateParts = (d: Date) => ({
   weekday: d.toLocaleDateString("en-US", { weekday: "short", timeZone: "UTC" }),
   year: d.getUTCFullYear().toString(),
 });
+
+// schema.org Event structured data, one entry per event, generated from the
+// same collection that renders the page — new event files get schema
+// automatically. Times are venue-local ISO without a UTC offset (matches the
+// .ics feed's TZID approach); date-only when startTime doesn't parse.
+// scripts/check-structured-data.mjs asserts one Event per content file.
+const siteOrigin = (Astro.site?.toString() ?? "https://piedmontmakers.org/").replace(/\/$/, "");
+const schemaAnchorSeen = new Map<string, number>();
+const eventSchemas = events.map((event) => {
+  const iso = isoDate(event.data.startDate);
+  const n = (schemaAnchorSeen.get(iso) ?? 0) + 1;
+  schemaAnchorSeen.set(iso, n);
+  const anchor = n === 1 ? iso : `${iso}-${n}`;
+
+  const startTime = parseTime(event.data.startTime);
+  const endTime = parseTime(event.data.endTime);
+  const endDate = event.data.endDate ?? event.data.startDate;
+
+  const location = event.data.location
+    ? isVirtualLocation(event.data.location)
+      ? { "@type": "VirtualLocation", name: event.data.location }
+      : {
+          "@type": "Place",
+          name: event.data.location,
+          address: venueAddress.find(([re]) => re.test(event.data.location!))?.[1] ?? event.data.location,
+        }
+    : undefined;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: event.data.title,
+    startDate: startTime ? isoLocalDateTime(event.data.startDate, startTime) : iso,
+    ...(endTime
+      ? { endDate: isoLocalDateTime(endDate, endTime) }
+      : event.data.endDate
+        ? { endDate: isoDate(event.data.endDate) }
+        : {}),
+    ...(location ? { location } : {}),
+    ...(event.data.summary ? { description: event.data.summary } : {}),
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode:
+      event.data.location && isVirtualLocation(event.data.location)
+        ? "https://schema.org/OnlineEventAttendanceMode"
+        : "https://schema.org/OfflineEventAttendanceMode",
+    organizer: {
+      "@type": "NonprofitOrganization",
+      name: "Piedmont Makers",
+      url: siteOrigin + "/",
+    },
+    url: `${siteOrigin}${base}/calendar#${anchor}`,
+  };
+});
 ---
 
 <BaseLayout
   title="Calendar — Piedmont Makers"
   description="Calendar of upcoming and past Piedmont Makers events — robotics matches, maker faires, popup spaces, and more."
+  structuredData={eventSchemas}
 >
   <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-8">
     <Ribbon color="cyan">Calendar</Ribbon>

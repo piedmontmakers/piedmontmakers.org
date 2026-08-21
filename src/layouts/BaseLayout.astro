@@ -11,6 +11,12 @@ interface Props {
   ogImage?: string;
   /** When true (on blog posts) emit article-specific OG type. */
   ogType?: "website" | "article";
+  /**
+   * Page-level JSON-LD (schema.org), emitted alongside the site-wide
+   * NonprofitOrganization schema. Pass one object or an array; pages build
+   * these from their source data so structured data always tracks content.
+   */
+  structuredData?: object | object[];
 }
 
 const {
@@ -18,7 +24,12 @@ const {
   description = "Piedmont Makers — a 501(‌c)(3) supporting STEAM education and maker culture across the East Bay.",
   ogImage,
   ogType = "website",
+  structuredData,
 } = Astro.props;
+
+const pageSchemas = structuredData
+  ? (Array.isArray(structuredData) ? structuredData : [structuredData])
+  : [];
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const asset = (path: string) => `${base}${path.startsWith("/") ? path : `/${path}`}`;
@@ -103,6 +114,9 @@ const orgSchema = {
 
     <!-- Structured data: NonprofitOrganization -->
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    {pageSchemas.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
 
     <PostHog />
   </head>

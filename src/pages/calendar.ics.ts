@@ -1,5 +1,6 @@
 import { getCollection } from "astro:content";
 import type { APIContext } from "astro";
+import { parseTime } from "../lib/event-time";
 
 const TIMEZONE = "America/Los_Angeles";
 
@@ -41,21 +42,6 @@ const foldLine = (line: string) => {
   }
 
   return chunks.join("\r\n");
-};
-
-const parseTime = (time: string | undefined) => {
-  if (!time) return null;
-
-  const match = time.trim().match(/^(\d{1,2})(?::(\d{2}))?\s*(am|pm)$/i);
-  if (!match) return null;
-
-  const period = match[3].toLowerCase();
-  const rawHour = Number(match[1]);
-  const minute = Number(match[2] ?? "0");
-  if (rawHour < 1 || rawHour > 12 || minute < 0 || minute > 59) return null;
-
-  const hour = period === "pm" ? (rawHour % 12) + 12 : rawHour % 12;
-  return { hour, minute };
 };
 
 const formatLocalDateTime = (date: Date, time: { hour: number; minute: number }) =>
