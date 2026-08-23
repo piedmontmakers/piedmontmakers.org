@@ -41,6 +41,8 @@ We're a small volunteer organization, so we rely on a handful of established ser
 
 For **newsletters, sign-ups, and general communication** (which mostly involve adult names and email addresses), we use third-party email, forms, and sign-up tools — including but not limited to services for newsletters and event registration. We may change these tools over time, but we hold them to the same standard: they help us operate, and they're not allowed to use your information for their own marketing or to sell it.
 
+We keep basic analytics on how this website gets used, such as which pages people visit and roughly where they arrived from, so we can tell what's useful and what isn't. That data describes traffic to the site, not your family. We don't connect it to enrollment records, and we don't use it for advertising or sell it.
+
 We use software tools, including AI-assisted ones, to help with everyday operations like building schedules and rosters. We never allow any software providers to train AI models using your family's information.
 
 ## Sharing with FIRST
