@@ -21,12 +21,44 @@ const extractSchemas = (file) => {
   return schemas;
 };
 
-const ofType = (schemas, type) => schemas.filter((s) => s["@type"] === type);
+// @type may be a single string or an array (the org schema is multi-typed as
+// ["Organization", "NonprofitOrganization"]), so normalize before matching.
+const ofType = (schemas, type) =>
+  schemas.filter((s) => [s["@type"]].flat().includes(type));
 
 // ── Every page: exactly one NonprofitOrganization (from BaseLayout) ──
 const home = extractSchemas("dist/index.html");
 if (ofType(home, "NonprofitOrganization").length !== 1) {
   fail("dist/index.html: expected exactly one NonprofitOrganization schema");
+}
+
+// ── Org identity: the fields agents and knowledge graphs look for ──
+// Core-vocabulary consumers don't resolve the pending NonprofitOrganization
+// type, so "Organization" has to be present too or the site reads as having
+// no identity type. contactPoint + address are what let an agent verify the
+// org is a real entity and answer contact questions.
+const orgIdentity = ofType(home, "Organization")[0];
+if (!orgIdentity) {
+  fail('dist/index.html: org schema @type must include "Organization"');
+} else {
+  const addr = orgIdentity.address;
+  if (addr?.["@type"] !== "PostalAddress") {
+    fail("dist/index.html: org schema missing a PostalAddress address");
+  } else {
+    for (const field of ["addressLocality", "addressRegion", "addressCountry"]) {
+      if (!addr[field]) fail(`dist/index.html: org PostalAddress missing ${field}`);
+    }
+  }
+  const points = [orgIdentity.contactPoint ?? []].flat();
+  if (points.length === 0) {
+    fail("dist/index.html: org schema missing contactPoint");
+  }
+  for (const point of points) {
+    if (!point.contactType) fail("dist/index.html: contactPoint missing contactType");
+    if (!point.email && !point.telephone) {
+      fail(`dist/index.html: contactPoint "${point.contactType}" has neither email nor telephone`);
+    }
+  }
 }
 
 // ── /calendar: one Event per content file, each with name + startDate ──

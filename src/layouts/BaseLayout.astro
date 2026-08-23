@@ -20,6 +20,12 @@ interface Props {
   /** ISO dates for article: meta tags; only emitted when ogType is "article". */
   publishedTime?: string;
   modifiedTime?: string;
+  /**
+   * Keep the page out of search indexes. Also suppresses the canonical link:
+   * GitHub Pages serves 404.html for every unmatched URL, so a canonical there
+   * would point thousands of missing paths at /404.
+   */
+  noindex?: boolean;
 }
 
 const {
@@ -30,6 +36,7 @@ const {
   structuredData,
   publishedTime,
   modifiedTime,
+  noindex = false,
 } = Astro.props;
 
 const pageSchemas = structuredData
@@ -52,14 +59,51 @@ const ogImageAbsolute = ogImage
 // the entity to any page on the site.
 const orgSchema = {
   "@context": "https://schema.org",
-  "@type": "NonprofitOrganization",
+  // Multi-typed on purpose. NonprofitOrganization is a schema.org *pending*
+  // extension type, so consumers that only know the core vocabulary can't
+  // resolve it to Organization and report the site as having no identity
+  // type at all. Listing both keeps the nonprofit signal and gives those
+  // consumers the core type they look for.
+  "@type": ["Organization", "NonprofitOrganization"],
+  // Stable entity IRI so other schema blocks can reference the org by @id.
+  "@id": siteOrigin + "/#organization",
   name: "Piedmont Makers",
+  legalName: "Piedmont Makers",
   url: siteOrigin + "/",
   logo: new URL(asset("/img/brand/logo.png"), Astro.site ?? "https://piedmontmakers.org/").toString(),
-  description: "501(‌c)(3) nonprofit running FIRST Robotics teams, a community engineering lab, a school maker faire, popup maker spaces, and Build Like a Girl across the East Bay.",
+  // No U+200C here, unlike the rendered copy: JSON-LD is never displayed, so
+  // the Manrope (c) workaround would only put an invisible character into
+  // text that agents read literally.
+  description: "501(c)(3) nonprofit running FIRST Robotics teams, a community engineering lab, a school maker faire, popup maker spaces, and Build Like a Girl across the East Bay.",
   foundingDate: "2014",
   taxID: "47-2831568",
+  nonprofitStatus: "Nonprofit501c3",
   email: "hello@piedmontmakers.org",
+  // City-level only, deliberately. Piedmont Makers is volunteer-run with no
+  // office; a street address here would be some board member's house.
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Piedmont",
+    addressRegion: "CA",
+    postalCode: "94611",
+    addressCountry: "US",
+  },
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "general inquiries",
+      email: "hello@piedmontmakers.org",
+      areaServed: "US",
+      availableLanguage: "English",
+    },
+    {
+      "@type": "ContactPoint",
+      contactType: "privacy",
+      email: "privacy@piedmontmakers.org",
+      areaServed: "US",
+      availableLanguage: "English",
+    },
+  ],
   areaServed: { "@type": "AdministrativeArea", name: "East Bay, California" },
   // Every public profile from the footer, so knowledge graphs can reconcile
   // the organization entity. scripts/check-structured-data.mjs asserts this
@@ -82,7 +126,11 @@ const orgSchema = {
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalUrl} />
+    {noindex ? (
+      <meta name="robots" content="noindex, follow" />
+    ) : (
+      <link rel="canonical" href={canonicalUrl} />
+    )}
 
     <!-- Open Graph (Facebook, LinkedIn, iMessage previews) -->
     <meta property="og:site_name" content="Piedmont Makers" />
