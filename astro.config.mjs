@@ -16,7 +16,10 @@ export default defineConfig({
 
   base: USE_CUSTOM_DOMAIN ? '/' : '/piedmontmakers.org/',
   trailingSlash: 'never',
-  integrations: [sitemap()],
+  // /styleguide is an internal design reference, not public content. Keeping
+  // it out of the sitemap stops us advertising it to crawlers; the page itself
+  // passes noindex to BaseLayout, which is what actually keeps it unindexed.
+  integrations: [sitemap({ filter: (page) => !/\/styleguide\/?$/.test(page) })],
 
   redirects: {
     // ───── Old Wix top-level page slugs ─────

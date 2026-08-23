@@ -50,8 +50,35 @@ if (!privacy) {
 const sitemap = read("dist/sitemap-0.xml");
 if (!sitemap) {
   fail("dist/sitemap-0.xml missing");
-} else if (!/<loc>[^<]*\/privacy<\/loc>/.test(sitemap)) {
-  fail("dist/sitemap-0.xml: no /privacy entry");
+} else {
+  if (!/<loc>[^<]*\/privacy<\/loc>/.test(sitemap)) {
+    fail("dist/sitemap-0.xml: no /privacy entry");
+  }
+  // /styleguide is an internal design reference. It is filtered out in
+  // astro.config.mjs and carries noindex; both halves are asserted here.
+  if (/<loc>[^<]*\/styleguide<\/loc>/.test(sitemap)) {
+    fail("dist/sitemap-0.xml: /styleguide should be filtered out of the sitemap");
+  }
+}
+
+const styleguide = read("dist/styleguide/index.html");
+if (!styleguide) {
+  fail("dist/styleguide/index.html missing");
+} else if (!/<meta name="robots" content="noindex/.test(styleguide)) {
+  fail("dist/styleguide/index.html: missing robots noindex");
+}
+
+// ── robots.txt: keep the CMS shell out of search results ──
+const robots = read("dist/robots.txt");
+if (!robots) {
+  fail("dist/robots.txt missing");
+} else {
+  if (!/^Disallow:\s*\S*\/admin\/\s*$/m.test(robots)) {
+    fail("dist/robots.txt: no Disallow rule for the /admin/ CMS shell");
+  }
+  if (!/^Sitemap:\s*https?:\/\/\S+/m.test(robots)) {
+    fail("dist/robots.txt: missing an absolute Sitemap line");
+  }
 }
 
 const home = read("dist/index.html");
