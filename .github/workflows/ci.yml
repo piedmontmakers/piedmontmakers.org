@@ -41,3 +41,5 @@ jobs:
         run: node scripts/check-calendar-feed.mjs
       - name: Structured-data contract
         run: node scripts/check-structured-data.mjs
+      - name: Agent-readiness contract
+        run: node scripts/check-agent-readiness.mjs
