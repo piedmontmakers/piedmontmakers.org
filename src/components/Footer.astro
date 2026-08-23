@@ -92,7 +92,10 @@ const link = (path: string) => `${base}${path}`;
   </div>
   <div class="relative z-10 border-t border-pm-cream/15">
     <div class="mx-auto max-w-7xl px-6 py-5 font-display text-xs tracking-tight text-pm-cream/60">
-      &copy; {new Date().getFullYear()} Piedmont Makers &nbsp;·&nbsp; Built by volunteers in Piedmont, CA
+      &copy; {new Date().getFullYear()} Piedmont Makers &nbsp;·&nbsp; Built by volunteers in Piedmont, CA &nbsp;·&nbsp; <a
+        href={link("/privacy")}
+        class="underline underline-offset-4 hover:text-pm-red transition-colors">Privacy</a
+      >
     </div>
   </div>
 
