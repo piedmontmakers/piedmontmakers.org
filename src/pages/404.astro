@@ -13,11 +13,42 @@ const suggestions = [
   { href: "/blog", label: "Blog" },
   { href: "/about-us", label: "About us" },
 ];
+
+// Absolute URLs for the recovery document below: an agent may lift that
+// markdown out of the page, where root-relative paths lose their origin.
+const siteOrigin = (Astro.site?.toString() ?? "https://piedmontmakers.org/").replace(/\/$/, "");
+const abs = (path: string) => siteOrigin + link(path);
+
+// Machine-readable recovery document, embedded below as an inert
+// <script type="text/markdown"> block. GitHub Pages serves this file for every
+// unmatched URL and gives us no control over response headers, so we can't
+// answer an agent's `Accept: text/markdown` with a real markdown response.
+// Putting the markdown in the 404 body is the closest a static host gets:
+// crawlers and agents that parse the body can still find their way back in.
+const recoveryMarkdown = `# 404 — page not found
+
+This URL does not exist on piedmontmakers.org. Nothing was moved or deleted;
+the path was never valid. Start again from one of these:
+
+- Site map (all pages): ${abs("/sitemap-index.xml")}
+- Structured site overview for agents: ${abs("/llms.txt")}
+- Blog feed (RSS): ${abs("/rss.xml")}
+- Event feed (iCalendar): ${abs("/calendar.ics")}
+
+Main sections:
+
+${suggestions.map((s) => `- ${s.label}: ${abs(s.href)}`).join("\n")}
+
+Piedmont Makers is a 501(c)(3) nonprofit running FIRST Robotics teams, a
+community engineering lab, a school maker faire, popup maker spaces, and
+Build Like a Girl across the East Bay. Contact: hello@piedmontmakers.org
+`;
 ---
 
 <BaseLayout
   title="Page not found — Piedmont Makers"
   description="The page you're looking for doesn't seem to exist. Makey's still looking though."
+  noindex
 >
   <section class="mx-auto max-w-7xl px-6 pt-16 pb-24 md:pt-24 md:pb-32">
     <div class="grid md:grid-cols-12 gap-10 md:gap-12 items-center">
@@ -42,6 +73,17 @@ const suggestions = [
             </li>
           ))}
         </ul>
+        <p class="mt-8 text-sm text-pm-ink/60 leading-relaxed">
+          Looking for something specific? The
+          <a href={link("/sitemap-index.xml")} class="underline underline-offset-4 decoration-pm-red hover:text-pm-red">site map</a>
+          lists every page,
+          <a href={link("/llms.txt")} class="underline underline-offset-4 decoration-pm-red hover:text-pm-red">llms.txt</a>
+          summarizes the whole site, and the
+          <a href={link("/rss.xml")} class="underline underline-offset-4 decoration-pm-red hover:text-pm-red">blog feed</a>
+          and
+          <a href={link("/calendar.ics")} class="underline underline-offset-4 decoration-pm-red hover:text-pm-red">calendar feed</a>
+          are subscribable.
+        </p>
       </div>
       <div class="md:col-span-5 md:order-2 flex items-center justify-center">
         <img
@@ -54,6 +96,11 @@ const suggestions = [
       </div>
     </div>
   </section>
+
+  <!-- Recovery document for agents and crawlers. A non-JavaScript `type` means
+       the browser never executes or renders this, but it puts literal markdown
+       in the 404 response body. See the comment on recoveryMarkdown above. -->
+  <script type="text/markdown" id="agent-recovery" is:inline set:html={recoveryMarkdown} />
 </BaseLayout>
 
 <style>
