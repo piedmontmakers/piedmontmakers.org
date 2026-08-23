@@ -4,12 +4,14 @@
 
 export interface BoardMember {
   name: string;
-  role?: string;
+  // A string for one title; an array when someone holds two, which
+  // about-us.astro renders on separate lines under their name.
+  role?: string | string[];
 }
 
 // 2026–27 board slate. Paul Morrison wears two hats (Secretary + VP FTC)
 // and appears in both Officers and Robotics — that's intentional. Pat
-// Holder also holds two VP titles, but stays a single Robotics entry.
+// Holder holds two VP titles but stays one Robotics entry, listing both.
 export const board = {
   officers: [
     { name: "Kevin Clark", role: "Co-President" },
@@ -20,7 +22,7 @@ export const board = {
   robotics: [
     { name: "Paul Morrison", role: "VP, FIRST Tech Challenge" },
     { name: "Lara Oliver", role: "VP, FIRST Tech Challenge" },
-    { name: "Pat Holder", role: "VP, FIRST LEGO League Challenge & VP, Transportation" },
+    { name: "Pat Holder", role: ["VP, FIRST LEGO League Challenge", "VP, Transportation"] },
     { name: "Shelley Rea", role: "VP, FIRST LEGO League Challenge" },
     { name: "Marta Lusky", role: "VP, FIRST LEGO League Explore" },
     { name: "David Koslow", role: "VP, FIRST LEGO League Explore" },

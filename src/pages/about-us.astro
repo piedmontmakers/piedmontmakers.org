@@ -6,6 +6,10 @@ import { stats, type Stat } from "../data/stats";
 import { board, boardMemberCount } from "../data/board";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+// Board members with two titles carry an array; each title gets its own line.
+const roleLines = (role?: string | string[]) =>
+  role === undefined ? [] : Array.isArray(role) ? role : [role];
 const link = (path: string) => `${base}${path}`;
 
 
@@ -109,7 +113,7 @@ const impactStats: Stat[] = [
           {board.officers.map((m) => (
             <li>
               <p class="font-display font-bold text-lg tracking-tight">{m.name}</p>
-              {m.role && <p class="text-sm text-pm-ink/65">{m.role}</p>}
+              {roleLines(m.role).map((r) => <p class="text-sm text-pm-ink/65">{r}</p>)}
             </li>
           ))}
         </ul>
@@ -121,7 +125,7 @@ const impactStats: Stat[] = [
           {board.robotics.map((m) => (
             <li>
               <p class="font-display font-semibold tracking-tight">{m.name}</p>
-              {m.role && <p class="text-sm text-pm-ink/65">{m.role}</p>}
+              {roleLines(m.role).map((r) => <p class="text-sm text-pm-ink/65">{r}</p>)}
             </li>
           ))}
         </ul>
@@ -133,7 +137,7 @@ const impactStats: Stat[] = [
           {board.programs.map((m) => (
             <li>
               <p class="font-display font-semibold tracking-tight">{m.name}</p>
-              {m.role && <p class="text-sm text-pm-ink/65">{m.role}</p>}
+              {roleLines(m.role).map((r) => <p class="text-sm text-pm-ink/65">{r}</p>)}
             </li>
           ))}
         </ul>
@@ -145,7 +149,7 @@ const impactStats: Stat[] = [
           {board.atLarge.map((m) => (
             <li>
               <p class="font-display font-semibold tracking-tight">{m.name}</p>
-              {m.role && <p class="text-xs text-pm-ink/65">{m.role}</p>}
+              {roleLines(m.role).map((r) => <p class="text-xs text-pm-ink/65">{r}</p>)}
             </li>
           ))}
         </ul>
@@ -157,7 +161,7 @@ const impactStats: Stat[] = [
           {board.staff.map((m) => (
             <li>
               <p class="font-display font-semibold tracking-tight">{m.name}</p>
-              {m.role && <p class="text-sm text-pm-ink/65">{m.role}</p>}
+              {roleLines(m.role).map((r) => <p class="text-sm text-pm-ink/65">{r}</p>)}
             </li>
           ))}
         </ul>
