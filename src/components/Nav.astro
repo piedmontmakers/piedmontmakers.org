@@ -47,18 +47,18 @@ const navItems: NavItem[] = [
 
 <header class="sticky top-0 z-50 border-b border-pm-ink/10 bg-pm-paper/85 backdrop-blur-sm" data-site-nav>
   <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4">
-    <a href={link("/")} class="flex items-center gap-3 group">
+    <a href={link("/")} class="flex items-center gap-3 group shrink-0">
       <img
         src={`${base}/img/brand/logo.png`}
         alt="Piedmont Makers"
-        class="h-14 md:h-16 w-auto transition-transform group-hover:-rotate-1"
+        class="h-14 md:h-16 w-auto shrink-0 transition-transform group-hover:-rotate-1"
         width="360"
         height="89"
       />
     </a>
 
     <!-- DESKTOP NAV — flyouts on hover/focus -->
-    <nav class="hidden md:flex items-center gap-6 font-display text-sm font-medium tracking-tight text-pm-ink/80">
+    <nav class="hidden lg:flex items-center gap-6 font-display text-sm font-medium tracking-tight text-pm-ink/80">
       {navItems.map((item) => (
         item.children ? (
           <div class="relative group">
@@ -107,7 +107,7 @@ const navItems: NavItem[] = [
     <!-- MOBILE TOGGLE — script below wires it up -->
     <button
       type="button"
-      class="md:hidden inline-flex items-center justify-center rounded-md p-2 text-pm-ink hover:bg-pm-cream-2"
+      class="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-pm-ink hover:bg-pm-cream-2"
       aria-label="Open menu"
       aria-expanded="false"
       aria-controls="mobile-nav-panel"
@@ -130,7 +130,7 @@ const navItems: NavItem[] = [
   <div
     id="mobile-nav-panel"
     data-mobile-nav-panel
-    class="md:hidden hidden border-t border-pm-ink/10 bg-pm-paper max-h-[calc(100dvh_-_5.5rem)] overflow-y-auto overscroll-contain"
+    class="lg:hidden hidden border-t border-pm-ink/10 bg-pm-paper max-h-[calc(100dvh_-_5.5rem)] overflow-y-auto overscroll-contain"
   >
     <nav class="mx-auto max-w-7xl px-6 py-6 font-display">
       <ul class="space-y-1">
@@ -207,7 +207,7 @@ const navItems: NavItem[] = [
       if (e.target instanceof HTMLAnchorElement) setOpen(false);
     });
     window.addEventListener("resize", function () {
-      if (window.innerWidth >= 768) setOpen(false);
+      if (window.innerWidth >= 1024) setOpen(false);
     });
 
     // PostHog: capture clicks on either nav donate button, tagged with
