@@ -122,11 +122,15 @@ const navItems: NavItem[] = [
     </button>
   </div>
 
-  <!-- MOBILE PANEL — toggled by the hamburger -->
+  <!-- MOBILE PANEL — toggled by the hamburger.
+       The panel lives inside the sticky header, so it can never be scrolled
+       into view by the page: anything past the bottom of the viewport is
+       simply unreachable. Cap it at the space under the bar (5.5rem = the
+       h-14 logo plus py-4) and let it scroll on its own instead. -->
   <div
     id="mobile-nav-panel"
     data-mobile-nav-panel
-    class="md:hidden hidden border-t border-pm-ink/10 bg-pm-paper"
+    class="md:hidden hidden border-t border-pm-ink/10 bg-pm-paper max-h-[calc(100dvh_-_5.5rem)] overflow-y-auto overscroll-contain"
   >
     <nav class="mx-auto max-w-7xl px-6 py-6 font-display">
       <ul class="space-y-1">
@@ -184,6 +188,9 @@ const navItems: NavItem[] = [
       iconClose.classList.toggle("hidden", !open);
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
       toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      // The panel scrolls internally on short viewports; start it at the top
+      // each time so reopening never lands mid-list.
+      if (open) panel.scrollTop = 0;
     }
 
     toggle.addEventListener("click", function () {
