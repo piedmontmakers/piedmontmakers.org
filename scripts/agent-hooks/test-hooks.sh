@@ -76,6 +76,7 @@ assert_hook() {
 }
 
 claude_red_payload="$(jq -cn --arg path "$repo_root/AGENTS.md" --arg cwd "$repo_root" '{hook_event_name:"PreToolUse",tool_name:"Edit",cwd:$cwd,tool_input:{file_path:$path}}')"
+claude_footer_payload="$(jq -cn --arg path "$repo_root/src/components/Footer.astro" --arg cwd "$repo_root" '{hook_event_name:"PreToolUse",tool_name:"Edit",cwd:$cwd,tool_input:{file_path:$path}}')"
 claude_green_payload="$(jq -cn --arg path "$repo_root/src/data/stats.ts" --arg cwd "$repo_root" '{hook_event_name:"PreToolUse",tool_name:"Edit",cwd:$cwd,tool_input:{file_path:$path}}')"
 codex_red_payload="$(jq -cn --arg cwd "$repo_root" '{hook_event_name:"PreToolUse",tool_name:"apply_patch",cwd:$cwd,tool_input:{command:"*** Begin Patch\n*** Update File: AGENTS.md\n@@\n-old\n+new\n*** End Patch"}}')"
 codex_multi_payload="$(jq -cn --arg cwd "$repo_root" '{hook_event_name:"PreToolUse",tool_name:"apply_patch",cwd:$cwd,tool_input:{command:"*** Begin Patch\n*** Update File: src/data/stats.ts\n@@\n-old\n+new\n*** Update File: src/components/Nav.astro\n@@\n-old\n+new\n*** End Patch"}}')"
@@ -85,6 +86,7 @@ nested_payload="$(jq -cn --arg path "$repo_root/AGENTS.md" --arg cwd "$repo_root
 
 assert_hook "Claude asks before a red-zone edit" "$repo_root" "$repo_root/scripts/agent-hooks/protect-paths.sh" "$claude_red_payload" 0 '"permissionDecision":"ask"' ""
 assert_hook "Claude allows a green-zone edit" "$repo_root" "$repo_root/scripts/agent-hooks/protect-paths.sh" "$claude_green_payload" 0 "" ""
+assert_hook "Claude asks before editing the footer" "$repo_root" "$repo_root/scripts/agent-hooks/protect-paths.sh" "$claude_footer_payload" 0 '"permissionDecision":"ask"' ""
 assert_hook "Codex denies a red-zone patch" "$repo_root" "$repo_root/scripts/agent-hooks/protect-paths-codex.sh" "$codex_red_payload" 2 "" "AGENTS.md is a red-zone file"
 assert_hook "Codex checks every path in a patch" "$repo_root" "$repo_root/scripts/agent-hooks/protect-paths-codex.sh" "$codex_multi_payload" 2 "" "src/components/Nav.astro is a red-zone file"
 assert_hook "Codex allows a green-zone patch" "$repo_root" "$repo_root/scripts/agent-hooks/protect-paths-codex.sh" "$codex_green_payload" 0 "" ""

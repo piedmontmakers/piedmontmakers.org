@@ -96,6 +96,7 @@ is_red_zone_path() {
   case "$lowered" in
     src/styles/global.css|\
     src/components/nav.astro|\
+    src/components/footer.astro|\
     src/layouts/baselayout.astro|\
     astro.config.mjs|\
     package.json|package-lock.json|\
