@@ -1,6 +1,8 @@
 # PostHog Conventions for Coding Agents
 
-Read this reference before adding or changing analytics. The snippet is in `src/components/PostHog.astro` and is imported once by `BaseLayout.astro`. Local credentials use `PUBLIC_POSTHOG_PROJECT_TOKEN` and `PUBLIC_POSTHOG_HOST` from the gitignored `.env` file.
+Read this reference before adding or changing analytics. The snippet is in `src/components/PostHog.astro` and is imported once by `BaseLayout.astro`.
+
+**The project token and host are hardcoded in that file, on purpose. Do not move them to `.env`.** They were env vars until 2026-05-22, when analytics were found to have been silently dead in production: `.env` is gitignored, the Action had no PostHog variables set, so `apiKey` resolved to `undefined` and `posthog.init()` never ran. The live HTML literally read `const apiKey = undefined;`. A PostHog project token is public by design and ships in every page anyway, so there is nothing to protect. A stale `.env` with the old variable names may still be sitting in your repo root; nothing reads it.
 
 The initialization uses `defaults: '2026-01-30'`, so autocapture covers pageviews and link clicks.
 

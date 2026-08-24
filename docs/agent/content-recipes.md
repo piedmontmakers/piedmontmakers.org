@@ -11,7 +11,8 @@ Read this reference for routine content updates, blog posts, calendar events, or
 | Robotics FAQ | `src/data/robotics-faq.ts` | Edit the `faqItems` entry |
 | Board roster | `src/data/board.ts` | Edit the matching group; count and page update automatically |
 | New teacher-grant round | `src/data/teacher-grants.ts` | Add a year using the newest shape and add it to `allYears`; retire the previous year into a page `<details>` block |
-| Headline impact stat | `src/data/stats.ts` | Edit the value; bands, hero copy, and `llms.txt` follow |
+| Headline impact stat | `src/data/stats.ts` | Edit the value; bands, hero copy, and `llms.txt` follow. **Not the teacher-grant figure** — that is hardcoded in `index.astro`, `support.astro`, and `about-us.astro` |
+| Privacy policy wording | `src/copy/privacy-policy.md` | Edit the Markdown body; the page derives its title, meta description, and effective date from the frontmatter. Keep `501(&zwnj;c)(3)` written with a U+200C or CI fails |
 | Support links or giving levels | `src/data/support.ts` | Edit constants or arrays |
 | Program card | `src/data/programs.ts` | Edit the card |
 | Community quote | `src/data/voices.ts` | Add a `Voice`; two or more voices switch to the grid layout |
@@ -89,6 +90,6 @@ sips --resampleWidth 1600 --setProperty formatOptions 82 \
   "/path/to/source.jpg" --out public/img/{section}/slug.jpg
 ```
 
-Store photos under `public/img/programs/`, `public/img/robotics/`, `public/img/facilities/`, or `public/img/blog/{post-slug}/`. `PhotoCard` accepts paths such as `/img/programs/maker-faire.jpg` and prefixes the base automatically.
+Store photos under `public/img/programs/`, `public/img/robotics/`, `public/img/facilities/`, `public/img/qr/`, or `public/img/blog/{post-slug}/`. `PhotoCard` accepts paths such as `/img/programs/maker-faire.jpg` and prefixes the base automatically.
 
 Favicons and app icons are Makey-based and generated at 16, 32, 180, 192, and 512 pixels with roughly 22 percent corner radius.

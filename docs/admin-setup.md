@@ -70,8 +70,8 @@ To bump:
 
 1. Check the latest release at <https://github.com/sveltia/sveltia-cms/releases> (or `curl -sI 'https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js' | grep location`).
 2. Edit the `<script src="...">` line at the bottom of `public/admin/index.html`. Change the version number.
-3. Commit on a branch, push, test at `https://piedmontmakers.github.io/piedmontmakers.org/admin/` once GH Pages deploys. (Sveltia is git-backed, so you can verify the CMS works without actually publishing a real post — just sign in and confirm the post list renders.)
-4. If everything works, merge to `main`. If something breaks, revert the commit.
+3. Commit and push to `main`. Branch creation is blocked by `scripts/agent-hooks/block-branch.sh`, and GitHub Pages only deploys from `main`, so there is no branch preview to test against.
+4. Once the deploy is green, sign in at <https://piedmontmakers.org/admin/> and confirm the post list renders. Sveltia is git-backed, so this verifies the CMS without publishing anything. If it breaks, `git revert <sha> && git push`.
 
 The trade-off: pinned means you have to remember to update for bug fixes / features. Unpinned (just `@sveltia/cms` with no `@VERSION`) means automatic but risks a breaking change in their UI. Sveltia is 0.x, so neither strategy is risk-free; pinning is the more conservative default.
 

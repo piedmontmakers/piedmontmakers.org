@@ -30,7 +30,7 @@ This repo expects a current frontier model: Claude Opus or Sonnet (4.5 or newer)
 
 Multiple people edit this site through AI agents, with a wide range of technical experience. A push to `main` is live on piedmontmakers.org in about a minute with no review step, so edits are tiered by blast radius:
 
-**Green — edit freely.** Routine content. `src/content/blog/**`, `src/content/events/**`, `src/data/**`, `public/img/**`, and copy tweaks inside existing page markup. This is where nearly all day-to-day requests land.
+**Green — edit freely.** Routine content. `src/content/blog/**`, `src/content/events/**`, `src/data/**`, `src/copy/**` (long-form page prose, currently just the privacy policy body), `public/img/**`, and copy tweaks inside existing page markup. This is where nearly all day-to-day requests land.
 
 **Yellow — normal engineering care.** Structural changes scoped to a single page (`src/pages/*.astro`), or new components used by one page. Follow the existing patterns on the page, and run `npm run check` and `npm run build` before committing.
 
@@ -38,8 +38,9 @@ Multiple people edit this site through AI agents, with a wide range of technical
 
 - `src/styles/global.css` (brand theme tokens)
 - `src/components/Nav.astro`
+- `src/components/Footer.astro`
 - `src/layouts/BaseLayout.astro`
-- `astro.config.mjs` (base/site config + ~40 legacy redirects)
+- `astro.config.mjs` (base/site config + 33 legacy redirects + the sitemap filter)
 - `package.json` / `package-lock.json`
 - `src/content.config.ts` (content schemas)
 - `.github/workflows/*`
@@ -60,7 +61,7 @@ Astro 5 LTS, Tailwind CSS v4, Astro content collections, PostHog, Mailchimp, and
 
 **Make the community the hero AND show that we're a great org worth supporting.** Kids = innovators. Adults = volunteers. AND we're confidently the org doing this work — confident impact statements ("the largest community-based youth robotics league in the United States," "1,000+ kids on 150+ teams") instill trust in parents and donors, they aren't bragging.
 
-- ✅ **Stats bands** are welcome on home, about, robotics, and grants. Frame as community-in-numbers ("1,000+ kids across 90+ schools") rather than org-look-at-us ("we run the largest league"). The "largest community-based youth robotics league in America" claim is a credibility signal, not a brag — use it. **Home stats band's current four**: 1,000+ kids · 90+ schools (25+ East Bay cities) · $25K+ in teacher grants annually · 40% girls in LEGO League. Headline numbers live in `src/data/stats.ts`, not in page markup — edit them there and every band, hero line, and `llms.txt` follows. The 2026-27 figures (1,000+ kids, 150+ teams) come from the FLL Challenge coach training deck.
+- ✅ **Stats bands** are welcome on home, about, robotics, and grants. Frame as community-in-numbers ("1,000+ kids across 90+ schools") rather than org-look-at-us ("we run the largest league"). The "largest community-based youth robotics league in America" claim is a credibility signal, not a brag — use it. **Home stats band's current four**: 1,000+ kids · 90+ schools (25+ East Bay cities) · $25K+ in teacher grants annually · 40% girls in LEGO League. Headline numbers live in `src/data/stats.ts`, not in page markup, so edit them there and every band, hero line, and `llms.txt` follows. **One exception, and it bites:** the teacher-grant figure is not in `stats.ts` at all. `"$25K+"` is hardcoded in `src/pages/index.astro` and `src/pages/support.astro`, and `"$25,694"` in `src/pages/about-us.astro`, while the authoritative total lives in `src/data/teacher-grants.ts` (which computes it, so it can't drift). Updating the grant total means editing those three pages by hand until someone wires them to `teacher-grants.ts`. The 2026-27 figures (1,000+ kids, 150+ teams) come from the FLL Challenge coach training deck.
 - ✅ **VoicesBand** stays — community quote band. Currently one real quote from Roy on home; band removed from /robotics. Placeholder quotes were purged.
 
 **Headlines lead with value to families, not org-internal facts.** Two patterns that got fixed this session:
@@ -126,7 +127,13 @@ Audit at 390×844 (iPhone 14) in Chrome DevTools after structural changes.
 
 ## SEO / discovery
 
-`BaseLayout.astro` owns canonical URLs, social metadata, nonprofit JSON-LD, and RSS discovery. Dynamic discovery endpoints and their implementation notes are listed in `docs/agent/site-reference.md`.
+`BaseLayout.astro` owns canonical URLs, social metadata, organization JSON-LD, and RSS discovery. Dynamic discovery endpoints and their implementation notes are listed in `docs/agent/site-reference.md`.
+
+Three things about it that are easy to undo by accident:
+
+- **`orgSchema` is multi-typed on purpose.** `@type` is the array `["Organization", "NonprofitOrganization"]`, because `NonprofitOrganization` is a schema.org *pending* extension type that core-vocabulary consumers can't resolve, which made the site read as having no identity type at all. It also carries `@id`, `legalName`, `nonprofitStatus`, a deliberately city-level `PostalAddress` (no street: the org is volunteer-run with no office), and two `ContactPoint`s. `scripts/check-structured-data.mjs` enforces all of it.
+- **`noindex`** is a BaseLayout prop. When set it emits `robots: noindex` *and* suppresses the canonical link. `404.astro` and `styleguide.astro` both pass it. The 404 needs it because GitHub Pages serves `404.html` for every unmatched URL, so a canonical there would point thousands of missing paths at `/404`.
+- **`/styleguide` is excluded from the sitemap** by a filter in `astro.config.mjs`, and `robots.txt` disallows `/admin/`. The CMS shell is blocked outright; `/styleguide` is left crawlable-but-noindexed, because a robots block would stop crawlers ever seeing the noindex.
 
 ## PostHog analytics
 
@@ -153,7 +160,19 @@ npm run build        # verify before commit
 
 **Stage specific files when committing**, not `git add -A`. Agent plugin cache directories (`.claude/skills/`, `.agents/skills/`, `.codex/skills/`) have sat next to the working tree before and can sneak into commits via `-A`. These cache paths are ignored, but staging explicit paths is still safer.
 
-**Commit directly to `main`. Always. No exceptions unless the user says otherwise in the conversation.** This is a small site with a direct-to-main workflow: edit → build → commit → push to `main`. The GitHub Action runs `astro check`, the alt-text check, the build, and the calendar-feed contract, then deploys to GitHub Pages — live in about a minute, with no review step. Never push a change you haven't verified with `npm run check` + `npm run build`; the deploy workflow backstops this (a failing check keeps the old site up), but catching it locally is faster and kinder to the next editor.
+**Commit directly to `main`. Always. No exceptions unless the user says otherwise in the conversation.** This is a small site with a direct-to-main workflow: edit → build → commit → push to `main`. The GitHub Action runs seven gates in order, then deploys to GitHub Pages, live in about a minute with no review step:
+
+```
+npm run check                            # astro check
+node scripts/check-alt-text.mjs
+bash scripts/agent-hooks/test-hooks.sh
+USE_CUSTOM_DOMAIN=true npm run build
+node scripts/check-calendar-feed.mjs     # these three read dist/,
+node scripts/check-structured-data.mjs   # so they run after the build
+node scripts/check-agent-readiness.mjs
+```
+
+The last three are contract checks, not linters, and they fail the build on things no rendered page looks wrong about: JSON-LD that lost a required field, a calendar feed that drifted from `src/content/events/`, a `/privacy` page that fell out of the sitemap or the footer, a 404 that lost its agent-recovery block, an `llms.txt` missing its `## When to use` section. Read the script before working around one. Note these `scripts/check-*.mjs` files are *not* red-zone, so nothing stops an agent from quietly weakening a contract instead of satisfying it. Never push a change you haven't verified with `npm run check` + `npm run build`; the deploy workflow backstops this (a failing check keeps the old site up), but catching it locally is faster and kinder to the next editor.
 
 **Push immediately after every commit: `git push origin main`.** Several people edit this repo now. An unpushed commit never deploys, and it strands the next editor on a stale `main`. If the push is rejected because someone else pushed first, run `git pull --rebase origin main` and push again.
 
@@ -169,7 +188,7 @@ npm run build        # verify before commit
 
 - **Astro 5, NOT 6.** Astro 6 + `@tailwindcss/vite` triggers the rolldown native-binding bug on macOS-arm64 under npm 11.
 - **`npm install` can drop `@rolldown/binding-*` optional deps.** Symptom: build fails with `Cannot find module '@rolldown/binding-darwin-arm64'` after an otherwise-innocent `npm install <something>`. Recovery: `git checkout package-lock.json && rm -rf node_modules && npm ci --include=optional`. For adding new deps, run `npm ci --include=optional` first, then `npm install <pkg> --include=optional`.
-- **`501(c)(3)` renders as `501©(3)`.** Manrope substitutes the `(c)` glyph sequence to © via an OpenType feature that `font-feature-settings: "ss02"` (dropping ss01) doesn't reach. The bulletproof fix: zero-width non-joiner between `(` and `c`. Use `&zwnj;` in template text, U+200C literal `‌` in TS strings. All existing `501(c)(3)` on the site already uses this — follow the pattern when adding new ones.
+- **`501(c)(3)` renders as `501©(3)`.** Manrope substitutes the `(c)` glyph sequence to © via an OpenType feature that `font-feature-settings: "ss02"` (dropping ss01) doesn't reach. The bulletproof fix: zero-width non-joiner between `(` and `c`. Use `&zwnj;` in template text, U+200C literal `‌` in TS strings. Follow the pattern for anything a visitor reads. **Deliberate exception: JSON-LD.** `orgSchema` in `BaseLayout.astro` uses a plain `501(c)(3)` on purpose, because structured data is never rendered and the invisible character would only pollute text that agents read literally. Don't "fix" it. `scripts/check-agent-readiness.mjs` enforces the zero-width joiner in *visible* text only, so it won't catch you either way.
 - **`@astrojs/rss` is not installed.** Its install path drops the `@rolldown` optional bindings (see above). RSS is hand-rolled in `src/pages/rss.xml.ts`. If you change the feed, edit that file; don't reach for the package.
 - **Tailwind arbitrary `grid-cols`** uses underscores between values, not commas: `grid-cols-[80px_1fr]` works; `grid-cols-[80px,1fr]` silently fails to a single column.
 - **YAML dates parse as midnight UTC.** When formatting for display use `getUTCDate()` / `timeZone: "UTC"` so day numbers don't shift backward on the West Coast.

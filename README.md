@@ -21,8 +21,8 @@ Pick the row that sounds like you:
 
 Two things everyone should know before their first edit:
 
-1. **A push to `main` is live on the public site in about a minute, with no review step.** Automated checks (`astro check`, alt-text, calendar-feed contract) gate the deploy, so a broken build never ships — but wrong *content* will. Look at what you're pushing.
-2. **Some files require explicit approval before editing.** Brand tokens, the nav, the base layout, configs, and workflows are "red-zone." Claude Code asks for confirmation; Codex blocks the patch until a maintainer enables the local bypass. The edit-zones section of [AGENTS.md](AGENTS.md) explains the tiers.
+1. **A push to `main` is live on the public site in about a minute, with no review step.** Seven automated checks gate the deploy (type check, alt text, agent-hook contracts, the build itself, then the calendar-feed, structured-data, and agent-readiness contracts), so a broken build never ships — but wrong *content* will. Look at what you're pushing.
+2. **Some files require explicit approval before editing.** Brand tokens, the nav, the footer, the base layout, configs, and workflows are "red-zone." Claude Code asks for confirmation; Codex blocks the patch until a maintainer enables the local bypass. The edit-zones section of [AGENTS.md](AGENTS.md) explains the tiers.
 
 ## What's where
 
@@ -81,7 +81,7 @@ npm run dev
 
 The site runs at <http://localhost:4321/piedmontmakers.org/> with hot reload — open the URL in a browser and your edits show up as you save.
 
-If you need to set up PostHog locally, create a `.env` (gitignored) with `PUBLIC_POSTHOG_PROJECT_TOKEN` and `PUBLIC_POSTHOG_HOST`. The site works fine without these — the snippet no-ops if either is missing.
+PostHog needs no setup. The project token and host are hardcoded in `src/components/PostHog.astro` deliberately (they are public values that ship in every page); an older `.env` approach silently disabled analytics in production and was removed. See [docs/agent/posthog.md](docs/agent/posthog.md).
 
 When you're happy:
 ```bash
@@ -218,7 +218,7 @@ Cloud sessions (claude.ai/code) have none of these — no browser reaches the sa
 
 ## When something goes wrong
 
-- **The deploy shows a red ✗**: nothing shipped; the previous version of the site is still live. Open the failed run in the Actions tab, read which step failed (`check`, alt-text, build, or calendar feed), fix, and push again. Or paste the log to your agent.
+- **The deploy shows a red ✗**: nothing shipped; the previous version of the site is still live. Open the failed run in the Actions tab, read which step failed (type check, alt text, hook contracts, build, calendar feed, structured data, or agent readiness), fix, and push again. Or paste the log to your agent.
 - **Undo a bad change**: `git revert <sha> && git push`. The revert deploys like any other commit. Never force-push `main`.
 - **Build broken after an `npm install`**: `git checkout package-lock.json && rm -rf node_modules && npm ci --include=optional` (see Gotchas).
 
