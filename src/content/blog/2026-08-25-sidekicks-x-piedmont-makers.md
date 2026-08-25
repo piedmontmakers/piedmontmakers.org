@@ -3,6 +3,9 @@ title: "Sidekicks x Piedmont Makers"
 pubDate: 2026-08-25
 author: "Piedmont Makers"
 excerpt: "Piedmont Makers and Sidekicks are teaming up on an adaptive LEGO League program for neurodiverse children and teens."
+heroImage: "/img/blog/sidekicks-x-piedmont-makers/hero.jpg"
+heroImageAlt: "A LEGO SPIKE-built vehicle with two minifigure riders, built during a Piedmont Makers session."
+heroImageCaption: "A SPIKE build from a Piedmont Makers session."
 ---
 
 Piedmont Makers is excited to announce a new partnership with [Sidekicks](https://piedmont.ca.gov/services___departments/recreation/adaptive_programs__sidekicks), a program of the Piedmont Recreation Department that creates welcoming, engaging recreational experiences for neurodiverse children and teens.
