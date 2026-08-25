@@ -11,7 +11,7 @@ export interface BoardMember {
 
 // 2026–27 board slate. Paul Morrison wears two hats (Secretary + VP FTC)
 // and appears in both Officers and Robotics — that's intentional.
-export const board = {
+export const board: Record<string, BoardMember[]> = {
   officers: [
     { name: "Kevin Clark", role: "Co-President" },
     { name: "Ben Stein", role: "Co-President" },
@@ -39,7 +39,7 @@ export const board = {
     { name: "Dave Ragones", role: "Destination Imagination" },
   ],
   atLarge: [
-    { name: "Greg Wolff", role: "Master Maker" },
+    { name: "Greg Wolff" },
     { name: "Alex Seiden" },
     { name: "Larraine Seiden" },
     { name: "Joel Tornatore" },
@@ -48,7 +48,7 @@ export const board = {
   staff: [
     { name: "Alya Hameed", role: "FLL/FTC Program Manager" },
   ],
-} satisfies Record<string, BoardMember[]>;
+};
 
 // Unique people on the board proper (staff listed separately); Paul
 // Morrison's two hats count once.
