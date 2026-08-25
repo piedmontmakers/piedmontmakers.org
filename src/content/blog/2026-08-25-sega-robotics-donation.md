@@ -1,18 +1,18 @@
 ---
-title: "Our LEGO League gear started a robotics club in Tanzania"
+title: "The girls we sent robot mats to are now teaching each other"
 pubDate: 2026-08-25
 author: "Piedmont Makers"
-excerpt: "A Piedmont Makers coach helped this season's used mission models find a second life at a girls' school in Tanzania."
+excerpt: "Piedmont Makers sent a season's worth of Unearthed mission mats and models to SEGA Girls' School. The club they started has already doubled in size."
 heroImage: "/img/blog/sega-robotics-donation/hero.jpg"
-heroImageAlt: "Students at SEGA Girls Secondary School in Tanzania lean over a table crowded with LEGO SPIKE robot parts, connecting pieces during a training session."
-heroImageCaption: "SEGA robotics club members building with the donated SPIKE kits."
+heroImageAlt: "Four students in green and white SEGA school uniforms stand outside a classroom building, two of them holding up the LEGO SPIKE Prime robots they built."
+heroImageCaption: "SEGA students with the robots they designed, built, and programmed in a week."
 ---
 
-Mike Xu coaches LEGO League Challenge for Piedmont Makers and volunteers with Nurturing Minds in Africa. When a federal grant supporting SEGA, a girls' secondary school in Tanzania, was cut last spring, the nonprofit found funding for ten SPIKE robot kits but had no mission models or guidebooks to build a program around. Piedmont Makers had exactly that: after our Community Tournament wrapped, coaches set aside five sets of this season's Unearthed mission models and mats, plus guidebooks from teams that no longer needed them, all bound for SEGA instead of the usual bin of spare parts.
+After last season's Community Tournament, Piedmont Makers coaches set aside a season's worth of FIRST LEGO League Unearthed mission mats, mission models, and guidebooks and sent them to SEGA Girls' School in Tanzania, where the nonprofit Nurturing Minds had funding for LEGO SPIKE Prime kits but nothing to build a season around. Volunteers carried the equipment over by hand, and volunteer coach leader Dr. Ming Xu ran SEGA Robo-Explorers, a five-day program for Form 3 students who had never touched a robot. Working in teams of six and seven, they designed robots, wrote block code, wired up distance and color sensors, and took on the Unearthed Innovation Project. The week closed with each team presenting its solution to guest judge Engineer Mkufu Tindi, lead coach of Tanzania's FIRST Global team, then running five minutes of timed missions on the donated mats.
 
-<figure>
-  <img src="/img/blog/sega-robotics-donation/secondary.jpg" alt="A stack of FIRST LEGO League Challenge Unearthed guidebooks, including the Engineering Notebook, Team Meeting Guide, and Robot Game Rulebook." />
-  <figcaption>The guidebooks that made the trip to SEGA.</figcaption>
+<figure style="max-width: 34rem; margin-inline: auto;">
+  <img src="/img/blog/sega-robotics-donation/robot-game.jpg" alt="Two SEGA students lean over a FIRST LEGO League Unearthed mission mat, lining up their LEGO SPIKE robot while classmates in school uniforms watch from behind." />
+  <figcaption>Lining up a run on the donated Unearthed mat during the robot game.</figcaption>
 </figure>
 
-SEGA's robotics club has been training with the donated gear since December, working session by session under Mike's coaching from the East Bay. Piedmont Makers is now listed among the program's sponsors, and volunteers plan to carry the mats and mission structures to Tanzania in person this summer for the club's first competition season. A season's worth of LEGO pieces that would have gone into a parts bin is instead teaching a new group of kids how to build a robot.
+That week became a program. SEGA's Robotics Club has grown from the eleven students who piloted the curriculum to twenty-two across Forms Two, Three, and Four, with another ten expected, and it now meets weekly. The students from the pilot coach the newcomers, so the club teaches itself as it grows. SEGA science teachers Mr. Maturo and Mr. Dastan trained alongside the students and lead the club sessions, and the kits and mats are inventoried and stored at the school with about five years of use left in them. Gear that would have gone back into a parts bin in the East Bay is now the foundation of a robotics program run by Tanzanian teachers and their students.
