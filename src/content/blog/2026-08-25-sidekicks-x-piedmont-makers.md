@@ -5,7 +5,7 @@ author: "Piedmont Makers"
 excerpt: "Piedmont Makers and Sidekicks are teaming up on an adaptive LEGO League program for neurodiverse children and teens."
 ---
 
-Piedmont Makers is excited to announce a new partnership with Sidekicks, a program of the Piedmont Recreation Department that creates welcoming, engaging recreational experiences for neurodiverse children and teens.
+Piedmont Makers is excited to announce a new partnership with [Sidekicks](https://piedmont.ca.gov/services___departments/recreation/adaptive_programs__sidekicks), a program of the Piedmont Recreation Department that creates welcoming, engaging recreational experiences for neurodiverse children and teens.
 
 Together, we're building an adaptive LEGO League program that lets children and teens explore, create, build, and connect through the hands-on experiences Piedmont Makers offers.
 
