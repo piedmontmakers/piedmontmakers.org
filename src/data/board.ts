@@ -24,7 +24,7 @@ export const board = {
     { name: "Pat Holder", role: "VP, FIRST LEGO League Challenge" },
     { name: "Shelley Rea", role: "VP, FIRST LEGO League Challenge" },
     { name: "Marta Lusky", role: "VP, FIRST LEGO League Explore" },
-    { name: "David Koslow", role: "VP, FIRST LEGO League Explore" },
+    { name: "Dave Koslow", role: "VP, FIRST LEGO League Explore" },
     { name: "Natalia Feretti", role: "VP, FIRST Robotics Competition" },
   ],
   programs: [
