@@ -1,5 +1,5 @@
 ---
-title: "The girls we sent robot mats to are now teaching each other"
+title: "Our partnership with SEGA Girls' School in Tanzania"
 pubDate: 2026-08-25
 author: "Piedmont Makers"
 excerpt: "Piedmont Makers sent a season's worth of Unearthed mission mats and models to SEGA Girls' School. The club they started has already doubled in size."
