@@ -3,6 +3,8 @@ title: "Will AI Save or End the World? A film and expert panel, September 26"
 pubDate: 2026-08-11
 author: "Piedmont Makers"
 excerpt: "Piedmont Boosters, the Piedmont Parents Network, and Piedmont Makers present an evening film screening and expert panel on AI at the Alan Harvey Theater on September 26."
+heroImage: "/img/blog/will-ai-save-or-end-the-world/hero.jpg"
+heroImageAlt: "Poster for The AI Doc, or How I Became an Apocaloptimist, reading 'AI, will it save or end the world?' with four panelist headshots and the line four of the world's leading AI experts, one stage, one night, right here in Piedmont."
 ---
 
 Piedmont Boosters, the Piedmont Parents Network, and Piedmont Makers are teaming up for a community evening about the technology reshaping how we live and work.
