@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { parseTime, isoDate, isoLocalDateTime } from "../lib/event-time";
+import { isVirtualLocation, mapsUrl, streetAddressFor } from "../lib/venues";
 import Ribbon from "../components/Ribbon.astro";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -25,28 +26,6 @@ const resolveUrl = (url: string) => {
   if (/^(https?:)?\/\//.test(url)) return url;
   if (url.startsWith("/")) return `${base}${url}`;
   return url;
-};
-
-// Known venues → precise Google Maps query. Substring match so gym/room
-// variants ("Piedmont High School Student Center", "… (Buzz Gym)") all
-// resolve to the campus address. Falls back to the raw location string,
-// which Google Maps resolves fine for well-named places.
-const venueAddress: [RegExp, string][] = [
-  [/10th Street/i, "3100 East 10th Street, Oakland, CA"],
-  [/Piedmont Middle School/i, "Piedmont Middle School, 740 Magnolia Ave, Piedmont, CA 94611"],
-  [/Alan Harvey Theater|Mary G\. Ross|Piedmont High School/i, "Piedmont High School, 800 Magnolia Ave, Piedmont, CA 94611"],
-  [/Piedmont Park/i, "Piedmont Park, 711 Highland Ave, Piedmont, CA 94611"],
-  [/Berean Christian/i, "Berean Christian High School, 245 El Divisadero Ave, Walnut Creek, CA 94598"],
-  [/Acalanes/i, "Acalanes High School, 1200 Pleasant Hill Rd, Lafayette, CA 94549"],
-  [/Woodside High School/i, "Woodside High School, 199 Churchill Ave, Woodside, CA 94062"],
-];
-
-// Virtual "locations" get no map link.
-const isVirtualLocation = (loc: string) => /zoom|google meet|virtual|online/i.test(loc);
-
-const mapsUrl = (loc: string) => {
-  const query = venueAddress.find(([re]) => re.test(loc))?.[1] ?? loc;
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 };
 
 const programLabel: Record<string, string> = {
@@ -138,7 +117,7 @@ const eventSchemas = events.map((event) => {
       : {
           "@type": "Place",
           name: event.data.location,
-          address: venueAddress.find(([re]) => re.test(event.data.location!))?.[1] ?? event.data.location,
+          address: streetAddressFor(event.data.location) ?? event.data.location,
         }
     : undefined;
 

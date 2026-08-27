@@ -1,6 +1,7 @@
 import { getCollection } from "astro:content";
 import type { APIContext } from "astro";
 import { parseTime } from "../lib/event-time";
+import { geocodableLocation } from "../lib/venues";
 
 const TIMEZONE = "America/Los_Angeles";
 
@@ -141,7 +142,11 @@ export async function GET(context: APIContext) {
       lines.push(`DTEND;VALUE=DATE:${formatDate(endDate)}`);
     }
 
-    if (event.data.location) lines.push(`LOCATION:${escapeText(event.data.location)}`);
+    // LOCATION carries the street address so phones can navigate to it. The
+    // website keeps showing the prose location from frontmatter.
+    if (event.data.location) {
+      lines.push(`LOCATION:${escapeText(geocodableLocation(event.data.location))}`);
+    }
     if (descriptionParts.length > 0) {
       lines.push(`DESCRIPTION:${escapeText(descriptionParts.join("\n"))}`);
     }
