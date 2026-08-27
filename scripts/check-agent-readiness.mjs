@@ -136,6 +136,55 @@ if (!llms) {
   }
 }
 
+// ── facts.json: the org-facts data contract ──
+// The agents hub (piedmontmakers/agents, pm-context) fetches this instead of
+// storing numbers. Agents depend on the shape, so a redesign that drops or
+// renames these fields must fail the deploy, not silently break every agent.
+const factsRaw = read("dist/facts.json");
+if (!factsRaw) {
+  fail("dist/facts.json missing");
+} else {
+  let facts;
+  try {
+    facts = JSON.parse(factsRaw);
+  } catch (e) {
+    fail(`dist/facts.json: not valid JSON (${e.message})`);
+  }
+  if (facts) {
+    if (facts.schemaVersion !== 1) fail(`dist/facts.json: schemaVersion is ${facts.schemaVersion}, expected 1`);
+    if (!/^\d{2}-\d{7}$/.test(facts.organization?.ein ?? "")) {
+      fail("dist/facts.json: organization.ein missing or malformed");
+    }
+    const statValues = facts.stats?.values ?? {};
+    for (const key of ["kidsOnTeams", "teams", "schools", "girlsInLegoLeague"]) {
+      if (!statValues[key]) fail(`dist/facts.json: stats.values.${key} missing or empty`);
+    }
+    if (facts.stats?.precision !== "display") {
+      fail('dist/facts.json: stats.precision must declare "display" until exact values exist');
+    }
+    if (!facts.teacherGrants?.totalAwarded) fail("dist/facts.json: teacherGrants.totalAwarded missing");
+    if (!Array.isArray(facts.board?.officers) || facts.board.officers.length === 0) {
+      fail("dist/facts.json: board.officers missing or empty");
+    }
+    if (!Array.isArray(facts.roboticsLevels) || facts.roboticsLevels.length < 4) {
+      fail("dist/facts.json: roboticsLevels should list all four levels");
+    }
+    if (!Array.isArray(facts.programs) || facts.programs.length === 0) {
+      fail("dist/facts.json: programs missing or empty");
+    }
+    // Same-source check: llms.txt interpolates the same stats module, so the
+    // headline numbers must literally appear there. Divergence means one of
+    // them stopped reading src/data/stats.ts.
+    if (llms) {
+      for (const key of ["kidsOnTeams", "teams", "schools"]) {
+        if (statValues[key] && !llms.includes(statValues[key])) {
+          fail(`dist/facts.json: stats.values.${key} ("${statValues[key]}") not found in llms.txt — the two surfaces diverged`);
+        }
+      }
+    }
+  }
+}
+
 if (failures.length > 0) {
   console.error("Agent-readiness contract failures:");
   for (const f of failures) console.error(`  ${f}`);

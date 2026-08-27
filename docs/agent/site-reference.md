@@ -184,6 +184,16 @@ Setup and editor access instructions live in `docs/admin-setup.md`.
 | Facebook | https://www.facebook.com/groups/piedmontmakers | Footer links to the group |
 | Calendar | See `docs/agent/content-recipes.md` | Google Calendar is the reconciliation source |
 
+## Stats provenance and facts.json
+
+Headline numbers live in `src/data/stats.ts`, not in page markup — edit them there and every band, hero line, `llms.txt`, and `/facts.json` follows. Provenance and gotchas:
+
+- The 2026-27 figures (1,000+ kids, 150+ teams) come from the FLL Challenge coach training deck; other stats trace to Airtable. Refresh is manual, on demand — the values are marketing-rounded display strings, and `/facts.json` labels them `"precision": "display"`.
+- `stats.ts` carries an unresolved note: an older canonical-stats list said 20 East Bay cities; the site standardized on 25+. Reconcile against the real roster count when confirmed.
+- **The teacher-grant figure is the exception, and it bites**: it is not in `stats.ts`. `"$25K+"` is hardcoded in `src/pages/index.astro` and `src/pages/support.astro`, and `"$25,694"` in `src/pages/about-us.astro`, while the authoritative total lives in `src/data/teacher-grants.ts` (which computes it, so it can't drift). Updating the grant total means editing those three pages by hand until someone wires them to `teacher-grants.ts` (see Open page follow-ups).
+- `"130+ coaches"` is hardcoded in prose in `src/data/support.ts` and `src/data/robotics-levels.ts` — not in `stats.ts` at all.
+- `src/pages/facts.json.ts` is the machine-readable contract over `src/data/` for the org's agents (the `piedmontmakers/agents` hub fetches it instead of copying numbers). Its shape is enforced by `scripts/check-agent-readiness.mjs` (deploy gate 7), including a check that `llms.txt` and `facts.json` agree on the headline stats. Renaming or dropping `src/data/` fields that feed it will fail the deploy — that's the contract working; update `facts.json.ts` and the check together, and bump `schemaVersion` on breaking shape changes.
+
 ## Facility addresses
 
 - 10th Street practice field: 3100 East 10th Street, Oakland, CA

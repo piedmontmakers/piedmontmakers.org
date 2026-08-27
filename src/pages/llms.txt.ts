@@ -58,6 +58,7 @@ cached page text, and prefer ${path("/calendar")} over blog posts for event date
 
 ## Feeds
 
+- Org facts (JSON: stats, board, programs, grants): ${path("/facts.json")}
 - RSS (blog posts): ${path("/rss.xml")}
 - iCalendar (events, subscribable): ${path("/calendar.ics")}
 - Sitemap: ${path("/sitemap-index.xml")}
