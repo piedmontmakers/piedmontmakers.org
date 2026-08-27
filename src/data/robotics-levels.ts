@@ -122,13 +122,16 @@ export const levels: RoboticsLevel[] = [
   },
 ];
 
-// Deck + guide links listed in the "Coach resources" section.
-export const coachResources = [
-  { title: "FLL Explore — Coach Training 2026–27", url: levels[0].coachTraining! },
-  { title: "FLL Challenge — Coach Training 2026–27", url: levels[1].coachTraining! },
-  { title: "FLL Challenge — Team Guide", url: "https://drive.google.com/file/d/1xrDpcz8RXG9l_vbkGpEV1V97VQxlEHaq/view" },
-  { title: "FTC — Coach Training 2025–26", url: levels[2].coachTraining! },
-  { title: "K–8 Open House Video (2024)", url: "https://drive.google.com/file/d/1HscUEbHs9aavZQEHyHO_LoEQH5HMlBeO/view?usp=sharing" },
-  { title: "Advanced Robotics Open House (2025)", url: "https://docs.google.com/presentation/d/1JK3Y33ruDgdsjrYd71ltKpQu1yrrQ5-kWpiOF51wQ0s/edit?slide=id.g239b0e0bcf4_0_0" },
-  { title: "FRC Highlander Robotics 8033 Open House (2025)", url: "https://docs.google.com/presentation/d/1EvarF6RCwFp5Vg8fEj-GUeDI9r2xmpNoWgTcnGgFV5Y/edit?usp=sharing" },
+// Deck + guide links listed in the "Coach resources" section. `fileType` is the
+// kicker shown above each title, so a coach knows what opens before they click.
+// Set it to what the link actually serves: "Google Slides", "Google Doc",
+// "Google Sheet", "PDF", or "Video".
+export const coachResources: { title: string; url: string; fileType: string }[] = [
+  { title: "FLL Explore — Coach Training 2026–27", url: levels[0].coachTraining!, fileType: "Google Slides" },
+  { title: "FLL Challenge — Coach Training 2026–27", url: levels[1].coachTraining!, fileType: "Google Slides" },
+  { title: "FLL Challenge — Team Guide", url: "https://drive.google.com/file/d/1xrDpcz8RXG9l_vbkGpEV1V97VQxlEHaq/view", fileType: "PDF" },
+  { title: "FTC — Coach Training 2025–26", url: levels[2].coachTraining!, fileType: "Google Slides" },
+  { title: "K–8 Open House Video (2024)", url: "https://drive.google.com/file/d/1HscUEbHs9aavZQEHyHO_LoEQH5HMlBeO/view?usp=sharing", fileType: "Video" },
+  { title: "Advanced Robotics Open House (2025)", url: "https://docs.google.com/presentation/d/1JK3Y33ruDgdsjrYd71ltKpQu1yrrQ5-kWpiOF51wQ0s/edit?slide=id.g239b0e0bcf4_0_0", fileType: "Google Slides" },
+  { title: "FRC Highlander Robotics 8033 Open House (2025)", url: "https://docs.google.com/presentation/d/1EvarF6RCwFp5Vg8fEj-GUeDI9r2xmpNoWgTcnGgFV5Y/edit?usp=sharing", fileType: "Google Slides" },
 ];
