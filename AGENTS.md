@@ -150,6 +150,7 @@ The last three are contract checks, not linters, and they fail the build on thin
 
 ## Known gotchas
 
+- **Hosted-session shallow clones** can fail the re-sync step with `fatal: refusing to merge unrelated histories`. Fix: `git fetch --unshallow`, then re-run the fetch + `merge --ff-only`.
 - **Astro 5, NOT 6.** Astro 6 + `@tailwindcss/vite` triggers the rolldown native-binding bug on macOS-arm64 under npm 11.
 - **`npm install` can drop `@rolldown/binding-*` optional deps.** Symptom: build fails with `Cannot find module '@rolldown/binding-darwin-arm64'` after an otherwise-innocent `npm install <something>`. Recovery: `git checkout package-lock.json && rm -rf node_modules && npm ci --include=optional`. For adding new deps, run `npm ci --include=optional` first, then `npm install <pkg> --include=optional`.
 - **`501(c)(3)` renders as `501©(3)`.** Manrope substitutes the `(c)` glyph sequence to © via an OpenType feature that `font-feature-settings: "ss02"` (dropping ss01) doesn't reach. The bulletproof fix: zero-width non-joiner between `(` and `c`. Use `&zwnj;` in template text, U+200C literal `‌` in TS strings. Follow the pattern for anything a visitor reads. **Deliberate exception: JSON-LD.** `orgSchema` in `BaseLayout.astro` uses a plain `501(c)(3)` on purpose, because structured data is never rendered and the invisible character would only pollute text that agents read literally. Don't "fix" it. `scripts/check-agent-readiness.mjs` enforces the zero-width joiner in *visible* text only, so it won't catch you either way.
