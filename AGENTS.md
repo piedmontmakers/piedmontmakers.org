@@ -62,11 +62,14 @@ The full voice and editorial rules live in the org's agents hub — the private 
 - **Audience: parents across the East Bay** shopping for kid programs. "East Bay", not "Piedmont", except in the org name, PUSD-specific content, and literal place names.
 - **Always STEAM, never STEM** (the verbatim mission statement's "S.T.E.A.M." stays as is).
 - **"LEGO League", not "FLL", in body prose** (FLL is fine in space-constrained UI).
+- **Never publish the dollar amount a named donor gave us.** Amounts the org awards (teacher grants) are fine; the full policy is in the hub.
+- **MailChimp: drafts only.** Agents never send or schedule a campaign; test emails only to addresses the user names in the conversation.
 
-For anything beyond a small copy tweak, read the full rules first:
+For anything beyond a small copy tweak, read the full rules first — the path depends on where you're running:
 
-- **Claude Code**: the `voice` skill (from the pm-context plugin this repo auto-enables) covers voice, editorial rules, honoree names, 10th Street framing, and the donor-amount policy. Org numbers come from `/facts.json` via the `org-facts` skill — never from memory.
-- **Codex / anything without plugins**: read `../agents/plugins/pm-context/skills/voice/SKILL.md` from the sibling hub checkout (the org convention is to clone the hub next to this repo), or fetch it with `gh api repos/piedmontmakers/agents/contents/plugins/pm-context/skills/voice/SKILL.md --jq .content | base64 -d`.
+- **Claude Code, local machine**: the `voice` skill (from the pm-context plugin this repo auto-enables) covers voice, editorial rules, honoree names, 10th Street framing, and the donor-amount policy. Org numbers come from `/facts.json` via the `org-facts` skill — never from memory.
+- **Claude Code on the web / phone (cloud sessions)**: plugins do NOT provision here (verified 2026-08-27 — no `/plugin` command, empty plugin store, the settings wiring is ignored). Read the full rules through the GitHub MCP instead: attach the hub with `add_repo` on `piedmontmakers/agents`, then `get_file_contents` on `plugins/pm-context/skills/voice/SKILL.md`. Org numbers: fetch `https://piedmontmakers.org/facts.json`.
+- **Codex / anything else without plugins**: read `../agents/plugins/pm-context/skills/voice/SKILL.md` from the sibling hub checkout (the org convention is to clone the hub next to this repo), or fetch it with `gh api repos/piedmontmakers/agents/contents/plugins/pm-context/skills/voice/SKILL.md --jq .content | base64 -d`.
 
 **Machine-readable facts**: `/facts.json` (see `src/pages/facts.json.ts`) serves stats, board, programs, grants, and the EIN, compiled from `src/data/` — the same modules the pages render — and deploy gate 7 contract-checks its shape. Edit numbers in `src/data/`; stats provenance notes are in `docs/agent/site-reference.md`.
 
