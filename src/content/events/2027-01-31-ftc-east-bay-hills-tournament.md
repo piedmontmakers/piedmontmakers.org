@@ -1,7 +1,7 @@
 ---
 title: "FTC East Bay Hills Tournament"
 startDate: 2027-01-31
-location: "Piedmont Middle School Gym"
+location: "Piedmont Middle School (Morrison Gym)"
 program: "robotics"
 summary: "The season-ending championship for the East Bay Hills FTC League."
 actions:
