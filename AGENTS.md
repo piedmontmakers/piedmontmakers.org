@@ -55,59 +55,20 @@ Before touching a red-zone file, ask the user explicitly: "this changes the site
 
 Astro 5 LTS, Tailwind CSS v4, Astro content collections, PostHog, Mailchimp, and GitHub Pages. Do not upgrade to Astro 6; see Known gotchas below. Detailed file and design-system references live in `docs/agent/site-reference.md`.
 
-## Voice — non-negotiable
+## Org voice & facts (canonical home: the agents hub)
 
-**Audience: parents across the East Bay shopping for kid programs.** Not just Piedmont. Not corporate donors as the primary read.
+The full voice and editorial rules live in the org's agents hub — the private repo `piedmontmakers/agents`, plugin `pm-context`, skill `voice`. They are canonical there and bind all site prose. The digest for a quick edit:
 
-**Make the community the hero AND show that we're a great org worth supporting.** Kids = innovators. Adults = volunteers. AND we're confidently the org doing this work — confident impact statements ("the largest community-based youth robotics league in the United States," "1,000+ kids on 150+ teams") instill trust in parents and donors, they aren't bragging.
+- **Audience: parents across the East Bay** shopping for kid programs. "East Bay", not "Piedmont", except in the org name, PUSD-specific content, and literal place names.
+- **Always STEAM, never STEM** (the verbatim mission statement's "S.T.E.A.M." stays as is).
+- **"LEGO League", not "FLL", in body prose** (FLL is fine in space-constrained UI).
 
-- ✅ **Stats bands** are welcome on home, about, robotics, and grants. Frame as community-in-numbers ("1,000+ kids across 90+ schools") rather than org-look-at-us ("we run the largest league"). The "largest community-based youth robotics league in America" claim is a credibility signal, not a brag — use it. **Home stats band's current four**: 1,000+ kids · 90+ schools (25+ East Bay cities) · $25K+ in teacher grants annually · 40% girls in LEGO League. Headline numbers live in `src/data/stats.ts`, not in page markup, so edit them there and every band, hero line, and `llms.txt` follows. **One exception, and it bites:** the teacher-grant figure is not in `stats.ts` at all. `"$25K+"` is hardcoded in `src/pages/index.astro` and `src/pages/support.astro`, and `"$25,694"` in `src/pages/about-us.astro`, while the authoritative total lives in `src/data/teacher-grants.ts` (which computes it, so it can't drift). Updating the grant total means editing those three pages by hand until someone wires them to `teacher-grants.ts`. The 2026-27 figures (1,000+ kids, 150+ teams) come from the FLL Challenge coach training deck.
-- ✅ **VoicesBand** stays — community quote band. Currently one real quote from Roy on home; band removed from /robotics. Placeholder quotes were purged.
+For anything beyond a small copy tweak, read the full rules first:
 
-**Headlines lead with value to families, not org-internal facts.** Two patterns that got fixed this session:
-- ❌ "Two new programs. Both sold out in minutes." (org FOMO) → ✅ "Hands-on STEAM, after the school day."
-- ❌ "Built in partnership with PUSD through a $420,000 capital campaign and dedicated April 29, 2023" leading a section → ✅ "The community engineering classroom at Piedmont High School. Home base for FTC robotics teams, after-school engineering programs, and the annual K-8 robotics open houses." Move fundraising history to the meta-grid / donor list.
+- **Claude Code**: the `voice` skill (from the pm-context plugin this repo auto-enables) covers voice, editorial rules, honoree names, 10th Street framing, and the donor-amount policy. Org numbers come from `/facts.json` via the `org-facts` skill — never from memory.
+- **Codex / anything without plugins**: read `../agents/plugins/pm-context/skills/voice/SKILL.md` from the sibling hub checkout (the org convention is to clone the hub next to this repo), or fetch it with `gh api repos/piedmontmakers/agents/contents/plugins/pm-context/skills/voice/SKILL.md --jq .content | base64 -d`.
 
-The "sold out in minutes" line is fine as **FOMO copy in body** (e.g. newsletter CTA), just not as a headline.
-
-Avoid **time-locked framing** that goes stale fast. "New in Fall 2025" reads as old in the 2026-27 school year. Prefer evergreen phrasing or the actual current year.
-
-**Don't write LLM tells.** The maintainers will spot them. Specific things to avoid (in addition to any user-level agent instructions):
-- `actually` / `actual` as emphasis — every instance got purged in May 2026, please don't bring them back
-- `real` as emphasis filler ("real engineering," "real tools," "real impact"). Replaced with `serious`, `working`, `full`, or just dropped — purged site-wide in May 2026
-- "It's not X, it's Y" rhythm
-- Tricolons / rule-of-three when the third item is just for cadence
-- Day-of-week vignettes
-- **Em-dash spam** — site-wide purge done in May 2026; only intentional uses remain (level names like "FTC — FIRST Tech Challenge", marker accents like "psst —", bylines like "— Co-Presidents", the verbatim mission statement, and one dramatic headline "AP Physics C — approved."). When new prose calls for separation, prefer commas, colons, or periods.
-
-**STEM → STEAM.** Always STEAM (Science, Technology, Engineering, Arts, Math) site-wide. Including derived phrasing like "non-STEM coaches" → "non-STEAM coaches." Exception: the verbatim mission statement uses "S.T.E.A.M." with periods — leave that alone.
-
-**Minimize "FLL" jargon in prose.** Prefer "LEGO League" (colloquial) or "FIRST LEGO League" (formal) when writing for parents. FLL is acceptable in space-constrained UI: buttons, photoCaption labels, nav sublinks, coach-training titles, alt text, code variable names. Visible body prose should spell it out. FTC and FRC abbreviations are fine — the user hasn't flagged those as jargon, and parents shopping for high-school robotics encounter them often enough.
-
-**Don't bold names of honored individuals.** Mary G. Ross, Annie Jump Cannon, Raye Montague get plain text, no `<strong>`. Bold reads as emphasis-for-the-reader-to-act-on; honoree names are just listed.
-
-**Names of the three women honored at the Engineering Lab** (corrected this session from earlier mistakes — these are the verified names on the actual portraits inside the lab):
-- **Annie Jump Cannon** (1863–1941, Engineering Patio) — astronomer who developed the modern stellar classification system. *Not* "Annie Easley Cannon" — that conflated two different people.
-- **Raye Montague** (1935–2018, Computer Lab / ST-127) — naval engineer, first computer-aided ship designer. *Not* "Mary Wynne Montague."
-- **Mary G. Ross** (1908–2008, Engineering Lab / ST-128) — aerospace engineer at Lockheed's Skunk Works. The lab as a whole is named after her.
-
-**10th Street facility framing: Highlander Robotics 8033 owns the story.** PM is the 501(c)(3) fiscal sponsor on the lease; 8033 had the idea, ran the Loom pilot, raised the $245K capital campaign, runs the day-to-day, and hosts the guest teams. When writing about 10th Street, lead with 8033's leadership — that framing serves their future FRC Impact submissions and reflects what actually happened.
-
-**"Piedmont" vs "East Bay" rule.** Keep "Piedmont" only in:
-- The org name (Piedmont Makers)
-- PUSD-specific content (Teacher Grants — that program *is* PUSD-only by design)
-- Literal place names: Piedmont High School, Piedmont Middle School, Piedmont Veterans' Building, Highland Ave, the Piedmont 4th of July Parade
-- The verbatim mission statement which already says "Piedmont, CA and beyond"
-
-Anywhere else that describes the audience, rewrite to **"East Bay"** or **"Piedmont and beyond"**, or drop the geographic adjective entirely. Specifically: not "Piedmont kids", not "Piedmont parents", not "for kids and adults in Piedmont".
-
-## Donor-amount policy
-
-**Don't publish the specific dollar amount any named third-party donor gave to us.** List the donor names and the nature of their contribution if useful (`"Grant"`, `"CNC Router · in-kind"`), but no per-donor dollar amounts.
-
-**Do publish dollar amounts the org GAVE OUT.** Teacher grant totals, per-school breakdowns, individual grant amounts to named teachers — all fair game on `/teacher-grants`. That's accountability.
-
-**Aggregate campaign totals** are OK *only when* they sum across enough donors that the total reveals no individual's amount. The Engineering Lab capital campaign ($420K+ across 60+ donors) qualifies. Don't confuse it with the 10th Street campaign's $245K, which we don't publish. The 10th Street facility campaign had only 2-3 named donors — the aggregate would reveal individual amounts by subtraction, so we don't publish it either.
+**Machine-readable facts**: `/facts.json` (see `src/pages/facts.json.ts`) serves stats, board, programs, grants, and the EIN, compiled from `src/data/` — the same modules the pages render — and deploy gate 7 contract-checks its shape. Edit numbers in `src/data/`; stats provenance notes are in `docs/agent/site-reference.md`.
 
 ## Mobile patterns
 

@@ -1,5 +1,17 @@
 {
   "model": "opus",
+  "extraKnownMarketplaces": {
+    "piedmontmakers": {
+      "source": {
+        "source": "github",
+        "repo": "piedmontmakers/agents"
+      },
+      "autoUpdate": true
+    }
+  },
+  "enabledPlugins": {
+    "pm-context@piedmontmakers": true
+  },
   "hooks": {
     "SessionStart": [
       {
