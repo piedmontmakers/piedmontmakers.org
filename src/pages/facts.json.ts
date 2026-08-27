@@ -36,7 +36,6 @@ export async function GET(context: APIContext) {
       ein: "47-2831568",
       founded: 2014,
       missionStatement: {
-        note: "Quoted verbatim only; canonical text lives on the about page.",
         canonicalUrl: path("/about-us"),
       },
       urls: {
@@ -50,7 +49,7 @@ export async function GET(context: APIContext) {
     },
     stats: {
       precision: "display",
-      note: "Marketing-rounded display values, exactly as published on the site. Sources: Airtable + season coach decks, refreshed manually. For live exact enrollment numbers, query Airtable (pm-airtable), not this file.",
+      note: "Rounded display values, exactly as published on the site.",
       values: stats,
     },
     teacherGrants: {
@@ -66,7 +65,6 @@ export async function GET(context: APIContext) {
     },
     board: {
       memberCount: boardMemberCount,
-      note: "Public roster; canonical in src/data/board.ts. Internal fields (emails, terms) live in the agents hub, keyed by these names.",
       ...board,
     },
     programs: programs.map((p) => ({ name: p.name, when: p.when, url: path(p.href) })),
