@@ -4,18 +4,22 @@
 
 export interface BoardMember {
   name: string;
-  // A string for one title; an array when someone holds two, which
+  // A string for one title; an array when someone holds several, which
   // about-us.astro renders on separate lines under their name.
   role?: string | string[];
 }
 
 // 2026–27 board slate. Paul Morrison wears two hats (Secretary + VP FTC)
-// and appears in both Officers and Robotics — that's intentional.
+// and appears in both Officers and Robotics — that's intentional. Dave
+// Ragones is listed once, under Officers, with all three of his titles.
 export const board = {
   officers: [
     { name: "Kevin Clark", role: "Co-President" },
     { name: "Ben Stein", role: "Co-President" },
-    { name: "Dave Ragones", role: "Co-Founder & Treasurer (Interim)" },
+    {
+      name: "Dave Ragones",
+      role: ["Co-Founder", "Treasurer (Interim)", "Destination Imagination"],
+    },
     { name: "Paul Morrison", role: "Secretary" },
   ],
   robotics: [
@@ -36,7 +40,6 @@ export const board = {
     { name: "Mallory Casperson", role: "VP, Fundraising" },
     { name: "Keren Khouri", role: "10th St Coordination" },
     { name: "Ken Khouri", role: "10th St Tech Lead" },
-    { name: "Dave Ragones", role: "Destination Imagination" },
   ],
   atLarge: [
     { name: "Greg Wolff", role: "Master Maker" },
