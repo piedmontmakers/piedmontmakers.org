@@ -10,7 +10,7 @@ heroImageCaption: "FTC coaches and mentors around the workbench at the 10th Stre
 
 Coaches and mentors from eleven Piedmont Makers FTC teams filled the 10th Street practice field tonight for pre-season training. Six of those eleven teams are rookies, run by parents taking on an FTC season for the first time.
 
-The session was hands-on by design. Instead of a slide deck about the software, coaches connected laptops to a REV Control Hub, built the sample code, and pushed it to a robot themselves, so the first time they see a build error is in a room full of people who can help rather than in a garage the night before a meet. Paul Morrison and Laura Oliver, the two VPs for FIRST Tech Challenge, presented, with guest technical instructor Jesse Hull on the control system.
+The session was hands-on by design. Instead of a slide deck about the software, coaches connected laptops to a REV Control Hub, built the sample code, and pushed it to a robot themselves, so the first time they see a build error is in a room full of people who can help rather than in a garage the night before a meet. Paul Morrison and Lara Oliver, the two VPs for FIRST Tech Challenge, presented, with guest technical instructor Jesse Hull on the control system.
 
 The room itself is part of the answer for new coaches. 10th Street is the Oakland practice facility that Highlander Robotics 8033 raised the money for and runs day to day, and FTC teams work there through the season alongside the FRC field.
 
