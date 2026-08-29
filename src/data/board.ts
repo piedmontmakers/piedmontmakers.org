@@ -43,8 +43,8 @@ export const board = {
   ],
   atLarge: [
     { name: "Greg Wolff", role: "Master Maker" },
-    { name: "Alex Seiden" },
-    { name: "Larraine Seiden" },
+    { name: "Alex Seiden", role: "FRC 8033 Mentor" },
+    { name: "Larraine Seiden", role: "FRC 8033 Mentor" },
     { name: "Joel Tornatore" },
     { name: "Dave McMurtry" },
   ],
