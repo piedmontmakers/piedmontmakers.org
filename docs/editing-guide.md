@@ -2,6 +2,8 @@
 
 This guide is for Piedmont Makers folks who want to update the website by describing changes in plain English. No coding or command-line experience is required. If you are comfortable with git and npm, the developer section of the [README](../README.md) is the faster read.
 
+This guide covers the website only. If you'll also work on the newsletter, the coaches MailChimp sync, or Airtable rosters, start with [GETTING-STARTED.md in the agents hub](https://github.com/piedmontmakers/agents/blob/main/GETTING-STARTED.md), which covers every system including this one.
+
 ## The one rule to understand
 
 **A push to `main` goes live on piedmontmakers.org in about a minute.** There is no draft mode or approval step.
