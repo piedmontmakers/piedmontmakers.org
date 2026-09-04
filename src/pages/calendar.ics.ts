@@ -1,3 +1,4 @@
+import { eventAnchor } from "../lib/events";
 import { getCollection } from "astro:content";
 import type { APIContext } from "astro";
 import { parseTime } from "../lib/event-time";
@@ -68,13 +69,6 @@ export async function GET(context: APIContext) {
     (a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf()
   );
 
-  const anchorSeen = new Map<string, number>();
-  const anchorFor = (iso: string) => {
-    const n = (anchorSeen.get(iso) ?? 0) + 1;
-    anchorSeen.set(iso, n);
-    return n === 1 ? iso : `${iso}-${n}`;
-  };
-
   const dtstamp = formatTimestamp(new Date());
   const lines = [
     "BEGIN:VCALENDAR",
@@ -91,7 +85,7 @@ export async function GET(context: APIContext) {
 
   for (const event of events) {
     const startIso = event.data.startDate.toISOString().slice(0, 10);
-    const eventUrl = `${baseUrl}/calendar#${anchorFor(startIso)}`;
+    const eventUrl = `${baseUrl}/calendar#${eventAnchor(event.id)}`;
     const startTime = parseTime(event.data.startTime);
     const endTime = parseTime(event.data.endTime);
 

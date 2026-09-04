@@ -55,7 +55,7 @@ if (/startTime:/.test(await allFrontmatter())) {
 }
 assert.match(
   ics,
-  /\r?\nURL:https:\/\/(piedmontmakers\.org|piedmontmakers\.github\.io\/piedmontmakers\.org)\/calendar#\d{4}-\d{2}-\d{2}(-\d+)?\r?\n/
+  /\r?\nURL:https:\/\/(piedmontmakers\.org|piedmontmakers\.github\.io\/piedmontmakers\.org)\/calendar#event-[^\r\n]+\r?\n/
 );
 
 async function allFrontmatter() {
@@ -79,3 +79,8 @@ assert.doesNotMatch(calendarPage, /calendar\/render\?cid=https%3A/);
 console.log(
   `calendar.ics feed contract looks good (${eventCount} events, all matched to src/content/events)`
 );
+
+// Every feed link resolves to its own stable event anchor in the page.
+for (const uid of uids) {
+  assert.ok(calendarPage.includes(`id="event-${uid}"`), `missing stable anchor for ${uid}`);
+}

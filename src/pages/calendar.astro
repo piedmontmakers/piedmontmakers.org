@@ -1,4 +1,5 @@
 ---
+import { eventAnchor } from "../lib/events";
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { parseTime, isoDate, isoLocalDateTime } from "../lib/event-time";
@@ -100,12 +101,9 @@ const fmtDateParts = (d: Date) => ({
 // .ics feed's TZID approach); date-only when startTime doesn't parse.
 // scripts/check-structured-data.mjs asserts one Event per content file.
 const siteOrigin = (Astro.site?.toString() ?? "https://piedmontmakers.org/").replace(/\/$/, "");
-const schemaAnchorSeen = new Map<string, number>();
 const eventSchemas = events.map((event) => {
   const iso = isoDate(event.data.startDate);
-  const n = (schemaAnchorSeen.get(iso) ?? 0) + 1;
-  schemaAnchorSeen.set(iso, n);
-  const anchor = n === 1 ? iso : `${iso}-${n}`;
+  const anchor = eventAnchor(event.id);
 
   const startTime = parseTime(event.data.startTime);
   const endTime = parseTime(event.data.endTime);
@@ -221,11 +219,12 @@ const eventSchemas = events.map((event) => {
           const location = e.data.location;
           return (
             <li
-              id={anchorId}
-              class="grid grid-cols-[88px_1fr] md:grid-cols-[112px_1fr] gap-x-5 md:gap-x-7 py-6 scroll-mt-28"
-              data-event-date={start.iso}
+              id={eventAnchor(e.id)}
+              class="relative grid grid-cols-[88px_1fr] md:grid-cols-[112px_1fr] gap-x-5 md:gap-x-7 py-6 scroll-mt-28"
+              data-event-date={start.iso} data-event-end={end?.iso ?? start.iso}
               data-event-program={program}
             >
+              <span id={anchorId} class="absolute top-0 scroll-mt-28" aria-hidden="true"></span>
               <div class="border-2 border-pm-ink overflow-hidden bg-pm-paper">
                 <div class="bg-pm-red text-white font-display font-semibold text-xs md:text-sm uppercase tracking-[0.18em] text-center py-1">
                   {start.month}
@@ -337,16 +336,10 @@ const eventSchemas = events.map((event) => {
 
   <!-- Client-side date logic. Runs on every page load so the page stays
        accurate without rebuilds. -->
-  <script is:inline>
+  <script>
+    import { eventIsCurrent, pacificDate } from "../lib/events";
     (function () {
-      // Today as a YYYY-MM-DD string in the visitor's local time. Compare
-      // against the event's data-event-date attribute lexically — works
-      // because YYYY-MM-DD sorts chronologically.
-      const now = new Date();
-      const todayStr =
-        now.getFullYear() +
-        "-" + String(now.getMonth() + 1).padStart(2, "0") +
-        "-" + String(now.getDate()).padStart(2, "0");
+      const todayStr = pacificDate();
 
       const upcomingList = document.querySelector("[data-events-upcoming] [data-events-list]");
       const pastSection = document.querySelector("[data-events-past]");
@@ -355,8 +348,8 @@ const eventSchemas = events.map((event) => {
       if (!upcomingList || !pastList || !pastSection) return;
 
       // Move past events to the past section in reverse-chronological order.
-      const items = Array.from(upcomingList.querySelectorAll("[data-event-date]"));
-      const past = items.filter((li) => li.dataset.eventDate < todayStr);
+      const items = Array.from(upcomingList.querySelectorAll<HTMLElement>("[data-event-date]"));
+      const past = items.filter((li) => !eventIsCurrent(li.dataset.eventDate!, li.dataset.eventEnd, todayStr));
       past.reverse().forEach((li) => pastList.appendChild(li));
 
       // Show / hide states.
@@ -367,7 +360,7 @@ const eventSchemas = events.map((event) => {
       // If we opened on a #date anchor, re-scroll to it: moving past events
       // above may have shifted the row after the browser's initial jump.
       if (location.hash.length > 1) {
-        const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        const target = document.getElementById(location.hash.slice(1));
         if (target) target.scrollIntoView();
       }
     })();

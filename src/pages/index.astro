@@ -1,4 +1,5 @@
 ---
+import { eventAnchor } from "../lib/events";
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
@@ -24,14 +25,8 @@ const formatDate = (d: Date) =>
 const asset = (path: string) => `${base}${path.startsWith("/") ? path : `/${path}`}`;
 const blogThumbFallback = "/img/brand/makey.png";
 
-// "Coming up" teaser — dated events from the calendar collection. We render
-// everything from ~2 days ago forward; the inline script at the bottom reveals
-// only the rows that fall inside the next 30 days (and the section itself only
-// if at least one does), so the window stays accurate without a rebuild — the
-// same client-side approach /calendar uses.
-const upcomingCutoff = Date.now() - 2 * 24 * 60 * 60 * 1000;
+// Render all events; the browser keeps the current window accurate between builds.
 const upcomingEvents = (await getCollection("events"))
-  .filter((e) => e.data.startDate.valueOf() >= upcomingCutoff)
   .sort((a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf());
 
 // YAML dates parse as midnight UTC; format with UTC methods so the day number
@@ -260,9 +255,9 @@ const events = [
           // Link to the event's row on /calendar (anchored by date) rather than
           // its first action, so visitors see every link — register, tickets,
           // the Meet URL — instead of being dropped on one destination.
-          const rowHref = `${link("/calendar")}#${p.iso}`;
+          const rowHref = `${link("/calendar")}#${eventAnchor(e.id)}`;
           return (
-            <li class="hidden" data-event-date={p.iso}>
+            <li class="hidden" data-event-date={p.iso} data-event-end={end?.iso ?? p.iso}>
               <a href={rowHref} data-upcoming-link data-event-title={e.data.title} class="group flex items-center gap-4 py-3.5">
                 <div class="shrink-0 w-12 text-center">
                   <div class="font-display text-[0.62rem] uppercase tracking-[0.18em] text-pm-red font-semibold leading-none">{p.month}</div>
@@ -590,38 +585,6 @@ const events = [
       });
     }
 
-    // "Coming up" teaser — reveal only rows dated within the next 30 days
-    // (cap 5), then unhide the whole section if at least one qualifies. Date
-    // logic runs client-side so the window is accurate to the visitor's day.
-    (function () {
-      var section = document.querySelector('[data-upcoming-section]');
-      if (!section) return;
-      var items = Array.prototype.slice.call(section.querySelectorAll('[data-event-date]'));
-      if (!items.length) return;
-      var pad = function (n) { return String(n).padStart(2, '0'); };
-      var toStr = function (d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
-      var now = new Date();
-      var todayStr = toStr(now);
-      var horizon = new Date(now);
-      horizon.setDate(horizon.getDate() + 30);
-      var horizonStr = toStr(horizon);
-      var shown = 0;
-      var lastShown = null;
-      items.forEach(function (li) {
-        var d = li.dataset.eventDate;
-        if (d >= todayStr && d <= horizonStr && shown < 5) {
-          li.classList.remove('hidden');
-          lastShown = li;
-          shown++;
-        }
-      });
-      // divide-y draws a bottom rule on every :not(:last-child). The rows we
-      // leave hidden are still children, so without this the final visible row
-      // trails a stray rule into the card's padding.
-      if (lastShown) lastShown.classList.add('border-b-0');
-      if (shown > 0) section.classList.remove('hidden');
-    })();
-
     // "Coming up" row clicks — targeted by data attribute, not class chains.
     document.querySelectorAll('[data-upcoming-link]').forEach(function (el) {
       el.addEventListener('click', function () {
@@ -629,4 +592,17 @@ const events = [
       });
     });
   });
+</script>
+
+<script>
+  import { eventIsUpcoming, pacificDate, upcomingHorizon } from "../lib/events";
+  const section = document.querySelector<HTMLElement>('[data-upcoming-section]');
+  const today = pacificDate();
+  const horizon = upcomingHorizon(today);
+  const visible = Array.from(section?.querySelectorAll<HTMLElement>('[data-event-date]') ?? [])
+    .filter((row) => eventIsUpcoming(row.dataset.eventDate!, row.dataset.eventEnd, today, horizon))
+    .slice(0, 5);
+  visible.forEach((row) => row.classList.remove('hidden'));
+  visible.at(-1)?.classList.add('border-b-0');
+  if (visible.length) section?.classList.remove('hidden');
 </script>
