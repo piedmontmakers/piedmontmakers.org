@@ -16,7 +16,8 @@
     "astro": "astro",
     "check": "astro check",
     "verify": "sh scripts/verify.sh",
-    "test": "npm run verify"
+    "test": "npm run verify",
+    "test:browser": "playwright test"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
@@ -26,5 +27,9 @@
     "astro": "^5.18.1",
     "tailwindcss": "^4.3.0",
     "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.62.1"
   }
 }

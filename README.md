@@ -271,3 +271,12 @@ The source code is MIT (see `LICENSE`). The brand assets (logo, Makey mascot) an
 ## Contact
 
 Reach the board at <hello@piedmontmakers.org>.
+
+## Automated regression checks
+
+Run `npm run verify` before committing. Install the pinned browser once with
+`npx playwright install chromium`. CI installs Chromium and runs the same suite.
+Browser tests use their own production preview on port 4399, intercept external
+requests, and cover menu keyboard behavior, event date boundaries and links,
+newsletter validation, rendered local links/images, and WCAG A accessibility.
+The accessibility scan is a baseline, not a full WCAG AA or screen-reader audit.

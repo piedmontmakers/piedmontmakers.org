@@ -43,3 +43,7 @@ pnpm-debug.log*
 !.agents/skills/project-bootstrap/
 !.agents/skills/project-bootstrap/**
 .codex/skills/
+
+# Browser regression artifacts
+/test-results/
+/playwright-report/

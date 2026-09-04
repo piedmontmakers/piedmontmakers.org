@@ -201,7 +201,10 @@ const navItems: NavItem[] = [
     // Close on Escape, on link click (so navigation feels immediate), and
     // when the viewport grows past mobile width.
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape" && !panel.classList.contains("hidden")) {
+        setOpen(false);
+        toggle.focus();
+      }
     });
     panel.addEventListener("click", function (e) {
       if (e.target instanceof HTMLAnchorElement) setOpen(false);

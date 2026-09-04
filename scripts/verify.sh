@@ -10,3 +10,4 @@ USE_CUSTOM_DOMAIN=true npm run build
 node scripts/check-calendar-feed.mjs
 node scripts/check-structured-data.mjs
 node scripts/check-agent-readiness.mjs
+npm run test:browser
