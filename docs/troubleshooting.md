@@ -7,12 +7,26 @@ and tells Sharp to use its bundled binaries instead of a machine's global libvip
 The plugin's developer tools are pinned; update them deliberately and verify both
 client configurations together.
 
-When adding a dependency, inspect the lockfile diff for removed native bindings,
-then run `npm run bootstrap` and `npm run verify`. A successful install in an old
-node_modules directory is not sufficient. npm 11 has removed optional binding
-entries during installs in this project. Preserve the existing locked versions
-and integrity metadata when repairing that loss; do not delete the lockfile and
+**`npm install` can drop `@rolldown/binding-*` optional deps** (npm 11 does this
+in this project). Symptom: the build fails with `Cannot find module
+'@rolldown/binding-darwin-arm64'` after an otherwise-innocent `npm install <something>`.
+Recovery:
+
+```sh
+git checkout package-lock.json && rm -rf node_modules && npm run bootstrap
+```
+
+**Adding a dependency:** run `npm run bootstrap` first, then
+`npm install <pkg> --include=optional`, then inspect the lockfile diff for removed
+native bindings and run `npm run verify`. A successful install into an old
+`node_modules` directory is not sufficient. Preserve the existing locked versions
+and integrity metadata when repairing a loss; do not delete the lockfile and
 silently upgrade the dependency tree.
+
+**Dev server returns 500 with `ENOENT`** after a file was deleted from `public/`:
+Vite's asset graph is wedged. `pkill -f "astro dev" && rm -rf .astro node_modules/.vite`
+and start `npm run dev` again. This is the only sanctioned reason to stop a dev
+server the user is watching; say so while you do it.
 
 Install the browser with `npx playwright install chromium` locally. CI uses
 `npx playwright install --with-deps chromium`. Browser tests own port 4399 and will

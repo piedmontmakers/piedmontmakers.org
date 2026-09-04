@@ -42,13 +42,40 @@ const upcomingEvents = (await getCollection("events"))
 const MAILCHIMP_ACTION = "https://piedmontmakers.us3.list-manage.com/subscribe/post?u=edc89d8dd41a4ea6ee9352d9a&id=83b9d5d7df";
 const MAILCHIMP_HONEYPOT_NAME = "b_edc89d8dd41a4ea6ee9352d9a_83b9d5d7df";
 
+// The homepage keeps its own short copy (names, ages, taglines, blurbs); photos,
+// captions, alt text, colors, and links come from the shared data so they cannot
+// drift from the program pages. Edit facts in src/data/, edit this voice here.
+const homeLevelCopy: Record<string, { name: string; ages: string }> = {
+  "fll-explore": { name: "FIRST LEGO League Explore", ages: "K–3rd" },
+  "fll-challenge": { name: "FIRST LEGO League Challenge", ages: "4th–8th" },
+  ftc: { name: "FIRST Tech Challenge", ages: "7th–12th" },
+  frc: { name: "FIRST Robotics Competition", ages: "high school" },
+};
 const roboticsLevels = levels.map((level) => ({
-  name: level.name, slug: level.slug, ages: level.ageLabel, blurb: level.homeBlurb,
+  slug: level.slug, blurb: level.homeBlurb,
   color: level.color, src: level.photoSrc, caption: level.photoCaption, alt: level.photoAlt,
+  ...(homeLevelCopy[level.slug] ?? { name: level.name, ages: level.ageLabel }),
 }));
 
-const featuredPaths = ["/events/maker-faire", "/events/popup-maker-spaces", "/events/build-like-a-girl"];
-const events = featuredPaths.map((href) => programs.find((program) => program.href === href)!);
+const homeEventCopy: Record<string, { when: string; headline: string; blurb: string }> = {
+  "/events/maker-faire": {
+    when: "Annual · next May 2027",
+    headline: "Our biggest event of the year",
+    blurb: "K-12 kids show what they made all year: Rube Goldberg machines, robots, embroidered patches, soldered circuits, 3D-printed everything. Free, open to the public.",
+  },
+  "/events/popup-maker-spaces": {
+    when: "Sporadic Saturdays · Sign up to hear first",
+    headline: "Hands-on workshops, drop in and make",
+    blurb: "A few times a year we open a space and load it with tools: soldering irons, sewing machines, 3D printers, cardboard, hot glue, whatever's on hand. Show up and make.",
+  },
+  "/events/build-like-a-girl": {
+    when: "Multiple sessions · Watch the newsletter",
+    headline: "Inspiring girls in STEAM",
+    blurb: "Older girls from our FRC and FTC teams teach the younger ones. Hands-on robotics with serious tools. By girls, for girls.",
+  },
+};
+const featuredPaths = Object.keys(homeEventCopy);
+const events = featuredPaths.map((href) => ({ ...programs.find((program) => program.href === href)!, ...homeEventCopy[href] }));
 
 ---
 

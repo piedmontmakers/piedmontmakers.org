@@ -67,10 +67,10 @@ const events = (await getCollection("events")).sort(
   (a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf()
 );
 
-// Each row gets an id equal to its date (e.g. id="2026-07-02") so the home
-// "Coming up" teaser can deep-link straight to the event's full detail here.
-// If two events share a date, later ones get -2, -3 suffixes to keep ids
-// unique; the teaser always links to the bare date (first event that day).
+// Each row's real anchor is event-<id> (shared with the homepage teaser and the
+// ICS feed via eventAnchor). A hidden span inside the row also carries the
+// legacy date id (e.g. id="2026-07-02", with -2, -3 suffixes when a date
+// repeats) so links published before the slug anchors still land here.
 const anchorSeen = new Map<string, number>();
 const anchorFor = (iso: string) => {
   const n = (anchorSeen.get(iso) ?? 0) + 1;

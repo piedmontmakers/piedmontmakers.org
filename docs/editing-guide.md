@@ -47,7 +47,7 @@ One-time setup takes about 15 minutes:
    ```bash
    git clone https://github.com/piedmontmakers/piedmontmakers.org.git
    cd piedmontmakers.org
-   npm ci --include=optional
+   npm run bootstrap
    ```
 
 Launch your preferred client from the repository:

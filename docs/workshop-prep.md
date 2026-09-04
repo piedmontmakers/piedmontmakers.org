@@ -10,7 +10,7 @@ Everything here happens before the call so the session is spent editing, not ins
 2. **Send your GitHub username to the workshop host**, then **accept the repository invitation** that arrives by email. The invite expires if it sits unaccepted, and access is what makes everything else work.
 3. **Have a paid Claude account and confirm you can log in** at claude.ai. The repo asks for the Opus model by default; if your plan doesn't include Opus, picking Sonnet when prompted is fine. Don't use a "fast" or "mini" model for site edits.
 4. **Open [claude.ai/code](https://claude.ai/code) once and connect your GitHub account** when it offers. Doing the authorization dance ahead of time surfaces any account hiccups while there's time to fix them.
-5. **Optional, for the locally-inclined:** install the tools listed in the setup section of [docs/editing-guide.md](editing-guide.md) (git, Node, jq, Claude Code), clone the repo, and run `npm ci --include=optional` — all before the call. Big downloads during a live session are a time sink even on good wifi.
+5. **Optional, for the locally-inclined:** install the tools listed in the setup section of [docs/editing-guide.md](editing-guide.md) (git, Node, jq, Claude Code), clone the repo, and run `npm run bootstrap` — all before the call. Big downloads during a live session are a time sink even on good wifi.
 6. **Skim [docs/editing-guide.md](editing-guide.md)** (10 minutes). It covers everything the workshop demonstrates.
 7. **Join from a computer, not a phone or tablet**, and if you have a second monitor, use it — you'll want the video call and your own Claude session visible at once.
 

@@ -46,7 +46,7 @@ Inline images use HTML figures:
 
 Frontmatter image paths use `/img/...`; the resolver prepends the base. Inline images and links in body content must also be root-relative (`/img/...`, `/robotics`). The prose pipeline does not run the resolver, and production uses `base: '/'`. A hardcoded `/piedmontmakers.org/...` path fails on the live apex domain.
 
-Root-relative body paths fail in local `npm run dev`, whose base is `/piedmontmakers.org/`. Verify them with `USE_CUSTOM_DOMAIN=true npm run build` served from `dist`.
+`npm run dev` now serves the same apex paths as production, so root-relative body paths work in the preview. The subpath base (`/piedmontmakers.org/`) only appears if you build without `USE_CUSTOM_DOMAIN=true`, where those links will not resolve.
 
 ## Add an event
 

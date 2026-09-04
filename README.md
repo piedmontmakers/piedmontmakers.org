@@ -144,7 +144,7 @@ Cloud sessions (claude.ai/code) have none of these — no browser reaches the sa
 
 ## When something goes wrong
 
-- **The deploy shows a red ✗**: nothing shipped; the previous version of the site is still live. Open the failed run in the Actions tab, read which step failed (type check, alt text, agent configuration, hook contracts, build, calendar feed, structured data, or agent readiness), fix, and push again. Or paste the log to your agent.
+- **The deploy shows a red ✗**: nothing shipped; the previous version of the site is still live. Open the failed run in the Actions tab, expand the "Verify production build" step and read which check failed (type check, alt text, agent configuration, hook contracts, build, browser tests, calendar feed, structured data, or agent readiness), fix, and push again. Or paste the log to your agent.
 - **Undo a bad change**: `git revert <sha> && git push`. The revert deploys like any other commit. Never force-push `main`.
 - **Build broken after an install**: follow [dependency recovery](docs/troubleshooting.md).
 
