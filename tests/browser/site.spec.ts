@@ -84,6 +84,8 @@ test('rendered pages have valid local destinations, images, and image alternativ
   test.setTimeout(120_000);
   const failures: string[] = [];
   const root = resolve('dist');
+  const fragments = new Map<string, Set<string>>();
+  const fragmentLinks: Array<{source:string,target:string,fragment:string}> = [];
   for (const file of htmlFiles(root)) {
     const html = readFileSync(file,'utf8');
     if (/http-equiv="refresh"/i.test(html) || file.includes('/admin/')) continue;
@@ -99,8 +101,23 @@ test('rendered pages have valid local destinations, images, and image alternativ
       const url = new URL(ref.url);
       if (!['127.0.0.1', 'piedmontmakers.org'].includes(url.hostname)) continue;
       const target = join(root,decodeURIComponent(url.pathname));
-      if (!existsSync(target) && !existsSync(join(target,'index.html'))) failures.push(`${path}: missing ${url.pathname}`);
+      const targetFile = existsSync(target) && statSync(target).isFile() ? target : join(target,'index.html');
+      if (!existsSync(targetFile)) {
+        failures.push(`${path}: missing ${url.pathname}`);
+      } else if (!ref.image && url.hash && targetFile.endsWith('.html')) {
+        fragmentLinks.push({source:path,target:targetFile,fragment:decodeURIComponent(url.hash.slice(1))});
+        if (!fragments.has(targetFile)) {
+          const ids = await page.evaluate(html => {
+            const document = new DOMParser().parseFromString(html,'text/html');
+            return Array.from(document.querySelectorAll('[id], a[name]')).flatMap(node => [node.id,node.getAttribute('name') ?? '']);
+          }, readFileSync(targetFile,'utf8'));
+          fragments.set(targetFile,new Set(ids));
+        }
+      }
     }
+  }
+  for (const link of fragmentLinks) {
+    if (!fragments.get(link.target)?.has(link.fragment)) failures.push(`${link.source}: missing fragment #${link.fragment} in ${link.target}`);
   }
   expect(failures).toEqual([]);
 });
