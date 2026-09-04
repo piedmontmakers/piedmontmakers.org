@@ -2,3 +2,9 @@
 # default 32 KiB instruction limit. AGENTS.md is kept smaller as the primary
 # portability measure.
 project_doc_max_bytes = 65536
+
+# Mirror the Claude Code .mcp.json entry so a fresh Codex CLI task can run the
+# shared web-verify skill without relying on a user's global configuration.
+[mcp_servers.chrome-devtools]
+command = "npx"
+args = ["-y", "chrome-devtools-mcp@latest"]
