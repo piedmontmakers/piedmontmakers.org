@@ -1,6 +1,5 @@
 ---
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const link = (path: string) => `${base}${path}`;
+import { link } from "../lib/urls";
 ---
 
 <footer class="mt-32 bg-pm-ink text-pm-cream relative overflow-hidden">

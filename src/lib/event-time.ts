@@ -35,3 +35,16 @@ export const isoDate = (date: Date) =>
  */
 export const isoLocalDateTime = (date: Date, time: ParsedTime) =>
   `${isoDate(date)}T${pad(time.hour)}:${pad(time.minute)}:00`;
+
+/** Date-card labels use UTC because content dates have no timezone. */
+export const eventDateParts = (date: Date) => ({
+  iso: isoDate(date),
+  month: date.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" }).toUpperCase(),
+  day: String(date.getUTCDate()),
+  weekday: date.toLocaleDateString("en-US", { weekday: "short", timeZone: "UTC" }),
+  year: String(date.getUTCFullYear()),
+});
+
+export const actionLabel = {
+  tickets: "Get tickets", register: "Register", volunteer: "Volunteer", exhibit: "Exhibit", info: "More info",
+};

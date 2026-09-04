@@ -1,5 +1,9 @@
 ---
+import { eventDateParts } from "../lib/event-time";
+import { link, asset } from "../lib/urls";
 import { eventAnchor } from "../lib/events";
+import { levels } from "../data/robotics-levels";
+import { programs } from "../data/programs";
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
@@ -11,7 +15,6 @@ import { stats } from "../data/stats";
 import { voices } from "../data/voices";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const link = (path: string) => `${base}${path}`;
 
 const latestPosts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -22,7 +25,6 @@ const latestPosts = (await getCollection("blog"))
 const formatDate = (d: Date) =>
   d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 
-const asset = (path: string) => `${base}${path.startsWith("/") ? path : `/${path}`}`;
 const blogThumbFallback = "/img/brand/makey.png";
 
 // Render all events; the browser keeps the current window accurate between builds.
@@ -31,13 +33,7 @@ const upcomingEvents = (await getCollection("events"))
 
 // YAML dates parse as midnight UTC; format with UTC methods so the day number
 // matches the frontmatter regardless of the build server's timezone.
-const fmtEventParts = (d: Date) => ({
-  iso: d.toISOString().slice(0, 10),
-  month: d.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" }).toUpperCase(),
-  day: d.getUTCDate().toString(),
-  weekday: d.toLocaleDateString("en-US", { weekday: "short", timeZone: "UTC" }),
-  year: d.getUTCFullYear().toString(),
-});
+
 
 
 // Mailchimp audience details extracted from the unsubscribe link in the
@@ -46,93 +42,14 @@ const fmtEventParts = (d: Date) => ({
 const MAILCHIMP_ACTION = "https://piedmontmakers.us3.list-manage.com/subscribe/post?u=edc89d8dd41a4ea6ee9352d9a&id=83b9d5d7df";
 const MAILCHIMP_HONEYPOT_NAME = "b_edc89d8dd41a4ea6ee9352d9a_83b9d5d7df";
 
-const roboticsLevels = [
-  {
-    name: "FIRST LEGO League Explore",
-    slug: "fll-explore",
-    ages: "K–3rd",
-    blurb: "Your kid's first robot. LEGO bricks, simple programming, no pressure.",
-    color: "red" as const,
-    src: "/img/robotics/fll-explore.jpg",
-    caption: "Younger kids building LEGO Technic together",
-    alt: "Four young boys in purple Piedmont Makers shirts sitting on the floor of a gym building LEGO Technic structures.",
-  },
-  {
-    name: "FIRST LEGO League Challenge",
-    slug: "fll-challenge",
-    ages: "4th–8th",
-    blurb: "LEGO robots plus a research project. Kids design, code, and present.",
-    color: "cyan" as const,
-    src: "/img/robotics/fll-challenge.jpg",
-    caption: "A Challenge team at the SUBMERGED season tournament",
-    alt: "Five girls in maroon Piedmont Makers shirts working at an FLL Challenge competition table with a LEGO ocean-themed game board.",
-  },
-  {
-    name: "FIRST Tech Challenge",
-    slug: "ftc",
-    ages: "7th–12th",
-    blurb: "Metal robots, Java code, regional tournaments. Middle and high schoolers building serious machines.",
-    color: "purple" as const,
-    src: "/img/robotics/ftc.jpg",
-    caption: "A playoff match at the league tournament",
-    alt: "FTC playoff match in progress at John Morrison Gymnasium — referees, team members at the alliance stations, and robots on the competition field.",
-  },
-  {
-    name: "FIRST Robotics Competition",
-    slug: "frc",
-    ages: "high school",
-    blurb: "120 pounds of competition robot. Built by high schoolers, season after season.",
-    color: "ink" as const,
-    src: "/img/robotics/frc.jpg",
-    caption: "Highlander Robotics 8033 huddled around the robot at a tournament",
-    alt: "Members of Highlander Robotics Team 8033 in purple shirts gathered around their robot at a tournament, with a packed gym of spectators in the bleachers behind them.",
-  },
-];
+const roboticsLevels = levels.map((level) => ({
+  name: level.name, slug: level.slug, ages: level.ageLabel, blurb: level.homeBlurb,
+  color: level.color, src: level.photoSrc, caption: level.photoCaption, alt: level.photoAlt,
+}));
 
-const events = [
-  {
-    name: "School Maker Faire",
-    when: "Annual · next May 2027",
-    cta: "See the Maker Faire →",
-    headline: "Our biggest event of the year",
-    blurb: "K-12 kids show what they made all year: Rube Goldberg machines, robots, embroidered patches, soldered circuits, 3D-printed everything. Free, open to the public.",
-    color: "red" as const,
-    href: "/events/maker-faire",
-    src: "/img/programs/maker-faire.jpg",
-    caption: "Kids at the Maker Faire LEGO play table",
-    alt: "Children and parents gathered around a large outdoor LEGO play table at the Piedmont School Maker Faire.",
-    tilt: "left" as const,
-    tape: "none" as const,
-  },
-  {
-    name: "Popup Maker Spaces",
-    when: "Sporadic Saturdays · Sign up to hear first",
-    cta: "Catch the next popup →",
-    headline: "Hands-on workshops, drop in and make",
-    blurb: "A few times a year we open a space and load it with tools: soldering irons, sewing machines, 3D printers, cardboard, hot glue, whatever's on hand. Show up and make.",
-    color: "cyan" as const,
-    href: "/events/popup-maker-spaces",
-    src: "/img/programs/popup.jpg",
-    caption: "Kids and parents making at a popup maker space",
-    alt: "Children and parents at long tables making craft projects with paper, markers, and cardboard inside a community hall.",
-    tilt: "right" as const,
-    tape: "left" as const,
-  },
-  {
-    name: "Build Like a Girl",
-    when: "Multiple sessions · Watch the newsletter",
-    cta: "How mentoring works →",
-    headline: "Inspiring girls in STEAM",
-    blurb: "Older girls from our FRC and FTC teams teach the younger ones. Hands-on robotics with serious tools. By girls, for girls.",
-    color: "purple" as const,
-    href: "/events/build-like-a-girl",
-    src: "/img/programs/build-like-a-girl.jpg",
-    caption: "Older FRC students demoing a robot to a crowd of younger girls",
-    alt: "High school students in purple Piedmont Makers sweatshirts demonstrating a robot to a crowd of young girls.",
-    tilt: "left" as const,
-    tape: "right" as const,
-  },
-];
+const featuredPaths = ["/events/maker-faire", "/events/popup-maker-spaces", "/events/build-like-a-girl"];
+const events = featuredPaths.map((href) => programs.find((program) => program.href === href)!);
+
 ---
 
 <BaseLayout title="Piedmont Makers — STEAM, robotics & maker culture for East Bay kids">
@@ -241,8 +158,8 @@ const events = [
       </div>
       <ul class="divide-y divide-pm-ink/10">
         {upcomingEvents.map((e) => {
-          const p = fmtEventParts(e.data.startDate);
-          const end = e.data.endDate ? fmtEventParts(e.data.endDate) : null;
+          const p = eventDateParts(e.data.startDate);
+          const end = e.data.endDate ? eventDateParts(e.data.endDate) : null;
           // Same-month range shows as "8–12" / "Mon–Fri"; the box stays anchored
           // on the start date. Mirrors /calendar's multi-day treatment.
           const sameMonthRange =

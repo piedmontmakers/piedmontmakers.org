@@ -1,13 +1,14 @@
 ---
+import { eventDateParts } from "../lib/event-time";
+import { link } from "../lib/urls";
 import { eventAnchor } from "../lib/events";
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { parseTime, isoDate, isoLocalDateTime } from "../lib/event-time";
+import { actionLabel, parseTime, isoDate, isoLocalDateTime } from "../lib/event-time";
 import { isVirtualLocation, mapsUrl, streetAddressFor } from "../lib/venues";
 import Ribbon from "../components/Ribbon.astro";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const link = (path: string) => `${base}${path}`;
 const calendarFeedUrl = new URL(
   `${base}/calendar.ics`,
   Astro.site ?? "https://piedmontmakers.org/"
@@ -48,13 +49,6 @@ const programColor: Record<string, string> = {
 };
 
 // Default labels per action type — events can override per row in frontmatter.
-const actionLabel: Record<string, string> = {
-  tickets: "Get tickets",
-  register: "Register",
-  volunteer: "Volunteer",
-  exhibit: "Exhibit",
-  info: "More info",
-};
 
 // Visual treatment per action type. Tickets and register are the primary
 // transactions (filled red). Volunteer and exhibit are the participate-with-us
@@ -87,13 +81,7 @@ const anchorFor = (iso: string) => {
 // YAML dates like 2026-05-17 are parsed as midnight UTC. Format using UTC
 // methods so the displayed day matches what's in the frontmatter, regardless
 // of the build server's timezone.
-const fmtDateParts = (d: Date) => ({
-  iso: d.toISOString().slice(0, 10),
-  month: d.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" }).toUpperCase(),
-  day: d.getUTCDate().toString(),
-  weekday: d.toLocaleDateString("en-US", { weekday: "short", timeZone: "UTC" }),
-  year: d.getUTCFullYear().toString(),
-});
+
 
 // schema.org Event structured data, one entry per event, generated from the
 // same collection that renders the page — new event files get schema
@@ -205,9 +193,9 @@ const eventSchemas = events.map((event) => {
       </div>
       <ul class="mt-2 divide-y divide-pm-ink/10" data-events-list>
         {events.map((e) => {
-          const start = fmtDateParts(e.data.startDate);
+          const start = eventDateParts(e.data.startDate);
           const anchorId = anchorFor(start.iso);
-          const end = e.data.endDate ? fmtDateParts(e.data.endDate) : null;
+          const end = e.data.endDate ? eventDateParts(e.data.endDate) : null;
           const isRange = end !== null && end.iso !== start.iso;
           // A same-month range fits in the date box as "8–12" / "MON–FRI".
           // Cross-month ranges fall back to the start date plus a "Through …" chip.

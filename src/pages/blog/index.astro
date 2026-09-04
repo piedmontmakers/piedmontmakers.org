@@ -1,11 +1,9 @@
 ---
+import { link, asset } from "../../lib/urls";
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Ribbon from "../../components/Ribbon.astro";
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const link = (path: string) => `${base}${path}`;
-const asset = (path: string) => `${base}${path.startsWith("/") ? path : `/${path}`}`;
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()

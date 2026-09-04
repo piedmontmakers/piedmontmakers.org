@@ -1,12 +1,11 @@
 ---
+import { link } from "../lib/urls";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
 import PhotoCard from "../components/PhotoCard.astro";
 import { stats } from "../data/stats";
 import { programs } from "../data/programs";
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const link = (path: string) => `${base}${path}`;
 
 ---
 

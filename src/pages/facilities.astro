@@ -1,10 +1,10 @@
 ---
+import { link } from "../lib/urls";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
 import PhotoCard from "../components/PhotoCard.astro";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const link = (path: string) => `${base}${path}`;
 
 // Major sponsors of 10th Street (the youth robotics practice field).
 // Per the donor-amount policy, we don't publish 3rd-party donor amounts — listing

@@ -1,6 +1,6 @@
 ---
+import { link } from "../lib/urls";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const link = (path: string) => `${base}${path}`;
 
 type NavChild = { href: string; label: string };
 type NavItem = { href: string; label: string; children?: NavChild[] };

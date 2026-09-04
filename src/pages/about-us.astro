@@ -1,16 +1,15 @@
 ---
+import { link } from "../lib/urls";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
 import StatsBand from "../components/StatsBand.astro";
 import { stats, type Stat } from "../data/stats";
 import { board, boardMemberCount } from "../data/board";
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 // Board members with two titles carry an array; each title gets its own line.
 const roleLines = (role?: string | string[]) =>
   role === undefined ? [] : Array.isArray(role) ? role : [role];
-const link = (path: string) => `${base}${path}`;
 
 
 const impactStats: Stat[] = [

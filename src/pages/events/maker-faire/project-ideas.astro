@@ -1,9 +1,8 @@
 ---
+import { link } from "../../../lib/urls";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Ribbon from "../../../components/Ribbon.astro";
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const link = (path: string) => `${base}${path}`;
 
 // A–Z brainstorm list migrated from the Wix /maker-faire-project-ideas page.
 // Intentionally idiosyncratic — there's some "Z is for Zombie Zoo" energy.

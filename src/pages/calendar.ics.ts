@@ -1,18 +1,11 @@
 import { eventAnchor } from "../lib/events";
 import { getCollection } from "astro:content";
 import type { APIContext } from "astro";
-import { parseTime } from "../lib/event-time";
+import { actionLabel, parseTime } from "../lib/event-time";
 import { geocodableLocation } from "../lib/venues";
 
 const TIMEZONE = "America/Los_Angeles";
 
-const actionLabel: Record<string, string> = {
-  tickets: "Get tickets",
-  register: "Register",
-  volunteer: "Volunteer",
-  exhibit: "Exhibit",
-  info: "More info",
-};
 
 const formatDate = (date: Date) =>
   `${date.getUTCFullYear()}${String(date.getUTCMonth() + 1).padStart(2, "0")}${String(

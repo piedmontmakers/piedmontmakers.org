@@ -1,10 +1,9 @@
 ---
+import { link } from "../lib/urls";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
 import PhotoCard from "../components/PhotoCard.astro";
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const link = (path: string) => `${base}${path}`;
 
 const REGISTER = "https://go.teamsnap.com/forms/524140";
 const INFO_SESSION = "https://docs.google.com/presentation/d/1-r_DnbgfpT_6fSucgNk3oOdca_AlCBbcZ38TrPaflw4";

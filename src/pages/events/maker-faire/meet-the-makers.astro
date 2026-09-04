@@ -1,9 +1,8 @@
 ---
+import { link } from "../../../lib/urls";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Ribbon from "../../../components/Ribbon.astro";
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const link = (path: string) => `${base}${path}`;
 
 // Exhibits from the 11th Annual Piedmont School Maker Faire (May 18, 2025).
 // Migrated from the Wix /meet-the-makers page so we don't lose this record.

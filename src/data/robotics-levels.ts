@@ -14,6 +14,7 @@ export interface RoboticsLevel {
   teamSize: string;
   cost: string;
   blurb: string;
+  homeBlurb: string;
   /** May contain inline HTML links. */
   detail: string;
   color: LevelColor;
@@ -41,6 +42,7 @@ const FLL_OPEN_HOUSE = "https://docs.google.com/presentation/d/1_HkY0Hny-GwCP15v
 export const levels: RoboticsLevel[] = [
   {
     slug: "fll-explore",
+    homeBlurb: "Your kid's first robot. LEGO bricks, simple programming, no pressure.",
     name: "LEGO League Explore",
     ageLabel: "Grades K–3",
     season: "Aug–Dec",
@@ -61,6 +63,7 @@ export const levels: RoboticsLevel[] = [
   },
   {
     slug: "fll-challenge",
+    homeBlurb: "LEGO robots plus a research project. Kids design, code, and present.",
     name: "LEGO League Challenge",
     ageLabel: "Grades 4–8",
     season: "Aug–Dec",
@@ -82,6 +85,7 @@ export const levels: RoboticsLevel[] = [
   },
   {
     slug: "ftc",
+    homeBlurb: "Metal robots, Java code, regional tournaments. Middle and high schoolers building serious machines.",
     name: "FTC — FIRST Tech Challenge",
     ageLabel: "Grades 7–12",
     season: "Sept–Feb",
@@ -102,6 +106,7 @@ export const levels: RoboticsLevel[] = [
   },
   {
     slug: "frc",
+    homeBlurb: "120 pounds of competition robot. Built by high schoolers, season after season.",
     name: "FRC — Highlander Robotics Team 8033",
     ageLabel: "Grades 9–12",
     season: "Aug–June · build season Jan–March",
