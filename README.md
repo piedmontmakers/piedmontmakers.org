@@ -21,7 +21,7 @@ Pick the row that sounds like you:
 
 Two things everyone should know before their first edit:
 
-1. **A push to `main` is live on the public site in about a minute, with no review step.** Seven automated checks gate the deploy (type check, alt text, agent-hook contracts, the build itself, then the calendar-feed, structured-data, and agent-readiness contracts), so a broken build never ships — but wrong *content* will. Look at what you're pushing.
+1. **A push to `main` is live on the public site in about a minute, with no review step.** Eight automated checks gate the deploy (type check, alt text, agent-configuration and hook contracts, the build itself, then the calendar-feed, structured-data, and agent-readiness contracts), so a broken build never ships — but wrong *content* will. Look at what you're pushing.
 2. **Some files require explicit approval before editing.** Brand tokens, the nav, the footer, the base layout, configs, and workflows are "red-zone." Claude Code asks for confirmation; Codex blocks the patch until a maintainer enables the local bypass. The edit-zones section of [AGENTS.md](AGENTS.md) explains the tiers.
 
 ## What's where
@@ -99,7 +99,7 @@ This is how most of the site was built. The repo is configured for Claude Code a
 - Project hooks live in `.codex/hooks.json` and `.claude/settings.json`.
 - Shared hook logic lives in `scripts/agent-hooks/`.
 - If your agent asks whether to trust this repo, approve it only after reviewing the hook scripts.
-- Confirm that project hooks loaded: use `/hooks` in Claude Code and the hook status shown by `codex doctor` or Codex settings.
+- Confirm the committed hook wiring with `npm run test:hooks` and `node scripts/check-agent-config.mjs`. Claude Code also exposes `/hooks`; Codex users can review `.codex/hooks.json` and the project settings shown after trusting the repository.
 - Portable project skills live in `.agents/skills/`; Claude discovers relative symlinks under `.claude/skills/`.
 
 Three guardrails to know about:
@@ -220,7 +220,7 @@ Cloud sessions (claude.ai/code) have none of these — no browser reaches the sa
 
 ## When something goes wrong
 
-- **The deploy shows a red ✗**: nothing shipped; the previous version of the site is still live. Open the failed run in the Actions tab, read which step failed (type check, alt text, hook contracts, build, calendar feed, structured data, or agent readiness), fix, and push again. Or paste the log to your agent.
+- **The deploy shows a red ✗**: nothing shipped; the previous version of the site is still live. Open the failed run in the Actions tab, read which step failed (type check, alt text, agent configuration, hook contracts, build, calendar feed, structured data, or agent readiness), fix, and push again. Or paste the log to your agent.
 - **Undo a bad change**: `git revert <sha> && git push`. The revert deploys like any other commit. Never force-push `main`.
 - **Build broken after an `npm install`**: `git checkout package-lock.json && rm -rf node_modules && npm ci --include=optional` (see Gotchas).
 

@@ -32,7 +32,9 @@ jobs:
       - name: Alt-text check
         run: node scripts/check-alt-text.mjs
       - name: Agent configuration contract
-        run: node scripts/check-agent-config.mjs
+        run: |
+          node --test scripts/check-agent-config.test.mjs
+          node scripts/check-agent-config.mjs
       - name: Hook contract tests
         run: bash scripts/agent-hooks/test-hooks.sh
       - name: Build Astro site
