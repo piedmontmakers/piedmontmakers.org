@@ -38,7 +38,7 @@ The 404 page is branded and renders as a normal-looking document, so a wrong URL
 
 ## 2. Use the available browser capability
 
-Inspect the tools exposed by the current client and use its browser-control capability. Claude Code may expose a Chrome MCP tool. Codex may expose in-app browser control. Follow the installed browser skill when one is present.
+Inspect the tools exposed by the current client. Prefer its native browser-control capability when available. Otherwise use the project’s `chrome-devtools` MCP server, configured for Claude Code in `.mcp.json` and for Codex in `.codex/config.toml`. Follow an installed browser skill when one is present.
 
 If no browser tool is available, use `curl -fsS` to confirm the page responds and report that visual and interaction checks could not be completed. Do not describe those checks as passing.
 

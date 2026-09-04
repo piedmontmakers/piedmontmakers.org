@@ -59,9 +59,11 @@ claude
 codex
 ```
 
-You can also open the folder in the Codex desktop app or a Claude Code editor integration.
+You can also open the folder in the Codex desktop app or a Claude Code editor integration. Select `piedmontmakers.org` itself as the project root. Do not open its parent `makers` folder; Codex does not search child repositories for instructions, skills, configuration, or hooks.
 
 When the client asks whether to trust the folder or enable project hooks, review `scripts/agent-hooks/`, then approve it. Claude Code installs dependencies automatically when a session starts in a fresh clone; in Codex, ask the agent to use `project-bootstrap` if the build complains about missing packages.
+
+For public writing, install the shared `pm-context` plugin from the sibling [agents hub](https://github.com/piedmontmakers/agents/blob/main/GETTING-STARTED.md). Claude Code auto-enables it through this repository’s settings. Codex desktop and CLI users install it once from the `piedmontmakers` marketplace. Codex IDE uses the sibling checkout fallback because it does not currently load plugins.
 
 ## Shared instructions, hooks, and skills
 
@@ -73,6 +75,8 @@ Both clients receive the same project policy:
 - Project skills live in `.agents/skills/`. Claude Code reaches the same files through `.claude/skills/` symlinks.
 
 Use the `web-verify` skill after frontend work. In Claude Code, enter `/web-verify`; in Codex, enter `$web-verify` or ask for it by name.
+
+Browser verification is configured for both local clients. Claude Code reads `.mcp.json`; Codex CLI reads the matching entry in `.codex/config.toml`. Codex desktop may use its native browser instead. The skill selects the available capability and reports when it can only run HTTP and build checks.
 
 ### Red-zone approval differs by client
 

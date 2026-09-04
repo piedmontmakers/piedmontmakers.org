@@ -65,13 +65,13 @@ The full voice and editorial rules live in the org's agents hub — the private 
 - **Never publish the dollar amount a named donor gave us.** Amounts the org awards (teacher grants) are fine; the full policy is in the hub.
 - **MailChimp: drafts only.** Agents never send or schedule a campaign; test emails only to addresses the user names in the conversation.
 
-For anything beyond a small copy tweak, read the full rules first — the path depends on where you're running:
+For anything beyond a small copy tweak, read the full rules first. Choose the path supported by the current client:
 
-- **Claude Code, local machine**: the `voice` skill (from the pm-context plugin this repo auto-enables) covers voice, editorial rules, honoree names, 10th Street framing, and the donor-amount policy. Org numbers come from `/facts.json` via the `org-facts` skill — never from memory.
-- **Claude Code on the web / phone (cloud sessions)**: plugins do NOT provision here (verified 2026-08-27 — no `/plugin` command, empty plugin store, the settings wiring is ignored). Read the full rules through the GitHub MCP instead: attach the hub with `add_repo` on `piedmontmakers/agents`, then `get_file_contents` on `plugins/pm-context/skills/voice/SKILL.md`. Org numbers: fetch `https://piedmontmakers.org/facts.json`.
-- **Codex / anything else without plugins**: read `../agents/plugins/pm-context/skills/voice/SKILL.md` from the sibling hub checkout (the org convention is to clone the hub next to this repo), or fetch it with `gh api repos/piedmontmakers/agents/contents/plugins/pm-context/skills/voice/SKILL.md --jq .content | base64 -d`.
+- **Local clients with plugins (Claude Code, Codex desktop, Codex CLI):** use the installed pm-context `voice` skill. This repository auto-enables pm-context for Claude Code; Codex users install it from the `piedmontmakers/agents` marketplace. Org numbers come from `/facts.json` through the `org-facts` skill, never from memory.
+- **Claude Code cloud sessions:** local plugins did not provision in the verified 2026-08-27 test. Read the full rules through the GitHub MCP: attach `piedmontmakers/agents`, then read `plugins/pm-context/skills/voice/SKILL.md`. Fetch org numbers from `https://piedmontmakers.org/facts.json`.
+- **Clients without plugin support:** read `../agents/plugins/pm-context/skills/voice/SKILL.md` from the sibling hub checkout, or fetch it with `gh api repos/piedmontmakers/agents/contents/plugins/pm-context/skills/voice/SKILL.md --jq .content | base64 -d`.
 
-**Machine-readable facts**: `/facts.json` (see `src/pages/facts.json.ts`) serves stats, board, programs, grants, and the EIN, compiled from `src/data/` — the same modules the pages render — and deploy gate 7 contract-checks its shape. Edit numbers in `src/data/`; stats provenance notes are in `docs/agent/site-reference.md`.
+**Machine-readable facts**: `/facts.json` (see `src/pages/facts.json.ts`) serves stats, board, programs, grants, and the EIN, compiled from `src/data/` — the same modules the pages render — and the agent-readiness deploy gate contract-checks its shape. Edit numbers in `src/data/`; stats provenance notes are in `docs/agent/site-reference.md`.
 
 ## Mobile patterns
 
@@ -124,11 +124,12 @@ npm run build        # verify before commit
 
 **Stage specific files when committing**, not `git add -A`. Agent plugin cache directories (`.claude/skills/`, `.agents/skills/`, `.codex/skills/`) have sat next to the working tree before and can sneak into commits via `-A`. These cache paths are ignored, but staging explicit paths is still safer.
 
-**Commit directly to `main`. Always. No exceptions unless the user says otherwise in the conversation.** This is a small site with a direct-to-main workflow: edit → build → commit → push to `main`. The GitHub Action runs seven gates in order, then deploys to GitHub Pages, live in about a minute with no review step:
+**Commit directly to `main`. Always. No exceptions unless the user says otherwise in the conversation.** This is a small site with a direct-to-main workflow: edit → build → commit → push to `main`. The GitHub Action runs eight gates in order, then deploys to GitHub Pages, live in about a minute with no review step:
 
 ```
 npm run check                            # astro check
 node scripts/check-alt-text.mjs
+node --test scripts/check-agent-config.test.mjs && node scripts/check-agent-config.mjs
 bash scripts/agent-hooks/test-hooks.sh
 USE_CUSTOM_DOMAIN=true npm run build
 node scripts/check-calendar-feed.mjs     # these three read dist/,

@@ -21,7 +21,7 @@ Pick the row that sounds like you:
 
 Two things everyone should know before their first edit:
 
-1. **A push to `main` is live on the public site in about a minute, with no review step.** Seven automated checks gate the deploy (type check, alt text, agent-hook contracts, the build itself, then the calendar-feed, structured-data, and agent-readiness contracts), so a broken build never ships — but wrong *content* will. Look at what you're pushing.
+1. **A push to `main` is live on the public site in about a minute, with no review step.** Eight automated checks gate the deploy (type check, alt text, agent-configuration and hook contracts, the build itself, then the calendar-feed, structured-data, and agent-readiness contracts), so a broken build never ships — but wrong *content* will. Look at what you're pushing.
 2. **Some files require explicit approval before editing.** Brand tokens, the nav, the footer, the base layout, configs, and workflows are "red-zone." Claude Code asks for confirmation; Codex blocks the patch until a maintainer enables the local bypass. The edit-zones section of [AGENTS.md](AGENTS.md) explains the tiers.
 
 ## What's where
@@ -99,7 +99,7 @@ This is how most of the site was built. The repo is configured for Claude Code a
 - Project hooks live in `.codex/hooks.json` and `.claude/settings.json`.
 - Shared hook logic lives in `scripts/agent-hooks/`.
 - If your agent asks whether to trust this repo, approve it only after reviewing the hook scripts.
-- Run `/hooks` in either client to confirm that the project hooks loaded.
+- Confirm the committed hook wiring with `npm run test:hooks` and `node scripts/check-agent-config.mjs`. Claude Code also exposes `/hooks`; Codex users can review `.codex/hooks.json` and the project settings shown after trusting the repository.
 - Portable project skills live in `.agents/skills/`; Claude discovers relative symlinks under `.claude/skills/`.
 
 Three guardrails to know about:
@@ -121,6 +121,8 @@ Then talk to it: *"Add the FTC league championship to the events calendar for No
 Keep `npm run dev` running in another terminal while you work so the agent can check the browser preview as it edits.
 
 The clients share two project skills. Ask for `web-verify` after frontend changes (`/web-verify` in Claude Code or `$web-verify` in Codex). Claude Code sessions install dependencies automatically at startup when `node_modules` is missing; in Codex (no startup hook), run `npm ci --include=optional` or ask for `project-bootstrap`.
+
+Local writing work also uses the `pm-context` plugin from the sibling [agents hub](https://github.com/piedmontmakers/agents). Claude Code auto-enables it through this repository’s settings. Codex desktop and CLI users install `pm-context@piedmontmakers` by following the hub’s `GETTING-STARTED.md`. Codex IDE does not currently load plugins and uses the sibling checkout fallback in `AGENTS.md`.
 
 Some hosted agent sessions must use a managed branch or worktree. The agent should say clearly when its commit has not reached `main`; no change is live until `main` is pushed and the deploy succeeds.
 
@@ -210,7 +212,7 @@ sips --resampleWidth 1600 --setProperty formatOptions 82 \
 
 Nothing beyond the prerequisites is required — the repo carries its own skills, hooks, and agent config. Three optional layers, in increasing order of setup:
 
-- **Chrome-DevTools MCP (zero install, ships with the repo).** The committed `.mcp.json` configures the [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) server. On your first agent session in this repo, Claude Code asks once whether to enable the project's MCP servers — approve, and the agent can take screenshots, click through pages, check the mobile viewport, and read console errors during `web-verify`. Needs Chrome installed; `npx` fetches the server on first use.
+- **Chrome-DevTools MCP (zero install, ships with the repo).** The committed `.mcp.json` and `.codex/config.toml` configure the same [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) server for Claude Code and Codex CLI. Review the command when the client asks you to trust project configuration. The agent can then take screenshots, click through pages, check the mobile viewport, and read console errors during `web-verify`. Chrome must be installed; `npx` fetches the server on first use.
 - **Claude in Chrome extension (manual, nicer).** The browser extension drives your real Chrome session. It can't be provisioned from the repo — install it from your Claude settings and sign in. Worth it if you do frequent layout work; redundant if the DevTools MCP covers you.
 - **PostHog MCP (admins only).** For querying site analytics conversationally. Needs a PostHog API credential, so it stays in personal config rather than the repo. Editors never need it.
 
@@ -218,7 +220,7 @@ Cloud sessions (claude.ai/code) have none of these — no browser reaches the sa
 
 ## When something goes wrong
 
-- **The deploy shows a red ✗**: nothing shipped; the previous version of the site is still live. Open the failed run in the Actions tab, read which step failed (type check, alt text, hook contracts, build, calendar feed, structured data, or agent readiness), fix, and push again. Or paste the log to your agent.
+- **The deploy shows a red ✗**: nothing shipped; the previous version of the site is still live. Open the failed run in the Actions tab, read which step failed (type check, alt text, agent configuration, hook contracts, build, calendar feed, structured data, or agent readiness), fix, and push again. Or paste the log to your agent.
 - **Undo a bad change**: `git revert <sha> && git push`. The revert deploys like any other commit. Never force-push `main`.
 - **Build broken after an `npm install`**: `git checkout package-lock.json && rm -rf node_modules && npm ci --include=optional` (see Gotchas).
 
