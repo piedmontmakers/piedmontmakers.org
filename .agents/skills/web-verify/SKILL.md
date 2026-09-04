@@ -53,11 +53,10 @@ If no browser tool is available, use `curl -fsS` to confirm the page responds an
 
 ## 4. Run repository verification
 
-Run both commands from `repo_root`:
+Run the complete suite from `repo_root`:
 
 ```bash
-npm run check
-npm run build
+npm run verify
 ```
 
-Report the URL and viewport tested, interactions exercised, console or log findings, and both command results. State any browser limitation explicitly.
+Report the URL and viewport tested, interactions exercised, console or log findings, and the complete verification result. State any browser limitation explicitly.

@@ -4,11 +4,11 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   },
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "dev": "USE_CUSTOM_DOMAIN=true astro dev",
+    "start": "npm run dev",
     "build": "astro build",
     "test:calendar-feed": "npm run build && node scripts/check-calendar-feed.mjs",
     "test:hooks": "bash scripts/agent-hooks/test-hooks.sh",
@@ -17,7 +17,8 @@
     "check": "astro check",
     "verify": "sh scripts/verify.sh",
     "test": "npm run verify",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "bootstrap": "sh scripts/bootstrap.sh"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",

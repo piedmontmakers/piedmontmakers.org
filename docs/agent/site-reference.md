@@ -211,3 +211,39 @@ Last reviewed 2026-08-24.
 - Replace the Destination Imagination photo on `/di`. The current one is sourced from caldi.org and marked "pending permission" in a `TODO` comment.
 
 Closed since the last review: the Maker Faire 2026 recap (final stats, named quote, and four real photos shipped in `src/content/blog/2026-05-18-maker-faire-2026-recap.md`), and the missing `/privacy` page (now live, linked from the footer, CI-enforced).
+
+## Required page contracts
+
+## Mobile patterns
+
+Audit at 390×844 (iPhone 14) in Chrome DevTools after structural changes.
+
+- **Hero collage on home**: the 3-photo overlapping collage doesn't compose well below ~640px. Use `md:hidden` for a single hero photo on mobile and `hidden md:block` for the desktop collage. See the home hero for the pattern.
+- **Card identifier order**: on cards that pair a photo with a label (home robotics levels, home + /events program cards), put the Ribbon (level/program name) + ages BEFORE the PhotoCard so mobile users see what they're scrolling through. On desktop the photo-then-text source order rarely matters because grids redistribute.
+- **Robotics deep page (`/robotics`)**: the per-level cards use `order-last md:order-none` on the photo div so mobile readers get text-first while desktop's alternating left/right layout is preserved.
+
+## Accessibility patterns
+
+- **Skip-to-main-content link** lives at the top of `<body>` in `BaseLayout`. Hidden until focused (via `.sr-only` + `focus:not-sr-only`), then jumps to `#main-content` on `<main>`.
+- **`:focus-visible`** is styled globally in `global.css` — brand cyan 2px outline, 3px offset. Keyboard-only; mouse clicks don't trigger it.
+- **`prefers-reduced-motion: reduce`** is honored: animations, transitions, scroll-behavior, and photo-card tilts all flatten. Defined globally in `global.css`. The 404 page's dancing Makey also has a local override.
+- **Alt tags** required on every `<img>`. Audit: `grep -rEn '<img\s[^>]*>' src/ --include="*.astro" | grep -v 'alt='` should return empty.
+- **Aria-labels** on icon-only links (footer socials, nav hamburger). SVGs marked `aria-hidden="true"`.
+
+## SEO / discovery
+
+`BaseLayout.astro` owns canonical URLs, social metadata, organization JSON-LD, and RSS discovery. Dynamic discovery endpoints and their implementation notes are listed in `docs/agent/site-reference.md`.
+
+Three things about it that are easy to undo by accident:
+
+- **`orgSchema` is multi-typed on purpose.** `@type` is the array `["Organization", "NonprofitOrganization"]`, because `NonprofitOrganization` is a schema.org *pending* extension type that core-vocabulary consumers can't resolve, which made the site read as having no identity type at all. It also carries `@id`, `legalName`, `nonprofitStatus`, a deliberately city-level `PostalAddress` (no street: the org is volunteer-run with no office), and two `ContactPoint`s. `scripts/check-structured-data.mjs` enforces all of it.
+- **`noindex`** is a BaseLayout prop. When set it emits `robots: noindex` *and* suppresses the canonical link. `404.astro` and `styleguide.astro` both pass it. The 404 needs it because GitHub Pages serves `404.html` for every unmatched URL, so a canonical there would point thousands of missing paths at `/404`.
+- **`/styleguide` is excluded from the sitemap** by a filter in `astro.config.mjs`, and `robots.txt` disallows `/admin/`. The CMS shell is blocked outright; `/styleguide` is left crawlable-but-noindexed, because a robots block would stop crawlers ever seeing the noindex.
+
+## PostHog analytics
+
+Read `docs/agent/posthog.md` before analytics changes. New calls to action need a matching `posthog.capture()` in a small inline script. Target elements by `id` or `data-` attribute, never by styling class chains.
+
+## Content editing patterns
+
+Read `docs/agent/content-recipes.md` before changing routine data, publishing a blog post, adding an event, or preparing photos.

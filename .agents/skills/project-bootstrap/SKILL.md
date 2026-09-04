@@ -15,15 +15,15 @@ cd "$repo_root"
 test -d node_modules && test -f node_modules/.package-lock.json
 ```
 
-2. If that final test succeeds, do not reinstall dependencies.
+2. If that final test succeeds and `npm run check` works, do not reinstall. A present node_modules directory alone does not prove native dependencies are usable.
 
 3. If it fails, run:
 
 ```bash
-npm ci --include=optional
+npm run bootstrap
 ```
 
-Use `npm ci`, not `npm install`. The optional flag preserves the locked `@rolldown/binding-*` packages required by this Astro 5 setup.
+The bootstrap script owns dependency recovery. It uses npm ci with optional dependencies and Sharp bundled binaries; see `docs/troubleshooting.md`.
 
 4. Report the installed runtime versions:
 

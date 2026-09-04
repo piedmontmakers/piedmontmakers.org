@@ -21,7 +21,7 @@ Pick the row that sounds like you:
 
 Two things everyone should know before their first edit:
 
-1. **A push to `main` is live on the public site in about a minute, with no review step.** Eight automated checks gate the deploy (type check, alt text, agent-configuration and hook contracts, the build itself, then the calendar-feed, structured-data, and agent-readiness contracts), so a broken build never ships — but wrong *content* will. Look at what you're pushing.
+1. **A push to `main` is live on the public site in about a minute, with no review step.** The shared verification suite gates deployment, including browser regressions, so a broken build never ships — but wrong *content* will. Look at what you're pushing.
 2. **Some files require explicit approval before editing.** Brand tokens, the nav, the footer, the base layout, configs, and workflows are "red-zone." Claude Code asks for confirmation; Codex blocks the patch until a maintainer enables the local bypass. The edit-zones section of [AGENTS.md](AGENTS.md) explains the tiers.
 
 ## What's where
@@ -75,11 +75,11 @@ Prerequisites: a GitHub account with write access to this repo, git, Node 24 LTS
 ```bash
 git clone https://github.com/piedmontmakers/piedmontmakers.org.git
 cd piedmontmakers.org
-npm ci --include=optional
+npm run bootstrap
 npm run dev
 ```
 
-The site runs at <http://localhost:4321/piedmontmakers.org/> with hot reload — open the URL in a browser and your edits show up as you save.
+The site runs at <http://localhost:4321/> with hot reload — open the URL in a browser and your edits show up as you save.
 
 PostHog needs no setup. The project token and host are hardcoded in `src/components/PostHog.astro` deliberately (they are public values that ship in every page); an older `.env` approach silently disabled analytics in production and was removed. See [docs/agent/posthog.md](docs/agent/posthog.md).
 
@@ -111,7 +111,7 @@ Three guardrails to know about:
 ```bash
 git clone https://github.com/piedmontmakers/piedmontmakers.org.git
 cd piedmontmakers.org
-npm ci --include=optional
+npm run bootstrap
 claude         # or open in the Claude Code IDE plugin
 # or open this folder in the Codex app / run codex
 ```
@@ -120,93 +120,17 @@ Then talk to it: *"Add the FTC league championship to the events calendar for No
 
 Keep `npm run dev` running in another terminal while you work so the agent can check the browser preview as it edits.
 
-The clients share two project skills. Ask for `web-verify` after frontend changes (`/web-verify` in Claude Code or `$web-verify` in Codex). Claude Code sessions install dependencies automatically at startup when `node_modules` is missing; in Codex (no startup hook), run `npm ci --include=optional` or ask for `project-bootstrap`.
+The clients share two project skills. Ask for `web-verify` after frontend changes (`/web-verify` in Claude Code or `$web-verify` in Codex). Claude Code sessions install dependencies automatically at startup when `node_modules` is missing; in Codex (no startup hook), run `npm run bootstrap` or ask for `project-bootstrap`.
 
 Local writing work also uses the `pm-context` plugin from the sibling [agents hub](https://github.com/piedmontmakers/agents). Claude Code auto-enables it through this repository’s settings. Codex desktop and CLI users install `pm-context@piedmontmakers` by following the hub’s `GETTING-STARTED.md`. Codex IDE does not currently load plugins and uses the sibling checkout fallback in `AGENTS.md`.
 
 Some hosted agent sessions must use a managed branch or worktree. The agent should say clearly when its commit has not reached `main`; no change is live until `main` is pushed and the deploy succeeds.
 
-## Adding an event
+## Content and page procedures
 
-The events calendar at `/events` reads from Markdown files in `src/content/events/`. To add one:
-
-1. Create a file `src/content/events/YYYY-MM-DD-short-slug.md`
-2. Frontmatter looks like this:
-   ```yaml
-   ---
-   title: "FTC League Match #3"
-   startDate: 2026-11-08
-   startTime: "10:00 AM"
-   endTime: "4:00 PM"
-   location: "John Morrison Gymnasium"
-   program: "robotics"
-   summary: "Third league qualifier."
-   actions:
-     - type: info
-       url: "/robotics#ftc"
-       label: "About FTC"
-   ---
-   ```
-3. Save, commit, push. The event shows up in Upcoming (or Past, depending on today's date — that split happens client-side, so the page stays accurate forever without rebuilds).
-
-Action types: `tickets`, `register`, `volunteer`, `exhibit`, `info`. Color-coded buttons in the calendar.
-
-The subscribable calendar feed is generated at `/calendar.ics`. Google Calendar uses the direct subscribe link on `/calendar`; Apple Calendar users should copy the HTTPS feed URL into Calendar > File > New Calendar Subscription. Avoid direct Apple `webcal://` links, which can fail silently in Chrome on macOS.
-
-## Adding a page callout
-
-Use the reusable `Banner` component for time-bound announcements on any page. Keep the component in `src/components/Banner.astro`; add or remove only the page-level instance.
-
-In the page frontmatter:
-
-```astro
-import Banner from "../components/Banner.astro";
-```
-
-For nested pages, adjust the relative path, for example `../../components/Banner.astro` inside `src/pages/events/`.
-
-Then place the callout inside the standard page shell:
-
-```astro
-<!-- Time-bound announcement: remove or update after DATE. -->
-<section class="mx-auto max-w-7xl px-6 pt-10 md:pt-12">
-  <Banner
-    color="cyan"
-    eyebrow="Now open"
-    headline="Registration is open"
-    body="Short context line."
-    ctaLabel="Register"
-    ctaHref="/robotics"
-  />
-</section>
-```
-
-Colors: `red`, `cyan`, or `purple`. If the CTA points to a site path, use a root-relative URL such as `/robotics`; the component handles the base path.
-
-## Adding a blog post
-
-Drop a Markdown file in `src/content/blog/YYYY-MM-DD-slug.md`:
-
-```yaml
----
-title: "Post title here"
-pubDate: 2026-05-19
-author: "Piedmont Makers"
-excerpt: "One-sentence summary for the listing pages."
-heroImage: "/img/blog/slug/hero.jpg"
-heroImageAlt: "Alt text for the hero."
-heroImageCaption: "Caption."
----
-
-Body in Markdown.
-```
-
-Put any photos for the post under `public/img/blog/slug/`. Resize to a reasonable web size first — 1600px wide max is plenty:
-
-```bash
-sips --resampleWidth 1600 --setProperty formatOptions 82 \
-  "source.jpg" --out public/img/blog/slug/photo.jpg
-```
+Use [content recipes](docs/agent/content-recipes.md) for events, blog posts, and
+photos. Use [site reference](docs/agent/site-reference.md) for page callouts and
+shared components. These are the canonical procedures used by coding agents too.
 
 ## Optional extras (browser verification, analytics)
 
@@ -222,7 +146,7 @@ Cloud sessions (claude.ai/code) have none of these — no browser reaches the sa
 
 - **The deploy shows a red ✗**: nothing shipped; the previous version of the site is still live. Open the failed run in the Actions tab, read which step failed (type check, alt text, agent configuration, hook contracts, build, calendar feed, structured data, or agent readiness), fix, and push again. Or paste the log to your agent.
 - **Undo a bad change**: `git revert <sha> && git push`. The revert deploys like any other commit. Never force-push `main`.
-- **Build broken after an `npm install`**: `git checkout package-lock.json && rm -rf node_modules && npm ci --include=optional` (see Gotchas).
+- **Build broken after an install**: follow [dependency recovery](docs/troubleshooting.md).
 
 ## Notifications (Slack)
 
@@ -257,12 +181,10 @@ Short version:
 
 Astro 5 (NOT 6 — Astro 6 has a known build issue with our setup), Tailwind CSS v4, `@tailwindcss/typography` for blog prose, content collections for blog + events, PostHog for analytics, a hand-rolled RSS feed at `/rss.xml`. SEO basics (canonical, Open Graph, Twitter Card, JSON-LD, `robots.txt`, `llms.txt`) all wired into `BaseLayout`. Full details in `AGENTS.md`.
 
-## Gotchas
+## Troubleshooting
 
-- **Use `npm ci --include=optional` for a clean install.** A regular `npm install` can silently drop the `@rolldown/binding-*` optional deps and break the build (`Cannot find module '@rolldown/binding-darwin-arm64'`). If that happens: `git checkout package-lock.json && rm -rf node_modules && npm ci --include=optional`. When you need to add a dependency, run the clean install first, then `npm install <pkg> --include=optional`.
-- **`501(c)(3)` requires a zero-width non-joiner** between `(` and `c`. The body font (Manrope) substitutes `(c)` → © via an OpenType feature that CSS can't reliably disable. Every `501(c)(3)` on the site uses `&zwnj;` in templates or `‌` in TS strings — follow the pattern.
-- **Don't `git add -A`.** Use explicit paths (`git add src/...`). Agent plugin cache directories have snuck into commits before via `-A`.
-- More in `AGENTS.md` → "Known gotchas".
+See [troubleshooting](docs/troubleshooting.md) for clean installs, native bindings,
+preview ports, and deployment recovery.
 
 ## License
 

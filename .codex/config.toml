@@ -7,4 +7,4 @@ project_doc_max_bytes = 65536
 # shared web-verify skill without relying on a user's global configuration.
 [mcp_servers.chrome-devtools]
 command = "npx"
-args = ["-y", "chrome-devtools-mcp@latest"]
+args = ["-y", "chrome-devtools-mcp@1.8.0"]

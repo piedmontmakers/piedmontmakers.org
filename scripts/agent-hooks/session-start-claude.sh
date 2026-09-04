@@ -25,6 +25,6 @@ fi
 # @rolldown/binding-* optional deps (see Known gotchas). The project-bootstrap
 # skill remains the deeper repair path.
 if [ ! -d node_modules ] || [ ! -f node_modules/.package-lock.json ]; then
-  npm ci --include=optional >/dev/null 2>&1 \
-    || echo "session-start: npm ci failed — run the project-bootstrap skill before building." >&2
+  npm run bootstrap >/dev/null 2>&1 \
+    || echo "session-start: bootstrap failed — run the project-bootstrap skill before building." >&2
 fi
