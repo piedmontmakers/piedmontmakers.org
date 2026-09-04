@@ -14,7 +14,9 @@
     "test:hooks": "bash scripts/agent-hooks/test-hooks.sh",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "astro check"
+    "check": "astro check",
+    "verify": "sh scripts/verify.sh",
+    "test": "npm run verify"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",

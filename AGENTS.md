@@ -124,20 +124,9 @@ npm run build        # verify before commit
 
 **Stage specific files when committing**, not `git add -A`. Agent plugin cache directories (`.claude/skills/`, `.agents/skills/`, `.codex/skills/`) have sat next to the working tree before and can sneak into commits via `-A`. These cache paths are ignored, but staging explicit paths is still safer.
 
-**Commit directly to `main`. Always. No exceptions unless the user says otherwise in the conversation.** This is a small site with a direct-to-main workflow: edit → build → commit → push to `main`. The GitHub Action runs eight gates in order, then deploys to GitHub Pages, live in about a minute with no review step:
+**Commit directly to `main`. Always. No exceptions unless the user says otherwise in the conversation.** This is a small site with a direct-to-main workflow: edit → build → commit → push to `main`. The GitHub Action runs `npm run verify`, the same complete suite used locally, before deploying to GitHub Pages. The command includes type checking, source accessibility checks, agent configuration and hook tests, a production build, and calendar, structured-data, and agent-readiness contracts.
 
-```
-npm run check                            # astro check
-node scripts/check-alt-text.mjs
-node --test scripts/check-agent-config.test.mjs && node scripts/check-agent-config.mjs
-bash scripts/agent-hooks/test-hooks.sh
-USE_CUSTOM_DOMAIN=true npm run build
-node scripts/check-calendar-feed.mjs     # these three read dist/,
-node scripts/check-structured-data.mjs   # so they run after the build
-node scripts/check-agent-readiness.mjs
-```
-
-The last three are contract checks, not linters, and they fail the build on things no rendered page looks wrong about: JSON-LD that lost a required field, a calendar feed that drifted from `src/content/events/`, a `/privacy` page that fell out of the sitemap or the footer, a 404 that lost its agent-recovery block, an `llms.txt` missing its `## When to use` section. Read the script before working around one. Note these `scripts/check-*.mjs` files are *not* red-zone, so nothing stops an agent from quietly weakening a contract instead of satisfying it. Never push a change you haven't verified with `npm run check` + `npm run build`; the deploy workflow backstops this (a failing check keeps the old site up), but catching it locally is faster and kinder to the next editor.
+The last three are contract checks, not linters, and they fail the build on things no rendered page looks wrong about: JSON-LD that lost a required field, a calendar feed that drifted from `src/content/events/`, a `/privacy` page that fell out of the sitemap or the footer, a 404 that lost its agent-recovery block, an `llms.txt` missing its `## When to use` section. Read the script before working around one. Note these `scripts/check-*.mjs` files are *not* red-zone, so nothing stops an agent from quietly weakening a contract instead of satisfying it. Never push a change you haven't verified with `npm run verify`; the deploy workflow backstops this (a failing check keeps the old site up), but catching it locally is faster and kinder to the next editor.
 
 **Push immediately after every commit: `git push origin main`.** Several people edit this repo now. An unpushed commit never deploys, and it strands the next editor on a stale `main`. If the push is rejected because someone else pushed first, run `git pull --rebase origin main` and push again.
 
