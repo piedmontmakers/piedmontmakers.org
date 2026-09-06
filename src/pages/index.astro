@@ -63,6 +63,11 @@ const homeEventCopy: Record<string, { when: string; headline: string; blurb: str
     headline: "Our biggest event of the year",
     blurb: "K-12 kids show what they made all year: Rube Goldberg machines, robots, embroidered patches, soldered circuits, 3D-printed everything. Free, open to the public.",
   },
+  "/di": {
+    when: "Pilot season · registering now",
+    headline: "Creative problem-solving as a team sport",
+    blurb: "Teams of up to seven kids pick an open-ended challenge, build a solution over the school year, and perform it at a spring tournament. Grades 3-8, no experience required. Off-screen by design.",
+  },
   "/events/popup-maker-spaces": {
     when: "Sporadic Saturdays · Sign up to hear first",
     headline: "Hands-on workshops, drop in and make",
@@ -265,7 +270,7 @@ const events = featuredPaths.map((href) => ({ ...programs.find((program) => prog
     </div>
   </section>
 
-  <!-- PROGRAMS — Maker Faire, Popup Maker Spaces, Build Like a Girl -->
+  <!-- PROGRAMS — Maker Faire, Destination Imagination, Popup Maker Spaces, Build Like a Girl -->
   <section class="relative mt-12 bg-pm-cream-2/60">
     <div class="mx-auto max-w-7xl px-6 py-20">
       <div class="grid md:grid-cols-12 gap-10 mb-12 items-end">
@@ -285,7 +290,7 @@ const events = featuredPaths.map((href) => ({ ...programs.find((program) => prog
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-10">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-10">
         {events.map((e) => (
           <a href={link(e.href)} class="group block">
             <Ribbon color={e.color}>{e.name}</Ribbon>
