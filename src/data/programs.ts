@@ -78,7 +78,7 @@ export const programs: ProgramCard[] = [
     href: "/di",
     name: "Destination Imagination",
     when: "Pilot · Fall 2026",
-    cta: "Meet the DI pilot →",
+    cta: "Learn more →",
     headline: "Creative problem-solving as a team sport.",
     blurb: "Teams of up to 7 kids pick an open-ended challenge each fall, build a solution over the school year, and present it at a spring tournament. Grades 3-8 for the pilot year. In partnership with Cal DI.",
     color: "cyan",
