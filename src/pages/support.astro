@@ -34,7 +34,7 @@ import { DONATE, VOLUNTEER_EMAIL, VOLUNTEER_MAILTO, reach, givingLevels, whatSup
         <div class="mt-6 flex flex-col sm:flex-row gap-3">
           <a
             id="support-donate-hero"
-            href={DONATE}
+            href={DONATE} target="_blank" rel="noopener"
             class="ribbon bg-pm-red hover:bg-pm-red-deep text-white text-base justify-center text-center transition-colors"
           >
             Donate &rarr;
@@ -135,7 +135,7 @@ import { DONATE, VOLUNTEER_EMAIL, VOLUNTEER_MAILTO, reach, givingLevels, whatSup
           <div class="mt-4 grid grid-cols-2 gap-3">
             {givingLevels.map((amount) => (
               <a
-                href={DONATE}
+                href={DONATE} target="_blank" rel="noopener"
                 data-give-level={amount}
                 class="flex items-center justify-center rounded-2xl border-2 border-pm-cream/30 px-4 py-5 font-display font-bold text-2xl md:text-3xl tracking-tight text-pm-cream hover:bg-pm-red hover:border-pm-red transition-colors"
               >
@@ -145,7 +145,7 @@ import { DONATE, VOLUNTEER_EMAIL, VOLUNTEER_MAILTO, reach, givingLevels, whatSup
           </div>
           <a
             id="support-infrastructure-main"
-            href={DONATE}
+            href={DONATE} target="_blank" rel="noopener"
             class="mt-4 flex items-center justify-center rounded-2xl bg-pm-red hover:bg-pm-red-deep px-5 py-4 font-display font-semibold text-white text-lg transition-colors"
           >
             Give to 10th Street &rarr;
@@ -162,7 +162,7 @@ import { DONATE, VOLUNTEER_EMAIL, VOLUNTEER_MAILTO, reach, givingLevels, whatSup
     <div class="mt-6 md:mt-8 grid md:grid-cols-2 gap-6 md:gap-8">
       <a
         id="support-donate-main"
-        href={DONATE}
+        href={DONATE} target="_blank" rel="noopener"
         class="group block rounded-3xl border-[3px] border-pm-ink bg-pm-paper p-8 md:p-10 hover:bg-white transition-colors"
       >
         <Ribbon color="purple">Give what you can</Ribbon>

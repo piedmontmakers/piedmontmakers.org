@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import rehypeExternalLinks from './src/lib/rehype-external-links.mjs';
 import sitemap from '@astrojs/sitemap';
 
 import tailwindcss from '@tailwindcss/vite';
@@ -19,6 +20,9 @@ export default defineConfig({
   // /styleguide is an internal design reference, not public content. Keeping
   // it out of the sitemap stops us advertising it to crawlers; the page itself
   // passes noindex to BaseLayout, which is what actually keeps it unindexed.
+  // Site rule: external links open in a new tab. Markdown gets the attributes
+  // here; page markup adds them by hand (docs/agent/site-reference.md).
+  markdown: { rehypePlugins: [rehypeExternalLinks] },
   integrations: [sitemap({ filter: (page) => !/\/styleguide\/?$/.test(page) })],
 
   redirects: {

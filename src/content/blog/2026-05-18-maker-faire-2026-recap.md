@@ -32,7 +32,7 @@ Some of the busiest booths were run by students, which is the part we love most.
 
 <figure>
   <img src="/img/blog/maker-faire-2026-recap/collaborative-video-game.jpg" alt="A cluster of kids gathered around two monitors on an outdoor lunch table, one holding a game controller, while older students look on." />
-  <figcaption>Twenty-five kids collectively built this video game. <a href="https://benjaminste.in/say-it-play-it/">Play it here</a> (desktop only, and yes, it's wacky).</figcaption>
+  <figcaption>Twenty-five kids collectively built this video game. <a href="https://benjaminste.in/say-it-play-it/" target="_blank" rel="noopener">Play it here</a> (desktop only, and yes, it's wacky).</figcaption>
 </figure>
 
 ## Robots, up close

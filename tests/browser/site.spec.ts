@@ -80,7 +80,7 @@ function htmlFiles(dir: string): string[] {
   });
 }
 
-test('rendered pages have valid local destinations, images, and image alternatives', async ({ page }) => {
+test('rendered pages have valid local destinations, new-tab external links, images, and image alternatives', async ({ page }) => {
   test.setTimeout(120_000);
   const failures: string[] = [];
   const root = resolve('dist');
@@ -89,16 +89,30 @@ test('rendered pages have valid local destinations, images, and image alternativ
   for (const file of htmlFiles(root)) {
     const html = readFileSync(file,'utf8');
     if (/http-equiv="refresh"/i.test(html) || file.includes('/admin/')) continue;
-    const path = file.slice(root.length).replace(/index\.html$/, '');
-    await page.goto(path);
+    // Preview serves trailingSlash "never", so request /di rather than /di/
+    // (which returns the 404 page and silently checks the wrong markup).
+    const path = file.slice(root.length).replace(/\/index\.html$/, '') || '/';
+    const response = await page.goto(path);
+    if (!response || response.status() !== 200) {
+      failures.push(`${path}: expected 200 from preview, got ${response?.status() ?? 'no response'}`);
+      continue;
+    }
     const refs = await page.locator('a[href], img[src]').evaluateAll(nodes => nodes.map(node => ({
       url: node instanceof HTMLImageElement ? node.src : (node as HTMLAnchorElement).href,
       image: node instanceof HTMLImageElement,
       alt: node.getAttribute('alt'),
+      target: node.getAttribute('target'),
+      rel: node.getAttribute('rel'),
     })));
     for (const ref of refs) {
       if (ref.image && ref.alt === null) failures.push(`${path}: image missing alt ${ref.url}`);
       const url = new URL(ref.url);
+      // Site rule: every link that leaves piedmontmakers.org opens in a new tab.
+      // Subdomains (donate.piedmontmakers.org) are separate sites and count as external.
+      const external = !ref.image && /^https?:$/.test(url.protocol) && !['127.0.0.1', 'piedmontmakers.org'].includes(url.hostname);
+      if (external && (ref.target !== '_blank' || !/\bnoopener\b/.test(ref.rel ?? ''))) {
+        failures.push(`${path}: external link ${ref.url} needs target="_blank" rel="noopener"`);
+      }
       if (!['127.0.0.1', 'piedmontmakers.org'].includes(url.hostname)) continue;
       const target = join(root,decodeURIComponent(url.pathname));
       const targetFile = existsSync(target) && statSync(target).isFile() ? target : join(target,'index.html');

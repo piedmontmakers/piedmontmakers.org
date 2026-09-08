@@ -1,6 +1,6 @@
 ---
 import { eventDateParts } from "../lib/event-time";
-import { link } from "../lib/urls";
+import { link, externalLinkAttrs } from "../lib/urls";
 import { eventAnchor } from "../lib/events";
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -162,7 +162,7 @@ const eventSchemas = events.map((event) => {
             Adds the feed to your calendar in one click.
           </p>
           <a
-            href={googleCalendarSubscribeUrl}
+            href={googleCalendarSubscribeUrl} target="_blank" rel="noopener"
             class="group mt-3 inline-flex items-center gap-2 self-start font-display font-semibold text-sm text-pm-ink hover:text-pm-cyan-deep transition-colors"
           >
             <span class="underline underline-offset-4 decoration-pm-cyan">Subscribe</span>
@@ -247,7 +247,7 @@ const eventSchemas = events.map((event) => {
                       <span>{location}</span>
                     ) : (
                       <a
-                        href={mapsUrl(location)}
+                        href={mapsUrl(location)} target="_blank" rel="noopener"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="underline decoration-pm-ink/25 underline-offset-2 hover:text-pm-ink hover:decoration-pm-cyan"
@@ -264,7 +264,7 @@ const eventSchemas = events.map((event) => {
                   <div class="mt-3 flex flex-wrap gap-2">
                     {e.data.actions.map((a) => (
                       <a
-                        href={resolveUrl(a.url)}
+                        href={resolveUrl(a.url)} {...externalLinkAttrs(resolveUrl(a.url))}
                         class:list={[
                           "inline-flex items-center gap-1.5 px-3.5 py-1.5 font-display font-semibold text-sm tracking-tight transition-colors",
                           actionClass[a.type],

@@ -7,3 +7,18 @@ export function withBase(path: string, base: string): string {
 }
 export const link = (path: string) => withBase(path, import.meta.env.BASE_URL);
 export const asset = link;
+
+/**
+ * True for http(s) URLs that leave piedmontmakers.org. Subdomains such as
+ * donate.piedmontmakers.org count as external: they are separate sites.
+ * Site rule: every external link opens in a new tab (docs/agent/site-reference.md).
+ */
+export function isExternal(href: string): boolean {
+  const match = /^https?:\/\/([^/?#]+)/i.exec(href);
+  return match !== null && match[1].toLowerCase() !== 'piedmontmakers.org';
+}
+
+/** Spread onto an `<a>` whose href may be external: `<a href={href} {...externalLinkAttrs(href)}>`. */
+export function externalLinkAttrs(href: string | undefined): { target?: string; rel?: string } {
+  return href && isExternal(href) ? { target: '_blank', rel: 'noopener' } : {};
+}

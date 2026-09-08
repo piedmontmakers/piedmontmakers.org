@@ -1,5 +1,5 @@
 ---
-import { link } from "../lib/urls";
+import { link, externalLinkAttrs } from "../lib/urls";
 import Ribbon from "./Ribbon.astro";
 
 type Color = "red" | "cyan" | "purple";
@@ -62,7 +62,7 @@ const palette = {
     </div>
     {ctaLabel && linkHref && (
       <a
-        href={linkHref}
+        href={linkHref} {...externalLinkAttrs(linkHref)}
         class:list={[
           "ribbon text-white text-sm font-semibold whitespace-nowrap transition-colors shrink-0",
           palette.cta,

@@ -1,5 +1,5 @@
 ---
-import { link } from "../lib/urls";
+import { link, externalLinkAttrs } from "../lib/urls";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
 
@@ -38,7 +38,7 @@ const MAPS = "https://www.google.com/maps/search/?api=1&query=3100+East+10th+Str
       <div class="mt-8 space-y-4">
         {actions.map((a) => (
           <a
-            href={a.href}
+            href={a.href} {...externalLinkAttrs(a.href)}
             target="_blank"
             rel="noopener"
             class="group flex items-center justify-between gap-4 rounded-2xl border-[3px] border-pm-ink bg-pm-paper px-6 py-5 hover:bg-white transition-colors"

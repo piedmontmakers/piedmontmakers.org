@@ -214,6 +214,8 @@ Closed since the last review: the Maker Faire 2026 recap (final stats, named quo
 
 ## Required page contracts
 
+- **External links open in a new tab.** Every `<a>` whose href leaves piedmontmakers.org (subdomains like donate.piedmontmakers.org included; they are separate sites) carries `target="_blank" rel="noopener"`. In page markup, write the attributes by hand on a literal URL, or spread `externalLinkAttrs(href)` from `src/lib/urls.ts` when the href is a variable that may be internal. Markdown content (blog posts, `src/copy`) gets them automatically from `src/lib/rehype-external-links.mjs`, registered in `astro.config.mjs`; raw HTML `<a>` tags inside Markdown (figure captions) bypass the plugin and need the attributes by hand. Same-site links, `mailto:`, and `tel:` stay in the same tab. `tests/browser/site.spec.ts` fails `npm run verify` on any rendered external anchor without the attributes.
+
 ## Mobile patterns
 
 Audit at 390×844 (iPhone 14) in Chrome DevTools after structural changes.

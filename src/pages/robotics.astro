@@ -1,5 +1,5 @@
 ---
-import { link } from "../lib/urls";
+import { link, externalLinkAttrs } from "../lib/urls";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
 import PhotoCard from "../components/PhotoCard.astro";
@@ -142,7 +142,7 @@ const faqSchema = {
                   </a>
                 </>
               ) : (
-                <a href={lvl.register} data-level={lvl.slug} data-register="true" class={`ribbon text-white text-base hover:opacity-90 transition-opacity ${
+                <a href={lvl.register} {...externalLinkAttrs(lvl.register)} data-level={lvl.slug} data-register="true" class={`ribbon text-white text-base hover:opacity-90 transition-opacity ${
                   lvl.color === "red" ? "bg-pm-red hover:bg-pm-red-deep" :
                   lvl.color === "cyan" ? "bg-pm-cyan hover:bg-pm-cyan-deep" :
                   lvl.color === "purple" ? "bg-pm-purple hover:bg-pm-purple-deep" :
@@ -152,17 +152,17 @@ const faqSchema = {
                 </a>
               )}
               {lvl.openHousePresentation && (
-                <a href={lvl.openHousePresentation} class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
+                <a href={lvl.openHousePresentation} {...externalLinkAttrs(lvl.openHousePresentation)} class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
                   {lvl.openHouseLabel || "Open House slides →"}
                 </a>
               )}
               {lvl.photoAlbum && (
-                <a href={lvl.photoAlbum} class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
+                <a href={lvl.photoAlbum} {...externalLinkAttrs(lvl.photoAlbum)} class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
                   {lvl.photoAlbumLabel || "Photo album →"}
                 </a>
               )}
               {lvl.detailLink && (
-                <a href={lvl.detailLink} class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
+                <a href={lvl.detailLink} {...externalLinkAttrs(lvl.detailLink)} class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
                   {lvl.detailLinkLabel || "Team site →"}
                 </a>
               )}
@@ -208,7 +208,7 @@ const faqSchema = {
           <ul class="grid sm:grid-cols-2 gap-3">
             {coachResources.map((r) => (
               <li>
-                <a href={r.url} class="group flex items-start justify-between gap-4 bg-pm-paper border-[3px] border-pm-ink p-5 hover:bg-white transition-colors">
+                <a href={r.url} {...externalLinkAttrs(r.url)} class="group flex items-start justify-between gap-4 bg-pm-paper border-[3px] border-pm-ink p-5 hover:bg-white transition-colors">
                   <div>
                     <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/70">{r.fileType}</p>
                     <p class="mt-1 font-display font-bold text-base md:text-lg leading-tight tracking-tight">{r.title}</p>
