@@ -17,20 +17,20 @@ export const teamManagerResources: DiResource[] = [
     url: "https://www.caldi.org/training/",
     kicker: "caldi.org · videos + Zoom",
     blurb:
-      "Two recorded training modules you can watch on demand: starting a team, picking a challenge, and reading the materials in part one; conflict resolution, challenge strategy, storytelling, rules, and Instant Challenges in part two. The same page hosts live Challenge Orientation Webinars, where California's challenge masters walk through each challenge and take questions, plus the appraiser training every team must send one adult to.",
+      "Two recorded modules: starting a team and picking a challenge, then strategy, storytelling, rules, and Instant Challenges. Also hosts the live challenge orientation webinars and the appraiser training every team must send one adult to.",
   },
   {
     title: "CalDI Team Resource Page",
     url: "https://sites.google.com/view/calditeamresourcepage/home",
     kicker: "caldi.org · guides",
     blurb:
-      "Practical help for the work itself: materials and construction tips, a beginner's guide to writing a story and performing it, team-building activities, the Two-Minute Team Manager video series, and a program that pairs teams with experienced DI alumni for coaching and feedback.",
+      "Building and materials tips, a beginner's guide to story and performance, team-building activities, the Two-Minute Team Manager videos, and mentor matching with DI alumni.",
   },
   {
     title: "Season Challenge Materials",
     url: "https://resources.destinationimagination.org/resources.php/document/view",
     kicker: "DI Resource Area · login required",
     blurb:
-      "The official documents for this season from Destination Imagination: the full text of each Team Challenge, Rules of the Road, and the Roadmap guide for team managers. Log in with the account you get once your team is registered.",
+      "The official documents for this season: each Team Challenge, Rules of the Road, and the Roadmap guide for team managers. Log in with the account you get once your team is registered.",
   },
 ];
