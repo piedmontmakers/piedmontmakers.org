@@ -3,6 +3,7 @@ import { link } from "../lib/urls";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
 import PhotoCard from "../components/PhotoCard.astro";
+import { teamManagerResources } from "../data/di-resources";
 
 
 const REGISTER = "https://go.teamsnap.com/forms/524140";
@@ -223,6 +224,42 @@ const seasonSteps = [
         ></iframe>
       </div>
     </aside>
+  </section>
+
+  <!-- Team manager resources -->
+  <section id="team-managers" class="bg-pm-cream-2/60 scroll-mt-20">
+    <div class="mx-auto max-w-7xl px-6 py-20">
+      <div class="grid md:grid-cols-12 gap-10">
+        <div class="md:col-span-5">
+          <Ribbon color="purple">For team managers</Ribbon>
+          <h2 class="mt-5 font-display font-bold text-4xl tracking-tight leading-tight">
+            Team manager training and season materials.
+          </h2>
+          <p class="mt-5 text-pm-ink/75 leading-relaxed">
+            Every DI team runs on a parent team manager. The job is to facilitate, not to build or direct, and the training below teaches you how to do that. No DI experience needed. These links are open to anyone considering managing a team.
+          </p>
+          <p class="mt-4 text-pm-ink/75 leading-relaxed">
+            Interested but unsure? Email <a href="mailto:di@piedmontmakers.org" class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">di@piedmontmakers.org</a>.
+          </p>
+        </div>
+        <div class="md:col-span-7">
+          <ul class="grid gap-3">
+            {teamManagerResources.map((r) => (
+              <li>
+                <a href={r.url} class="group flex items-start justify-between gap-4 bg-pm-paper border-[3px] border-pm-ink p-5 hover:bg-white transition-colors">
+                  <div>
+                    <p class="font-display text-xs uppercase tracking-[0.18em] text-pm-ink/70">{r.kicker}</p>
+                    <p class="mt-1 font-display font-bold text-base md:text-lg leading-tight tracking-tight">{r.title}</p>
+                    <p class="mt-2 text-sm text-pm-ink/75 leading-relaxed">{r.blurb}</p>
+                  </div>
+                  <span class="font-display text-pm-red group-hover:translate-x-1 transition-transform shrink-0">→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
 
 </BaseLayout>
