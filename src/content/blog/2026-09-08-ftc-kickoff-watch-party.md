@@ -5,7 +5,7 @@ author: "Piedmont Makers"
 excerpt: "Every FTC team member is invited to the season kickoff watch party at 10th Street on Saturday, September 12, 8:30 AM to 12:30 PM."
 ---
 
-FIRST reveals BIOBUZZ, this season's FIRST Tech Challenge game, on Saturday morning. All eleven of our FTC teams are watching it together at the 10th Street Maker Space, and every team member should plan to be there.
+FIRST reveals BIOBUZZ, this season's FIRST Tech Challenge game, on Saturday morning. All eighteen teams in the East Bay Hills League are watching it together at the 10th Street Maker Space, and every team member should plan to be there.
 
 ## The basics
 
