@@ -33,7 +33,7 @@ jobs:
         # mid-publish (Hash Sum mismatch, 2026-09-09). Playwright's Chromium
         # does not need it, so drop it before installing.
         run: |
-          sudo rm -f /etc/apt/sources.list.d/google-chrome*.list
+          sudo grep -rl 'dl.google.com' /etc/apt/sources.list.d | xargs -r sudo rm -fv
           npx playwright install --with-deps chromium
       - name: Verify production build
         run: npm run verify
