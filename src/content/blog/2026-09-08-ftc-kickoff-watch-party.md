@@ -3,6 +3,9 @@ title: "The new FTC game drops Saturday morning"
 pubDate: 2026-09-08
 author: "Piedmont Makers"
 excerpt: "Every FTC team member is invited to the season kickoff watch party at 10th Street on Saturday, September 12, 8:30 AM to 12:30 PM."
+heroImage: "/img/blog/ftc-kickoff-watch-party/hero.jpg"
+heroImageAlt: "BIOBUZZ, the 2026-27 FIRST Tech Challenge game logo, in bold black letters on a cream and yellow honeycomb-themed banner, with the FIRST Tech Challenge and FIRST CANOPY marks above and 'Presented by RTX' below."
+heroImageCaption: "BIOBUZZ, this season's FIRST Tech Challenge game. Image: FIRST."
 ---
 
 FIRST reveals BIOBUZZ, this season's FIRST Tech Challenge game, on Saturday morning. All eighteen teams in the East Bay Hills League are watching it together at the 10th Street Maker Space, and every team member should plan to be there.
