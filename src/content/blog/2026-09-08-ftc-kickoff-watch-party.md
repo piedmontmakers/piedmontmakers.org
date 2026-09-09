@@ -11,16 +11,17 @@ FIRST reveals BIOBUZZ, this season's FIRST Tech Challenge game, on Saturday morn
 
 - **Saturday, September 12, 8:30 AM to 12:30 PM**
 - **10th Street Maker Space**, 3100 E 10th St, Oakland, CA 94601
-- **All team members attend.**
+- **All team members attend.** Parents and mentors are welcome to stay for the morning.
+- **There will be a field set up at 10th Street**, so teams can get on it as soon as the game drops.
 - Arrive at 8:30 and get settled. The morning runs on two broadcasts:
   - **9:00 AM**, the FIRST game reveal on the FTC YouTube channel
   - **around 10:00 AM**, the NorCal kickoff webinar with the specifics for our region
 
 ## What happens once the game drops
 
-Everything teams need to start designing lands at the same moment: the complete competition manual with the game-specific rules, this season's FTC SDK, and the full StarterBot designs from AndyMark, goBILDA, REV Robotics, and Studica. The StarterBot bases are already published, so teams that want a head start can study the drivetrain and intake foundation before Saturday.
+Everything teams need to start designing lands at the same moment: the complete competition manual with the game-specific rules, this season's FTC SDK, and the full StarterBot designs. The StarterBot bases are already published, so teams that want a head start can study the drivetrain and intake foundation before Saturday.
 
-That is what the rest of the morning is for. Teams read the manual together and start arguing about strategy while the coaches and commissioners are in the room to answer questions. Our league's head referee plans to join to take rules questions once everyone has the manual in hand, which is the fastest way to settle the "wait, is that legal?" questions before they turn into a bad surprise at a meet.
+That is what the rest of the morning is for, and it is the reason to be in the room rather than watching from a laptop at home. We are setting up a field at 10th Street, so teams go straight from the broadcast to standing on one: pacing it out, handling Pollen, and working out what a scoring run looks like. Teams read the manual together and start arguing about strategy while the coaches and commissioners are there to answer questions. Our league's head referee plans to join to take rules questions once everyone has the manual in hand, which is the fastest way to settle the "wait, is that legal?" questions before they turn into a bad surprise at a meet.
 
 BIOBUZZ digs into the earth's ecosystems. The scoring pieces are three-inch plastic balls called Pollen, already available so teams can experiment with intake and scoring mechanisms ahead of time. The [season teaser](https://www.youtube.com/watch?v=boJWcbOxato) is worth watching with your team before Saturday.
 
