@@ -28,7 +28,13 @@ jobs:
       - name: Install dependencies
         run: npm run bootstrap
       - name: Install test browser
-        run: npx playwright install --with-deps chromium
+        # The runner image preconfigures Google's Chrome apt source, and
+        # --with-deps runs apt-get update, which fails whenever that source is
+        # mid-publish (Hash Sum mismatch, 2026-09-09). Playwright's Chromium
+        # does not need it, so drop it before installing.
+        run: |
+          sudo rm -f /etc/apt/sources.list.d/google-chrome*.list
+          npx playwright install --with-deps chromium
       - name: Verify production build
         run: npm run verify
       - name: Upload artifact
