@@ -12,13 +12,24 @@ FIRST reveals BIOBUZZ, this season's FIRST Tech Challenge game, on Saturday morn
 - **Saturday, September 12, 8:30 AM to 12:30 PM**
 - **10th Street Maker Space**, 3100 E 10th St, Oakland, CA 94601
 - **All team members attend.** Parents and mentors are welcome to stay.
-- The reveal broadcast starts at **9:00 AM Pacific**, so arrive at 8:30 and get settled first.
+- Arrive at 8:30 and get settled. The morning runs on two broadcasts:
+  - **9:00 AM**, the FIRST game reveal on the FTC YouTube channel
+  - **10:00 AM**, the NorCal BIOBUZZ Kickoff webinar with the regional specifics
 
 ## What happens once the game drops
 
 The broadcast is about half an hour. Everything teams need to start designing lands at the same moment: the full competition manual, the field setup drawings, this season's FTC SDK, and the StarterBot designs from AndyMark, goBILDA, REV Robotics, and Studica.
 
 That is what the rest of the morning is for. Teams read the manual together, walk the field, and start arguing about strategy while the coaches and commissioners are in the room to answer questions. Our league's head referee plans to join to take rules questions once everyone has the manual in hand, which is the fastest way to settle the "wait, is that legal?" questions before they turn into a bad surprise at a meet.
+
+## The NorCal webinar at 10:00
+
+After the FIRST reveal, NorCal runs its own kickoff webinar covering what the season looks like in our region. We are putting it on the screen at 10th Street, so teams at the watch party do not need to do anything to see it.
+
+Two things worth knowing:
+
+- **The NorCal kickoff is virtual only.** Nothing is happening in person at The Play Space, and the doors there will be locked. NorCal is running field walk-throughs by appointment instead.
+- Coaches who want the webinar on their own machine should [register in advance](https://attendee.gotowebinar.com/register/8541346531617563482) and [install the GoTo app](https://support.goto.com/webinar/help/how-do-i-download-and-install-the-goto-app) first. The browser version works, but the app is smoother.
 
 BIOBUZZ is built around ecosystems and pollination. The scoring pieces are three-inch plastic balls called Pollen, so intake and delivery mechanisms are going to matter a lot this year. The [season teaser](https://www.youtube.com/watch?v=boJWcbOxato) is two minutes and worth watching with your team before Saturday.
 
