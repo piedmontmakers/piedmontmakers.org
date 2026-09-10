@@ -1,5 +1,5 @@
 ---
-title: "LEGO League Challenge Founders Tournament"
+title: "LEGO League Challenge Community Tournament"
 startDate: 2026-12-05
 location: "Piedmont Middle School"
 program: "robotics"
