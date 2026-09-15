@@ -10,6 +10,10 @@ const REGISTER = "https://go.teamsnap.com/forms/524140";
 const INFO_SESSION = "https://docs.google.com/presentation/d/1-r_DnbgfpT_6fSucgNk3oOdca_AlCBbcZ38TrPaflw4";
 const INFO_SESSION_VIDEO = "https://youtu.be/gCG83G7V2Nc";
 
+// toggle when the next season's sign-ups open
+const REGISTER_OPEN = false;
+const REGISTER_CLOSED_LABEL = "Registration closed";
+
 const registerFacts = [
   { label: "Grades", value: "3–8 (pilot year)" },
   { label: "Cost", value: "$200 / registrant" },
@@ -104,15 +108,33 @@ const seasonSteps = [
         <div class="md:col-span-7">
           <Ribbon color="cyan">Register</Ribbon>
           <h2 class="mt-6 font-display font-bold text-4xl md:text-5xl tracking-tight leading-tight text-pm-ink">
-            Join the Fall 2026 pilot.
+            {REGISTER_OPEN ? "Join the Fall 2026 pilot." : "Registration is closed for now."}
           </h2>
           <p class="mt-5 text-pm-ink/80 leading-relaxed">
-            We&apos;re standing up two to four teams of up to seven kids each for our first DI season, grades 3-8. No experience required, for kids or parents. Register your kid as an individual and we&apos;ll place them on a team, or round up a friend group and sign up together.
+            {REGISTER_OPEN ? (
+              <>We&apos;re standing up two to four teams of up to seven kids each for our first DI season, grades 3-8. No experience required, for kids or parents. Register your kid as an individual and we&apos;ll place them on a team, or round up a friend group and sign up together.</>
+            ) : (
+              <>We&apos;re standing up two to four teams of up to seven kids each for our first DI season, grades 3-8. No experience required, for kids or parents. Sign-ups aren&apos;t open right now — get notified below when they open.</>
+            )}
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
-            <a href={REGISTER} target="_blank" rel="noopener" data-register="true" class="ribbon bg-pm-cyan hover:bg-pm-cyan-deep text-white text-base hover:opacity-90 transition-opacity">
-              Register on TeamSnap →
-            </a>
+            {REGISTER_OPEN ? (
+              <a href={REGISTER} target="_blank" rel="noopener" data-register="true" class="ribbon bg-pm-cyan hover:bg-pm-cyan-deep text-white text-base hover:opacity-90 transition-opacity">
+                Register on TeamSnap →
+              </a>
+            ) : (
+              <>
+                <span
+                  aria-disabled="true"
+                  class="ribbon bg-pm-ink/35 text-pm-cream/85 text-base cursor-not-allowed select-none"
+                >
+                  {REGISTER_CLOSED_LABEL}
+                </span>
+                <a href={link("/#newsletter")} class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
+                  Get notified when sign-ups open →
+                </a>
+              </>
+            )}
             <a href={INFO_SESSION} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border-2 border-pm-ink px-5 py-2.5 font-display font-semibold text-pm-ink hover:bg-pm-ink hover:text-pm-cream transition-colors">
               Info session slides →
             </a>
