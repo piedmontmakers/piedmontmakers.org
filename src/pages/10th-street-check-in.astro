@@ -1,14 +1,8 @@
 ---
 import { link, externalLinkAttrs } from "../lib/urls";
+import { GUIDELINES, WAIVER, CHECKIN } from "../data/tenth-street";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Ribbon from "../components/Ribbon.astro";
-
-
-// Same three destinations as the /facilities 10th Street section. Kept in sync
-// by hand — if these change there, change them here too.
-const GUIDELINES = "https://docs.google.com/document/d/1RFGhuBCfTaJu7H9k6fkn8T7z_Qch0iOkI7fRHVVGftM/edit?tab=t.zggakcezu7da";
-const WAIVER = "https://docs.google.com/forms/d/e/1FAIpQLSf1DZCi5av126Bf1tOIFiZaiDv-Gjy7dDEePpT9YFo4dWNKPA/viewform";
-const CHECKIN = "https://script.google.com/a/macros/piedmontmakers.org/s/AKfycbyvQwtTkmCk_P9k3dd3CmrjXh-zDBHaTt93uSC2swZIZbzhNFx8PNKuXhBnufjAUqLheA/exec";
 
 // Order follows the visitor flow: read the guidelines, sign the waiver once,
 // then check in on every arrival. Notes guide first-timers and regulars alike.
