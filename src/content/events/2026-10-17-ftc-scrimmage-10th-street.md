@@ -1,6 +1,6 @@
 ---
 title: "FTC Scrimmage at 10th Street"
-startDate: 2026-10-18
+startDate: 2026-10-17
 startTime: "9:30 AM"
 endTime: "12:00 PM"
 location: "10th Street practice field, Oakland"

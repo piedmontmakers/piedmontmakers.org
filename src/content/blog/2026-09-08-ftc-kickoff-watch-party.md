@@ -36,7 +36,7 @@ If your team wants to run a session at kickoff, an FTC strategy talk or anything
 
 Kickoff starts a run that ends with the league tournament in January.
 
-- **Scrimmage**, Sunday, October 18, 10th Street Maker Space
+- **Scrimmage**, Saturday, October 17, 10th Street Maker Space
 - **East Bay Hills Meet 1**, Sunday, November 1, Piedmont Middle School
 - **East Bay Hills Meet 2**, Sunday, December 6, Acalanes High School, Lafayette
 - **East Bay Hills Meet 3**, Saturday, January 9, Berean Christian High School, Walnut Creek
