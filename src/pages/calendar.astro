@@ -7,6 +7,19 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { actionLabel, parseTime, isoDate, isoLocalDateTime } from "../lib/event-time";
 import { isVirtualLocation, mapsUrl, streetAddressFor } from "../lib/venues";
 import Ribbon from "../components/Ribbon.astro";
+import VolunteerCallout from "../components/VolunteerCallout.astro";
+
+// The volunteer action's URL, if this event has one. Drives the "Volunteers
+// needed" callout; events without a volunteer action render nothing.
+// Generic over the action element so the caller's narrow `type` union
+// survives the filter; a hand-written {type: string} widens it and breaks
+// the actionLabel lookup below.
+const volunteerUrl = <T extends { type: string; url: string }>(actions?: T[]) =>
+  actions?.find((a) => a.type === "volunteer")?.url;
+// Everything except volunteer keeps the existing button row; volunteer is
+// promoted out of it into the gold callout, so the form is linked once.
+const otherActions = <T extends { type: string }>(actions?: T[]) =>
+  (actions ?? []).filter((a) => a.type !== "volunteer");
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const calendarFeedUrl = new URL(
@@ -260,9 +273,14 @@ const eventSchemas = events.map((event) => {
                 {e.data.summary && (
                   <p class="mt-2 text-pm-ink/80 leading-relaxed">{e.data.summary}</p>
                 )}
-                {e.data.actions && e.data.actions.length > 0 && (
+                {volunteerUrl(e.data.actions) && (
+                  <div class="mt-3">
+                    <VolunteerCallout href={volunteerUrl(e.data.actions)} eventTitle={e.data.title} />
+                  </div>
+                )}
+                {otherActions(e.data.actions).length > 0 && (
                   <div class="mt-3 flex flex-wrap gap-2">
-                    {e.data.actions.map((a) => (
+                    {otherActions(e.data.actions).map((a) => (
                       <a
                         href={resolveUrl(a.url)} {...externalLinkAttrs(resolveUrl(a.url))}
                         class:list={[

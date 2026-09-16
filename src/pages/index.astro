@@ -2,6 +2,11 @@
 import { eventDateParts } from "../lib/event-time";
 import { link, asset } from "../lib/urls";
 import { eventAnchor } from "../lib/events";
+import VolunteerCallout from "../components/VolunteerCallout.astro";
+
+// Whether an event is asking for volunteers, which flags it in "Coming up".
+const hasVolunteer = (actions?: { type: string }[]) =>
+  (actions ?? []).some((a) => a.type === "volunteer");
 import { levels } from "../data/robotics-levels";
 import { programs } from "../data/programs";
 import { getCollection } from "astro:content";
@@ -217,6 +222,12 @@ const events = featuredPaths.map((href) => ({ ...programs.find((program) => prog
                 <div class="min-w-0 flex-1">
                   <h3 class="font-display font-bold text-lg tracking-tight leading-tight group-hover:text-pm-red transition-colors">{e.data.title}</h3>
                   {metaLine && <p class="text-sm text-pm-ink/65">{metaLine}</p>}
+                  {/* No href: this row is already inside one big <a>, so the
+                      badge is a marker and the row click goes to the calendar
+                      row, where the volunteer link itself lives. */}
+                  {hasVolunteer(e.data.actions) && (
+                    <VolunteerCallout size="compact" class="mt-1.5" />
+                  )}
                 </div>
                 <span aria-hidden="true" class="shrink-0 font-display text-lg text-pm-ink/35 group-hover:text-pm-red group-hover:translate-x-0.5 transition-all">→</span>
               </a>

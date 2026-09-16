@@ -1,0 +1,58 @@
+---
+// "Volunteers needed" callout for a calendar event carrying a volunteer action.
+// Gold star with an ink outline, matching the date box's border-2 border-pm-ink.
+//
+// Gold is deliberately a local value, not a brand token: the palette in
+// global.css has no gold, and that file is a red-zone, whole-site change. If
+// this treatment sticks, promoting #FFC21A to --color-pm-gold is a follow-up
+// to raise with an admin.
+//
+// Renders as <a> when given an href, and as a non-interactive <span> otherwise.
+// The homepage "Coming up" row is already wrapped in one <a> to the calendar,
+// so a nested anchor there would be invalid HTML: it passes no href and gets
+// the span, and the row click still carries the visitor to the calendar row
+// where the real link lives.
+interface Props {
+  href?: string;
+  /** Event title, folded into the accessible name so that several
+      "Volunteers needed" links on one page are told apart in a link list. */
+  eventTitle?: string;
+  size?: "default" | "compact";
+  class?: string;
+}
+const { href, eventTitle, size = "default", class: extraClass = "" } = Astro.props;
+const Tag = href ? "a" : "span";
+const attrs = href
+  ? {
+      href,
+      target: "_blank",
+      rel: "noopener noreferrer",
+      "aria-label": eventTitle
+        ? `Volunteers needed. Sign up for ${eventTitle}`
+        : "Volunteers needed. Sign up",
+    }
+  : {};
+---
+
+<Tag
+  {...attrs}
+  class:list={[
+    "inline-flex items-center gap-1.5 border-2 border-pm-ink bg-[#FFC21A] font-display font-semibold tracking-tight text-pm-ink",
+    size === "compact" ? "px-2 py-0.5 text-xs" : "px-2.5 py-1 text-sm",
+    href && "hover:bg-[#FFD259] transition-colors",
+    extraClass,
+  ]}
+>
+  <svg
+    viewBox="0 0 24 24"
+    class:list={["shrink-0", size === "compact" ? "w-3.5 h-3.5" : "w-4 h-4"]}
+    fill="#FFF6E8"
+    stroke="currentColor"
+    stroke-width="1.8"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M12 3.3l2.6 5.8 6.3.6-4.7 4.2 1.4 6.2L12 16.9 6.4 20.1l1.4-6.2L3.1 9.7l6.3-.6z" />
+  </svg>
+  Volunteers needed
+</Tag>

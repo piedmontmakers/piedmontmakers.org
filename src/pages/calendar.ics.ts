@@ -82,12 +82,21 @@ export async function GET(context: APIContext) {
     const startTime = parseTime(event.data.startTime);
     const endTime = parseTime(event.data.endTime);
 
+    // The volunteer ask leads the description rather than sitting third in the
+    // action list. An .ics description is plain text with no styling, so
+    // position and the all-caps label are the only emphasis available, and a
+    // subscriber skimming a calendar popup sees it without reading to the end.
+    const actions = event.data.actions ?? [];
+    const volunteer = actions.find((action) => action.type === "volunteer");
+    const describeAction = (action: (typeof actions)[number]) =>
+      `${action.label || actionLabel[action.type]}: ${resolveUrl(baseUrl, action.url)}`;
+
     const descriptionParts = [
+      volunteer
+        ? `VOLUNTEERS NEEDED. Sign up: ${resolveUrl(baseUrl, volunteer.url)}`
+        : undefined,
       event.data.summary,
-      ...(event.data.actions ?? []).map(
-        (action) =>
-          `${action.label || actionLabel[action.type]}: ${resolveUrl(baseUrl, action.url)}`
-      ),
+      ...actions.filter((action) => action.type !== "volunteer").map(describeAction),
     ].filter(Boolean);
 
     lines.push(
