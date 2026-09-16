@@ -36,7 +36,7 @@ const impactStats: Stat[] = [
   </section>
 
   <!-- Mission + Vision -->
-  <section class="mx-auto max-w-7xl px-6 pb-16">
+  <section id="mission" class="mx-auto max-w-7xl px-6 pb-16 scroll-mt-28">
     <div class="grid md:grid-cols-2 gap-6">
       <div class="bg-pm-cream-2/70 border-[3px] border-pm-ink p-8 md:p-10">
         <Ribbon color="red">Mission</Ribbon>
@@ -67,7 +67,9 @@ const impactStats: Stat[] = [
     </div>
   </section>
 
-  <!-- Impact stats -->
+  <!-- Impact stats. Wrapped rather than given an id directly: StatsBand is
+       shared with four other pages and takes no id prop. -->
+  <div id="by-the-numbers" class="scroll-mt-28">
   <StatsBand stats={impactStats} size="large" pad="roomy">
     <div slot="header" class="text-center mb-10">
       <Ribbon color="cyan">By the numbers</Ribbon>
@@ -77,9 +79,10 @@ const impactStats: Stat[] = [
       Plus an annual School Maker Faire that drew 1,000+ visitors and 80+ student exhibitors, a Highland Cup win in the 2025 Piedmont 4th of July Parade, a $420K+ capital campaign that built the Mary G. Ross Engineering Lab at Piedmont High School, and a multi-year lease on a permanent 10th Street robotics field in Oakland. 40% of LEGO League participants are girls; 87 students came from Title 1 schools.
     </p>
   </StatsBand>
+  </div>
 
   <!-- Letter from leadership -->
-  <section class="mx-auto max-w-7xl px-6 pt-20">
+  <section id="letter" class="mx-auto max-w-7xl px-6 pt-20 scroll-mt-28">
     <Ribbon color="red">A letter from leadership</Ribbon>
     <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight leading-tight max-w-3xl">
       Hands-on learning changes how kids see themselves.
@@ -97,7 +100,7 @@ const impactStats: Stat[] = [
 
   <!-- Impact reports. Newest first; add next year's entry above the current
        one and drop the PDF in public/docs/ with a matching filename. -->
-  <section id="impact-report" class="mx-auto max-w-7xl px-6 pt-20 scroll-mt-20">
+  <section id="impact-report" class="mx-auto max-w-7xl px-6 pt-20 scroll-mt-28">
     <Ribbon color="cyan">Impact reports</Ribbon>
     <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight leading-tight max-w-3xl">
       The full year, in one place.
@@ -124,7 +127,7 @@ const impactStats: Stat[] = [
   </section>
 
   <!-- Board roster -->
-  <section class="mx-auto max-w-7xl px-6 pt-20 pb-16">
+  <section id="board" class="mx-auto max-w-7xl px-6 pt-20 pb-16 scroll-mt-28">
     <Ribbon color="purple">Board of directors</Ribbon>
     <h2 class="mt-5 font-display font-bold text-4xl md:text-5xl tracking-tight leading-tight">
       The people doing the work.
@@ -197,7 +200,7 @@ const impactStats: Stat[] = [
   </section>
 
   <!-- Contact + legal -->
-  <section class="bg-pm-cream-2/60">
+  <section id="contact" class="bg-pm-cream-2/60 scroll-mt-28">
     <div class="mx-auto max-w-7xl px-6 py-20 grid md:grid-cols-12 gap-10">
       <div class="md:col-span-7">
         <Ribbon color="red">Contact</Ribbon>
