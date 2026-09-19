@@ -52,7 +52,7 @@ export const programs: ProgramCard[] = [
     when: "Every January",
     cta: "How the afternoon works →",
     headline: "Inspiring girls in STEAM.",
-    blurb: "Run by FTC Team Blinky Bots. Younger girls hear from teen girls who build robots, meet a woman who works in robotics, and get a turn driving a competition robot.",
+    blurb: "Run by FTC Team Blinky Bots. Younger girls hear from a panel of middle school, high school, and professional roboticists, then get a turn driving a competition robot.",
     color: "purple",
     src: "/img/programs/build-like-a-girl.jpg",
     caption: "Blinky Bots demoing their FTC robot for a crowd of younger girls",
