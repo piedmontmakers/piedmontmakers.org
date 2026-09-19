@@ -3,12 +3,24 @@ import { link } from "../../lib/urls";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Ribbon from "../../components/Ribbon.astro";
 import PhotoCard from "../../components/PhotoCard.astro";
+import { getCollection } from "astro:content";
+import { isoDate } from "../../lib/event-time";
+import { pacificDate } from "../../lib/events";
 
+// Next date comes from the events collection, so the page never shows a date
+// that has already passed (as of the last deploy).
+const today = pacificDate();
+const nextEvent = (await getCollection("events", ({ data }) => data.program === "build-like-a-girl"))
+  .filter((event) => isoDate(event.data.startDate) >= today)
+  .sort((a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf())[0];
+const nextDate = nextEvent?.data.startDate.toLocaleDateString("en-US", {
+  weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC",
+});
 ---
 
 <BaseLayout
   title="Build Like a Girl — Piedmont Makers"
-  description="A confidence-and-tools program for young girls interested in robotics, taught by older female students from our FTC and FRC teams."
+  description="An afternoon each January for girls curious about robotics, run by FTC Team 21483 Blinky Bots: a panel of girls who build robots, a talk from a woman in robotics, and a turn driving a competition robot."
 >
   <section class="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-8">
     <a href={link("/events")} class="font-display font-semibold text-pm-ink hover:text-pm-red underline-offset-4 hover:underline">
@@ -18,10 +30,10 @@ import PhotoCard from "../../components/PhotoCard.astro";
       <Ribbon color="purple">Build Like a Girl</Ribbon>
     </div>
     <h1 class="mt-6 font-display font-bold text-pm-ink text-5xl md:text-6xl tracking-tight leading-[0.98]">
-      Robotics, taught by girls who&apos;ve been doing it for years.
+      Meet the girls who build the robots.
     </h1>
     <p class="mt-7 max-w-2xl text-lg md:text-xl text-pm-ink/75 leading-relaxed">
-      Build Like a Girl is a confidence-and-tools program for young girls interested in robotics. The mentors are high school students from our FTC and FRC teams, including from Highlander Robotics 8033, which routinely competes at the regional level.
+      Build Like a Girl is an afternoon for girls who are curious about robotics. It&apos;s created and run by Blinky Bots, FTC Team 21483, a team of middle and high school students. Younger girls get to ask them anything, then take the controls of a competition robot.
     </p>
   </section>
 
@@ -29,26 +41,30 @@ import PhotoCard from "../../components/PhotoCard.astro";
     <div class="grid md:grid-cols-12 gap-8 items-center">
       <div class="md:col-span-7">
         <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
-          Why we run this.
+          How the afternoon goes.
         </h2>
         <p class="mt-5 text-lg text-pm-ink/75 leading-relaxed">
-          Girls drop out of STEAM faster than boys, and we know when it usually happens. What works best: putting younger girls in the same room as older girls who already feel at home with the tools.
+          It opens with a panel of girls from middle and high school robotics teams. They talk about how they got started, what they build, and what competition days feel like, then take questions from the audience. The panelists were new once too, so no question is too basic.
         </p>
         <p class="mt-4 text-pm-ink/75 leading-relaxed">
-          Sessions are hands-on from the start. Wiring, screwdrivers, working motors, things that break. Mentors lead. Adults stay out of the way.
+          Next, a guest speaker, a woman who works in robotics, talks about what the field looks like as a career. Then the robots come out, and every girl who wants a turn gets to drive one.
         </p>
         <p class="mt-4 text-pm-ink/75 leading-relaxed">
-          Sessions run periodically through the year. Watch the <a href={link("/calendar")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">events calendar</a> or <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">the newsletter</a> for the next date.
+          The 2026 event drew 61 girls.
+          {nextEvent
+            ? <>The next one is {nextDate}{nextEvent.data.location && <>, at the {nextEvent.data.location}</>}.</>
+            : <>It happens once a year, in January.</>}
+          Watch the <a href={link("/calendar")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">events calendar</a> and <a href={link("/#newsletter")} class="font-display font-semibold underline underline-offset-4 decoration-pm-red hover:text-pm-red">the newsletter</a> for sign-up details.
         </p>
       </div>
       <div class="md:col-span-5">
         <PhotoCard
-          caption="FRC students demoing a robot to a crowd of younger girls"
+          caption="Blinky Bots demoing their FTC robot for a crowd of younger girls"
           color="purple"
           tilt="right"
           aspect="square"
           src="/img/programs/build-like-a-girl.jpg"
-          alt="High school students from FRC Team 8033 in purple Piedmont Makers sweatshirts demonstrating a robot to a crowd of young girls."
+          alt="Members of FTC Team Blinky Bots in purple team sweatshirts demonstrating a competition robot on a table while a crowd of younger girls and parents watches."
         />
       </div>
     </div>
@@ -56,15 +72,15 @@ import PhotoCard from "../../components/PhotoCard.astro";
 
   <section class="bg-pm-purple text-white mt-12">
     <div class="mx-auto max-w-7xl px-6 py-16 md:py-20">
-      <Ribbon color="cream">Want to mentor?</Ribbon>
+      <Ribbon color="cream">On a robotics team?</Ribbon>
       <h2 class="mt-5 font-display font-bold text-3xl md:text-4xl tracking-tight">
-        If you&apos;re on an FTC or FRC team, we want you.
+        Help run Build Like a Girl.
       </h2>
       <p class="mt-5 max-w-2xl text-lg text-white/90 leading-relaxed">
-        Mentors don&apos;t need to be the most technical kid on their team. They need to be someone who remembers what it felt like the first time, who can explain a thing without making the student feel small, and who&apos;s willing to show up for a couple of Saturdays.
+        You don&apos;t need to be the best programmer or builder on your team. The girls in the audience want to hear from someone who remembers being new, and who can answer a question without making them feel small.
       </p>
       <p class="mt-4 max-w-2xl text-white/85 leading-relaxed">
-        Interested? Email <a href="mailto:hello@piedmontmakers.org" class="font-display font-semibold underline underline-offset-4 decoration-pm-cream hover:text-pm-cream">hello@piedmontmakers.org</a> or talk to your team&apos;s coach.
+        If you&apos;re a girl on an FTC, FRC, or LEGO League team and want to sit on the panel or help run the robot demos, email <a href="mailto:hello@piedmontmakers.org" class="font-display font-semibold underline underline-offset-4 decoration-pm-cream hover:text-pm-cream">hello@piedmontmakers.org</a> and we&apos;ll connect you with Blinky Bots.
       </p>
     </div>
   </section>

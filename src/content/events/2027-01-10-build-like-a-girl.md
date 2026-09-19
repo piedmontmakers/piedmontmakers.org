@@ -3,7 +3,7 @@ title: "Build Like a Girl"
 startDate: 2027-01-10
 location: "Piedmont High School Student Center"
 program: "build-like-a-girl"
-summary: "A hands-on day connecting girls with women in STEAM through robotics and engineering."
+summary: "Run by FTC Team Blinky Bots. Younger girls hear from teen robotics students and a woman in robotics, then take a turn driving a competition robot."
 actions:
   - type: info
     url: "/events/build-like-a-girl"

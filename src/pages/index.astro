@@ -79,9 +79,9 @@ const homeEventCopy: Record<string, { when: string; headline: string; blurb: str
     blurb: "A few times a year we open a space and load it with tools: soldering irons, sewing machines, 3D printers, cardboard, hot glue, whatever's on hand. Show up and make.",
   },
   "/events/build-like-a-girl": {
-    when: "Multiple sessions · Watch the newsletter",
+    when: "Every January · Watch the newsletter",
     headline: "Inspiring girls in STEAM",
-    blurb: "Older girls from our FRC and FTC teams teach the younger ones. Hands-on robotics with serious tools. By girls, for girls.",
+    blurb: "FTC Team Blinky Bots hosts an afternoon for younger girls: a panel of teen robotics students, a woman in robotics on careers, and a turn at the controls.",
   },
 };
 const featuredPaths = Object.keys(homeEventCopy);
@@ -126,7 +126,7 @@ const events = featuredPaths.map((href) => ({ ...programs.find((program) => prog
               <div class="overflow-hidden rounded-3xl border-[5px] border-pm-red shadow-[var(--shadow-card)] aspect-[4/3]">
                 <img
                   src={asset("/img/programs/build-like-a-girl.jpg")}
-                  alt="High school students from FRC Team 8033 in purple Piedmont Makers sweatshirts demonstrating a robot to a crowd of younger girls."
+                  alt="Members of FTC Team Blinky Bots in purple team sweatshirts demonstrating a competition robot to a crowd of younger girls."
                   class="w-full h-full object-cover"
                   loading="eager"
                 />
@@ -160,7 +160,7 @@ const events = featuredPaths.map((href) => ({ ...programs.find((program) => prog
             <div class="absolute top-0 right-0 w-[64%] aspect-[4/3] rounded-3xl overflow-hidden border-[5px] border-pm-red shadow-[var(--shadow-card)] tilt-right z-30">
               <img
                 src={asset("/img/programs/build-like-a-girl.jpg")}
-                alt="High school students from FRC Team 8033 in purple Piedmont Makers sweatshirts demonstrating a robot to a crowd of younger girls."
+                alt="Members of FTC Team Blinky Bots in purple team sweatshirts demonstrating a competition robot to a crowd of younger girls."
                 class="w-full h-full object-cover"
                 loading="eager"
               />
