@@ -117,6 +117,8 @@ export const levels: RoboticsLevel[] = [
     detail: `Team 8033 has 50+ kids organized into specialty subgroups (mechanical, electrical, software, scouting, fundraising, business) so members can focus on what they love instead of doing everything. Practice happens at our robotics practice <a href='${base}/facilities#tenth-street' class='underline decoration-pm-cyan/40 underline-offset-2 hover:decoration-pm-cyan'>facility</a> in Oakland, the only community-accessible regulation FRC field in the Bay Area. Beyond build season, Team 8033 develops <a href='https://apps.apple.com/us/app/lovat-dashboard/id6467466592' target='_blank' rel='noopener' class='underline decoration-pm-cyan/40 underline-offset-2 hover:decoration-pm-cyan'>Lovat</a> (a scouting app used by 800+ FRC teams worldwide), runs the annual a-CAD-emy summer camp teaching middle schoolers Onshape CAD, mentors local LEGO League teams, and shares training programs with 40+ other FRC teams worldwide.`,
     color: "ink",
     register: "https://go.teamsnap.com/forms/523636/signups/new",
+    registerOpen: false,
+    registerClosedLabel: "Registration closed",
     openHousePresentation: "https://www.frc8033.com/faq",
     openHouseLabel: "8033 FAQ →",
     detailLink: "https://frc8033.com",
