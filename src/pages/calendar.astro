@@ -260,7 +260,7 @@ const eventSchemas = events.map((event) => {
                       <span>{location}</span>
                     ) : (
                       <a
-                        href={mapsUrl(location)} target="_blank" rel="noopener"
+                        href={e.data.locationUrl ?? mapsUrl(location)}
                         target="_blank"
                         rel="noopener noreferrer"
                         class="underline decoration-pm-ink/25 underline-offset-2 hover:text-pm-ink hover:decoration-pm-cyan"

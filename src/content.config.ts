@@ -41,6 +41,10 @@ const events = defineCollection({
     startTime: z.string().optional(),
     endTime: z.string().optional(),
     location: z.string().optional(),
+    // Overrides the Google Maps search link the calendar derives from
+    // `location`. Set it when a venue needs a specific map (a campus map
+    // pinning one gym, say) instead of a geocoder guess.
+    locationUrl: z.string().url().optional(),
     program: z
       .enum(["robotics", "maker-faire", "popup", "build-like-a-girl", "july-4", "other"])
       .default("other"),
