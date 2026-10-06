@@ -3,6 +3,9 @@ title: "PUSD math pathways and curriculum: community meeting October 13"
 pubDate: 2026-10-05
 author: "Piedmont Makers"
 excerpt: "Piedmont Unified is proposing changes to its middle and high school math pathways, followed by a new math curriculum. Families can weigh in on Tuesday, October 13, in person at Havens or on Zoom."
+heroImage: "/img/blog/pusd-math-pathways-meeting/hero.jpg"
+heroImageAlt: "Piedmont High School's Math Pathways chart. The standard sequence runs Integrated Math 1, 2, and 3, while a compressed track combines Integrated Math 1 and 2A, then 2B and 3. Both lead to Statistics or Math Analysis, then AP Calculus AB or BC, with dual-enrollment Linear Algebra, Calculus III, Discrete Mathematics, and Ordinary Differential Equations beyond calculus."
+heroImageCaption: "Piedmont High's current math pathways chart for 2026-27. Image courtesy of Piedmont Unified School District."
 ---
 
 Piedmont Unified district leadership is hosting a community meeting to propose updates to the secondary math pathways, the course sequences students follow from 6th through 12th grade. The proposal also sets up the adoption of a new math curriculum. Staff and community members are all welcome, and you can attend in person or online.
