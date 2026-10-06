@@ -7,6 +7,8 @@ location: "10th Street practice field, Oakland"
 program: "robotics"
 summary: "A practice scrimmage for FTC teams at our robotics practice field in Oakland. All team members and families welcome."
 actions:
+  - type: volunteer
+    url: "https://grasshoppersignup.com/s/0sb8fm"
   - type: info
     url: "/facilities#tenth-street"
     label: "About the facility"
