@@ -4,8 +4,8 @@ pubDate: 2026-10-05
 author: "Piedmont Makers"
 excerpt: "Piedmont Unified is holding four community listening sessions this week, plus an anonymous survey, to hear what families want in the district's next superintendent."
 heroImage: "/img/blog/pusd-superintendent-listening-sessions/hero.jpg"
-heroImageAlt: "A Piedmont Unified school building with a painted mural along its wall and trees in front, with the Oakland skyline and San Francisco Bay in the distance."
-heroImageCaption: "Photo courtesy of Piedmont Unified School District."
+heroImageAlt: "The entrance gate at Havens Elementary, a black iron archway topped with a crest bearing the letter H, opening onto a white stucco school building with red tile roofs, planters, and wide outdoor steps."
+heroImageCaption: "Havens Elementary, home to one of this week's listening sessions. Photo courtesy of AC Martin."
 ---
 
 Piedmont Unified School District has started its search for a new superintendent, and the district asked us to pass this invitation along to our community. The district's search firm, Leadership Associates, is running a set of community listening sessions this week. They are the main way parents and community members can give input on the search.
