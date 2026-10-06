@@ -83,12 +83,14 @@ https://calendar.google.com/calendar/ical/c_ca0d518d3a95ba84eebd97fe845dfd15778a
 
 ## Add a photo
 
-Resize source photos to a maximum width of 1600 pixels:
+Use ImageMagick (`magick`) for all image resizing and conversion, not `sips` or other tools. Resize source photos to a maximum width of 1600 pixels, fix rotation, and strip metadata (phone photos can carry GPS coordinates):
 
 ```bash
-sips --resampleWidth 1600 --setProperty formatOptions 82 \
-  "/path/to/source.jpg" --out public/img/{section}/slug.jpg
+magick "/path/to/source.jpg" -auto-orient -resize '1600x>' -strip -quality 82 \
+  public/img/{section}/slug.jpg
 ```
+
+The `>` only shrinks images wider than 1600 pixels; it never enlarges smaller ones. Install with `brew install imagemagick` if `magick` is missing.
 
 Store photos under `public/img/programs/`, `public/img/robotics/`, `public/img/facilities/`, `public/img/qr/`, or `public/img/blog/{post-slug}/`. `PhotoCard` accepts paths such as `/img/programs/maker-faire.jpg` and prefixes the base automatically.
 
