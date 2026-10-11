@@ -251,8 +251,16 @@ const eventSchemas = events.map((event) => {
                     </span>
                   )}
                 </div>
-                <h3 class="mt-2 font-display font-bold text-xl md:text-2xl tracking-tight leading-tight">
+                <h3 class="group/title mt-2 font-display font-bold text-xl md:text-2xl tracking-tight leading-tight">
                   {e.data.title}
+                  {/* Shareable link to this row. Hidden until the title is hovered
+                      or the link is focused; always faintly visible on touch
+                      screens, which have no hover. */}
+                  <a
+                    href={`#${eventAnchor(e.id)}`}
+                    aria-label={`Link to ${e.data.title}`}
+                    class="ml-1.5 text-pm-ink/40 no-underline opacity-0 transition-opacity group-hover/title:opacity-100 focus-visible:opacity-100 pointer-coarse:opacity-60 hover:text-pm-cyan-deep"
+                  >#</a>
                 </h3>
                 {(location || timeRange) && (
                   <p class="mt-1.5 text-sm text-pm-ink/65 font-medium">
