@@ -5,6 +5,8 @@ location: "Piedmont Middle School (Morrison Gym)"
 program: "robotics"
 summary: "The first qualifying meet of the East Bay Hills FTC League season."
 actions:
+  - type: volunteer
+    url: "https://grasshoppersignup.com/s/iaoqeb"
   - type: info
     url: "/robotics"
     label: "About robotics"
