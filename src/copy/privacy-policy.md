@@ -1,7 +1,7 @@
 ---
 title: "Privacy Policy"
-description: "How Piedmont Makers collects, uses, and protects family information: what we collect, the tools we rely on, what we share with FIRST, event photos, and how to opt out."
-effective: "2026-06-30"
+description: "How Piedmont Makers collects, uses, and protects family information: what we collect, the tools we rely on, what we share with FIRST, event photos, text messages, and how to opt out."
+effective: "2026-10-28"
 ---
 
 We're a 501(‌c)(3) nonprofit run by parents and volunteers, and most of the people who trust us with information are families signing their kids up for robotics and maker programs. This policy explains, in plain language, what we collect, why, who helps us handle it, and how we protect your family. We tried to keep the lawyer-speak to a minimum.
@@ -59,6 +59,12 @@ We love showing off what our kids build. We may photograph participants at our e
 
 **By participating in our events and programs, you agree to this use.** But we want families to feel comfortable, so **you can opt your child out anytime** — just email **privacy@piedmontmakers.org** with your child's name, and we'll keep them out of future promotional photos. If a photo of your child is already published and you'd like it removed, let us know and we'll do our best.
 
+## Text messages
+
+If you sign up for text messages from Piedmont Makers, such as updates during the robotics tournaments we host, we collect your mobile number and a record of your consent. We use them only to send the messages you signed up for and to honor your opt-out. Reply STOP to any message to stop receiving texts. Our [SMS Terms](/terms#sms-terms) have the details, including message frequency and the fact that message and data rates may apply.
+
+No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. We do not sell, rent, or share your mobile number or text messaging opt-in data and consent with any third party. The messaging service that delivers our texts processes your number only to send them on our behalf. The sharing described elsewhere in this policy, including with FIRST, excludes text messaging opt-in data and consent.
+
 ## What we don't do
 
 We don't sell your data, rent it, or trade it. We don't share your family's information with advertisers. We don't collect more than we need to run our programs.
@@ -77,7 +83,7 @@ Our programs are designed so that a parent, guardian, or caregiver provides info
 
 ## Your choices
 
-You can unsubscribe from our newsletter anytime using the link in any email. You can ask us to correct or delete your information, or opt your child out of promotional photos, by emailing **privacy@piedmontmakers.org**.
+You can unsubscribe from our newsletter anytime using the link in any email, and stop our text messages by replying STOP. You can ask us to correct or delete your information, or opt your child out of promotional photos, by emailing **privacy@piedmontmakers.org**.
 
 ## Changes to this policy
 

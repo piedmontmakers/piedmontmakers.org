@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Ribbon from "../components/Ribbon.astro";
+// Same shape as /privacy: the terms body lives in src/copy/terms.md so the
+// board can revise the copy without touching page markup. Section anchors come
+// from the Markdown headings, so renaming a heading changes its permalink.
+// Carriers reviewing the SMS program are pointed at /terms#sms-terms; keep
+// that heading text stable.
+import { Content, frontmatter, getHeadings } from "../copy/terms.md";
+
+const sections = getHeadings().filter((h) => h.depth === 2);
+
+// Frontmatter dates are plain "YYYY-MM-DD" strings. Parse as UTC and format in
+// UTC so the day number doesn't shift backward on the West Coast.
+const effective = new Date(`${frontmatter.effective}T00:00:00Z`).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC",
+});
+---
+
+<BaseLayout title={`${frontmatter.title} — Piedmont Makers`} description={frontmatter.description}>
+  <section class="mx-auto max-w-7xl px-6 pt-12 md:pt-16 pb-4">
+    <div class="max-w-3xl">
+      <Ribbon color="ink">Legal</Ribbon>
+      <h1
+        class="mt-6 font-display font-bold text-pm-ink text-4xl md:text-5xl tracking-tight leading-[1.02]"
+      >
+        {frontmatter.title}
+      </h1>
+      <p class="mt-4 font-display text-sm uppercase tracking-[0.18em] text-pm-ink/60">
+        Effective {effective}
+      </p>
+    </div>
+  </section>
+
+  <article class="mx-auto max-w-7xl px-6 pb-20">
+    <nav aria-labelledby="terms-contents" class="max-w-3xl mt-4 mb-10 border-2 border-pm-ink bg-pm-paper px-6 py-5">
+      <h2 id="terms-contents" class="font-display font-semibold text-xs uppercase tracking-[0.18em] text-pm-ink/70">
+        On this page
+      </h2>
+      <ol class="mt-3 grid gap-x-8 gap-y-1.5 sm:grid-cols-2 list-decimal pl-5 marker:text-pm-ink/50 marker:font-display">
+        {sections.map((s) => (
+          <li class="font-body text-pm-ink">
+            <a
+              href={`#${s.slug}`}
+              class="underline decoration-pm-ink/25 underline-offset-2 hover:text-pm-red hover:decoration-pm-red"
+            >{s.text}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+
+    <div data-terms-body class="prose prose-lg max-w-3xl
+      prose-headings:font-display prose-headings:tracking-tight prose-headings:text-pm-ink
+      prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:font-bold prose-h2:scroll-mt-28
+      prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:font-bold
+      prose-p:font-body prose-p:text-pm-ink prose-p:leading-relaxed
+      prose-a:text-pm-ink prose-a:underline prose-a:decoration-pm-red prose-a:underline-offset-4 prose-a:decoration-2
+      hover:prose-a:text-pm-red
+      prose-strong:font-semibold prose-strong:text-pm-ink
+      prose-ul:list-disc prose-ul:pl-6 prose-li:my-1.5 prose-li:font-body prose-li:text-pm-ink
+      prose-ol:list-decimal prose-ol:pl-6
+      prose-hr:border-pm-ink/15">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<script>
+  // Shareable "#" link beside each section heading, matching the calendar's
+  // event permalinks. The contents list above already links every section
+  // without JavaScript; this only adds the per-heading copy target.
+  for (const h of document.querySelectorAll<HTMLHeadingElement>("[data-terms-body] h2[id]")) {
+    h.classList.add("group/title");
+    const a = document.createElement("a");
+    a.href = `#${h.id}`;
+    a.textContent = "#";
+    a.setAttribute("aria-label", `Link to ${h.textContent?.trim()}`);
+    a.className =
+      "ml-2 text-pm-ink/40! no-underline! opacity-0 transition-opacity group-hover/title:opacity-100 focus-visible:opacity-100 pointer-coarse:opacity-60 hover:text-pm-cyan-deep!";
+    h.append(a);
+  }
+</script>

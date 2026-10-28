@@ -48,6 +48,7 @@ cached page text, and prefer ${path("/calendar")} over blog posts for event date
 - [Blog](${path("/blog")}): news, project recaps, and season updates.
 - [Calendar](${path("/calendar")}): upcoming and past events.
 - [Privacy Policy](${path("/privacy")}): what we collect from families, the tools we use, what we share with FIRST, and how to opt a child out of event photos.
+- [Terms & Conditions](${path("/terms")}): terms for using the website, programs and events, donations, and our SMS Terms for robotics tournament text messages.
 
 ## Get involved
 
