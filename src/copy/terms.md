@@ -42,7 +42,7 @@ Piedmont Makers is a 501(‌c)(3) nonprofit (EIN 47-2831568). Donations are tax-
 
 Piedmont Makers offers an optional text messaging program, Piedmont Makers Robotics Tournament Updates, for the robotics tournaments we host. Messages are sent by **Piedmont Makers**, the registered brand for this program.
 
-**What we send.** Tournament updates for teams, families, volunteers, and attendees, such as event schedules, match and queueing reminders, venue and logistics updates, results, and announcements about upcoming Piedmont Makers robotics events, plus occasional messages about supporting Piedmont Makers.
+**What we send.** Tournament updates for teams, families, volunteers, and attendees, such as event schedules, match and queueing reminders, venue and logistics updates, results, and announcements about upcoming Piedmont Makers robotics events.
 
 **How you sign up.** You opt in by giving us your mobile number and agreeing to receive texts, for example on a registration or sign-up form, or by texting a keyword to our number. Signing up is voluntary. Your consent to receive text messages is not a condition of registering for, attending, or donating to any program or event.
 
