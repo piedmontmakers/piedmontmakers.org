@@ -16,7 +16,7 @@ Sam and Team 841 will walk through the maintenance and quality checks they use t
 
 ## Robot inspections
 
-After the talk, Sam and Team 841 students will inspect up to four teams' robots and give feedback and recommendations on their electrical layout and mechanical reliability. To request one of the spots, add your team number to the [robot inspection signup sheet](https://docs.google.com/spreadsheets/d/12zAsumtZl76gu4LT4Zziuu4cWqdAlu48kZ5jiaSYupk/edit?gid=0#gid=0), which also has a waiting list.
+After the talk, Sam and Team 841 students will inspect up to four teams' robots and give feedback and recommendations on their electrical layout and mechanical reliability. To request one of the spots, email Highlander Robotics at [frc8033@piedmontmakers.org](mailto:frc8033@piedmontmakers.org) with your team number.
 
 ## Details
 
