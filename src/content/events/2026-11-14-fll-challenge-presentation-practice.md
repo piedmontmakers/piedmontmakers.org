@@ -1,6 +1,8 @@
 ---
 title: "LEGO League Challenge: Judged Practice, Presentations"
 startDate: 2026-11-14
+startTime: "8:00 AM"
+endTime: "5:00 PM"
 location: "Piedmont Middle School classrooms"
 locationUrl: "https://www.google.com/maps/d/viewer?mid=1TbiJ9GfwD2W1vl1euslWArEFh6Jb4n8"
 program: "robotics"
