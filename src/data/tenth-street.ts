@@ -10,6 +10,6 @@ export const GUIDELINES =
 // same Apps Script web app that runs check-in (same project as CHECKIN
 // below, ?page=waiver route).
 export const WAIVER =
-  "https://script.google.com/a/macros/piedmontmakers.org/s/AKfycbyvQwtTkmCk_P9k3dd3CmrjXh-zDBHaTt93uSC2swZIZbzhNFx8PNKuXhBnufjAUqLheA/exec?page=waiver";
+  "https://script.google.com/a/macros/piedmontmakers.org/s/AKfycbwkCTS59QPzn7NRKUvDP5FGCbKhYM8dexPVdCsni5EsB2Ly2Nm8TkG1MvbcF1y-QS_-cQ/exec?page=waiver";
 export const CHECKIN =
-  "https://script.google.com/a/macros/piedmontmakers.org/s/AKfycbyvQwtTkmCk_P9k3dd3CmrjXh-zDBHaTt93uSC2swZIZbzhNFx8PNKuXhBnufjAUqLheA/exec";
+  "https://script.google.com/a/macros/piedmontmakers.org/s/AKfycbwkCTS59QPzn7NRKUvDP5FGCbKhYM8dexPVdCsni5EsB2Ly2Nm8TkG1MvbcF1y-QS_-cQ/exec";
