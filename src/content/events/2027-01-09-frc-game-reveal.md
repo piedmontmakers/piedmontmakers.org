@@ -1,10 +1,10 @@
 ---
-title: "FRC Game Reveal"
+title: "FRC Season Kickoff"
 startDate: 2027-01-09
 startTime: "8:30 AM"
-location: "10th Street practice field, Oakland"
+location: "Piedmont High School Theater"
 program: "robotics"
-summary: "FRC teams gather to watch the new season's game reveal and start planning strategy together."
+summary: "Highlander Robotics kicks off the FRC season: teams watch the new game reveal together and start planning strategy."
 actions:
   - type: info
     url: "/robotics"
